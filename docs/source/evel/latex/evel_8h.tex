@@ -1,0 +1,2062 @@
+\hypertarget{evel_8h}{}\section{evel.\+h File Reference}
+\label{evel_8h}\index{evel.\+h@{evel.\+h}}
+
+
+Header for E\+V\+E\+L library.  
+
+
+{\ttfamily \#include $<$stdio.\+h$>$}\\*
+{\ttfamily \#include $<$stdarg.\+h$>$}\\*
+{\ttfamily \#include \char`\"{}double\+\_\+list.\+h\char`\"{}}\\*
+Include dependency graph for evel.\+h\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=284pt]{evel_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{evel_8h__dep__incl}
+\end{center}
+\end{figure}
+\subsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structevent__header}{event\+\_\+header}
+\begin{DoxyCompactList}\small\item\em Event header. \end{DoxyCompactList}\item 
+struct \hyperlink{structevent__fault}{event\+\_\+fault}
+\begin{DoxyCompactList}\small\item\em Fault. \end{DoxyCompactList}\item 
+struct \hyperlink{structfault__additional__info}{fault\+\_\+additional\+\_\+info}
+\begin{DoxyCompactList}\small\item\em Fault Additional Info. \end{DoxyCompactList}\item 
+struct \hyperlink{structevent__measurement}{event\+\_\+measurement}
+\begin{DoxyCompactList}\small\item\em Measurement. \end{DoxyCompactList}\item 
+struct \hyperlink{structmeasurement__cpu__use}{measurement\+\_\+cpu\+\_\+use}
+\begin{DoxyCompactList}\small\item\em C\+P\+U Usage. \end{DoxyCompactList}\item 
+struct \hyperlink{structmeasurement__fsys__use}{measurement\+\_\+fsys\+\_\+use}
+\begin{DoxyCompactList}\small\item\em Filesystem Usage. \end{DoxyCompactList}\item 
+struct \hyperlink{structmeasurement__latency__bucket}{measurement\+\_\+latency\+\_\+bucket}
+\begin{DoxyCompactList}\small\item\em Latency Bucket. \end{DoxyCompactList}\item 
+struct \hyperlink{structmeasurement__vnic__use}{measurement\+\_\+vnic\+\_\+use}
+\begin{DoxyCompactList}\small\item\em Virtual N\+I\+C usage. \end{DoxyCompactList}\item 
+struct \hyperlink{structmeasurement__feature__use}{measurement\+\_\+feature\+\_\+use}
+\begin{DoxyCompactList}\small\item\em Feature Usage. \end{DoxyCompactList}\item 
+struct \hyperlink{structmeasurement__group}{measurement\+\_\+group}
+\begin{DoxyCompactList}\small\item\em Measurement Group. \end{DoxyCompactList}\item 
+struct \hyperlink{structcustom__measurement}{custom\+\_\+measurement}
+\begin{DoxyCompactList}\small\item\em Custom Defined Measurement. \end{DoxyCompactList}\item 
+struct \hyperlink{structmeasurement__codec__use}{measurement\+\_\+codec\+\_\+use}
+\begin{DoxyCompactList}\small\item\em Codec Usage. \end{DoxyCompactList}\item 
+struct \hyperlink{structevent__report}{event\+\_\+report}
+\begin{DoxyCompactList}\small\item\em Report. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{evel_8h_a5c4664bebddc30d7432346239f531d4d}{E\+V\+E\+L\+\_\+\+A\+P\+I\+\_\+\+V\+E\+R\+S\+I\+O\+N}~1
+\item 
+\#define \hyperlink{evel_8h_adb65dc4d589e96050bc1def6dc8e2c1b}{E\+V\+E\+L\+\_\+\+M\+A\+X\+\_\+\+S\+T\+R\+I\+N\+G\+\_\+\+L\+E\+N}~4096
+\item 
+\#define \hyperlink{evel_8h_aea3d132816eedabdbcdc9d6070a378da}{E\+V\+E\+L\+\_\+\+M\+A\+X\+\_\+\+J\+S\+O\+N\+\_\+\+B\+O\+D\+Y}~16000
+\item 
+\#define \hyperlink{evel_8h_aa13f4a4423c06fd07a77ad3a473bc2c7}{E\+V\+E\+L\+\_\+\+M\+A\+X\+\_\+\+E\+R\+R\+O\+R\+\_\+\+S\+T\+R\+I\+N\+G\+\_\+\+L\+E\+N}~255
+\item 
+\#define \hyperlink{evel_8h_ad1d2cb5a314fffa1005fc965cb82713f}{E\+V\+E\+L\+\_\+\+M\+A\+X\+\_\+\+U\+R\+L\+\_\+\+L\+E\+N}~511
+\item 
+\#define \hyperlink{evel_8h_a2adc585486b925a1b7f9b0bd86daf214}{E\+V\+E\+L\+\_\+\+D\+E\+B\+U\+G}(F\+M\+T, ...)  ~\hyperlink{evel__logging_8c_ab6073d0ad433cc7e272b66952063a4fb}{log\+\_\+debug}(\hyperlink{evel_8h_a802542777d6cfd68dfdcbd50690e015fa0a79512b4640fd2dbe4130b4556a8239}{E\+V\+E\+L\+\_\+\+L\+O\+G\+\_\+\+D\+E\+B\+U\+G}, (F\+M\+T), \#\#\+\_\+\+\_\+\+V\+A\+\_\+\+A\+R\+G\+S\+\_\+\+\_\+)
+\item 
+\#define \hyperlink{evel_8h_a4230856762649c13d728edb6384d7e62}{E\+V\+E\+L\+\_\+\+I\+N\+F\+O}(F\+M\+T, ...)    ~\hyperlink{evel__logging_8c_ab6073d0ad433cc7e272b66952063a4fb}{log\+\_\+debug}(\hyperlink{evel_8h_a802542777d6cfd68dfdcbd50690e015fa406d5d2f7204cce413b8f65faf12ba22}{E\+V\+E\+L\+\_\+\+L\+O\+G\+\_\+\+I\+N\+F\+O}, (F\+M\+T), \#\#\+\_\+\+\_\+\+V\+A\+\_\+\+A\+R\+G\+S\+\_\+\+\_\+)
+\item 
+\#define \hyperlink{evel_8h_ac323bb61d59416234eea54ec3717c6f6}{E\+V\+E\+L\+\_\+\+S\+P\+A\+M\+M\+Y}(F\+M\+T, ...)~\hyperlink{evel__logging_8c_ab6073d0ad433cc7e272b66952063a4fb}{log\+\_\+debug}(\hyperlink{evel_8h_a802542777d6cfd68dfdcbd50690e015fa51863fe10cc6a0f20572cbdc6342a69e}{E\+V\+E\+L\+\_\+\+L\+O\+G\+\_\+\+S\+P\+A\+M\+M\+Y}, (F\+M\+T), \#\#\+\_\+\+\_\+\+V\+A\+\_\+\+A\+R\+G\+S\+\_\+\+\_\+)
+\item 
+\#define \hyperlink{evel_8h_a08905640aa895fc0d555d6ea08544bc9}{E\+V\+E\+L\+\_\+\+E\+R\+R\+O\+R}(F\+M\+T, ...)  
+\item 
+\#define \hyperlink{evel_8h_a2b88ffc630c10dd4fe5c6943d09aaa59}{E\+V\+E\+L\+\_\+\+E\+N\+T\+E\+R}()                                                                                                                
+\item 
+\#define \hyperlink{evel_8h_acc18ce3b04fc354c45284a136334b6b9}{E\+V\+E\+L\+\_\+\+E\+X\+I\+T}()                                                                                                                  
+\item 
+\#define \hyperlink{evel_8h_af63277a83827d65dd71a197ca10ba6ae}{I\+N\+D\+E\+N\+T\+\_\+\+S\+E\+P\+A\+R\+A\+T\+O\+R\+S}~\char`\"{}$\vert$ $\vert$ $\vert$ $\vert$ $\vert$ $\vert$ $\vert$ $\vert$ $\vert$ $\vert$ $\vert$ $\vert$ $\vert$ $\vert$ $\vert$ $\vert$ $\vert$ $\vert$ $\vert$ $\vert$ $\vert$ $\vert$ $\vert$ $\vert$ $\vert$ $\vert$ $\vert$ $\vert$ $\vert$ $\vert$ $\vert$ $\vert$ \char`\"{}
+\end{DoxyCompactItemize}
+\subsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef struct \hyperlink{structevent__header}{event\+\_\+header} \hyperlink{evel_8h_aa0ea94c675729365ea7825c4fc7e06d8}{E\+V\+E\+N\+T\+\_\+\+H\+E\+A\+D\+E\+R}
+\begin{DoxyCompactList}\small\item\em Event header. \end{DoxyCompactList}\item 
+typedef struct \hyperlink{structevent__fault}{event\+\_\+fault} \hyperlink{evel_8h_aab9e6f5e5cce300f2f4413c1d0228971}{E\+V\+E\+N\+T\+\_\+\+F\+A\+U\+L\+T}
+\begin{DoxyCompactList}\small\item\em Fault. \end{DoxyCompactList}\item 
+typedef struct \hyperlink{structfault__additional__info}{fault\+\_\+additional\+\_\+info} \hyperlink{evel_8h_aca69a67f2c70c8ace77ab2d546aa5c2d}{F\+A\+U\+L\+T\+\_\+\+A\+D\+D\+L\+\_\+\+I\+N\+F\+O}
+\begin{DoxyCompactList}\small\item\em Fault Additional Info. \end{DoxyCompactList}\item 
+typedef struct \hyperlink{structevent__measurement}{event\+\_\+measurement} \hyperlink{evel_8h_a6aebe95622adf9a98ba33fc440c11ba0}{E\+V\+E\+N\+T\+\_\+\+M\+E\+A\+S\+U\+R\+E\+M\+E\+N\+T}
+\begin{DoxyCompactList}\small\item\em Measurement. \end{DoxyCompactList}\item 
+typedef struct \hyperlink{structmeasurement__cpu__use}{measurement\+\_\+cpu\+\_\+use} \hyperlink{evel_8h_a1d7ad0d1aeba32a41b37e85527fba6ec}{M\+E\+A\+S\+U\+R\+E\+M\+E\+N\+T\+\_\+\+C\+P\+U\+\_\+\+U\+S\+E}
+\begin{DoxyCompactList}\small\item\em C\+P\+U Usage. \end{DoxyCompactList}\item 
+typedef struct \hyperlink{structmeasurement__fsys__use}{measurement\+\_\+fsys\+\_\+use} \hyperlink{evel_8h_a4b42f94557f92b58e76c1c6faed71bc9}{M\+E\+A\+S\+U\+R\+E\+M\+E\+N\+T\+\_\+\+F\+S\+Y\+S\+\_\+\+U\+S\+E}
+\begin{DoxyCompactList}\small\item\em Filesystem Usage. \end{DoxyCompactList}\item 
+typedef struct \hyperlink{structmeasurement__latency__bucket}{measurement\+\_\+latency\+\_\+bucket} \hyperlink{evel_8h_ad8103d1938fc8a0c693b9c460c23a754}{M\+E\+A\+S\+U\+R\+E\+M\+E\+N\+T\+\_\+\+L\+A\+T\+E\+N\+C\+Y\+\_\+\+B\+U\+C\+K\+E\+T}
+\begin{DoxyCompactList}\small\item\em Latency Bucket. \end{DoxyCompactList}\item 
+typedef struct \hyperlink{structmeasurement__vnic__use}{measurement\+\_\+vnic\+\_\+use} \hyperlink{evel_8h_a83928ff964034324312868dcfaf64b8c}{M\+E\+A\+S\+U\+R\+E\+M\+E\+N\+T\+\_\+\+V\+N\+I\+C\+\_\+\+U\+S\+E}
+\begin{DoxyCompactList}\small\item\em Virtual N\+I\+C usage. \end{DoxyCompactList}\item 
+typedef struct \hyperlink{structmeasurement__feature__use}{measurement\+\_\+feature\+\_\+use} \hyperlink{evel_8h_ad15020c52aae92b30c9315195038a925}{M\+E\+A\+S\+U\+R\+E\+M\+E\+N\+T\+\_\+\+F\+E\+A\+T\+U\+R\+E\+\_\+\+U\+S\+E}
+\begin{DoxyCompactList}\small\item\em Feature Usage. \end{DoxyCompactList}\item 
+typedef struct \hyperlink{structmeasurement__group}{measurement\+\_\+group} \hyperlink{evel_8h_a361531fc98f24198fee343ebdbf505b2}{M\+E\+A\+S\+U\+R\+E\+M\+E\+N\+T\+\_\+\+G\+R\+O\+U\+P}
+\begin{DoxyCompactList}\small\item\em Measurement Group. \end{DoxyCompactList}\item 
+typedef struct \hyperlink{structcustom__measurement}{custom\+\_\+measurement} \hyperlink{evel_8h_ac5bab2b0b0c93c762ba2ebbfa66d6ab2}{C\+U\+S\+T\+O\+M\+\_\+\+M\+E\+A\+S\+U\+R\+E\+M\+E\+N\+T}
+\begin{DoxyCompactList}\small\item\em Custom Defined Measurement. \end{DoxyCompactList}\item 
+typedef struct \hyperlink{structmeasurement__codec__use}{measurement\+\_\+codec\+\_\+use} \hyperlink{evel_8h_abd13f7f6ebe63eea50151628cd088687}{M\+E\+A\+S\+U\+R\+E\+M\+E\+N\+T\+\_\+\+C\+O\+D\+E\+C\+\_\+\+U\+S\+E}
+\begin{DoxyCompactList}\small\item\em Codec Usage. \end{DoxyCompactList}\item 
+typedef struct \hyperlink{structevent__report}{event\+\_\+report} \hyperlink{evel_8h_abf6741459d5be3598c74302604481e77}{E\+V\+E\+N\+T\+\_\+\+R\+E\+P\+O\+R\+T}
+\begin{DoxyCompactList}\small\item\em Report. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum \hyperlink{evel_8h_ae1f68b0d21fb98defcec46e99208a03e}{E\+V\+E\+L\+\_\+\+E\+R\+R\+\_\+\+C\+O\+D\+E\+S} \{ \\*
+\hyperlink{evel_8h_ae1f68b0d21fb98defcec46e99208a03eaa9369500f041c2898e5c2b4f07b6d152}{E\+V\+E\+L\+\_\+\+S\+U\+C\+C\+E\+S\+S}, 
+\hyperlink{evel_8h_ae1f68b0d21fb98defcec46e99208a03ea10e182a2e95c7de185873b268214de60}{E\+V\+E\+L\+\_\+\+E\+R\+R\+\_\+\+G\+E\+N\+\_\+\+F\+A\+I\+L}, 
+\hyperlink{evel_8h_ae1f68b0d21fb98defcec46e99208a03ea86e1122f950df4ffc22dc0aedc1d674b}{E\+V\+E\+L\+\_\+\+C\+U\+R\+L\+\_\+\+L\+I\+B\+R\+A\+R\+Y\+\_\+\+F\+A\+I\+L}, 
+\hyperlink{evel_8h_ae1f68b0d21fb98defcec46e99208a03ea71c0f625833fc45b2cdba1cfbf127f1c}{E\+V\+E\+L\+\_\+\+P\+T\+H\+R\+E\+A\+D\+\_\+\+L\+I\+B\+R\+A\+R\+Y\+\_\+\+F\+A\+I\+L}, 
+\\*
+\hyperlink{evel_8h_ae1f68b0d21fb98defcec46e99208a03eaf27b185433d0c906a6198b4b54b2a1cd}{E\+V\+E\+L\+\_\+\+O\+U\+T\+\_\+\+O\+F\+\_\+\+M\+E\+M\+O\+R\+Y}, 
+\hyperlink{evel_8h_ae1f68b0d21fb98defcec46e99208a03ea2401ed782444534a05de4cf691dac954}{E\+V\+E\+L\+\_\+\+E\+V\+E\+N\+T\+\_\+\+B\+U\+F\+F\+E\+R\+\_\+\+F\+U\+L\+L}, 
+\hyperlink{evel_8h_ae1f68b0d21fb98defcec46e99208a03eab50e0548b5892cd9fd3efa6a5217739f}{E\+V\+E\+L\+\_\+\+E\+V\+E\+N\+T\+\_\+\+H\+A\+N\+D\+L\+E\+R\+\_\+\+I\+N\+A\+C\+T\+I\+V\+E}, 
+\hyperlink{evel_8h_ae1f68b0d21fb98defcec46e99208a03eade614d509d5fc71638ff6b3fb1d64c0a}{E\+V\+E\+L\+\_\+\+N\+O\+\_\+\+M\+E\+T\+A\+D\+A\+T\+A}, 
+\\*
+\hyperlink{evel_8h_ae1f68b0d21fb98defcec46e99208a03ea43707bf23ae39011c5564a90aa16712c}{E\+V\+E\+L\+\_\+\+B\+A\+D\+\_\+\+M\+E\+T\+A\+D\+A\+T\+A}, 
+\hyperlink{evel_8h_ae1f68b0d21fb98defcec46e99208a03ea43d3be73d77d7068283b7ac137e9cb75}{E\+V\+E\+L\+\_\+\+B\+A\+D\+\_\+\+J\+S\+O\+N\+\_\+\+F\+O\+R\+M\+A\+T}, 
+\hyperlink{evel_8h_ae1f68b0d21fb98defcec46e99208a03eaa504f42b7c77b74786da043fa4142411}{E\+V\+E\+L\+\_\+\+J\+S\+O\+N\+\_\+\+K\+E\+Y\+\_\+\+N\+O\+T\+\_\+\+F\+O\+U\+N\+D}, 
+\hyperlink{evel_8h_ae1f68b0d21fb98defcec46e99208a03ea1bfdfd789d66f55609f2ae289cdc0ef4}{E\+V\+E\+L\+\_\+\+M\+A\+X\+\_\+\+E\+R\+R\+O\+R\+\_\+\+C\+O\+D\+E\+S}
+ \}\begin{DoxyCompactList}\small\item\em Error codes. \end{DoxyCompactList}
+\item 
+enum \hyperlink{evel_8h_a802542777d6cfd68dfdcbd50690e015f}{E\+V\+E\+L\+\_\+\+L\+O\+G\+\_\+\+L\+E\+V\+E\+L\+S} \{ \\*
+\hyperlink{evel_8h_a802542777d6cfd68dfdcbd50690e015fa2e102f7ef5728e507da217e09b6171b3}{E\+V\+E\+L\+\_\+\+L\+O\+G\+\_\+\+M\+I\+N} = 0, 
+\hyperlink{evel_8h_a802542777d6cfd68dfdcbd50690e015fa51863fe10cc6a0f20572cbdc6342a69e}{E\+V\+E\+L\+\_\+\+L\+O\+G\+\_\+\+S\+P\+A\+M\+M\+Y} = 30, 
+\hyperlink{evel_8h_a802542777d6cfd68dfdcbd50690e015fa0a79512b4640fd2dbe4130b4556a8239}{E\+V\+E\+L\+\_\+\+L\+O\+G\+\_\+\+D\+E\+B\+U\+G} = 40, 
+\hyperlink{evel_8h_a802542777d6cfd68dfdcbd50690e015fa406d5d2f7204cce413b8f65faf12ba22}{E\+V\+E\+L\+\_\+\+L\+O\+G\+\_\+\+I\+N\+F\+O} = 50, 
+\\*
+\hyperlink{evel_8h_a802542777d6cfd68dfdcbd50690e015faa042043a6738bd6d14659969089aa4f1}{E\+V\+E\+L\+\_\+\+L\+O\+G\+\_\+\+E\+R\+R\+O\+R} = 60, 
+\hyperlink{evel_8h_a802542777d6cfd68dfdcbd50690e015fa5ca6941566c5bfc610235caff2e035bf}{E\+V\+E\+L\+\_\+\+L\+O\+G\+\_\+\+M\+A\+X} = 101
+ \}\begin{DoxyCompactList}\small\item\em Logging levels. \end{DoxyCompactList}
+\item 
+enum \hyperlink{evel_8h_ac34d44f4f90f2b63828a32ca9c7b0855}{E\+V\+E\+L\+\_\+\+E\+V\+E\+N\+T\+\_\+\+D\+O\+M\+A\+I\+N\+S} \{ \\*
+\hyperlink{evel_8h_ac34d44f4f90f2b63828a32ca9c7b0855a16b7de49abfbb91a20ea7a4fec47539f}{E\+V\+E\+L\+\_\+\+D\+O\+M\+A\+I\+N\+\_\+\+I\+N\+T\+E\+R\+N\+A\+L}, 
+\hyperlink{evel_8h_ac34d44f4f90f2b63828a32ca9c7b0855a1a342e3edf884a028a7dae9397f614c6}{E\+V\+E\+L\+\_\+\+D\+O\+M\+A\+I\+N\+\_\+\+H\+E\+A\+R\+T\+B\+E\+A\+T}, 
+\hyperlink{evel_8h_ac34d44f4f90f2b63828a32ca9c7b0855aea5380216fcdbd91bff91894a6213507}{E\+V\+E\+L\+\_\+\+D\+O\+M\+A\+I\+N\+\_\+\+F\+A\+U\+L\+T}, 
+\hyperlink{evel_8h_ac34d44f4f90f2b63828a32ca9c7b0855a2896cf74a464dc46e279b157faa640f2}{E\+V\+E\+L\+\_\+\+D\+O\+M\+A\+I\+N\+\_\+\+M\+E\+A\+S\+U\+R\+E\+M\+E\+N\+T}, 
+\\*
+\hyperlink{evel_8h_ac34d44f4f90f2b63828a32ca9c7b0855a3fdd0ed0f8ff9e37dfe658726e72d424}{E\+V\+E\+L\+\_\+\+D\+O\+M\+A\+I\+N\+\_\+\+R\+E\+P\+O\+R\+T}, 
+\hyperlink{evel_8h_ac34d44f4f90f2b63828a32ca9c7b0855af3c8438bdb4a5f76a74a5bbf4b3ddac1}{E\+V\+E\+L\+\_\+\+M\+A\+X\+\_\+\+D\+O\+M\+A\+I\+N\+S}
+ \}\begin{DoxyCompactList}\small\item\em Event domains for the various events we support. \end{DoxyCompactList}
+\item 
+enum \hyperlink{evel_8h_ad1bf6807fa6710332251611207490484}{E\+V\+E\+L\+\_\+\+E\+V\+E\+N\+T\+\_\+\+P\+R\+I\+O\+R\+I\+T\+I\+E\+S} \{ \\*
+\hyperlink{evel_8h_ad1bf6807fa6710332251611207490484a9ca8679ac6e04e9ce343f07df89cb6a8}{E\+V\+E\+L\+\_\+\+P\+R\+I\+O\+R\+I\+T\+Y\+\_\+\+H\+I\+G\+H}, 
+\hyperlink{evel_8h_ad1bf6807fa6710332251611207490484a73722126a006c19f6213abb51963e38c}{E\+V\+E\+L\+\_\+\+P\+R\+I\+O\+R\+I\+T\+Y\+\_\+\+M\+E\+D\+I\+U\+M}, 
+\hyperlink{evel_8h_ad1bf6807fa6710332251611207490484af656e2fbfee66b25faa06447799a9011}{E\+V\+E\+L\+\_\+\+P\+R\+I\+O\+R\+I\+T\+Y\+\_\+\+N\+O\+R\+M\+A\+L}, 
+\hyperlink{evel_8h_ad1bf6807fa6710332251611207490484a04028d0c08a71443fe350bb6c4ca30cb}{E\+V\+E\+L\+\_\+\+P\+R\+I\+O\+R\+I\+T\+Y\+\_\+\+L\+O\+W}, 
+\\*
+\hyperlink{evel_8h_ad1bf6807fa6710332251611207490484acbd324a160f25da815ab22328a799cf6}{E\+V\+E\+L\+\_\+\+M\+A\+X\+\_\+\+P\+R\+I\+O\+R\+I\+T\+I\+E\+S}
+ \}\begin{DoxyCompactList}\small\item\em Event priorities. \end{DoxyCompactList}
+\item 
+enum \hyperlink{evel_8h_ac52696495e0b34b23a0726f467670d0f}{E\+V\+E\+L\+\_\+\+F\+A\+U\+L\+T\+\_\+\+S\+E\+V\+E\+R\+I\+T\+I\+E\+S} \{ \\*
+\hyperlink{evel_8h_ac52696495e0b34b23a0726f467670d0fa87dd452011502f765328eca46ef0bd3e}{E\+V\+E\+L\+\_\+\+S\+E\+V\+E\+R\+I\+T\+Y\+\_\+\+C\+R\+I\+T\+I\+C\+A\+L}, 
+\hyperlink{evel_8h_ac52696495e0b34b23a0726f467670d0fac454e36d0a4678cd7ae2de725f513b61}{E\+V\+E\+L\+\_\+\+S\+E\+V\+E\+R\+I\+T\+Y\+\_\+\+M\+A\+J\+O\+R}, 
+\hyperlink{evel_8h_ac52696495e0b34b23a0726f467670d0fa8dbfbe4eea1a357549569d2717e2fe1c}{E\+V\+E\+L\+\_\+\+S\+E\+V\+E\+R\+I\+T\+Y\+\_\+\+M\+I\+N\+O\+R}, 
+\hyperlink{evel_8h_ac52696495e0b34b23a0726f467670d0fa9793081a0183d353293533a091cec1ba}{E\+V\+E\+L\+\_\+\+S\+E\+V\+E\+R\+I\+T\+Y\+\_\+\+W\+A\+R\+N\+I\+N\+G}, 
+\\*
+\hyperlink{evel_8h_ac52696495e0b34b23a0726f467670d0faddb015c93d06085b95391d1acf03be1c}{E\+V\+E\+L\+\_\+\+S\+E\+V\+E\+R\+I\+T\+Y\+\_\+\+N\+O\+R\+M\+A\+L}, 
+\hyperlink{evel_8h_ac52696495e0b34b23a0726f467670d0faa5b1a3cd0d3feb86ce3d032b368a5f27}{E\+V\+E\+L\+\_\+\+M\+A\+X\+\_\+\+S\+E\+V\+E\+R\+I\+T\+I\+E\+S}
+ \}\begin{DoxyCompactList}\small\item\em Fault severities. \end{DoxyCompactList}
+\item 
+enum \hyperlink{evel_8h_a304eae0d024005dc4c7031bdd774d64a}{E\+V\+E\+L\+\_\+\+S\+O\+U\+R\+C\+E\+\_\+\+T\+Y\+P\+E\+S} \{ \\*
+\hyperlink{evel_8h_a304eae0d024005dc4c7031bdd774d64aadc8b7b3ef026dad722708d17d5c4e466}{E\+V\+E\+L\+\_\+\+S\+O\+U\+R\+C\+E\+\_\+\+O\+T\+H\+E\+R}, 
+\hyperlink{evel_8h_a304eae0d024005dc4c7031bdd774d64aa39ea5af1cac8d636f12f00ed05507a8d}{E\+V\+E\+L\+\_\+\+S\+O\+U\+R\+C\+E\+\_\+\+R\+O\+U\+T\+E\+R}, 
+\hyperlink{evel_8h_a304eae0d024005dc4c7031bdd774d64aa33ec05d86454f1dcc07b12b37eb68c52}{E\+V\+E\+L\+\_\+\+S\+O\+U\+R\+C\+E\+\_\+\+S\+W\+I\+T\+C\+H}, 
+\hyperlink{evel_8h_a304eae0d024005dc4c7031bdd774d64aa7cbc687ad4b43a1797a158d58a021619}{E\+V\+E\+L\+\_\+\+S\+O\+U\+R\+C\+E\+\_\+\+H\+O\+S\+T}, 
+\\*
+\hyperlink{evel_8h_a304eae0d024005dc4c7031bdd774d64aa3a45cdf86d554ce4f85d709c05f5f5e2}{E\+V\+E\+L\+\_\+\+S\+O\+U\+R\+C\+E\+\_\+\+C\+A\+R\+D}, 
+\hyperlink{evel_8h_a304eae0d024005dc4c7031bdd774d64aa5c4c73be30cb890ee2f27f7109204800}{E\+V\+E\+L\+\_\+\+S\+O\+U\+R\+C\+E\+\_\+\+P\+O\+R\+T}, 
+\hyperlink{evel_8h_a304eae0d024005dc4c7031bdd774d64aad0398ab00e4cae1f825681c25bd95b92}{E\+V\+E\+L\+\_\+\+S\+O\+U\+R\+C\+E\+\_\+\+S\+L\+O\+T\+\_\+\+T\+H\+R\+E\+S\+H\+O\+L\+D}, 
+\hyperlink{evel_8h_a304eae0d024005dc4c7031bdd774d64aa2544f7451df7030d3a1c02cf0401bae0}{E\+V\+E\+L\+\_\+\+S\+O\+U\+R\+C\+E\+\_\+\+P\+O\+R\+T\+\_\+\+T\+H\+R\+E\+S\+H\+O\+L\+D}, 
+\\*
+\hyperlink{evel_8h_a304eae0d024005dc4c7031bdd774d64aa4fbe43c85c55ae14048a2dc7fc5bfcc8}{E\+V\+E\+L\+\_\+\+S\+O\+U\+R\+C\+E\+\_\+\+V\+I\+R\+T\+U\+A\+L\+\_\+\+M\+A\+C\+H\+I\+N\+E}, 
+\hyperlink{evel_8h_a304eae0d024005dc4c7031bdd774d64aae55458300c44fb307becdf5a5d38cf9a}{E\+V\+E\+L\+\_\+\+M\+A\+X\+\_\+\+S\+O\+U\+R\+C\+E\+\_\+\+T\+Y\+P\+E\+S}
+ \}\begin{DoxyCompactList}\small\item\em Fault source types. \end{DoxyCompactList}
+\item 
+enum \hyperlink{evel_8h_a940888ae37017b9f85d793972994c8f0}{E\+V\+E\+L\+\_\+\+V\+F\+\_\+\+S\+T\+A\+T\+U\+S\+E\+S} \{ \\*
+\hyperlink{evel_8h_a940888ae37017b9f85d793972994c8f0aa219026430fbe39450f5f929d80fd60d}{E\+V\+E\+L\+\_\+\+V\+F\+\_\+\+S\+T\+A\+T\+U\+S\+\_\+\+A\+C\+T\+I\+V\+E}, 
+\hyperlink{evel_8h_a940888ae37017b9f85d793972994c8f0ae437225b2e9f0b4ec07500ff1633511d}{E\+V\+E\+L\+\_\+\+V\+F\+\_\+\+S\+T\+A\+T\+U\+S\+\_\+\+I\+D\+L\+E}, 
+\hyperlink{evel_8h_a940888ae37017b9f85d793972994c8f0a620aecb9484e92e36ef4ce587ea59d16}{E\+V\+E\+L\+\_\+\+V\+F\+\_\+\+S\+T\+A\+T\+U\+S\+\_\+\+P\+R\+E\+P\+\_\+\+T\+E\+R\+M\+I\+N\+A\+T\+E}, 
+\hyperlink{evel_8h_a940888ae37017b9f85d793972994c8f0a74e796fad6de2ff5852575faa0b7ca32}{E\+V\+E\+L\+\_\+\+V\+F\+\_\+\+S\+T\+A\+T\+U\+S\+\_\+\+R\+E\+A\+D\+Y\+\_\+\+T\+E\+R\+M\+I\+N\+A\+T\+E}, 
+\\*
+\hyperlink{evel_8h_a940888ae37017b9f85d793972994c8f0a8d580735c2b43829eefea4699aa1ad79}{E\+V\+E\+L\+\_\+\+V\+F\+\_\+\+S\+T\+A\+T\+U\+S\+\_\+\+R\+E\+Q\+\_\+\+T\+E\+R\+M\+I\+N\+A\+T\+E}, 
+\hyperlink{evel_8h_a940888ae37017b9f85d793972994c8f0a6bc081881ff29a705f03a7572570cd44}{E\+V\+E\+L\+\_\+\+M\+A\+X\+\_\+\+V\+F\+\_\+\+S\+T\+A\+T\+U\+S\+E\+S}
+ \}\begin{DoxyCompactList}\small\item\em Fault V\+N\+F Status. \end{DoxyCompactList}
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{evel_8h_ae1f68b0d21fb98defcec46e99208a03e}{E\+V\+E\+L\+\_\+\+E\+R\+R\+\_\+\+C\+O\+D\+E\+S} \hyperlink{evel_8h_aff020c5505e724b414ac981e2a23fcd6}{evel\+\_\+initialize} (const char const $\ast$fqdn, int port, const char const $\ast$path, const char const $\ast$topic, int secure, const char const $\ast$username, const char const $\ast$password, \hyperlink{evel_8h_a304eae0d024005dc4c7031bdd774d64a}{E\+V\+E\+L\+\_\+\+S\+O\+U\+R\+C\+E\+\_\+\+T\+Y\+P\+E\+S} source\+\_\+type, const char const $\ast$role, int verbosity)
+\begin{DoxyCompactList}\small\item\em Library initialization. \end{DoxyCompactList}\item 
+\hyperlink{evel_8h_ae1f68b0d21fb98defcec46e99208a03e}{E\+V\+E\+L\+\_\+\+E\+R\+R\+\_\+\+C\+O\+D\+E\+S} \hyperlink{evel_8h_ab3f6225ddb9c5113d74503d4fcd17e5b}{evel\+\_\+terminate} (void)
+\begin{DoxyCompactList}\small\item\em Clean up the E\+V\+E\+L library. \end{DoxyCompactList}\item 
+\hyperlink{evel_8h_ae1f68b0d21fb98defcec46e99208a03e}{E\+V\+E\+L\+\_\+\+E\+R\+R\+\_\+\+C\+O\+D\+E\+S} \hyperlink{evel_8h_a209d2e5dbffe9e11ac79ae140f4a81bd}{evel\+\_\+post\+\_\+event} (\hyperlink{evel_8h_aa0ea94c675729365ea7825c4fc7e06d8}{E\+V\+E\+N\+T\+\_\+\+H\+E\+A\+D\+E\+R} $\ast$event)
+\begin{DoxyCompactList}\small\item\em Post an event. \end{DoxyCompactList}\item 
+const char const $\ast$ \hyperlink{evel_8h_a4e26e681850483196ff690d928ab7896}{evel\+\_\+error\+\_\+string} (void)
+\begin{DoxyCompactList}\small\item\em Descriptive text for library errors. \end{DoxyCompactList}\item 
+void \hyperlink{evel_8h_a91faa4e06c4b079c2a8a1db1ccb2e47b}{evel\+\_\+free\+\_\+event} (void $\ast$event)
+\begin{DoxyCompactList}\small\item\em Free an event. \end{DoxyCompactList}\item 
+int \hyperlink{evel_8h_a3da83fe21887e3f336b54a1f63ac95cf}{evel\+\_\+json\+\_\+encode\+\_\+event} (char $\ast$json, int max\+\_\+size, \hyperlink{evel_8h_aa0ea94c675729365ea7825c4fc7e06d8}{E\+V\+E\+N\+T\+\_\+\+H\+E\+A\+D\+E\+R} $\ast$event)
+\begin{DoxyCompactList}\small\item\em Encode the event as a J\+S\+O\+N event object according to A\+T\&T\textquotesingle{}s schema. \end{DoxyCompactList}\item 
+size\+\_\+t \hyperlink{evel_8h_a1bb7d9765fc0f716b8c982920cfeca8c}{evel\+\_\+write\+\_\+callback} (void $\ast$contents, size\+\_\+t size, size\+\_\+t nmemb, void $\ast$userp)
+\begin{DoxyCompactList}\small\item\em Callback function to provide returned data. \end{DoxyCompactList}\item 
+\hyperlink{evel_8h_aa0ea94c675729365ea7825c4fc7e06d8}{E\+V\+E\+N\+T\+\_\+\+H\+E\+A\+D\+E\+R} $\ast$ \hyperlink{evel_8h_a3f91c0b7ebd4c48dfa57f6b810f010c4}{evel\+\_\+new\+\_\+heartbeat} ()
+\begin{DoxyCompactList}\small\item\em Create a new heartbeat event. \end{DoxyCompactList}\item 
+void \hyperlink{evel_8h_a8391052fcc38b65f65422a3441b8f551}{evel\+\_\+free\+\_\+header} (\hyperlink{evel_8h_aa0ea94c675729365ea7825c4fc7e06d8}{E\+V\+E\+N\+T\+\_\+\+H\+E\+A\+D\+E\+R} $\ast$event)
+\begin{DoxyCompactList}\small\item\em Free an event header. \end{DoxyCompactList}\item 
+void \hyperlink{evel_8h_a85f0ce991d0edaf92f9b7d131e37533c}{evel\+\_\+init\+\_\+header} (\hyperlink{evel_8h_aa0ea94c675729365ea7825c4fc7e06d8}{E\+V\+E\+N\+T\+\_\+\+H\+E\+A\+D\+E\+R} $\ast$header)
+\begin{DoxyCompactList}\small\item\em Initialize a newly created event header. \end{DoxyCompactList}\item 
+int \hyperlink{evel_8h_a2866c526bf6f3ceab59087c4618009e2}{evel\+\_\+json\+\_\+encode\+\_\+header} (char $\ast$json, int max\+\_\+size, \hyperlink{evel_8h_aa0ea94c675729365ea7825c4fc7e06d8}{E\+V\+E\+N\+T\+\_\+\+H\+E\+A\+D\+E\+R} $\ast$event)
+\begin{DoxyCompactList}\small\item\em Encode the header as a J\+S\+O\+N common\+Event\+Header. \end{DoxyCompactList}\item 
+\hyperlink{evel_8h_aab9e6f5e5cce300f2f4413c1d0228971}{E\+V\+E\+N\+T\+\_\+\+F\+A\+U\+L\+T} $\ast$ \hyperlink{evel_8h_ae31203fde9153686a32b2fc2a1183fa0}{evel\+\_\+new\+\_\+fault} (const char const $\ast$condition, const char const $\ast$specific\+\_\+problem, \hyperlink{evel_8h_ad1bf6807fa6710332251611207490484}{E\+V\+E\+L\+\_\+\+E\+V\+E\+N\+T\+\_\+\+P\+R\+I\+O\+R\+I\+T\+I\+E\+S} priority, \hyperlink{evel_8h_ac52696495e0b34b23a0726f467670d0f}{E\+V\+E\+L\+\_\+\+F\+A\+U\+L\+T\+\_\+\+S\+E\+V\+E\+R\+I\+T\+I\+E\+S} severity)
+\begin{DoxyCompactList}\small\item\em Create a new fault event. \end{DoxyCompactList}\item 
+void \hyperlink{evel_8h_afd5a2244dbe54e189700f0f94901bbea}{evel\+\_\+free\+\_\+fault} (\hyperlink{evel_8h_aab9e6f5e5cce300f2f4413c1d0228971}{E\+V\+E\+N\+T\+\_\+\+F\+A\+U\+L\+T} $\ast$event)
+\begin{DoxyCompactList}\small\item\em Free an Fault. \end{DoxyCompactList}\item 
+void \hyperlink{evel_8h_ae56fef27e31906a535793f941bba6d7e}{evel\+\_\+fault\+\_\+interface\+\_\+set} (\hyperlink{evel_8h_aab9e6f5e5cce300f2f4413c1d0228971}{E\+V\+E\+N\+T\+\_\+\+F\+A\+U\+L\+T} $\ast$fault, const char const $\ast$interface)
+\begin{DoxyCompactList}\small\item\em Set the Alarm Interface A property of the Fault. \end{DoxyCompactList}\item 
+void \hyperlink{evel_8h_a07076c0fa1d2941102f957af3b47df44}{evel\+\_\+fault\+\_\+addl\+\_\+info\+\_\+add} (\hyperlink{evel_8h_aab9e6f5e5cce300f2f4413c1d0228971}{E\+V\+E\+N\+T\+\_\+\+F\+A\+U\+L\+T} $\ast$fault, char $\ast$name, char $\ast$value)
+\begin{DoxyCompactList}\small\item\em Add an additional value name/value pair to the Fault. \end{DoxyCompactList}\item 
+void \hyperlink{evel_8h_aaafea6d63d296e8f33779387509e80cb}{evel\+\_\+fault\+\_\+type\+\_\+set} (\hyperlink{evel_8h_aab9e6f5e5cce300f2f4413c1d0228971}{E\+V\+E\+N\+T\+\_\+\+F\+A\+U\+L\+T} $\ast$fault, const char const $\ast$type)
+\begin{DoxyCompactList}\small\item\em Set the Event Type property of the Fault. \end{DoxyCompactList}\item 
+int \hyperlink{evel_8h_aae3ade62114a42156bb533be2c9ccb38}{evel\+\_\+json\+\_\+encode\+\_\+fault} (char $\ast$json, int max\+\_\+size, \hyperlink{evel_8h_aab9e6f5e5cce300f2f4413c1d0228971}{E\+V\+E\+N\+T\+\_\+\+F\+A\+U\+L\+T} $\ast$event)
+\begin{DoxyCompactList}\small\item\em Encode the fault as a J\+S\+O\+N fault. \end{DoxyCompactList}\item 
+\hyperlink{evel_8h_a6aebe95622adf9a98ba33fc440c11ba0}{E\+V\+E\+N\+T\+\_\+\+M\+E\+A\+S\+U\+R\+E\+M\+E\+N\+T} $\ast$ \hyperlink{evel_8h_a162ce37ab7f24dbbea23d46b77c974ce}{evel\+\_\+new\+\_\+measurement} (int concurrent\+\_\+sessions, int configured\+\_\+entities, double mean\+\_\+request\+\_\+latency, double measurement\+\_\+interval, double memory\+\_\+configured, double memory\+\_\+used, int request\+\_\+rate)
+\begin{DoxyCompactList}\small\item\em Create a new Measurement event. \end{DoxyCompactList}\item 
+void \hyperlink{evel_8h_af387e0637a37752961d013fbedf52dc1}{evel\+\_\+free\+\_\+measurement} (\hyperlink{evel_8h_a6aebe95622adf9a98ba33fc440c11ba0}{E\+V\+E\+N\+T\+\_\+\+M\+E\+A\+S\+U\+R\+E\+M\+E\+N\+T} $\ast$event)
+\begin{DoxyCompactList}\small\item\em Free a Measurement. \end{DoxyCompactList}\item 
+void \hyperlink{evel_8h_a2806c174913da55fd8f44281ce60b5ac}{evel\+\_\+measurement\+\_\+type\+\_\+set} (\hyperlink{evel_8h_a6aebe95622adf9a98ba33fc440c11ba0}{E\+V\+E\+N\+T\+\_\+\+M\+E\+A\+S\+U\+R\+E\+M\+E\+N\+T} $\ast$measurement, const char const $\ast$type)
+\begin{DoxyCompactList}\small\item\em Set the Event Type property of the Measurement. \end{DoxyCompactList}\item 
+void \hyperlink{evel_8h_ac5ee57e6574ae2286c0c5d3d6d1f9ca6}{evel\+\_\+measurement\+\_\+cpu\+\_\+use\+\_\+add} (\hyperlink{evel_8h_a6aebe95622adf9a98ba33fc440c11ba0}{E\+V\+E\+N\+T\+\_\+\+M\+E\+A\+S\+U\+R\+E\+M\+E\+N\+T} $\ast$measurement, char $\ast$name, double value)
+\begin{DoxyCompactList}\small\item\em Add an additional C\+P\+U usage value name/value pair to the Measurement. \end{DoxyCompactList}\item 
+void \hyperlink{evel_8h_a0c4b236085beb0e1c8971ff6bdaa490d}{evel\+\_\+measurement\+\_\+fsys\+\_\+use\+\_\+add} (\hyperlink{evel_8h_a6aebe95622adf9a98ba33fc440c11ba0}{E\+V\+E\+N\+T\+\_\+\+M\+E\+A\+S\+U\+R\+E\+M\+E\+N\+T} $\ast$measurement, char $\ast$vm\+\_\+id, double block\+\_\+configured, double block\+\_\+used, int block\+\_\+iops, double ephemeral\+\_\+configured, double ephemeral\+\_\+used, int ephemeral\+\_\+iops)
+\begin{DoxyCompactList}\small\item\em Add an additional File System usage value name/value pair to the Measurement. \end{DoxyCompactList}\item 
+void \hyperlink{evel_8h_a3bd2dbe3741fe360175c7016277098b9}{evel\+\_\+measurement\+\_\+latency\+\_\+add} (\hyperlink{evel_8h_a6aebe95622adf9a98ba33fc440c11ba0}{E\+V\+E\+N\+T\+\_\+\+M\+E\+A\+S\+U\+R\+E\+M\+E\+N\+T} $\ast$measurement, double low\+\_\+end, double high\+\_\+end, int count)
+\begin{DoxyCompactList}\small\item\em Add an additional Latency Distribution bucket to the Measurement. \end{DoxyCompactList}\item 
+void \hyperlink{evel_8h_a292975ca70b798acaf8fdc1665e55cdb}{evel\+\_\+measurement\+\_\+vnic\+\_\+use\+\_\+add} (\hyperlink{evel_8h_a6aebe95622adf9a98ba33fc440c11ba0}{E\+V\+E\+N\+T\+\_\+\+M\+E\+A\+S\+U\+R\+E\+M\+E\+N\+T} $\ast$measurement, char $\ast$vnic\+\_\+id, int broadcast\+\_\+packets\+\_\+in, int broadcast\+\_\+packets\+\_\+out, int bytes\+\_\+in, int bytes\+\_\+out, int multicast\+\_\+packets\+\_\+in, int multicast\+\_\+packets\+\_\+out, int unicast\+\_\+packets\+\_\+in, int unicast\+\_\+packets\+\_\+out)
+\begin{DoxyCompactList}\small\item\em Add an additional v\+N\+I\+C usage record Measurement. \end{DoxyCompactList}\item 
+void \hyperlink{evel_8h_a5742d44274ac0ded45d4725cd3614df6}{evel\+\_\+measurement\+\_\+feature\+\_\+use\+\_\+add} (\hyperlink{evel_8h_a6aebe95622adf9a98ba33fc440c11ba0}{E\+V\+E\+N\+T\+\_\+\+M\+E\+A\+S\+U\+R\+E\+M\+E\+N\+T} $\ast$measurement, char $\ast$feature, double utilization)
+\begin{DoxyCompactList}\small\item\em Add a Feature usage value name/value pair to the Measurement. \end{DoxyCompactList}\item 
+void \hyperlink{evel_8h_abfc0ab882100cbc69d3f1e26a6c53666}{evel\+\_\+measurement\+\_\+custom\+\_\+measurement\+\_\+add} (\hyperlink{evel_8h_a6aebe95622adf9a98ba33fc440c11ba0}{E\+V\+E\+N\+T\+\_\+\+M\+E\+A\+S\+U\+R\+E\+M\+E\+N\+T} $\ast$measurement, const char const $\ast$group, const char const $\ast$name, const char const $\ast$value)
+\begin{DoxyCompactList}\small\item\em Add a Additional Measurement value name/value pair to the Report. \end{DoxyCompactList}\item 
+void \hyperlink{evel_8h_a1176ef6423b8178bc0eecc80b6c2a4b7}{evel\+\_\+measurement\+\_\+codec\+\_\+use\+\_\+add} (\hyperlink{evel_8h_a6aebe95622adf9a98ba33fc440c11ba0}{E\+V\+E\+N\+T\+\_\+\+M\+E\+A\+S\+U\+R\+E\+M\+E\+N\+T} $\ast$measurement, char $\ast$codec, int utilization)
+\begin{DoxyCompactList}\small\item\em Add a Codec usage value name/value pair to the Measurement. \end{DoxyCompactList}\item 
+void \hyperlink{evel_8h_ae30edcd72c4b9dd4740ad40e644964ba}{evel\+\_\+measurement\+\_\+agg\+\_\+cpu\+\_\+use\+\_\+set} (\hyperlink{evel_8h_a6aebe95622adf9a98ba33fc440c11ba0}{E\+V\+E\+N\+T\+\_\+\+M\+E\+A\+S\+U\+R\+E\+M\+E\+N\+T} $\ast$measurement, double cpu\+\_\+use)
+\begin{DoxyCompactList}\small\item\em \} Set the Aggregate C\+P\+U Use property of the Measurement. \end{DoxyCompactList}\item 
+void \hyperlink{evel_8h_a644cbd19fa718727c07c3d21e434f2d6}{evel\+\_\+measurement\+\_\+media\+\_\+port\+\_\+use\+\_\+set} (\hyperlink{evel_8h_a6aebe95622adf9a98ba33fc440c11ba0}{E\+V\+E\+N\+T\+\_\+\+M\+E\+A\+S\+U\+R\+E\+M\+E\+N\+T} $\ast$measurement, int media\+\_\+ports\+\_\+in\+\_\+use)
+\begin{DoxyCompactList}\small\item\em Set the Media Ports in Use property of the Measurement. \end{DoxyCompactList}\item 
+void \hyperlink{evel_8h_aed7dfc26f57c8474f1df4278e5e08d48}{evel\+\_\+measurement\+\_\+vnfc\+\_\+scaling\+\_\+metric\+\_\+set} (\hyperlink{evel_8h_a6aebe95622adf9a98ba33fc440c11ba0}{E\+V\+E\+N\+T\+\_\+\+M\+E\+A\+S\+U\+R\+E\+M\+E\+N\+T} $\ast$measurement, double scaling\+\_\+metric)
+\begin{DoxyCompactList}\small\item\em Set the V\+N\+F\+C Scaling Metric property of the Measurement. \end{DoxyCompactList}\item 
+int \hyperlink{evel_8h_a57d99198d0b9d89de97749eb839ed1fa}{evel\+\_\+json\+\_\+encode\+\_\+measurement} (char $\ast$json, int max\+\_\+size, \hyperlink{evel_8h_a6aebe95622adf9a98ba33fc440c11ba0}{E\+V\+E\+N\+T\+\_\+\+M\+E\+A\+S\+U\+R\+E\+M\+E\+N\+T} $\ast$event)
+\begin{DoxyCompactList}\small\item\em Encode the fault as a J\+S\+O\+N fault. \end{DoxyCompactList}\item 
+\hyperlink{evel_8h_abf6741459d5be3598c74302604481e77}{E\+V\+E\+N\+T\+\_\+\+R\+E\+P\+O\+R\+T} $\ast$ \hyperlink{evel_8h_a77971f763ebf42efb1a5b0a12bbe579d}{evel\+\_\+new\+\_\+report} (double measurement\+\_\+interval)
+\begin{DoxyCompactList}\small\item\em Create a new Report event. \end{DoxyCompactList}\item 
+void \hyperlink{evel_8h_aafae69bbc8c2cbd07443dbb5616c8c94}{evel\+\_\+free\+\_\+report} (\hyperlink{evel_8h_abf6741459d5be3598c74302604481e77}{E\+V\+E\+N\+T\+\_\+\+R\+E\+P\+O\+R\+T} $\ast$event)
+\begin{DoxyCompactList}\small\item\em Free a Report. \end{DoxyCompactList}\item 
+void \hyperlink{evel_8h_adf9d2abb11b462846df674e3368e8483}{evel\+\_\+report\+\_\+type\+\_\+set} (\hyperlink{evel_8h_abf6741459d5be3598c74302604481e77}{E\+V\+E\+N\+T\+\_\+\+R\+E\+P\+O\+R\+T} $\ast$report, const char const $\ast$type)
+\begin{DoxyCompactList}\small\item\em Set the Event Type property of the Report. \end{DoxyCompactList}\item 
+void \hyperlink{evel_8h_acdaadc0612641af3ce52a248e001988e}{evel\+\_\+report\+\_\+feature\+\_\+use\+\_\+add} (\hyperlink{evel_8h_abf6741459d5be3598c74302604481e77}{E\+V\+E\+N\+T\+\_\+\+R\+E\+P\+O\+R\+T} $\ast$report, char $\ast$feature, double utilization)
+\begin{DoxyCompactList}\small\item\em Add a Feature usage value name/value pair to the Report. \end{DoxyCompactList}\item 
+void \hyperlink{evel_8h_a22ca63d2e78a125d6912db577e5bde50}{evel\+\_\+report\+\_\+custom\+\_\+measurement\+\_\+add} (\hyperlink{evel_8h_abf6741459d5be3598c74302604481e77}{E\+V\+E\+N\+T\+\_\+\+R\+E\+P\+O\+R\+T} $\ast$report, const char const $\ast$group, const char const $\ast$name, const char const $\ast$value)
+\begin{DoxyCompactList}\small\item\em Add a Additional Measurement value name/value pair to the Report. \end{DoxyCompactList}\item 
+int \hyperlink{evel_8h_af7003fa536b3d2d5260c2d8f5c41d39c}{evel\+\_\+json\+\_\+encode\+\_\+report} (char $\ast$json, int max\+\_\+size, \hyperlink{evel_8h_abf6741459d5be3598c74302604481e77}{E\+V\+E\+N\+T\+\_\+\+R\+E\+P\+O\+R\+T} $\ast$event)
+\begin{DoxyCompactList}\small\item\em Encode the report as a J\+S\+O\+N report. \end{DoxyCompactList}\item 
+void \hyperlink{evel_8h_a7e62b4de31e7c058e1534d0ac6040e98}{log\+\_\+initialize} (\hyperlink{evel_8h_a802542777d6cfd68dfdcbd50690e015f}{E\+V\+E\+L\+\_\+\+L\+O\+G\+\_\+\+L\+E\+V\+E\+L\+S} level, const char $\ast$ident)
+\begin{DoxyCompactList}\small\item\em Initialize logging. \end{DoxyCompactList}\item 
+void \hyperlink{evel_8h_ab6073d0ad433cc7e272b66952063a4fb}{log\+\_\+debug} (\hyperlink{evel_8h_a802542777d6cfd68dfdcbd50690e015f}{E\+V\+E\+L\+\_\+\+L\+O\+G\+\_\+\+L\+E\+V\+E\+L\+S} level, char $\ast$format,...)
+\begin{DoxyCompactList}\small\item\em Log debug information. \end{DoxyCompactList}\item 
+void \hyperlink{evel_8h_a2031624e863d0caabc96d307687a1883}{log\+\_\+error\+\_\+state} (char $\ast$format,...)
+\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{evel_8h_a802542777d6cfd68dfdcbd50690e015f}{E\+V\+E\+L\+\_\+\+L\+O\+G\+\_\+\+L\+E\+V\+E\+L\+S} \hyperlink{evel_8h_a52ad99cc519509a2e699ac4808f47178}{debug\+\_\+level}
+\item 
+int \hyperlink{evel_8h_abe0a56f90c6c8b261d23838bbeda2d22}{debug\+\_\+indent}
+\item 
+F\+I\+L\+E $\ast$ \hyperlink{evel_8h_acec19516a59050bb447192fe318e6a9c}{fout}
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Header for E\+V\+E\+L library. 
+
+This file implements the E\+V\+E\+L library which is intended to provide a simple wrapper around the complexity of A\+T\&T\textquotesingle{}s Vendor Event Listener A\+P\+I so that V\+N\+Fs can use it without worrying about details of the A\+P\+I transport.
+
+Zero return value is success (\hyperlink{evel_8h_ae1f68b0d21fb98defcec46e99208a03eaa9369500f041c2898e5c2b4f07b6d152}{E\+V\+E\+L\+\_\+\+S\+U\+C\+C\+E\+S\+S}), non-\/zero is failure and will be one of \hyperlink{evel_8h_ae1f68b0d21fb98defcec46e99208a03e}{E\+V\+E\+L\+\_\+\+E\+R\+R\+\_\+\+C\+O\+D\+E\+S}.
+
+\subsubsection*{License }
+
+Copyright(c) $<$2016$>$, A\+T\&T Intellectual Property. All other rights reserved.
+
+Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met\+:
+
+
+\begin{DoxyEnumerate}
+\item Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
+\item Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.
+\item All advertising materials mentioning features or use of this software must display the following acknowledgement\+: This product includes software developed by the A\+T\&T.
+\item Neither the name of A\+T\&T nor the names of its contributors may be used to endorse or promote products derived from this software without specific prior written permission.
+\end{DoxyEnumerate}
+
+T\+H\+I\+S S\+O\+F\+T\+W\+A\+R\+E I\+S P\+R\+O\+V\+I\+D\+E\+D B\+Y A\+T\&T I\+N\+T\+E\+L\+L\+E\+C\+T\+U\+A\+L P\+R\+O\+P\+E\+R\+T\+Y \textquotesingle{}\textquotesingle{}A\+S I\+S\textquotesingle{}\textquotesingle{} A\+N\+D A\+N\+Y E\+X\+P\+R\+E\+S\+S O\+R I\+M\+P\+L\+I\+E\+D W\+A\+R\+R\+A\+N\+T\+I\+E\+S, I\+N\+C\+L\+U\+D\+I\+N\+G, B\+U\+T N\+O\+T L\+I\+M\+I\+T\+E\+D T\+O, T\+H\+E I\+M\+P\+L\+I\+E\+D W\+A\+R\+R\+A\+N\+T\+I\+E\+S O\+F M\+E\+R\+C\+H\+A\+N\+T\+A\+B\+I\+L\+I\+T\+Y A\+N\+D F\+I\+T\+N\+E\+S\+S F\+O\+R A P\+A\+R\+T\+I\+C\+U\+L\+A\+R P\+U\+R\+P\+O\+S\+E A\+R\+E D\+I\+S\+C\+L\+A\+I\+M\+E\+D. I\+N N\+O E\+V\+E\+N\+T S\+H\+A\+L\+L A\+T\&T I\+N\+T\+E\+L\+L\+E\+C\+T\+U\+A\+L P\+R\+O\+P\+E\+R\+T\+Y B\+E L\+I\+A\+B\+L\+E F\+O\+R A\+N\+Y D\+I\+R\+E\+C\+T, I\+N\+D\+I\+R\+E\+C\+T, I\+N\+C\+I\+D\+E\+N\+T\+A\+L, S\+P\+E\+C\+I\+A\+L, E\+X\+E\+M\+P\+L\+A\+R\+Y, O\+R C\+O\+N\+S\+E\+Q\+U\+E\+N\+T\+I\+A\+L D\+A\+M\+A\+G\+E\+S (I\+N\+C\+L\+U\+D\+I\+N\+G, B\+U\+T N\+O\+T L\+I\+M\+I\+T\+E\+D T\+O, P\+R\+O\+C\+U\+R\+E\+M\+E\+N\+T O\+F S\+U\+B\+S\+T\+I\+T\+U\+T\+E G\+O\+O\+D\+S O\+R S\+E\+R\+V\+I\+C\+E\+S; L\+O\+S\+S O\+F U\+S\+E, D\+A\+T\+A, O\+R P\+R\+O\+F\+I\+T\+S; O\+R B\+U\+S\+I\+N\+E\+S\+S I\+N\+T\+E\+R\+R\+U\+P\+T\+I\+O\+N) H\+O\+W\+E\+V\+E\+R C\+A\+U\+S\+E\+D A\+N\+D O\+N A\+N\+Y T\+H\+E\+O\+R\+Y O\+F L\+I\+A\+B\+I\+L\+I\+T\+Y, W\+H\+E\+T\+H\+E\+R I\+N C\+O\+N\+T\+R\+A\+C\+T, S\+T\+R\+I\+C\+T L\+I\+A\+B\+I\+L\+I\+T\+Y, O\+R T\+O\+R\+T (I\+N\+C\+L\+U\+D\+I\+N\+G N\+E\+G\+L\+I\+G\+E\+N\+C\+E O\+R O\+T\+H\+E\+R\+W\+I\+S\+E) A\+R\+I\+S\+I\+N\+G I\+N A\+N\+Y W\+A\+Y O\+U\+T O\+F T\+H\+E U\+S\+E O\+F T\+H\+I\+S S\+O\+F\+T\+W\+A\+R\+E, E\+V\+E\+N I\+F A\+D\+V\+I\+S\+E\+D O\+F T\+H\+E P\+O\+S\+S\+I\+B\+I\+L\+I\+T\+Y O\+F S\+U\+C\+H D\+A\+M\+A\+G\+E. 
+
+\subsection{Macro Definition Documentation}
+\hypertarget{evel_8h_a5c4664bebddc30d7432346239f531d4d}{}\index{evel.\+h@{evel.\+h}!E\+V\+E\+L\+\_\+\+A\+P\+I\+\_\+\+V\+E\+R\+S\+I\+O\+N@{E\+V\+E\+L\+\_\+\+A\+P\+I\+\_\+\+V\+E\+R\+S\+I\+O\+N}}
+\index{E\+V\+E\+L\+\_\+\+A\+P\+I\+\_\+\+V\+E\+R\+S\+I\+O\+N@{E\+V\+E\+L\+\_\+\+A\+P\+I\+\_\+\+V\+E\+R\+S\+I\+O\+N}!evel.\+h@{evel.\+h}}
+\subsubsection[{E\+V\+E\+L\+\_\+\+A\+P\+I\+\_\+\+V\+E\+R\+S\+I\+O\+N}]{\setlength{\rightskip}{0pt plus 5cm}\#define E\+V\+E\+L\+\_\+\+A\+P\+I\+\_\+\+V\+E\+R\+S\+I\+O\+N~1}\label{evel_8h_a5c4664bebddc30d7432346239f531d4d}
+
+
+Definition at line 54 of file evel.\+h.
+
+\hypertarget{evel_8h_a2adc585486b925a1b7f9b0bd86daf214}{}\index{evel.\+h@{evel.\+h}!E\+V\+E\+L\+\_\+\+D\+E\+B\+U\+G@{E\+V\+E\+L\+\_\+\+D\+E\+B\+U\+G}}
+\index{E\+V\+E\+L\+\_\+\+D\+E\+B\+U\+G@{E\+V\+E\+L\+\_\+\+D\+E\+B\+U\+G}!evel.\+h@{evel.\+h}}
+\subsubsection[{E\+V\+E\+L\+\_\+\+D\+E\+B\+U\+G}]{\setlength{\rightskip}{0pt plus 5cm}\#define E\+V\+E\+L\+\_\+\+D\+E\+B\+U\+G(
+\begin{DoxyParamCaption}
+\item[{}]{F\+M\+T, }
+\item[{}]{...}
+\end{DoxyParamCaption}
+)~{\bf log\+\_\+debug}({\bf E\+V\+E\+L\+\_\+\+L\+O\+G\+\_\+\+D\+E\+B\+U\+G}, (F\+M\+T), \#\#\+\_\+\+\_\+\+V\+A\+\_\+\+A\+R\+G\+S\+\_\+\+\_\+)}\label{evel_8h_a2adc585486b925a1b7f9b0bd86daf214}
+
+
+Definition at line 933 of file evel.\+h.
+
+\hypertarget{evel_8h_a2b88ffc630c10dd4fe5c6943d09aaa59}{}\index{evel.\+h@{evel.\+h}!E\+V\+E\+L\+\_\+\+E\+N\+T\+E\+R@{E\+V\+E\+L\+\_\+\+E\+N\+T\+E\+R}}
+\index{E\+V\+E\+L\+\_\+\+E\+N\+T\+E\+R@{E\+V\+E\+L\+\_\+\+E\+N\+T\+E\+R}!evel.\+h@{evel.\+h}}
+\subsubsection[{E\+V\+E\+L\+\_\+\+E\+N\+T\+E\+R}]{\setlength{\rightskip}{0pt plus 5cm}\#define E\+V\+E\+L\+\_\+\+E\+N\+T\+E\+R(
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\label{evel_8h_a2b88ffc630c10dd4fe5c6943d09aaa59}
+{\bfseries Value\+:}
+\begin{DoxyCode}
+\{                                                                     \(\backslash\)
+          log\_debug(\hyperlink{evel_8h_a802542777d6cfd68dfdcbd50690e015fa0a79512b4640fd2dbe4130b4556a8239}{EVEL\_LOG\_DEBUG}, \textcolor{stringliteral}{"Enter %s \{"}, \_\_FUNCTION\_\_);              \(\backslash\)
+          debug\_indent += 2;                                                  \(\backslash\)
+        \}
+\end{DoxyCode}
+
+
+Definition at line 938 of file evel.\+h.
+
+\hypertarget{evel_8h_a08905640aa895fc0d555d6ea08544bc9}{}\index{evel.\+h@{evel.\+h}!E\+V\+E\+L\+\_\+\+E\+R\+R\+O\+R@{E\+V\+E\+L\+\_\+\+E\+R\+R\+O\+R}}
+\index{E\+V\+E\+L\+\_\+\+E\+R\+R\+O\+R@{E\+V\+E\+L\+\_\+\+E\+R\+R\+O\+R}!evel.\+h@{evel.\+h}}
+\subsubsection[{E\+V\+E\+L\+\_\+\+E\+R\+R\+O\+R}]{\setlength{\rightskip}{0pt plus 5cm}\#define E\+V\+E\+L\+\_\+\+E\+R\+R\+O\+R(
+\begin{DoxyParamCaption}
+\item[{}]{F\+M\+T, }
+\item[{}]{...}
+\end{DoxyParamCaption}
+)}\label{evel_8h_a08905640aa895fc0d555d6ea08544bc9}
+{\bfseries Value\+:}
+\begin{DoxyCode}
+\hyperlink{evel_8h_ab6073d0ad433cc7e272b66952063a4fb}{log\_debug}(\hyperlink{evel_8h_a802542777d6cfd68dfdcbd50690e015faa042043a6738bd6d14659969089aa4f1}{EVEL\_LOG\_ERROR}, \textcolor{stringliteral}{"ERROR: "} FMT, \(\backslash\)
+                                         ##\_\_VA\_ARGS\_\_)
+\end{DoxyCode}
+
+
+Definition at line 936 of file evel.\+h.
+
+\hypertarget{evel_8h_acc18ce3b04fc354c45284a136334b6b9}{}\index{evel.\+h@{evel.\+h}!E\+V\+E\+L\+\_\+\+E\+X\+I\+T@{E\+V\+E\+L\+\_\+\+E\+X\+I\+T}}
+\index{E\+V\+E\+L\+\_\+\+E\+X\+I\+T@{E\+V\+E\+L\+\_\+\+E\+X\+I\+T}!evel.\+h@{evel.\+h}}
+\subsubsection[{E\+V\+E\+L\+\_\+\+E\+X\+I\+T}]{\setlength{\rightskip}{0pt plus 5cm}\#define E\+V\+E\+L\+\_\+\+E\+X\+I\+T(
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\label{evel_8h_acc18ce3b04fc354c45284a136334b6b9}
+{\bfseries Value\+:}
+\begin{DoxyCode}
+\{                                                                     \(\backslash\)
+          debug\_indent -= 2;                                                  \(\backslash\)
+          log\_debug(\hyperlink{evel_8h_a802542777d6cfd68dfdcbd50690e015fa0a79512b4640fd2dbe4130b4556a8239}{EVEL\_LOG\_DEBUG}, \textcolor{stringliteral}{"Exit %s \}"}, \_\_FUNCTION\_\_);               \(\backslash\)
+        \}
+\end{DoxyCode}
+
+
+Definition at line 943 of file evel.\+h.
+
+\hypertarget{evel_8h_a4230856762649c13d728edb6384d7e62}{}\index{evel.\+h@{evel.\+h}!E\+V\+E\+L\+\_\+\+I\+N\+F\+O@{E\+V\+E\+L\+\_\+\+I\+N\+F\+O}}
+\index{E\+V\+E\+L\+\_\+\+I\+N\+F\+O@{E\+V\+E\+L\+\_\+\+I\+N\+F\+O}!evel.\+h@{evel.\+h}}
+\subsubsection[{E\+V\+E\+L\+\_\+\+I\+N\+F\+O}]{\setlength{\rightskip}{0pt plus 5cm}\#define E\+V\+E\+L\+\_\+\+I\+N\+F\+O(
+\begin{DoxyParamCaption}
+\item[{}]{F\+M\+T, }
+\item[{}]{...}
+\end{DoxyParamCaption}
+)~{\bf log\+\_\+debug}({\bf E\+V\+E\+L\+\_\+\+L\+O\+G\+\_\+\+I\+N\+F\+O}, (F\+M\+T), \#\#\+\_\+\+\_\+\+V\+A\+\_\+\+A\+R\+G\+S\+\_\+\+\_\+)}\label{evel_8h_a4230856762649c13d728edb6384d7e62}
+
+
+Definition at line 934 of file evel.\+h.
+
+\hypertarget{evel_8h_aa13f4a4423c06fd07a77ad3a473bc2c7}{}\index{evel.\+h@{evel.\+h}!E\+V\+E\+L\+\_\+\+M\+A\+X\+\_\+\+E\+R\+R\+O\+R\+\_\+\+S\+T\+R\+I\+N\+G\+\_\+\+L\+E\+N@{E\+V\+E\+L\+\_\+\+M\+A\+X\+\_\+\+E\+R\+R\+O\+R\+\_\+\+S\+T\+R\+I\+N\+G\+\_\+\+L\+E\+N}}
+\index{E\+V\+E\+L\+\_\+\+M\+A\+X\+\_\+\+E\+R\+R\+O\+R\+\_\+\+S\+T\+R\+I\+N\+G\+\_\+\+L\+E\+N@{E\+V\+E\+L\+\_\+\+M\+A\+X\+\_\+\+E\+R\+R\+O\+R\+\_\+\+S\+T\+R\+I\+N\+G\+\_\+\+L\+E\+N}!evel.\+h@{evel.\+h}}
+\subsubsection[{E\+V\+E\+L\+\_\+\+M\+A\+X\+\_\+\+E\+R\+R\+O\+R\+\_\+\+S\+T\+R\+I\+N\+G\+\_\+\+L\+E\+N}]{\setlength{\rightskip}{0pt plus 5cm}\#define E\+V\+E\+L\+\_\+\+M\+A\+X\+\_\+\+E\+R\+R\+O\+R\+\_\+\+S\+T\+R\+I\+N\+G\+\_\+\+L\+E\+N~255}\label{evel_8h_aa13f4a4423c06fd07a77ad3a473bc2c7}
+
+
+Definition at line 95 of file evel.\+h.
+
+\hypertarget{evel_8h_aea3d132816eedabdbcdc9d6070a378da}{}\index{evel.\+h@{evel.\+h}!E\+V\+E\+L\+\_\+\+M\+A\+X\+\_\+\+J\+S\+O\+N\+\_\+\+B\+O\+D\+Y@{E\+V\+E\+L\+\_\+\+M\+A\+X\+\_\+\+J\+S\+O\+N\+\_\+\+B\+O\+D\+Y}}
+\index{E\+V\+E\+L\+\_\+\+M\+A\+X\+\_\+\+J\+S\+O\+N\+\_\+\+B\+O\+D\+Y@{E\+V\+E\+L\+\_\+\+M\+A\+X\+\_\+\+J\+S\+O\+N\+\_\+\+B\+O\+D\+Y}!evel.\+h@{evel.\+h}}
+\subsubsection[{E\+V\+E\+L\+\_\+\+M\+A\+X\+\_\+\+J\+S\+O\+N\+\_\+\+B\+O\+D\+Y}]{\setlength{\rightskip}{0pt plus 5cm}\#define E\+V\+E\+L\+\_\+\+M\+A\+X\+\_\+\+J\+S\+O\+N\+\_\+\+B\+O\+D\+Y~16000}\label{evel_8h_aea3d132816eedabdbcdc9d6070a378da}
+
+
+Definition at line 94 of file evel.\+h.
+
+\hypertarget{evel_8h_adb65dc4d589e96050bc1def6dc8e2c1b}{}\index{evel.\+h@{evel.\+h}!E\+V\+E\+L\+\_\+\+M\+A\+X\+\_\+\+S\+T\+R\+I\+N\+G\+\_\+\+L\+E\+N@{E\+V\+E\+L\+\_\+\+M\+A\+X\+\_\+\+S\+T\+R\+I\+N\+G\+\_\+\+L\+E\+N}}
+\index{E\+V\+E\+L\+\_\+\+M\+A\+X\+\_\+\+S\+T\+R\+I\+N\+G\+\_\+\+L\+E\+N@{E\+V\+E\+L\+\_\+\+M\+A\+X\+\_\+\+S\+T\+R\+I\+N\+G\+\_\+\+L\+E\+N}!evel.\+h@{evel.\+h}}
+\subsubsection[{E\+V\+E\+L\+\_\+\+M\+A\+X\+\_\+\+S\+T\+R\+I\+N\+G\+\_\+\+L\+E\+N}]{\setlength{\rightskip}{0pt plus 5cm}\#define E\+V\+E\+L\+\_\+\+M\+A\+X\+\_\+\+S\+T\+R\+I\+N\+G\+\_\+\+L\+E\+N~4096}\label{evel_8h_adb65dc4d589e96050bc1def6dc8e2c1b}
+
+
+Definition at line 93 of file evel.\+h.
+
+\hypertarget{evel_8h_ad1d2cb5a314fffa1005fc965cb82713f}{}\index{evel.\+h@{evel.\+h}!E\+V\+E\+L\+\_\+\+M\+A\+X\+\_\+\+U\+R\+L\+\_\+\+L\+E\+N@{E\+V\+E\+L\+\_\+\+M\+A\+X\+\_\+\+U\+R\+L\+\_\+\+L\+E\+N}}
+\index{E\+V\+E\+L\+\_\+\+M\+A\+X\+\_\+\+U\+R\+L\+\_\+\+L\+E\+N@{E\+V\+E\+L\+\_\+\+M\+A\+X\+\_\+\+U\+R\+L\+\_\+\+L\+E\+N}!evel.\+h@{evel.\+h}}
+\subsubsection[{E\+V\+E\+L\+\_\+\+M\+A\+X\+\_\+\+U\+R\+L\+\_\+\+L\+E\+N}]{\setlength{\rightskip}{0pt plus 5cm}\#define E\+V\+E\+L\+\_\+\+M\+A\+X\+\_\+\+U\+R\+L\+\_\+\+L\+E\+N~511}\label{evel_8h_ad1d2cb5a314fffa1005fc965cb82713f}
+
+
+Definition at line 96 of file evel.\+h.
+
+\hypertarget{evel_8h_ac323bb61d59416234eea54ec3717c6f6}{}\index{evel.\+h@{evel.\+h}!E\+V\+E\+L\+\_\+\+S\+P\+A\+M\+M\+Y@{E\+V\+E\+L\+\_\+\+S\+P\+A\+M\+M\+Y}}
+\index{E\+V\+E\+L\+\_\+\+S\+P\+A\+M\+M\+Y@{E\+V\+E\+L\+\_\+\+S\+P\+A\+M\+M\+Y}!evel.\+h@{evel.\+h}}
+\subsubsection[{E\+V\+E\+L\+\_\+\+S\+P\+A\+M\+M\+Y}]{\setlength{\rightskip}{0pt plus 5cm}\#define E\+V\+E\+L\+\_\+\+S\+P\+A\+M\+M\+Y(
+\begin{DoxyParamCaption}
+\item[{}]{F\+M\+T, }
+\item[{}]{...}
+\end{DoxyParamCaption}
+)~{\bf log\+\_\+debug}({\bf E\+V\+E\+L\+\_\+\+L\+O\+G\+\_\+\+S\+P\+A\+M\+M\+Y}, (F\+M\+T), \#\#\+\_\+\+\_\+\+V\+A\+\_\+\+A\+R\+G\+S\+\_\+\+\_\+)}\label{evel_8h_ac323bb61d59416234eea54ec3717c6f6}
+
+
+Definition at line 935 of file evel.\+h.
+
+\hypertarget{evel_8h_af63277a83827d65dd71a197ca10ba6ae}{}\index{evel.\+h@{evel.\+h}!I\+N\+D\+E\+N\+T\+\_\+\+S\+E\+P\+A\+R\+A\+T\+O\+R\+S@{I\+N\+D\+E\+N\+T\+\_\+\+S\+E\+P\+A\+R\+A\+T\+O\+R\+S}}
+\index{I\+N\+D\+E\+N\+T\+\_\+\+S\+E\+P\+A\+R\+A\+T\+O\+R\+S@{I\+N\+D\+E\+N\+T\+\_\+\+S\+E\+P\+A\+R\+A\+T\+O\+R\+S}!evel.\+h@{evel.\+h}}
+\subsubsection[{I\+N\+D\+E\+N\+T\+\_\+\+S\+E\+P\+A\+R\+A\+T\+O\+R\+S}]{\setlength{\rightskip}{0pt plus 5cm}\#define I\+N\+D\+E\+N\+T\+\_\+\+S\+E\+P\+A\+R\+A\+T\+O\+R\+S~\char`\"{}$\vert$ $\vert$ $\vert$ $\vert$ $\vert$ $\vert$ $\vert$ $\vert$ $\vert$ $\vert$ $\vert$ $\vert$ $\vert$ $\vert$ $\vert$ $\vert$ $\vert$ $\vert$ $\vert$ $\vert$ $\vert$ $\vert$ $\vert$ $\vert$ $\vert$ $\vert$ $\vert$ $\vert$ $\vert$ $\vert$ $\vert$ $\vert$ \char`\"{}}\label{evel_8h_af63277a83827d65dd71a197ca10ba6ae}
+
+
+Definition at line 949 of file evel.\+h.
+
+
+
+\subsection{Typedef Documentation}
+\hypertarget{evel_8h_ac5bab2b0b0c93c762ba2ebbfa66d6ab2}{}\index{evel.\+h@{evel.\+h}!C\+U\+S\+T\+O\+M\+\_\+\+M\+E\+A\+S\+U\+R\+E\+M\+E\+N\+T@{C\+U\+S\+T\+O\+M\+\_\+\+M\+E\+A\+S\+U\+R\+E\+M\+E\+N\+T}}
+\index{C\+U\+S\+T\+O\+M\+\_\+\+M\+E\+A\+S\+U\+R\+E\+M\+E\+N\+T@{C\+U\+S\+T\+O\+M\+\_\+\+M\+E\+A\+S\+U\+R\+E\+M\+E\+N\+T}!evel.\+h@{evel.\+h}}
+\subsubsection[{C\+U\+S\+T\+O\+M\+\_\+\+M\+E\+A\+S\+U\+R\+E\+M\+E\+N\+T}]{\setlength{\rightskip}{0pt plus 5cm}typedef struct {\bf custom\+\_\+measurement}  {\bf C\+U\+S\+T\+O\+M\+\_\+\+M\+E\+A\+S\+U\+R\+E\+M\+E\+N\+T}}\label{evel_8h_ac5bab2b0b0c93c762ba2ebbfa66d6ab2}
+
+
+Custom Defined Measurement. 
+
+J\+S\+O\+N equivalent field\+: measurements \hypertarget{evel_8h_aab9e6f5e5cce300f2f4413c1d0228971}{}\index{evel.\+h@{evel.\+h}!E\+V\+E\+N\+T\+\_\+\+F\+A\+U\+L\+T@{E\+V\+E\+N\+T\+\_\+\+F\+A\+U\+L\+T}}
+\index{E\+V\+E\+N\+T\+\_\+\+F\+A\+U\+L\+T@{E\+V\+E\+N\+T\+\_\+\+F\+A\+U\+L\+T}!evel.\+h@{evel.\+h}}
+\subsubsection[{E\+V\+E\+N\+T\+\_\+\+F\+A\+U\+L\+T}]{\setlength{\rightskip}{0pt plus 5cm}typedef struct {\bf event\+\_\+fault}  {\bf E\+V\+E\+N\+T\+\_\+\+F\+A\+U\+L\+T}}\label{evel_8h_aab9e6f5e5cce300f2f4413c1d0228971}
+
+
+Fault. 
+
+J\+S\+O\+N equivalent field\+: fault\+Fields \hypertarget{evel_8h_aa0ea94c675729365ea7825c4fc7e06d8}{}\index{evel.\+h@{evel.\+h}!E\+V\+E\+N\+T\+\_\+\+H\+E\+A\+D\+E\+R@{E\+V\+E\+N\+T\+\_\+\+H\+E\+A\+D\+E\+R}}
+\index{E\+V\+E\+N\+T\+\_\+\+H\+E\+A\+D\+E\+R@{E\+V\+E\+N\+T\+\_\+\+H\+E\+A\+D\+E\+R}!evel.\+h@{evel.\+h}}
+\subsubsection[{E\+V\+E\+N\+T\+\_\+\+H\+E\+A\+D\+E\+R}]{\setlength{\rightskip}{0pt plus 5cm}typedef struct {\bf event\+\_\+header}  {\bf E\+V\+E\+N\+T\+\_\+\+H\+E\+A\+D\+E\+R}}\label{evel_8h_aa0ea94c675729365ea7825c4fc7e06d8}
+
+
+Event header. 
+
+J\+S\+O\+N equivalent field\+: common\+Event\+Header \hypertarget{evel_8h_a6aebe95622adf9a98ba33fc440c11ba0}{}\index{evel.\+h@{evel.\+h}!E\+V\+E\+N\+T\+\_\+\+M\+E\+A\+S\+U\+R\+E\+M\+E\+N\+T@{E\+V\+E\+N\+T\+\_\+\+M\+E\+A\+S\+U\+R\+E\+M\+E\+N\+T}}
+\index{E\+V\+E\+N\+T\+\_\+\+M\+E\+A\+S\+U\+R\+E\+M\+E\+N\+T@{E\+V\+E\+N\+T\+\_\+\+M\+E\+A\+S\+U\+R\+E\+M\+E\+N\+T}!evel.\+h@{evel.\+h}}
+\subsubsection[{E\+V\+E\+N\+T\+\_\+\+M\+E\+A\+S\+U\+R\+E\+M\+E\+N\+T}]{\setlength{\rightskip}{0pt plus 5cm}typedef struct {\bf event\+\_\+measurement}  {\bf E\+V\+E\+N\+T\+\_\+\+M\+E\+A\+S\+U\+R\+E\+M\+E\+N\+T}}\label{evel_8h_a6aebe95622adf9a98ba33fc440c11ba0}
+
+
+Measurement. 
+
+J\+S\+O\+N equivalent field\+: measurements\+For\+Vf\+Scaling\+Fields \hypertarget{evel_8h_abf6741459d5be3598c74302604481e77}{}\index{evel.\+h@{evel.\+h}!E\+V\+E\+N\+T\+\_\+\+R\+E\+P\+O\+R\+T@{E\+V\+E\+N\+T\+\_\+\+R\+E\+P\+O\+R\+T}}
+\index{E\+V\+E\+N\+T\+\_\+\+R\+E\+P\+O\+R\+T@{E\+V\+E\+N\+T\+\_\+\+R\+E\+P\+O\+R\+T}!evel.\+h@{evel.\+h}}
+\subsubsection[{E\+V\+E\+N\+T\+\_\+\+R\+E\+P\+O\+R\+T}]{\setlength{\rightskip}{0pt plus 5cm}typedef struct {\bf event\+\_\+report}  {\bf E\+V\+E\+N\+T\+\_\+\+R\+E\+P\+O\+R\+T}}\label{evel_8h_abf6741459d5be3598c74302604481e77}
+
+
+Report. 
+
+J\+S\+O\+N equivalent field\+: measurements\+For\+Vf\+Reporting\+Fields
+
+\begin{DoxyNote}{Note}
+This is an experimental event type and is not currently a formal part of A\+T\&T\textquotesingle{}s specification. 
+\end{DoxyNote}
+\hypertarget{evel_8h_aca69a67f2c70c8ace77ab2d546aa5c2d}{}\index{evel.\+h@{evel.\+h}!F\+A\+U\+L\+T\+\_\+\+A\+D\+D\+L\+\_\+\+I\+N\+F\+O@{F\+A\+U\+L\+T\+\_\+\+A\+D\+D\+L\+\_\+\+I\+N\+F\+O}}
+\index{F\+A\+U\+L\+T\+\_\+\+A\+D\+D\+L\+\_\+\+I\+N\+F\+O@{F\+A\+U\+L\+T\+\_\+\+A\+D\+D\+L\+\_\+\+I\+N\+F\+O}!evel.\+h@{evel.\+h}}
+\subsubsection[{F\+A\+U\+L\+T\+\_\+\+A\+D\+D\+L\+\_\+\+I\+N\+F\+O}]{\setlength{\rightskip}{0pt plus 5cm}typedef struct {\bf fault\+\_\+additional\+\_\+info}  {\bf F\+A\+U\+L\+T\+\_\+\+A\+D\+D\+L\+\_\+\+I\+N\+F\+O}}\label{evel_8h_aca69a67f2c70c8ace77ab2d546aa5c2d}
+
+
+Fault Additional Info. 
+
+J\+S\+O\+N equivalent field\+: alarm\+Additional\+Information \hypertarget{evel_8h_abd13f7f6ebe63eea50151628cd088687}{}\index{evel.\+h@{evel.\+h}!M\+E\+A\+S\+U\+R\+E\+M\+E\+N\+T\+\_\+\+C\+O\+D\+E\+C\+\_\+\+U\+S\+E@{M\+E\+A\+S\+U\+R\+E\+M\+E\+N\+T\+\_\+\+C\+O\+D\+E\+C\+\_\+\+U\+S\+E}}
+\index{M\+E\+A\+S\+U\+R\+E\+M\+E\+N\+T\+\_\+\+C\+O\+D\+E\+C\+\_\+\+U\+S\+E@{M\+E\+A\+S\+U\+R\+E\+M\+E\+N\+T\+\_\+\+C\+O\+D\+E\+C\+\_\+\+U\+S\+E}!evel.\+h@{evel.\+h}}
+\subsubsection[{M\+E\+A\+S\+U\+R\+E\+M\+E\+N\+T\+\_\+\+C\+O\+D\+E\+C\+\_\+\+U\+S\+E}]{\setlength{\rightskip}{0pt plus 5cm}typedef struct {\bf measurement\+\_\+codec\+\_\+use}  {\bf M\+E\+A\+S\+U\+R\+E\+M\+E\+N\+T\+\_\+\+C\+O\+D\+E\+C\+\_\+\+U\+S\+E}}\label{evel_8h_abd13f7f6ebe63eea50151628cd088687}
+
+
+Codec Usage. 
+
+J\+S\+O\+N equivalent field\+: codecs\+In\+Use \hypertarget{evel_8h_a1d7ad0d1aeba32a41b37e85527fba6ec}{}\index{evel.\+h@{evel.\+h}!M\+E\+A\+S\+U\+R\+E\+M\+E\+N\+T\+\_\+\+C\+P\+U\+\_\+\+U\+S\+E@{M\+E\+A\+S\+U\+R\+E\+M\+E\+N\+T\+\_\+\+C\+P\+U\+\_\+\+U\+S\+E}}
+\index{M\+E\+A\+S\+U\+R\+E\+M\+E\+N\+T\+\_\+\+C\+P\+U\+\_\+\+U\+S\+E@{M\+E\+A\+S\+U\+R\+E\+M\+E\+N\+T\+\_\+\+C\+P\+U\+\_\+\+U\+S\+E}!evel.\+h@{evel.\+h}}
+\subsubsection[{M\+E\+A\+S\+U\+R\+E\+M\+E\+N\+T\+\_\+\+C\+P\+U\+\_\+\+U\+S\+E}]{\setlength{\rightskip}{0pt plus 5cm}typedef struct {\bf measurement\+\_\+cpu\+\_\+use}  {\bf M\+E\+A\+S\+U\+R\+E\+M\+E\+N\+T\+\_\+\+C\+P\+U\+\_\+\+U\+S\+E}}\label{evel_8h_a1d7ad0d1aeba32a41b37e85527fba6ec}
+
+
+C\+P\+U Usage. 
+
+J\+S\+O\+N equivalent field\+: cpu\+Usage \hypertarget{evel_8h_ad15020c52aae92b30c9315195038a925}{}\index{evel.\+h@{evel.\+h}!M\+E\+A\+S\+U\+R\+E\+M\+E\+N\+T\+\_\+\+F\+E\+A\+T\+U\+R\+E\+\_\+\+U\+S\+E@{M\+E\+A\+S\+U\+R\+E\+M\+E\+N\+T\+\_\+\+F\+E\+A\+T\+U\+R\+E\+\_\+\+U\+S\+E}}
+\index{M\+E\+A\+S\+U\+R\+E\+M\+E\+N\+T\+\_\+\+F\+E\+A\+T\+U\+R\+E\+\_\+\+U\+S\+E@{M\+E\+A\+S\+U\+R\+E\+M\+E\+N\+T\+\_\+\+F\+E\+A\+T\+U\+R\+E\+\_\+\+U\+S\+E}!evel.\+h@{evel.\+h}}
+\subsubsection[{M\+E\+A\+S\+U\+R\+E\+M\+E\+N\+T\+\_\+\+F\+E\+A\+T\+U\+R\+E\+\_\+\+U\+S\+E}]{\setlength{\rightskip}{0pt plus 5cm}typedef struct {\bf measurement\+\_\+feature\+\_\+use}  {\bf M\+E\+A\+S\+U\+R\+E\+M\+E\+N\+T\+\_\+\+F\+E\+A\+T\+U\+R\+E\+\_\+\+U\+S\+E}}\label{evel_8h_ad15020c52aae92b30c9315195038a925}
+
+
+Feature Usage. 
+
+J\+S\+O\+N equivalent field\+: features\+In\+Use \hypertarget{evel_8h_a4b42f94557f92b58e76c1c6faed71bc9}{}\index{evel.\+h@{evel.\+h}!M\+E\+A\+S\+U\+R\+E\+M\+E\+N\+T\+\_\+\+F\+S\+Y\+S\+\_\+\+U\+S\+E@{M\+E\+A\+S\+U\+R\+E\+M\+E\+N\+T\+\_\+\+F\+S\+Y\+S\+\_\+\+U\+S\+E}}
+\index{M\+E\+A\+S\+U\+R\+E\+M\+E\+N\+T\+\_\+\+F\+S\+Y\+S\+\_\+\+U\+S\+E@{M\+E\+A\+S\+U\+R\+E\+M\+E\+N\+T\+\_\+\+F\+S\+Y\+S\+\_\+\+U\+S\+E}!evel.\+h@{evel.\+h}}
+\subsubsection[{M\+E\+A\+S\+U\+R\+E\+M\+E\+N\+T\+\_\+\+F\+S\+Y\+S\+\_\+\+U\+S\+E}]{\setlength{\rightskip}{0pt plus 5cm}typedef struct {\bf measurement\+\_\+fsys\+\_\+use}  {\bf M\+E\+A\+S\+U\+R\+E\+M\+E\+N\+T\+\_\+\+F\+S\+Y\+S\+\_\+\+U\+S\+E}}\label{evel_8h_a4b42f94557f92b58e76c1c6faed71bc9}
+
+
+Filesystem Usage. 
+
+J\+S\+O\+N equivalent field\+: filesystem\+Usage \hypertarget{evel_8h_a361531fc98f24198fee343ebdbf505b2}{}\index{evel.\+h@{evel.\+h}!M\+E\+A\+S\+U\+R\+E\+M\+E\+N\+T\+\_\+\+G\+R\+O\+U\+P@{M\+E\+A\+S\+U\+R\+E\+M\+E\+N\+T\+\_\+\+G\+R\+O\+U\+P}}
+\index{M\+E\+A\+S\+U\+R\+E\+M\+E\+N\+T\+\_\+\+G\+R\+O\+U\+P@{M\+E\+A\+S\+U\+R\+E\+M\+E\+N\+T\+\_\+\+G\+R\+O\+U\+P}!evel.\+h@{evel.\+h}}
+\subsubsection[{M\+E\+A\+S\+U\+R\+E\+M\+E\+N\+T\+\_\+\+G\+R\+O\+U\+P}]{\setlength{\rightskip}{0pt plus 5cm}typedef struct {\bf measurement\+\_\+group}  {\bf M\+E\+A\+S\+U\+R\+E\+M\+E\+N\+T\+\_\+\+G\+R\+O\+U\+P}}\label{evel_8h_a361531fc98f24198fee343ebdbf505b2}
+
+
+Measurement Group. 
+
+J\+S\+O\+N equivalent field\+: measurement\+Group \hypertarget{evel_8h_ad8103d1938fc8a0c693b9c460c23a754}{}\index{evel.\+h@{evel.\+h}!M\+E\+A\+S\+U\+R\+E\+M\+E\+N\+T\+\_\+\+L\+A\+T\+E\+N\+C\+Y\+\_\+\+B\+U\+C\+K\+E\+T@{M\+E\+A\+S\+U\+R\+E\+M\+E\+N\+T\+\_\+\+L\+A\+T\+E\+N\+C\+Y\+\_\+\+B\+U\+C\+K\+E\+T}}
+\index{M\+E\+A\+S\+U\+R\+E\+M\+E\+N\+T\+\_\+\+L\+A\+T\+E\+N\+C\+Y\+\_\+\+B\+U\+C\+K\+E\+T@{M\+E\+A\+S\+U\+R\+E\+M\+E\+N\+T\+\_\+\+L\+A\+T\+E\+N\+C\+Y\+\_\+\+B\+U\+C\+K\+E\+T}!evel.\+h@{evel.\+h}}
+\subsubsection[{M\+E\+A\+S\+U\+R\+E\+M\+E\+N\+T\+\_\+\+L\+A\+T\+E\+N\+C\+Y\+\_\+\+B\+U\+C\+K\+E\+T}]{\setlength{\rightskip}{0pt plus 5cm}typedef struct {\bf measurement\+\_\+latency\+\_\+bucket}  {\bf M\+E\+A\+S\+U\+R\+E\+M\+E\+N\+T\+\_\+\+L\+A\+T\+E\+N\+C\+Y\+\_\+\+B\+U\+C\+K\+E\+T}}\label{evel_8h_ad8103d1938fc8a0c693b9c460c23a754}
+
+
+Latency Bucket. 
+
+J\+S\+O\+N equivalent field\+: latency\+Bucket\+Measure \hypertarget{evel_8h_a83928ff964034324312868dcfaf64b8c}{}\index{evel.\+h@{evel.\+h}!M\+E\+A\+S\+U\+R\+E\+M\+E\+N\+T\+\_\+\+V\+N\+I\+C\+\_\+\+U\+S\+E@{M\+E\+A\+S\+U\+R\+E\+M\+E\+N\+T\+\_\+\+V\+N\+I\+C\+\_\+\+U\+S\+E}}
+\index{M\+E\+A\+S\+U\+R\+E\+M\+E\+N\+T\+\_\+\+V\+N\+I\+C\+\_\+\+U\+S\+E@{M\+E\+A\+S\+U\+R\+E\+M\+E\+N\+T\+\_\+\+V\+N\+I\+C\+\_\+\+U\+S\+E}!evel.\+h@{evel.\+h}}
+\subsubsection[{M\+E\+A\+S\+U\+R\+E\+M\+E\+N\+T\+\_\+\+V\+N\+I\+C\+\_\+\+U\+S\+E}]{\setlength{\rightskip}{0pt plus 5cm}typedef struct {\bf measurement\+\_\+vnic\+\_\+use}  {\bf M\+E\+A\+S\+U\+R\+E\+M\+E\+N\+T\+\_\+\+V\+N\+I\+C\+\_\+\+U\+S\+E}}\label{evel_8h_a83928ff964034324312868dcfaf64b8c}
+
+
+Virtual N\+I\+C usage. 
+
+J\+S\+O\+N equivalent field\+: v\+Nic\+Usage 
+
+\subsection{Enumeration Type Documentation}
+\hypertarget{evel_8h_ae1f68b0d21fb98defcec46e99208a03e}{}\index{evel.\+h@{evel.\+h}!E\+V\+E\+L\+\_\+\+E\+R\+R\+\_\+\+C\+O\+D\+E\+S@{E\+V\+E\+L\+\_\+\+E\+R\+R\+\_\+\+C\+O\+D\+E\+S}}
+\index{E\+V\+E\+L\+\_\+\+E\+R\+R\+\_\+\+C\+O\+D\+E\+S@{E\+V\+E\+L\+\_\+\+E\+R\+R\+\_\+\+C\+O\+D\+E\+S}!evel.\+h@{evel.\+h}}
+\subsubsection[{E\+V\+E\+L\+\_\+\+E\+R\+R\+\_\+\+C\+O\+D\+E\+S}]{\setlength{\rightskip}{0pt plus 5cm}enum {\bf E\+V\+E\+L\+\_\+\+E\+R\+R\+\_\+\+C\+O\+D\+E\+S}}\label{evel_8h_ae1f68b0d21fb98defcec46e99208a03e}
+
+
+Error codes. 
+
+Error codes for E\+V\+E\+L low level interface \begin{Desc}
+\item[Enumerator]\par
+\begin{description}
+\index{E\+V\+E\+L\+\_\+\+S\+U\+C\+C\+E\+S\+S@{E\+V\+E\+L\+\_\+\+S\+U\+C\+C\+E\+S\+S}!evel.\+h@{evel.\+h}}\index{evel.\+h@{evel.\+h}!E\+V\+E\+L\+\_\+\+S\+U\+C\+C\+E\+S\+S@{E\+V\+E\+L\+\_\+\+S\+U\+C\+C\+E\+S\+S}}\item[{\em 
+\hypertarget{evel_8h_ae1f68b0d21fb98defcec46e99208a03eaa9369500f041c2898e5c2b4f07b6d152}{}E\+V\+E\+L\+\_\+\+S\+U\+C\+C\+E\+S\+S\label{evel_8h_ae1f68b0d21fb98defcec46e99208a03eaa9369500f041c2898e5c2b4f07b6d152}
+}]\index{E\+V\+E\+L\+\_\+\+E\+R\+R\+\_\+\+G\+E\+N\+\_\+\+F\+A\+I\+L@{E\+V\+E\+L\+\_\+\+E\+R\+R\+\_\+\+G\+E\+N\+\_\+\+F\+A\+I\+L}!evel.\+h@{evel.\+h}}\index{evel.\+h@{evel.\+h}!E\+V\+E\+L\+\_\+\+E\+R\+R\+\_\+\+G\+E\+N\+\_\+\+F\+A\+I\+L@{E\+V\+E\+L\+\_\+\+E\+R\+R\+\_\+\+G\+E\+N\+\_\+\+F\+A\+I\+L}}\item[{\em 
+\hypertarget{evel_8h_ae1f68b0d21fb98defcec46e99208a03ea10e182a2e95c7de185873b268214de60}{}E\+V\+E\+L\+\_\+\+E\+R\+R\+\_\+\+G\+E\+N\+\_\+\+F\+A\+I\+L\label{evel_8h_ae1f68b0d21fb98defcec46e99208a03ea10e182a2e95c7de185873b268214de60}
+}]The operation was successful. \index{E\+V\+E\+L\+\_\+\+C\+U\+R\+L\+\_\+\+L\+I\+B\+R\+A\+R\+Y\+\_\+\+F\+A\+I\+L@{E\+V\+E\+L\+\_\+\+C\+U\+R\+L\+\_\+\+L\+I\+B\+R\+A\+R\+Y\+\_\+\+F\+A\+I\+L}!evel.\+h@{evel.\+h}}\index{evel.\+h@{evel.\+h}!E\+V\+E\+L\+\_\+\+C\+U\+R\+L\+\_\+\+L\+I\+B\+R\+A\+R\+Y\+\_\+\+F\+A\+I\+L@{E\+V\+E\+L\+\_\+\+C\+U\+R\+L\+\_\+\+L\+I\+B\+R\+A\+R\+Y\+\_\+\+F\+A\+I\+L}}\item[{\em 
+\hypertarget{evel_8h_ae1f68b0d21fb98defcec46e99208a03ea86e1122f950df4ffc22dc0aedc1d674b}{}E\+V\+E\+L\+\_\+\+C\+U\+R\+L\+\_\+\+L\+I\+B\+R\+A\+R\+Y\+\_\+\+F\+A\+I\+L\label{evel_8h_ae1f68b0d21fb98defcec46e99208a03ea86e1122f950df4ffc22dc0aedc1d674b}
+}]Non-\/specific failure. \index{E\+V\+E\+L\+\_\+\+P\+T\+H\+R\+E\+A\+D\+\_\+\+L\+I\+B\+R\+A\+R\+Y\+\_\+\+F\+A\+I\+L@{E\+V\+E\+L\+\_\+\+P\+T\+H\+R\+E\+A\+D\+\_\+\+L\+I\+B\+R\+A\+R\+Y\+\_\+\+F\+A\+I\+L}!evel.\+h@{evel.\+h}}\index{evel.\+h@{evel.\+h}!E\+V\+E\+L\+\_\+\+P\+T\+H\+R\+E\+A\+D\+\_\+\+L\+I\+B\+R\+A\+R\+Y\+\_\+\+F\+A\+I\+L@{E\+V\+E\+L\+\_\+\+P\+T\+H\+R\+E\+A\+D\+\_\+\+L\+I\+B\+R\+A\+R\+Y\+\_\+\+F\+A\+I\+L}}\item[{\em 
+\hypertarget{evel_8h_ae1f68b0d21fb98defcec46e99208a03ea71c0f625833fc45b2cdba1cfbf127f1c}{}E\+V\+E\+L\+\_\+\+P\+T\+H\+R\+E\+A\+D\+\_\+\+L\+I\+B\+R\+A\+R\+Y\+\_\+\+F\+A\+I\+L\label{evel_8h_ae1f68b0d21fb98defcec46e99208a03ea71c0f625833fc45b2cdba1cfbf127f1c}
+}]A c\+U\+R\+L library operation failed. \index{E\+V\+E\+L\+\_\+\+O\+U\+T\+\_\+\+O\+F\+\_\+\+M\+E\+M\+O\+R\+Y@{E\+V\+E\+L\+\_\+\+O\+U\+T\+\_\+\+O\+F\+\_\+\+M\+E\+M\+O\+R\+Y}!evel.\+h@{evel.\+h}}\index{evel.\+h@{evel.\+h}!E\+V\+E\+L\+\_\+\+O\+U\+T\+\_\+\+O\+F\+\_\+\+M\+E\+M\+O\+R\+Y@{E\+V\+E\+L\+\_\+\+O\+U\+T\+\_\+\+O\+F\+\_\+\+M\+E\+M\+O\+R\+Y}}\item[{\em 
+\hypertarget{evel_8h_ae1f68b0d21fb98defcec46e99208a03eaf27b185433d0c906a6198b4b54b2a1cd}{}E\+V\+E\+L\+\_\+\+O\+U\+T\+\_\+\+O\+F\+\_\+\+M\+E\+M\+O\+R\+Y\label{evel_8h_ae1f68b0d21fb98defcec46e99208a03eaf27b185433d0c906a6198b4b54b2a1cd}
+}]A Posix threads operation failed. \index{E\+V\+E\+L\+\_\+\+E\+V\+E\+N\+T\+\_\+\+B\+U\+F\+F\+E\+R\+\_\+\+F\+U\+L\+L@{E\+V\+E\+L\+\_\+\+E\+V\+E\+N\+T\+\_\+\+B\+U\+F\+F\+E\+R\+\_\+\+F\+U\+L\+L}!evel.\+h@{evel.\+h}}\index{evel.\+h@{evel.\+h}!E\+V\+E\+L\+\_\+\+E\+V\+E\+N\+T\+\_\+\+B\+U\+F\+F\+E\+R\+\_\+\+F\+U\+L\+L@{E\+V\+E\+L\+\_\+\+E\+V\+E\+N\+T\+\_\+\+B\+U\+F\+F\+E\+R\+\_\+\+F\+U\+L\+L}}\item[{\em 
+\hypertarget{evel_8h_ae1f68b0d21fb98defcec46e99208a03ea2401ed782444534a05de4cf691dac954}{}E\+V\+E\+L\+\_\+\+E\+V\+E\+N\+T\+\_\+\+B\+U\+F\+F\+E\+R\+\_\+\+F\+U\+L\+L\label{evel_8h_ae1f68b0d21fb98defcec46e99208a03ea2401ed782444534a05de4cf691dac954}
+}]A memory allocation failure occurred. \index{E\+V\+E\+L\+\_\+\+E\+V\+E\+N\+T\+\_\+\+H\+A\+N\+D\+L\+E\+R\+\_\+\+I\+N\+A\+C\+T\+I\+V\+E@{E\+V\+E\+L\+\_\+\+E\+V\+E\+N\+T\+\_\+\+H\+A\+N\+D\+L\+E\+R\+\_\+\+I\+N\+A\+C\+T\+I\+V\+E}!evel.\+h@{evel.\+h}}\index{evel.\+h@{evel.\+h}!E\+V\+E\+L\+\_\+\+E\+V\+E\+N\+T\+\_\+\+H\+A\+N\+D\+L\+E\+R\+\_\+\+I\+N\+A\+C\+T\+I\+V\+E@{E\+V\+E\+L\+\_\+\+E\+V\+E\+N\+T\+\_\+\+H\+A\+N\+D\+L\+E\+R\+\_\+\+I\+N\+A\+C\+T\+I\+V\+E}}\item[{\em 
+\hypertarget{evel_8h_ae1f68b0d21fb98defcec46e99208a03eab50e0548b5892cd9fd3efa6a5217739f}{}E\+V\+E\+L\+\_\+\+E\+V\+E\+N\+T\+\_\+\+H\+A\+N\+D\+L\+E\+R\+\_\+\+I\+N\+A\+C\+T\+I\+V\+E\label{evel_8h_ae1f68b0d21fb98defcec46e99208a03eab50e0548b5892cd9fd3efa6a5217739f}
+}]Too many events in the ring-\/buffer. \index{E\+V\+E\+L\+\_\+\+N\+O\+\_\+\+M\+E\+T\+A\+D\+A\+T\+A@{E\+V\+E\+L\+\_\+\+N\+O\+\_\+\+M\+E\+T\+A\+D\+A\+T\+A}!evel.\+h@{evel.\+h}}\index{evel.\+h@{evel.\+h}!E\+V\+E\+L\+\_\+\+N\+O\+\_\+\+M\+E\+T\+A\+D\+A\+T\+A@{E\+V\+E\+L\+\_\+\+N\+O\+\_\+\+M\+E\+T\+A\+D\+A\+T\+A}}\item[{\em 
+\hypertarget{evel_8h_ae1f68b0d21fb98defcec46e99208a03eade614d509d5fc71638ff6b3fb1d64c0a}{}E\+V\+E\+L\+\_\+\+N\+O\+\_\+\+M\+E\+T\+A\+D\+A\+T\+A\label{evel_8h_ae1f68b0d21fb98defcec46e99208a03eade614d509d5fc71638ff6b3fb1d64c0a}
+}]Attempt to raise event when inactive. \index{E\+V\+E\+L\+\_\+\+B\+A\+D\+\_\+\+M\+E\+T\+A\+D\+A\+T\+A@{E\+V\+E\+L\+\_\+\+B\+A\+D\+\_\+\+M\+E\+T\+A\+D\+A\+T\+A}!evel.\+h@{evel.\+h}}\index{evel.\+h@{evel.\+h}!E\+V\+E\+L\+\_\+\+B\+A\+D\+\_\+\+M\+E\+T\+A\+D\+A\+T\+A@{E\+V\+E\+L\+\_\+\+B\+A\+D\+\_\+\+M\+E\+T\+A\+D\+A\+T\+A}}\item[{\em 
+\hypertarget{evel_8h_ae1f68b0d21fb98defcec46e99208a03ea43707bf23ae39011c5564a90aa16712c}{}E\+V\+E\+L\+\_\+\+B\+A\+D\+\_\+\+M\+E\+T\+A\+D\+A\+T\+A\label{evel_8h_ae1f68b0d21fb98defcec46e99208a03ea43707bf23ae39011c5564a90aa16712c}
+}]Failed to retrieve Open\+Stack metadata. \index{E\+V\+E\+L\+\_\+\+B\+A\+D\+\_\+\+J\+S\+O\+N\+\_\+\+F\+O\+R\+M\+A\+T@{E\+V\+E\+L\+\_\+\+B\+A\+D\+\_\+\+J\+S\+O\+N\+\_\+\+F\+O\+R\+M\+A\+T}!evel.\+h@{evel.\+h}}\index{evel.\+h@{evel.\+h}!E\+V\+E\+L\+\_\+\+B\+A\+D\+\_\+\+J\+S\+O\+N\+\_\+\+F\+O\+R\+M\+A\+T@{E\+V\+E\+L\+\_\+\+B\+A\+D\+\_\+\+J\+S\+O\+N\+\_\+\+F\+O\+R\+M\+A\+T}}\item[{\em 
+\hypertarget{evel_8h_ae1f68b0d21fb98defcec46e99208a03ea43d3be73d77d7068283b7ac137e9cb75}{}E\+V\+E\+L\+\_\+\+B\+A\+D\+\_\+\+J\+S\+O\+N\+\_\+\+F\+O\+R\+M\+A\+T\label{evel_8h_ae1f68b0d21fb98defcec46e99208a03ea43d3be73d77d7068283b7ac137e9cb75}
+}]Open\+Stack metadata invalid format. \index{E\+V\+E\+L\+\_\+\+J\+S\+O\+N\+\_\+\+K\+E\+Y\+\_\+\+N\+O\+T\+\_\+\+F\+O\+U\+N\+D@{E\+V\+E\+L\+\_\+\+J\+S\+O\+N\+\_\+\+K\+E\+Y\+\_\+\+N\+O\+T\+\_\+\+F\+O\+U\+N\+D}!evel.\+h@{evel.\+h}}\index{evel.\+h@{evel.\+h}!E\+V\+E\+L\+\_\+\+J\+S\+O\+N\+\_\+\+K\+E\+Y\+\_\+\+N\+O\+T\+\_\+\+F\+O\+U\+N\+D@{E\+V\+E\+L\+\_\+\+J\+S\+O\+N\+\_\+\+K\+E\+Y\+\_\+\+N\+O\+T\+\_\+\+F\+O\+U\+N\+D}}\item[{\em 
+\hypertarget{evel_8h_ae1f68b0d21fb98defcec46e99208a03eaa504f42b7c77b74786da043fa4142411}{}E\+V\+E\+L\+\_\+\+J\+S\+O\+N\+\_\+\+K\+E\+Y\+\_\+\+N\+O\+T\+\_\+\+F\+O\+U\+N\+D\label{evel_8h_ae1f68b0d21fb98defcec46e99208a03eaa504f42b7c77b74786da043fa4142411}
+}]J\+S\+O\+N failed to parse correctly. \index{E\+V\+E\+L\+\_\+\+M\+A\+X\+\_\+\+E\+R\+R\+O\+R\+\_\+\+C\+O\+D\+E\+S@{E\+V\+E\+L\+\_\+\+M\+A\+X\+\_\+\+E\+R\+R\+O\+R\+\_\+\+C\+O\+D\+E\+S}!evel.\+h@{evel.\+h}}\index{evel.\+h@{evel.\+h}!E\+V\+E\+L\+\_\+\+M\+A\+X\+\_\+\+E\+R\+R\+O\+R\+\_\+\+C\+O\+D\+E\+S@{E\+V\+E\+L\+\_\+\+M\+A\+X\+\_\+\+E\+R\+R\+O\+R\+\_\+\+C\+O\+D\+E\+S}}\item[{\em 
+\hypertarget{evel_8h_ae1f68b0d21fb98defcec46e99208a03ea1bfdfd789d66f55609f2ae289cdc0ef4}{}E\+V\+E\+L\+\_\+\+M\+A\+X\+\_\+\+E\+R\+R\+O\+R\+\_\+\+C\+O\+D\+E\+S\label{evel_8h_ae1f68b0d21fb98defcec46e99208a03ea1bfdfd789d66f55609f2ae289cdc0ef4}
+}]Failed to find the specified J\+S\+O\+N key. Maximum number of valid error codes. \end{description}
+\end{Desc}
+
+
+Definition at line 61 of file evel.\+h.
+
+\hypertarget{evel_8h_ac34d44f4f90f2b63828a32ca9c7b0855}{}\index{evel.\+h@{evel.\+h}!E\+V\+E\+L\+\_\+\+E\+V\+E\+N\+T\+\_\+\+D\+O\+M\+A\+I\+N\+S@{E\+V\+E\+L\+\_\+\+E\+V\+E\+N\+T\+\_\+\+D\+O\+M\+A\+I\+N\+S}}
+\index{E\+V\+E\+L\+\_\+\+E\+V\+E\+N\+T\+\_\+\+D\+O\+M\+A\+I\+N\+S@{E\+V\+E\+L\+\_\+\+E\+V\+E\+N\+T\+\_\+\+D\+O\+M\+A\+I\+N\+S}!evel.\+h@{evel.\+h}}
+\subsubsection[{E\+V\+E\+L\+\_\+\+E\+V\+E\+N\+T\+\_\+\+D\+O\+M\+A\+I\+N\+S}]{\setlength{\rightskip}{0pt plus 5cm}enum {\bf E\+V\+E\+L\+\_\+\+E\+V\+E\+N\+T\+\_\+\+D\+O\+M\+A\+I\+N\+S}}\label{evel_8h_ac34d44f4f90f2b63828a32ca9c7b0855}
+
+
+Event domains for the various events we support. 
+
+J\+S\+O\+N equivalent field\+: domain \begin{Desc}
+\item[Enumerator]\par
+\begin{description}
+\index{E\+V\+E\+L\+\_\+\+D\+O\+M\+A\+I\+N\+\_\+\+I\+N\+T\+E\+R\+N\+A\+L@{E\+V\+E\+L\+\_\+\+D\+O\+M\+A\+I\+N\+\_\+\+I\+N\+T\+E\+R\+N\+A\+L}!evel.\+h@{evel.\+h}}\index{evel.\+h@{evel.\+h}!E\+V\+E\+L\+\_\+\+D\+O\+M\+A\+I\+N\+\_\+\+I\+N\+T\+E\+R\+N\+A\+L@{E\+V\+E\+L\+\_\+\+D\+O\+M\+A\+I\+N\+\_\+\+I\+N\+T\+E\+R\+N\+A\+L}}\item[{\em 
+\hypertarget{evel_8h_ac34d44f4f90f2b63828a32ca9c7b0855a16b7de49abfbb91a20ea7a4fec47539f}{}E\+V\+E\+L\+\_\+\+D\+O\+M\+A\+I\+N\+\_\+\+I\+N\+T\+E\+R\+N\+A\+L\label{evel_8h_ac34d44f4f90f2b63828a32ca9c7b0855a16b7de49abfbb91a20ea7a4fec47539f}
+}]\index{E\+V\+E\+L\+\_\+\+D\+O\+M\+A\+I\+N\+\_\+\+H\+E\+A\+R\+T\+B\+E\+A\+T@{E\+V\+E\+L\+\_\+\+D\+O\+M\+A\+I\+N\+\_\+\+H\+E\+A\+R\+T\+B\+E\+A\+T}!evel.\+h@{evel.\+h}}\index{evel.\+h@{evel.\+h}!E\+V\+E\+L\+\_\+\+D\+O\+M\+A\+I\+N\+\_\+\+H\+E\+A\+R\+T\+B\+E\+A\+T@{E\+V\+E\+L\+\_\+\+D\+O\+M\+A\+I\+N\+\_\+\+H\+E\+A\+R\+T\+B\+E\+A\+T}}\item[{\em 
+\hypertarget{evel_8h_ac34d44f4f90f2b63828a32ca9c7b0855a1a342e3edf884a028a7dae9397f614c6}{}E\+V\+E\+L\+\_\+\+D\+O\+M\+A\+I\+N\+\_\+\+H\+E\+A\+R\+T\+B\+E\+A\+T\label{evel_8h_ac34d44f4f90f2b63828a32ca9c7b0855a1a342e3edf884a028a7dae9397f614c6}
+}]Internal event, not for external routing. \index{E\+V\+E\+L\+\_\+\+D\+O\+M\+A\+I\+N\+\_\+\+F\+A\+U\+L\+T@{E\+V\+E\+L\+\_\+\+D\+O\+M\+A\+I\+N\+\_\+\+F\+A\+U\+L\+T}!evel.\+h@{evel.\+h}}\index{evel.\+h@{evel.\+h}!E\+V\+E\+L\+\_\+\+D\+O\+M\+A\+I\+N\+\_\+\+F\+A\+U\+L\+T@{E\+V\+E\+L\+\_\+\+D\+O\+M\+A\+I\+N\+\_\+\+F\+A\+U\+L\+T}}\item[{\em 
+\hypertarget{evel_8h_ac34d44f4f90f2b63828a32ca9c7b0855aea5380216fcdbd91bff91894a6213507}{}E\+V\+E\+L\+\_\+\+D\+O\+M\+A\+I\+N\+\_\+\+F\+A\+U\+L\+T\label{evel_8h_ac34d44f4f90f2b63828a32ca9c7b0855aea5380216fcdbd91bff91894a6213507}
+}]A Heartbeat event (event header only). \index{E\+V\+E\+L\+\_\+\+D\+O\+M\+A\+I\+N\+\_\+\+M\+E\+A\+S\+U\+R\+E\+M\+E\+N\+T@{E\+V\+E\+L\+\_\+\+D\+O\+M\+A\+I\+N\+\_\+\+M\+E\+A\+S\+U\+R\+E\+M\+E\+N\+T}!evel.\+h@{evel.\+h}}\index{evel.\+h@{evel.\+h}!E\+V\+E\+L\+\_\+\+D\+O\+M\+A\+I\+N\+\_\+\+M\+E\+A\+S\+U\+R\+E\+M\+E\+N\+T@{E\+V\+E\+L\+\_\+\+D\+O\+M\+A\+I\+N\+\_\+\+M\+E\+A\+S\+U\+R\+E\+M\+E\+N\+T}}\item[{\em 
+\hypertarget{evel_8h_ac34d44f4f90f2b63828a32ca9c7b0855a2896cf74a464dc46e279b157faa640f2}{}E\+V\+E\+L\+\_\+\+D\+O\+M\+A\+I\+N\+\_\+\+M\+E\+A\+S\+U\+R\+E\+M\+E\+N\+T\label{evel_8h_ac34d44f4f90f2b63828a32ca9c7b0855a2896cf74a464dc46e279b157faa640f2}
+}]A Fault event. \index{E\+V\+E\+L\+\_\+\+D\+O\+M\+A\+I\+N\+\_\+\+R\+E\+P\+O\+R\+T@{E\+V\+E\+L\+\_\+\+D\+O\+M\+A\+I\+N\+\_\+\+R\+E\+P\+O\+R\+T}!evel.\+h@{evel.\+h}}\index{evel.\+h@{evel.\+h}!E\+V\+E\+L\+\_\+\+D\+O\+M\+A\+I\+N\+\_\+\+R\+E\+P\+O\+R\+T@{E\+V\+E\+L\+\_\+\+D\+O\+M\+A\+I\+N\+\_\+\+R\+E\+P\+O\+R\+T}}\item[{\em 
+\hypertarget{evel_8h_ac34d44f4f90f2b63828a32ca9c7b0855a3fdd0ed0f8ff9e37dfe658726e72d424}{}E\+V\+E\+L\+\_\+\+D\+O\+M\+A\+I\+N\+\_\+\+R\+E\+P\+O\+R\+T\label{evel_8h_ac34d44f4f90f2b63828a32ca9c7b0855a3fdd0ed0f8ff9e37dfe658726e72d424}
+}]A Measurement for V\+F Scaling event. \index{E\+V\+E\+L\+\_\+\+M\+A\+X\+\_\+\+D\+O\+M\+A\+I\+N\+S@{E\+V\+E\+L\+\_\+\+M\+A\+X\+\_\+\+D\+O\+M\+A\+I\+N\+S}!evel.\+h@{evel.\+h}}\index{evel.\+h@{evel.\+h}!E\+V\+E\+L\+\_\+\+M\+A\+X\+\_\+\+D\+O\+M\+A\+I\+N\+S@{E\+V\+E\+L\+\_\+\+M\+A\+X\+\_\+\+D\+O\+M\+A\+I\+N\+S}}\item[{\em 
+\hypertarget{evel_8h_ac34d44f4f90f2b63828a32ca9c7b0855af3c8438bdb4a5f76a74a5bbf4b3ddac1}{}E\+V\+E\+L\+\_\+\+M\+A\+X\+\_\+\+D\+O\+M\+A\+I\+N\+S\label{evel_8h_ac34d44f4f90f2b63828a32ca9c7b0855af3c8438bdb4a5f76a74a5bbf4b3ddac1}
+}]A Measurement for V\+F Reporting event. Maximum number of recognized Event types. \end{description}
+\end{Desc}
+
+
+Definition at line 113 of file evel.\+h.
+
+\hypertarget{evel_8h_ad1bf6807fa6710332251611207490484}{}\index{evel.\+h@{evel.\+h}!E\+V\+E\+L\+\_\+\+E\+V\+E\+N\+T\+\_\+\+P\+R\+I\+O\+R\+I\+T\+I\+E\+S@{E\+V\+E\+L\+\_\+\+E\+V\+E\+N\+T\+\_\+\+P\+R\+I\+O\+R\+I\+T\+I\+E\+S}}
+\index{E\+V\+E\+L\+\_\+\+E\+V\+E\+N\+T\+\_\+\+P\+R\+I\+O\+R\+I\+T\+I\+E\+S@{E\+V\+E\+L\+\_\+\+E\+V\+E\+N\+T\+\_\+\+P\+R\+I\+O\+R\+I\+T\+I\+E\+S}!evel.\+h@{evel.\+h}}
+\subsubsection[{E\+V\+E\+L\+\_\+\+E\+V\+E\+N\+T\+\_\+\+P\+R\+I\+O\+R\+I\+T\+I\+E\+S}]{\setlength{\rightskip}{0pt plus 5cm}enum {\bf E\+V\+E\+L\+\_\+\+E\+V\+E\+N\+T\+\_\+\+P\+R\+I\+O\+R\+I\+T\+I\+E\+S}}\label{evel_8h_ad1bf6807fa6710332251611207490484}
+
+
+Event priorities. 
+
+J\+S\+O\+N equivalent field\+: priority \begin{Desc}
+\item[Enumerator]\par
+\begin{description}
+\index{E\+V\+E\+L\+\_\+\+P\+R\+I\+O\+R\+I\+T\+Y\+\_\+\+H\+I\+G\+H@{E\+V\+E\+L\+\_\+\+P\+R\+I\+O\+R\+I\+T\+Y\+\_\+\+H\+I\+G\+H}!evel.\+h@{evel.\+h}}\index{evel.\+h@{evel.\+h}!E\+V\+E\+L\+\_\+\+P\+R\+I\+O\+R\+I\+T\+Y\+\_\+\+H\+I\+G\+H@{E\+V\+E\+L\+\_\+\+P\+R\+I\+O\+R\+I\+T\+Y\+\_\+\+H\+I\+G\+H}}\item[{\em 
+\hypertarget{evel_8h_ad1bf6807fa6710332251611207490484a9ca8679ac6e04e9ce343f07df89cb6a8}{}E\+V\+E\+L\+\_\+\+P\+R\+I\+O\+R\+I\+T\+Y\+\_\+\+H\+I\+G\+H\label{evel_8h_ad1bf6807fa6710332251611207490484a9ca8679ac6e04e9ce343f07df89cb6a8}
+}]\index{E\+V\+E\+L\+\_\+\+P\+R\+I\+O\+R\+I\+T\+Y\+\_\+\+M\+E\+D\+I\+U\+M@{E\+V\+E\+L\+\_\+\+P\+R\+I\+O\+R\+I\+T\+Y\+\_\+\+M\+E\+D\+I\+U\+M}!evel.\+h@{evel.\+h}}\index{evel.\+h@{evel.\+h}!E\+V\+E\+L\+\_\+\+P\+R\+I\+O\+R\+I\+T\+Y\+\_\+\+M\+E\+D\+I\+U\+M@{E\+V\+E\+L\+\_\+\+P\+R\+I\+O\+R\+I\+T\+Y\+\_\+\+M\+E\+D\+I\+U\+M}}\item[{\em 
+\hypertarget{evel_8h_ad1bf6807fa6710332251611207490484a73722126a006c19f6213abb51963e38c}{}E\+V\+E\+L\+\_\+\+P\+R\+I\+O\+R\+I\+T\+Y\+\_\+\+M\+E\+D\+I\+U\+M\label{evel_8h_ad1bf6807fa6710332251611207490484a73722126a006c19f6213abb51963e38c}
+}]\index{E\+V\+E\+L\+\_\+\+P\+R\+I\+O\+R\+I\+T\+Y\+\_\+\+N\+O\+R\+M\+A\+L@{E\+V\+E\+L\+\_\+\+P\+R\+I\+O\+R\+I\+T\+Y\+\_\+\+N\+O\+R\+M\+A\+L}!evel.\+h@{evel.\+h}}\index{evel.\+h@{evel.\+h}!E\+V\+E\+L\+\_\+\+P\+R\+I\+O\+R\+I\+T\+Y\+\_\+\+N\+O\+R\+M\+A\+L@{E\+V\+E\+L\+\_\+\+P\+R\+I\+O\+R\+I\+T\+Y\+\_\+\+N\+O\+R\+M\+A\+L}}\item[{\em 
+\hypertarget{evel_8h_ad1bf6807fa6710332251611207490484af656e2fbfee66b25faa06447799a9011}{}E\+V\+E\+L\+\_\+\+P\+R\+I\+O\+R\+I\+T\+Y\+\_\+\+N\+O\+R\+M\+A\+L\label{evel_8h_ad1bf6807fa6710332251611207490484af656e2fbfee66b25faa06447799a9011}
+}]\index{E\+V\+E\+L\+\_\+\+P\+R\+I\+O\+R\+I\+T\+Y\+\_\+\+L\+O\+W@{E\+V\+E\+L\+\_\+\+P\+R\+I\+O\+R\+I\+T\+Y\+\_\+\+L\+O\+W}!evel.\+h@{evel.\+h}}\index{evel.\+h@{evel.\+h}!E\+V\+E\+L\+\_\+\+P\+R\+I\+O\+R\+I\+T\+Y\+\_\+\+L\+O\+W@{E\+V\+E\+L\+\_\+\+P\+R\+I\+O\+R\+I\+T\+Y\+\_\+\+L\+O\+W}}\item[{\em 
+\hypertarget{evel_8h_ad1bf6807fa6710332251611207490484a04028d0c08a71443fe350bb6c4ca30cb}{}E\+V\+E\+L\+\_\+\+P\+R\+I\+O\+R\+I\+T\+Y\+\_\+\+L\+O\+W\label{evel_8h_ad1bf6807fa6710332251611207490484a04028d0c08a71443fe350bb6c4ca30cb}
+}]\index{E\+V\+E\+L\+\_\+\+M\+A\+X\+\_\+\+P\+R\+I\+O\+R\+I\+T\+I\+E\+S@{E\+V\+E\+L\+\_\+\+M\+A\+X\+\_\+\+P\+R\+I\+O\+R\+I\+T\+I\+E\+S}!evel.\+h@{evel.\+h}}\index{evel.\+h@{evel.\+h}!E\+V\+E\+L\+\_\+\+M\+A\+X\+\_\+\+P\+R\+I\+O\+R\+I\+T\+I\+E\+S@{E\+V\+E\+L\+\_\+\+M\+A\+X\+\_\+\+P\+R\+I\+O\+R\+I\+T\+I\+E\+S}}\item[{\em 
+\hypertarget{evel_8h_ad1bf6807fa6710332251611207490484acbd324a160f25da815ab22328a799cf6}{}E\+V\+E\+L\+\_\+\+M\+A\+X\+\_\+\+P\+R\+I\+O\+R\+I\+T\+I\+E\+S\label{evel_8h_ad1bf6807fa6710332251611207490484acbd324a160f25da815ab22328a799cf6}
+}]\end{description}
+\end{Desc}
+
+
+Definition at line 126 of file evel.\+h.
+
+\hypertarget{evel_8h_ac52696495e0b34b23a0726f467670d0f}{}\index{evel.\+h@{evel.\+h}!E\+V\+E\+L\+\_\+\+F\+A\+U\+L\+T\+\_\+\+S\+E\+V\+E\+R\+I\+T\+I\+E\+S@{E\+V\+E\+L\+\_\+\+F\+A\+U\+L\+T\+\_\+\+S\+E\+V\+E\+R\+I\+T\+I\+E\+S}}
+\index{E\+V\+E\+L\+\_\+\+F\+A\+U\+L\+T\+\_\+\+S\+E\+V\+E\+R\+I\+T\+I\+E\+S@{E\+V\+E\+L\+\_\+\+F\+A\+U\+L\+T\+\_\+\+S\+E\+V\+E\+R\+I\+T\+I\+E\+S}!evel.\+h@{evel.\+h}}
+\subsubsection[{E\+V\+E\+L\+\_\+\+F\+A\+U\+L\+T\+\_\+\+S\+E\+V\+E\+R\+I\+T\+I\+E\+S}]{\setlength{\rightskip}{0pt plus 5cm}enum {\bf E\+V\+E\+L\+\_\+\+F\+A\+U\+L\+T\+\_\+\+S\+E\+V\+E\+R\+I\+T\+I\+E\+S}}\label{evel_8h_ac52696495e0b34b23a0726f467670d0f}
+
+
+Fault severities. 
+
+J\+S\+O\+N equivalent field\+: event\+Severity \begin{Desc}
+\item[Enumerator]\par
+\begin{description}
+\index{E\+V\+E\+L\+\_\+\+S\+E\+V\+E\+R\+I\+T\+Y\+\_\+\+C\+R\+I\+T\+I\+C\+A\+L@{E\+V\+E\+L\+\_\+\+S\+E\+V\+E\+R\+I\+T\+Y\+\_\+\+C\+R\+I\+T\+I\+C\+A\+L}!evel.\+h@{evel.\+h}}\index{evel.\+h@{evel.\+h}!E\+V\+E\+L\+\_\+\+S\+E\+V\+E\+R\+I\+T\+Y\+\_\+\+C\+R\+I\+T\+I\+C\+A\+L@{E\+V\+E\+L\+\_\+\+S\+E\+V\+E\+R\+I\+T\+Y\+\_\+\+C\+R\+I\+T\+I\+C\+A\+L}}\item[{\em 
+\hypertarget{evel_8h_ac52696495e0b34b23a0726f467670d0fa87dd452011502f765328eca46ef0bd3e}{}E\+V\+E\+L\+\_\+\+S\+E\+V\+E\+R\+I\+T\+Y\+\_\+\+C\+R\+I\+T\+I\+C\+A\+L\label{evel_8h_ac52696495e0b34b23a0726f467670d0fa87dd452011502f765328eca46ef0bd3e}
+}]\index{E\+V\+E\+L\+\_\+\+S\+E\+V\+E\+R\+I\+T\+Y\+\_\+\+M\+A\+J\+O\+R@{E\+V\+E\+L\+\_\+\+S\+E\+V\+E\+R\+I\+T\+Y\+\_\+\+M\+A\+J\+O\+R}!evel.\+h@{evel.\+h}}\index{evel.\+h@{evel.\+h}!E\+V\+E\+L\+\_\+\+S\+E\+V\+E\+R\+I\+T\+Y\+\_\+\+M\+A\+J\+O\+R@{E\+V\+E\+L\+\_\+\+S\+E\+V\+E\+R\+I\+T\+Y\+\_\+\+M\+A\+J\+O\+R}}\item[{\em 
+\hypertarget{evel_8h_ac52696495e0b34b23a0726f467670d0fac454e36d0a4678cd7ae2de725f513b61}{}E\+V\+E\+L\+\_\+\+S\+E\+V\+E\+R\+I\+T\+Y\+\_\+\+M\+A\+J\+O\+R\label{evel_8h_ac52696495e0b34b23a0726f467670d0fac454e36d0a4678cd7ae2de725f513b61}
+}]\index{E\+V\+E\+L\+\_\+\+S\+E\+V\+E\+R\+I\+T\+Y\+\_\+\+M\+I\+N\+O\+R@{E\+V\+E\+L\+\_\+\+S\+E\+V\+E\+R\+I\+T\+Y\+\_\+\+M\+I\+N\+O\+R}!evel.\+h@{evel.\+h}}\index{evel.\+h@{evel.\+h}!E\+V\+E\+L\+\_\+\+S\+E\+V\+E\+R\+I\+T\+Y\+\_\+\+M\+I\+N\+O\+R@{E\+V\+E\+L\+\_\+\+S\+E\+V\+E\+R\+I\+T\+Y\+\_\+\+M\+I\+N\+O\+R}}\item[{\em 
+\hypertarget{evel_8h_ac52696495e0b34b23a0726f467670d0fa8dbfbe4eea1a357549569d2717e2fe1c}{}E\+V\+E\+L\+\_\+\+S\+E\+V\+E\+R\+I\+T\+Y\+\_\+\+M\+I\+N\+O\+R\label{evel_8h_ac52696495e0b34b23a0726f467670d0fa8dbfbe4eea1a357549569d2717e2fe1c}
+}]\index{E\+V\+E\+L\+\_\+\+S\+E\+V\+E\+R\+I\+T\+Y\+\_\+\+W\+A\+R\+N\+I\+N\+G@{E\+V\+E\+L\+\_\+\+S\+E\+V\+E\+R\+I\+T\+Y\+\_\+\+W\+A\+R\+N\+I\+N\+G}!evel.\+h@{evel.\+h}}\index{evel.\+h@{evel.\+h}!E\+V\+E\+L\+\_\+\+S\+E\+V\+E\+R\+I\+T\+Y\+\_\+\+W\+A\+R\+N\+I\+N\+G@{E\+V\+E\+L\+\_\+\+S\+E\+V\+E\+R\+I\+T\+Y\+\_\+\+W\+A\+R\+N\+I\+N\+G}}\item[{\em 
+\hypertarget{evel_8h_ac52696495e0b34b23a0726f467670d0fa9793081a0183d353293533a091cec1ba}{}E\+V\+E\+L\+\_\+\+S\+E\+V\+E\+R\+I\+T\+Y\+\_\+\+W\+A\+R\+N\+I\+N\+G\label{evel_8h_ac52696495e0b34b23a0726f467670d0fa9793081a0183d353293533a091cec1ba}
+}]\index{E\+V\+E\+L\+\_\+\+S\+E\+V\+E\+R\+I\+T\+Y\+\_\+\+N\+O\+R\+M\+A\+L@{E\+V\+E\+L\+\_\+\+S\+E\+V\+E\+R\+I\+T\+Y\+\_\+\+N\+O\+R\+M\+A\+L}!evel.\+h@{evel.\+h}}\index{evel.\+h@{evel.\+h}!E\+V\+E\+L\+\_\+\+S\+E\+V\+E\+R\+I\+T\+Y\+\_\+\+N\+O\+R\+M\+A\+L@{E\+V\+E\+L\+\_\+\+S\+E\+V\+E\+R\+I\+T\+Y\+\_\+\+N\+O\+R\+M\+A\+L}}\item[{\em 
+\hypertarget{evel_8h_ac52696495e0b34b23a0726f467670d0faddb015c93d06085b95391d1acf03be1c}{}E\+V\+E\+L\+\_\+\+S\+E\+V\+E\+R\+I\+T\+Y\+\_\+\+N\+O\+R\+M\+A\+L\label{evel_8h_ac52696495e0b34b23a0726f467670d0faddb015c93d06085b95391d1acf03be1c}
+}]\index{E\+V\+E\+L\+\_\+\+M\+A\+X\+\_\+\+S\+E\+V\+E\+R\+I\+T\+I\+E\+S@{E\+V\+E\+L\+\_\+\+M\+A\+X\+\_\+\+S\+E\+V\+E\+R\+I\+T\+I\+E\+S}!evel.\+h@{evel.\+h}}\index{evel.\+h@{evel.\+h}!E\+V\+E\+L\+\_\+\+M\+A\+X\+\_\+\+S\+E\+V\+E\+R\+I\+T\+I\+E\+S@{E\+V\+E\+L\+\_\+\+M\+A\+X\+\_\+\+S\+E\+V\+E\+R\+I\+T\+I\+E\+S}}\item[{\em 
+\hypertarget{evel_8h_ac52696495e0b34b23a0726f467670d0faa5b1a3cd0d3feb86ce3d032b368a5f27}{}E\+V\+E\+L\+\_\+\+M\+A\+X\+\_\+\+S\+E\+V\+E\+R\+I\+T\+I\+E\+S\label{evel_8h_ac52696495e0b34b23a0726f467670d0faa5b1a3cd0d3feb86ce3d032b368a5f27}
+}]\end{description}
+\end{Desc}
+
+
+Definition at line 138 of file evel.\+h.
+
+\hypertarget{evel_8h_a802542777d6cfd68dfdcbd50690e015f}{}\index{evel.\+h@{evel.\+h}!E\+V\+E\+L\+\_\+\+L\+O\+G\+\_\+\+L\+E\+V\+E\+L\+S@{E\+V\+E\+L\+\_\+\+L\+O\+G\+\_\+\+L\+E\+V\+E\+L\+S}}
+\index{E\+V\+E\+L\+\_\+\+L\+O\+G\+\_\+\+L\+E\+V\+E\+L\+S@{E\+V\+E\+L\+\_\+\+L\+O\+G\+\_\+\+L\+E\+V\+E\+L\+S}!evel.\+h@{evel.\+h}}
+\subsubsection[{E\+V\+E\+L\+\_\+\+L\+O\+G\+\_\+\+L\+E\+V\+E\+L\+S}]{\setlength{\rightskip}{0pt plus 5cm}enum {\bf E\+V\+E\+L\+\_\+\+L\+O\+G\+\_\+\+L\+E\+V\+E\+L\+S}}\label{evel_8h_a802542777d6cfd68dfdcbd50690e015f}
+
+
+Logging levels. 
+
+Variable levels of verbosity in the logging functions. \begin{Desc}
+\item[Enumerator]\par
+\begin{description}
+\index{E\+V\+E\+L\+\_\+\+L\+O\+G\+\_\+\+M\+I\+N@{E\+V\+E\+L\+\_\+\+L\+O\+G\+\_\+\+M\+I\+N}!evel.\+h@{evel.\+h}}\index{evel.\+h@{evel.\+h}!E\+V\+E\+L\+\_\+\+L\+O\+G\+\_\+\+M\+I\+N@{E\+V\+E\+L\+\_\+\+L\+O\+G\+\_\+\+M\+I\+N}}\item[{\em 
+\hypertarget{evel_8h_a802542777d6cfd68dfdcbd50690e015fa2e102f7ef5728e507da217e09b6171b3}{}E\+V\+E\+L\+\_\+\+L\+O\+G\+\_\+\+M\+I\+N\label{evel_8h_a802542777d6cfd68dfdcbd50690e015fa2e102f7ef5728e507da217e09b6171b3}
+}]\index{E\+V\+E\+L\+\_\+\+L\+O\+G\+\_\+\+S\+P\+A\+M\+M\+Y@{E\+V\+E\+L\+\_\+\+L\+O\+G\+\_\+\+S\+P\+A\+M\+M\+Y}!evel.\+h@{evel.\+h}}\index{evel.\+h@{evel.\+h}!E\+V\+E\+L\+\_\+\+L\+O\+G\+\_\+\+S\+P\+A\+M\+M\+Y@{E\+V\+E\+L\+\_\+\+L\+O\+G\+\_\+\+S\+P\+A\+M\+M\+Y}}\item[{\em 
+\hypertarget{evel_8h_a802542777d6cfd68dfdcbd50690e015fa51863fe10cc6a0f20572cbdc6342a69e}{}E\+V\+E\+L\+\_\+\+L\+O\+G\+\_\+\+S\+P\+A\+M\+M\+Y\label{evel_8h_a802542777d6cfd68dfdcbd50690e015fa51863fe10cc6a0f20572cbdc6342a69e}
+}]\index{E\+V\+E\+L\+\_\+\+L\+O\+G\+\_\+\+D\+E\+B\+U\+G@{E\+V\+E\+L\+\_\+\+L\+O\+G\+\_\+\+D\+E\+B\+U\+G}!evel.\+h@{evel.\+h}}\index{evel.\+h@{evel.\+h}!E\+V\+E\+L\+\_\+\+L\+O\+G\+\_\+\+D\+E\+B\+U\+G@{E\+V\+E\+L\+\_\+\+L\+O\+G\+\_\+\+D\+E\+B\+U\+G}}\item[{\em 
+\hypertarget{evel_8h_a802542777d6cfd68dfdcbd50690e015fa0a79512b4640fd2dbe4130b4556a8239}{}E\+V\+E\+L\+\_\+\+L\+O\+G\+\_\+\+D\+E\+B\+U\+G\label{evel_8h_a802542777d6cfd68dfdcbd50690e015fa0a79512b4640fd2dbe4130b4556a8239}
+}]\index{E\+V\+E\+L\+\_\+\+L\+O\+G\+\_\+\+I\+N\+F\+O@{E\+V\+E\+L\+\_\+\+L\+O\+G\+\_\+\+I\+N\+F\+O}!evel.\+h@{evel.\+h}}\index{evel.\+h@{evel.\+h}!E\+V\+E\+L\+\_\+\+L\+O\+G\+\_\+\+I\+N\+F\+O@{E\+V\+E\+L\+\_\+\+L\+O\+G\+\_\+\+I\+N\+F\+O}}\item[{\em 
+\hypertarget{evel_8h_a802542777d6cfd68dfdcbd50690e015fa406d5d2f7204cce413b8f65faf12ba22}{}E\+V\+E\+L\+\_\+\+L\+O\+G\+\_\+\+I\+N\+F\+O\label{evel_8h_a802542777d6cfd68dfdcbd50690e015fa406d5d2f7204cce413b8f65faf12ba22}
+}]\index{E\+V\+E\+L\+\_\+\+L\+O\+G\+\_\+\+E\+R\+R\+O\+R@{E\+V\+E\+L\+\_\+\+L\+O\+G\+\_\+\+E\+R\+R\+O\+R}!evel.\+h@{evel.\+h}}\index{evel.\+h@{evel.\+h}!E\+V\+E\+L\+\_\+\+L\+O\+G\+\_\+\+E\+R\+R\+O\+R@{E\+V\+E\+L\+\_\+\+L\+O\+G\+\_\+\+E\+R\+R\+O\+R}}\item[{\em 
+\hypertarget{evel_8h_a802542777d6cfd68dfdcbd50690e015faa042043a6738bd6d14659969089aa4f1}{}E\+V\+E\+L\+\_\+\+L\+O\+G\+\_\+\+E\+R\+R\+O\+R\label{evel_8h_a802542777d6cfd68dfdcbd50690e015faa042043a6738bd6d14659969089aa4f1}
+}]\index{E\+V\+E\+L\+\_\+\+L\+O\+G\+\_\+\+M\+A\+X@{E\+V\+E\+L\+\_\+\+L\+O\+G\+\_\+\+M\+A\+X}!evel.\+h@{evel.\+h}}\index{evel.\+h@{evel.\+h}!E\+V\+E\+L\+\_\+\+L\+O\+G\+\_\+\+M\+A\+X@{E\+V\+E\+L\+\_\+\+L\+O\+G\+\_\+\+M\+A\+X}}\item[{\em 
+\hypertarget{evel_8h_a802542777d6cfd68dfdcbd50690e015fa5ca6941566c5bfc610235caff2e035bf}{}E\+V\+E\+L\+\_\+\+L\+O\+G\+\_\+\+M\+A\+X\label{evel_8h_a802542777d6cfd68dfdcbd50690e015fa5ca6941566c5bfc610235caff2e035bf}
+}]\end{description}
+\end{Desc}
+
+
+Definition at line 81 of file evel.\+h.
+
+\hypertarget{evel_8h_a304eae0d024005dc4c7031bdd774d64a}{}\index{evel.\+h@{evel.\+h}!E\+V\+E\+L\+\_\+\+S\+O\+U\+R\+C\+E\+\_\+\+T\+Y\+P\+E\+S@{E\+V\+E\+L\+\_\+\+S\+O\+U\+R\+C\+E\+\_\+\+T\+Y\+P\+E\+S}}
+\index{E\+V\+E\+L\+\_\+\+S\+O\+U\+R\+C\+E\+\_\+\+T\+Y\+P\+E\+S@{E\+V\+E\+L\+\_\+\+S\+O\+U\+R\+C\+E\+\_\+\+T\+Y\+P\+E\+S}!evel.\+h@{evel.\+h}}
+\subsubsection[{E\+V\+E\+L\+\_\+\+S\+O\+U\+R\+C\+E\+\_\+\+T\+Y\+P\+E\+S}]{\setlength{\rightskip}{0pt plus 5cm}enum {\bf E\+V\+E\+L\+\_\+\+S\+O\+U\+R\+C\+E\+\_\+\+T\+Y\+P\+E\+S}}\label{evel_8h_a304eae0d024005dc4c7031bdd774d64a}
+
+
+Fault source types. 
+
+J\+S\+O\+N equivalent field\+: event\+Source\+Type \begin{Desc}
+\item[Enumerator]\par
+\begin{description}
+\index{E\+V\+E\+L\+\_\+\+S\+O\+U\+R\+C\+E\+\_\+\+O\+T\+H\+E\+R@{E\+V\+E\+L\+\_\+\+S\+O\+U\+R\+C\+E\+\_\+\+O\+T\+H\+E\+R}!evel.\+h@{evel.\+h}}\index{evel.\+h@{evel.\+h}!E\+V\+E\+L\+\_\+\+S\+O\+U\+R\+C\+E\+\_\+\+O\+T\+H\+E\+R@{E\+V\+E\+L\+\_\+\+S\+O\+U\+R\+C\+E\+\_\+\+O\+T\+H\+E\+R}}\item[{\em 
+\hypertarget{evel_8h_a304eae0d024005dc4c7031bdd774d64aadc8b7b3ef026dad722708d17d5c4e466}{}E\+V\+E\+L\+\_\+\+S\+O\+U\+R\+C\+E\+\_\+\+O\+T\+H\+E\+R\label{evel_8h_a304eae0d024005dc4c7031bdd774d64aadc8b7b3ef026dad722708d17d5c4e466}
+}]\index{E\+V\+E\+L\+\_\+\+S\+O\+U\+R\+C\+E\+\_\+\+R\+O\+U\+T\+E\+R@{E\+V\+E\+L\+\_\+\+S\+O\+U\+R\+C\+E\+\_\+\+R\+O\+U\+T\+E\+R}!evel.\+h@{evel.\+h}}\index{evel.\+h@{evel.\+h}!E\+V\+E\+L\+\_\+\+S\+O\+U\+R\+C\+E\+\_\+\+R\+O\+U\+T\+E\+R@{E\+V\+E\+L\+\_\+\+S\+O\+U\+R\+C\+E\+\_\+\+R\+O\+U\+T\+E\+R}}\item[{\em 
+\hypertarget{evel_8h_a304eae0d024005dc4c7031bdd774d64aa39ea5af1cac8d636f12f00ed05507a8d}{}E\+V\+E\+L\+\_\+\+S\+O\+U\+R\+C\+E\+\_\+\+R\+O\+U\+T\+E\+R\label{evel_8h_a304eae0d024005dc4c7031bdd774d64aa39ea5af1cac8d636f12f00ed05507a8d}
+}]\index{E\+V\+E\+L\+\_\+\+S\+O\+U\+R\+C\+E\+\_\+\+S\+W\+I\+T\+C\+H@{E\+V\+E\+L\+\_\+\+S\+O\+U\+R\+C\+E\+\_\+\+S\+W\+I\+T\+C\+H}!evel.\+h@{evel.\+h}}\index{evel.\+h@{evel.\+h}!E\+V\+E\+L\+\_\+\+S\+O\+U\+R\+C\+E\+\_\+\+S\+W\+I\+T\+C\+H@{E\+V\+E\+L\+\_\+\+S\+O\+U\+R\+C\+E\+\_\+\+S\+W\+I\+T\+C\+H}}\item[{\em 
+\hypertarget{evel_8h_a304eae0d024005dc4c7031bdd774d64aa33ec05d86454f1dcc07b12b37eb68c52}{}E\+V\+E\+L\+\_\+\+S\+O\+U\+R\+C\+E\+\_\+\+S\+W\+I\+T\+C\+H\label{evel_8h_a304eae0d024005dc4c7031bdd774d64aa33ec05d86454f1dcc07b12b37eb68c52}
+}]\index{E\+V\+E\+L\+\_\+\+S\+O\+U\+R\+C\+E\+\_\+\+H\+O\+S\+T@{E\+V\+E\+L\+\_\+\+S\+O\+U\+R\+C\+E\+\_\+\+H\+O\+S\+T}!evel.\+h@{evel.\+h}}\index{evel.\+h@{evel.\+h}!E\+V\+E\+L\+\_\+\+S\+O\+U\+R\+C\+E\+\_\+\+H\+O\+S\+T@{E\+V\+E\+L\+\_\+\+S\+O\+U\+R\+C\+E\+\_\+\+H\+O\+S\+T}}\item[{\em 
+\hypertarget{evel_8h_a304eae0d024005dc4c7031bdd774d64aa7cbc687ad4b43a1797a158d58a021619}{}E\+V\+E\+L\+\_\+\+S\+O\+U\+R\+C\+E\+\_\+\+H\+O\+S\+T\label{evel_8h_a304eae0d024005dc4c7031bdd774d64aa7cbc687ad4b43a1797a158d58a021619}
+}]\index{E\+V\+E\+L\+\_\+\+S\+O\+U\+R\+C\+E\+\_\+\+C\+A\+R\+D@{E\+V\+E\+L\+\_\+\+S\+O\+U\+R\+C\+E\+\_\+\+C\+A\+R\+D}!evel.\+h@{evel.\+h}}\index{evel.\+h@{evel.\+h}!E\+V\+E\+L\+\_\+\+S\+O\+U\+R\+C\+E\+\_\+\+C\+A\+R\+D@{E\+V\+E\+L\+\_\+\+S\+O\+U\+R\+C\+E\+\_\+\+C\+A\+R\+D}}\item[{\em 
+\hypertarget{evel_8h_a304eae0d024005dc4c7031bdd774d64aa3a45cdf86d554ce4f85d709c05f5f5e2}{}E\+V\+E\+L\+\_\+\+S\+O\+U\+R\+C\+E\+\_\+\+C\+A\+R\+D\label{evel_8h_a304eae0d024005dc4c7031bdd774d64aa3a45cdf86d554ce4f85d709c05f5f5e2}
+}]\index{E\+V\+E\+L\+\_\+\+S\+O\+U\+R\+C\+E\+\_\+\+P\+O\+R\+T@{E\+V\+E\+L\+\_\+\+S\+O\+U\+R\+C\+E\+\_\+\+P\+O\+R\+T}!evel.\+h@{evel.\+h}}\index{evel.\+h@{evel.\+h}!E\+V\+E\+L\+\_\+\+S\+O\+U\+R\+C\+E\+\_\+\+P\+O\+R\+T@{E\+V\+E\+L\+\_\+\+S\+O\+U\+R\+C\+E\+\_\+\+P\+O\+R\+T}}\item[{\em 
+\hypertarget{evel_8h_a304eae0d024005dc4c7031bdd774d64aa5c4c73be30cb890ee2f27f7109204800}{}E\+V\+E\+L\+\_\+\+S\+O\+U\+R\+C\+E\+\_\+\+P\+O\+R\+T\label{evel_8h_a304eae0d024005dc4c7031bdd774d64aa5c4c73be30cb890ee2f27f7109204800}
+}]\index{E\+V\+E\+L\+\_\+\+S\+O\+U\+R\+C\+E\+\_\+\+S\+L\+O\+T\+\_\+\+T\+H\+R\+E\+S\+H\+O\+L\+D@{E\+V\+E\+L\+\_\+\+S\+O\+U\+R\+C\+E\+\_\+\+S\+L\+O\+T\+\_\+\+T\+H\+R\+E\+S\+H\+O\+L\+D}!evel.\+h@{evel.\+h}}\index{evel.\+h@{evel.\+h}!E\+V\+E\+L\+\_\+\+S\+O\+U\+R\+C\+E\+\_\+\+S\+L\+O\+T\+\_\+\+T\+H\+R\+E\+S\+H\+O\+L\+D@{E\+V\+E\+L\+\_\+\+S\+O\+U\+R\+C\+E\+\_\+\+S\+L\+O\+T\+\_\+\+T\+H\+R\+E\+S\+H\+O\+L\+D}}\item[{\em 
+\hypertarget{evel_8h_a304eae0d024005dc4c7031bdd774d64aad0398ab00e4cae1f825681c25bd95b92}{}E\+V\+E\+L\+\_\+\+S\+O\+U\+R\+C\+E\+\_\+\+S\+L\+O\+T\+\_\+\+T\+H\+R\+E\+S\+H\+O\+L\+D\label{evel_8h_a304eae0d024005dc4c7031bdd774d64aad0398ab00e4cae1f825681c25bd95b92}
+}]\index{E\+V\+E\+L\+\_\+\+S\+O\+U\+R\+C\+E\+\_\+\+P\+O\+R\+T\+\_\+\+T\+H\+R\+E\+S\+H\+O\+L\+D@{E\+V\+E\+L\+\_\+\+S\+O\+U\+R\+C\+E\+\_\+\+P\+O\+R\+T\+\_\+\+T\+H\+R\+E\+S\+H\+O\+L\+D}!evel.\+h@{evel.\+h}}\index{evel.\+h@{evel.\+h}!E\+V\+E\+L\+\_\+\+S\+O\+U\+R\+C\+E\+\_\+\+P\+O\+R\+T\+\_\+\+T\+H\+R\+E\+S\+H\+O\+L\+D@{E\+V\+E\+L\+\_\+\+S\+O\+U\+R\+C\+E\+\_\+\+P\+O\+R\+T\+\_\+\+T\+H\+R\+E\+S\+H\+O\+L\+D}}\item[{\em 
+\hypertarget{evel_8h_a304eae0d024005dc4c7031bdd774d64aa2544f7451df7030d3a1c02cf0401bae0}{}E\+V\+E\+L\+\_\+\+S\+O\+U\+R\+C\+E\+\_\+\+P\+O\+R\+T\+\_\+\+T\+H\+R\+E\+S\+H\+O\+L\+D\label{evel_8h_a304eae0d024005dc4c7031bdd774d64aa2544f7451df7030d3a1c02cf0401bae0}
+}]\index{E\+V\+E\+L\+\_\+\+S\+O\+U\+R\+C\+E\+\_\+\+V\+I\+R\+T\+U\+A\+L\+\_\+\+M\+A\+C\+H\+I\+N\+E@{E\+V\+E\+L\+\_\+\+S\+O\+U\+R\+C\+E\+\_\+\+V\+I\+R\+T\+U\+A\+L\+\_\+\+M\+A\+C\+H\+I\+N\+E}!evel.\+h@{evel.\+h}}\index{evel.\+h@{evel.\+h}!E\+V\+E\+L\+\_\+\+S\+O\+U\+R\+C\+E\+\_\+\+V\+I\+R\+T\+U\+A\+L\+\_\+\+M\+A\+C\+H\+I\+N\+E@{E\+V\+E\+L\+\_\+\+S\+O\+U\+R\+C\+E\+\_\+\+V\+I\+R\+T\+U\+A\+L\+\_\+\+M\+A\+C\+H\+I\+N\+E}}\item[{\em 
+\hypertarget{evel_8h_a304eae0d024005dc4c7031bdd774d64aa4fbe43c85c55ae14048a2dc7fc5bfcc8}{}E\+V\+E\+L\+\_\+\+S\+O\+U\+R\+C\+E\+\_\+\+V\+I\+R\+T\+U\+A\+L\+\_\+\+M\+A\+C\+H\+I\+N\+E\label{evel_8h_a304eae0d024005dc4c7031bdd774d64aa4fbe43c85c55ae14048a2dc7fc5bfcc8}
+}]\index{E\+V\+E\+L\+\_\+\+M\+A\+X\+\_\+\+S\+O\+U\+R\+C\+E\+\_\+\+T\+Y\+P\+E\+S@{E\+V\+E\+L\+\_\+\+M\+A\+X\+\_\+\+S\+O\+U\+R\+C\+E\+\_\+\+T\+Y\+P\+E\+S}!evel.\+h@{evel.\+h}}\index{evel.\+h@{evel.\+h}!E\+V\+E\+L\+\_\+\+M\+A\+X\+\_\+\+S\+O\+U\+R\+C\+E\+\_\+\+T\+Y\+P\+E\+S@{E\+V\+E\+L\+\_\+\+M\+A\+X\+\_\+\+S\+O\+U\+R\+C\+E\+\_\+\+T\+Y\+P\+E\+S}}\item[{\em 
+\hypertarget{evel_8h_a304eae0d024005dc4c7031bdd774d64aae55458300c44fb307becdf5a5d38cf9a}{}E\+V\+E\+L\+\_\+\+M\+A\+X\+\_\+\+S\+O\+U\+R\+C\+E\+\_\+\+T\+Y\+P\+E\+S\label{evel_8h_a304eae0d024005dc4c7031bdd774d64aae55458300c44fb307becdf5a5d38cf9a}
+}]\end{description}
+\end{Desc}
+
+
+Definition at line 151 of file evel.\+h.
+
+\hypertarget{evel_8h_a940888ae37017b9f85d793972994c8f0}{}\index{evel.\+h@{evel.\+h}!E\+V\+E\+L\+\_\+\+V\+F\+\_\+\+S\+T\+A\+T\+U\+S\+E\+S@{E\+V\+E\+L\+\_\+\+V\+F\+\_\+\+S\+T\+A\+T\+U\+S\+E\+S}}
+\index{E\+V\+E\+L\+\_\+\+V\+F\+\_\+\+S\+T\+A\+T\+U\+S\+E\+S@{E\+V\+E\+L\+\_\+\+V\+F\+\_\+\+S\+T\+A\+T\+U\+S\+E\+S}!evel.\+h@{evel.\+h}}
+\subsubsection[{E\+V\+E\+L\+\_\+\+V\+F\+\_\+\+S\+T\+A\+T\+U\+S\+E\+S}]{\setlength{\rightskip}{0pt plus 5cm}enum {\bf E\+V\+E\+L\+\_\+\+V\+F\+\_\+\+S\+T\+A\+T\+U\+S\+E\+S}}\label{evel_8h_a940888ae37017b9f85d793972994c8f0}
+
+
+Fault V\+N\+F Status. 
+
+J\+S\+O\+N equivalent field\+: vf\+S\+Tatus \begin{Desc}
+\item[Enumerator]\par
+\begin{description}
+\index{E\+V\+E\+L\+\_\+\+V\+F\+\_\+\+S\+T\+A\+T\+U\+S\+\_\+\+A\+C\+T\+I\+V\+E@{E\+V\+E\+L\+\_\+\+V\+F\+\_\+\+S\+T\+A\+T\+U\+S\+\_\+\+A\+C\+T\+I\+V\+E}!evel.\+h@{evel.\+h}}\index{evel.\+h@{evel.\+h}!E\+V\+E\+L\+\_\+\+V\+F\+\_\+\+S\+T\+A\+T\+U\+S\+\_\+\+A\+C\+T\+I\+V\+E@{E\+V\+E\+L\+\_\+\+V\+F\+\_\+\+S\+T\+A\+T\+U\+S\+\_\+\+A\+C\+T\+I\+V\+E}}\item[{\em 
+\hypertarget{evel_8h_a940888ae37017b9f85d793972994c8f0aa219026430fbe39450f5f929d80fd60d}{}E\+V\+E\+L\+\_\+\+V\+F\+\_\+\+S\+T\+A\+T\+U\+S\+\_\+\+A\+C\+T\+I\+V\+E\label{evel_8h_a940888ae37017b9f85d793972994c8f0aa219026430fbe39450f5f929d80fd60d}
+}]\index{E\+V\+E\+L\+\_\+\+V\+F\+\_\+\+S\+T\+A\+T\+U\+S\+\_\+\+I\+D\+L\+E@{E\+V\+E\+L\+\_\+\+V\+F\+\_\+\+S\+T\+A\+T\+U\+S\+\_\+\+I\+D\+L\+E}!evel.\+h@{evel.\+h}}\index{evel.\+h@{evel.\+h}!E\+V\+E\+L\+\_\+\+V\+F\+\_\+\+S\+T\+A\+T\+U\+S\+\_\+\+I\+D\+L\+E@{E\+V\+E\+L\+\_\+\+V\+F\+\_\+\+S\+T\+A\+T\+U\+S\+\_\+\+I\+D\+L\+E}}\item[{\em 
+\hypertarget{evel_8h_a940888ae37017b9f85d793972994c8f0ae437225b2e9f0b4ec07500ff1633511d}{}E\+V\+E\+L\+\_\+\+V\+F\+\_\+\+S\+T\+A\+T\+U\+S\+\_\+\+I\+D\+L\+E\label{evel_8h_a940888ae37017b9f85d793972994c8f0ae437225b2e9f0b4ec07500ff1633511d}
+}]\index{E\+V\+E\+L\+\_\+\+V\+F\+\_\+\+S\+T\+A\+T\+U\+S\+\_\+\+P\+R\+E\+P\+\_\+\+T\+E\+R\+M\+I\+N\+A\+T\+E@{E\+V\+E\+L\+\_\+\+V\+F\+\_\+\+S\+T\+A\+T\+U\+S\+\_\+\+P\+R\+E\+P\+\_\+\+T\+E\+R\+M\+I\+N\+A\+T\+E}!evel.\+h@{evel.\+h}}\index{evel.\+h@{evel.\+h}!E\+V\+E\+L\+\_\+\+V\+F\+\_\+\+S\+T\+A\+T\+U\+S\+\_\+\+P\+R\+E\+P\+\_\+\+T\+E\+R\+M\+I\+N\+A\+T\+E@{E\+V\+E\+L\+\_\+\+V\+F\+\_\+\+S\+T\+A\+T\+U\+S\+\_\+\+P\+R\+E\+P\+\_\+\+T\+E\+R\+M\+I\+N\+A\+T\+E}}\item[{\em 
+\hypertarget{evel_8h_a940888ae37017b9f85d793972994c8f0a620aecb9484e92e36ef4ce587ea59d16}{}E\+V\+E\+L\+\_\+\+V\+F\+\_\+\+S\+T\+A\+T\+U\+S\+\_\+\+P\+R\+E\+P\+\_\+\+T\+E\+R\+M\+I\+N\+A\+T\+E\label{evel_8h_a940888ae37017b9f85d793972994c8f0a620aecb9484e92e36ef4ce587ea59d16}
+}]\index{E\+V\+E\+L\+\_\+\+V\+F\+\_\+\+S\+T\+A\+T\+U\+S\+\_\+\+R\+E\+A\+D\+Y\+\_\+\+T\+E\+R\+M\+I\+N\+A\+T\+E@{E\+V\+E\+L\+\_\+\+V\+F\+\_\+\+S\+T\+A\+T\+U\+S\+\_\+\+R\+E\+A\+D\+Y\+\_\+\+T\+E\+R\+M\+I\+N\+A\+T\+E}!evel.\+h@{evel.\+h}}\index{evel.\+h@{evel.\+h}!E\+V\+E\+L\+\_\+\+V\+F\+\_\+\+S\+T\+A\+T\+U\+S\+\_\+\+R\+E\+A\+D\+Y\+\_\+\+T\+E\+R\+M\+I\+N\+A\+T\+E@{E\+V\+E\+L\+\_\+\+V\+F\+\_\+\+S\+T\+A\+T\+U\+S\+\_\+\+R\+E\+A\+D\+Y\+\_\+\+T\+E\+R\+M\+I\+N\+A\+T\+E}}\item[{\em 
+\hypertarget{evel_8h_a940888ae37017b9f85d793972994c8f0a74e796fad6de2ff5852575faa0b7ca32}{}E\+V\+E\+L\+\_\+\+V\+F\+\_\+\+S\+T\+A\+T\+U\+S\+\_\+\+R\+E\+A\+D\+Y\+\_\+\+T\+E\+R\+M\+I\+N\+A\+T\+E\label{evel_8h_a940888ae37017b9f85d793972994c8f0a74e796fad6de2ff5852575faa0b7ca32}
+}]\index{E\+V\+E\+L\+\_\+\+V\+F\+\_\+\+S\+T\+A\+T\+U\+S\+\_\+\+R\+E\+Q\+\_\+\+T\+E\+R\+M\+I\+N\+A\+T\+E@{E\+V\+E\+L\+\_\+\+V\+F\+\_\+\+S\+T\+A\+T\+U\+S\+\_\+\+R\+E\+Q\+\_\+\+T\+E\+R\+M\+I\+N\+A\+T\+E}!evel.\+h@{evel.\+h}}\index{evel.\+h@{evel.\+h}!E\+V\+E\+L\+\_\+\+V\+F\+\_\+\+S\+T\+A\+T\+U\+S\+\_\+\+R\+E\+Q\+\_\+\+T\+E\+R\+M\+I\+N\+A\+T\+E@{E\+V\+E\+L\+\_\+\+V\+F\+\_\+\+S\+T\+A\+T\+U\+S\+\_\+\+R\+E\+Q\+\_\+\+T\+E\+R\+M\+I\+N\+A\+T\+E}}\item[{\em 
+\hypertarget{evel_8h_a940888ae37017b9f85d793972994c8f0a8d580735c2b43829eefea4699aa1ad79}{}E\+V\+E\+L\+\_\+\+V\+F\+\_\+\+S\+T\+A\+T\+U\+S\+\_\+\+R\+E\+Q\+\_\+\+T\+E\+R\+M\+I\+N\+A\+T\+E\label{evel_8h_a940888ae37017b9f85d793972994c8f0a8d580735c2b43829eefea4699aa1ad79}
+}]\index{E\+V\+E\+L\+\_\+\+M\+A\+X\+\_\+\+V\+F\+\_\+\+S\+T\+A\+T\+U\+S\+E\+S@{E\+V\+E\+L\+\_\+\+M\+A\+X\+\_\+\+V\+F\+\_\+\+S\+T\+A\+T\+U\+S\+E\+S}!evel.\+h@{evel.\+h}}\index{evel.\+h@{evel.\+h}!E\+V\+E\+L\+\_\+\+M\+A\+X\+\_\+\+V\+F\+\_\+\+S\+T\+A\+T\+U\+S\+E\+S@{E\+V\+E\+L\+\_\+\+M\+A\+X\+\_\+\+V\+F\+\_\+\+S\+T\+A\+T\+U\+S\+E\+S}}\item[{\em 
+\hypertarget{evel_8h_a940888ae37017b9f85d793972994c8f0a6bc081881ff29a705f03a7572570cd44}{}E\+V\+E\+L\+\_\+\+M\+A\+X\+\_\+\+V\+F\+\_\+\+S\+T\+A\+T\+U\+S\+E\+S\label{evel_8h_a940888ae37017b9f85d793972994c8f0a6bc081881ff29a705f03a7572570cd44}
+}]\end{description}
+\end{Desc}
+
+
+Definition at line 168 of file evel.\+h.
+
+
+
+\subsection{Function Documentation}
+\hypertarget{evel_8h_a4e26e681850483196ff690d928ab7896}{}\index{evel.\+h@{evel.\+h}!evel\+\_\+error\+\_\+string@{evel\+\_\+error\+\_\+string}}
+\index{evel\+\_\+error\+\_\+string@{evel\+\_\+error\+\_\+string}!evel.\+h@{evel.\+h}}
+\subsubsection[{evel\+\_\+error\+\_\+string(void)}]{\setlength{\rightskip}{0pt plus 5cm}const char const$\ast$ evel\+\_\+error\+\_\+string (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}\label{evel_8h_a4e26e681850483196ff690d928ab7896}
+
+
+Descriptive text for library errors. 
+
+Return a text error string that relates to the last failure. May be \char`\"{}$<$null$>$\char`\"{} but will never be N\+U\+L\+L.
+
+\begin{DoxyReturn}{Returns}
+Text error string.
+\end{DoxyReturn}
+\begin{DoxyNote}{Note}
+Must not be freed! 
+\end{DoxyNote}
+
+
+Definition at line 87 of file evel\+\_\+logging.\+c.
+
+\hypertarget{evel_8h_a07076c0fa1d2941102f957af3b47df44}{}\index{evel.\+h@{evel.\+h}!evel\+\_\+fault\+\_\+addl\+\_\+info\+\_\+add@{evel\+\_\+fault\+\_\+addl\+\_\+info\+\_\+add}}
+\index{evel\+\_\+fault\+\_\+addl\+\_\+info\+\_\+add@{evel\+\_\+fault\+\_\+addl\+\_\+info\+\_\+add}!evel.\+h@{evel.\+h}}
+\subsubsection[{evel\+\_\+fault\+\_\+addl\+\_\+info\+\_\+add(\+E\+V\+E\+N\+T\+\_\+\+F\+A\+U\+L\+T $\ast$fault, char $\ast$name, char $\ast$value)}]{\setlength{\rightskip}{0pt plus 5cm}void evel\+\_\+fault\+\_\+addl\+\_\+info\+\_\+add (
+\begin{DoxyParamCaption}
+\item[{{\bf E\+V\+E\+N\+T\+\_\+\+F\+A\+U\+L\+T} $\ast$}]{fault, }
+\item[{char $\ast$}]{name, }
+\item[{char $\ast$}]{value}
+\end{DoxyParamCaption}
+)}\label{evel_8h_a07076c0fa1d2941102f957af3b47df44}
+
+
+Add an additional value name/value pair to the Fault. 
+
+The name and value are null delimited A\+S\+C\+I\+I strings. The library takes a copy so the caller does not have to preserve values after the function returns.
+
+
+\begin{DoxyParams}{Parameters}
+{\em fault} & Pointer to the fault. \\
+\hline
+{\em name} & A\+S\+C\+I\+I\+Z string with the attribute\textquotesingle{}s name. \\
+\hline
+{\em value} & A\+S\+C\+I\+I\+Z string with the attribute\textquotesingle{}s value.\\
+\hline
+\end{DoxyParams}
+The name and value are null delimited A\+S\+C\+I\+I strings. The library takes a copy so the caller does not have to preserve values after the function returns.
+
+
+\begin{DoxyParams}{Parameters}
+{\em fault} & Pointer to the fault. \\
+\hline
+{\em name} & A\+S\+C\+I\+I\+Z string with the attribute\textquotesingle{}s name. The caller does not need to preserve the value once the function returns. \\
+\hline
+{\em value} & A\+S\+C\+I\+I\+Z string with the attribute\textquotesingle{}s value. The caller does not need to preserve the value once the function returns. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 122 of file evel\+\_\+fault.\+c.
+
+\hypertarget{evel_8h_ae56fef27e31906a535793f941bba6d7e}{}\index{evel.\+h@{evel.\+h}!evel\+\_\+fault\+\_\+interface\+\_\+set@{evel\+\_\+fault\+\_\+interface\+\_\+set}}
+\index{evel\+\_\+fault\+\_\+interface\+\_\+set@{evel\+\_\+fault\+\_\+interface\+\_\+set}!evel.\+h@{evel.\+h}}
+\subsubsection[{evel\+\_\+fault\+\_\+interface\+\_\+set(\+E\+V\+E\+N\+T\+\_\+\+F\+A\+U\+L\+T $\ast$fault, const char const $\ast$interface)}]{\setlength{\rightskip}{0pt plus 5cm}void evel\+\_\+fault\+\_\+interface\+\_\+set (
+\begin{DoxyParamCaption}
+\item[{{\bf E\+V\+E\+N\+T\+\_\+\+F\+A\+U\+L\+T} $\ast$}]{fault, }
+\item[{const char const $\ast$}]{interface}
+\end{DoxyParamCaption}
+)}\label{evel_8h_ae56fef27e31906a535793f941bba6d7e}
+
+
+Set the Alarm Interface A property of the Fault. 
+
+\begin{DoxyNote}{Note}
+The property is treated as immutable\+: it is only valid to call the setter once. However, we don\textquotesingle{}t assert if the caller tries to overwrite, just ignoring the update instead.
+\end{DoxyNote}
+
+\begin{DoxyParams}{Parameters}
+{\em fault} & Pointer to the fault. \\
+\hline
+{\em interface} & The Alarm Interface A to be set. A\+S\+C\+I\+I\+Z string. The caller does not need to preserve the value once the function returns\\
+\hline
+\end{DoxyParams}
+\begin{DoxyNote}{Note}
+The property is treated as immutable\+: it is only valid to call the setter once. However, we don\textquotesingle{}t assert if the caller tries to overwrite, just ignoring the update instead.
+\end{DoxyNote}
+
+\begin{DoxyParams}{Parameters}
+{\em fault} & Pointer to the fault. \\
+\hline
+{\em interface} & The Alarm Interface A to be set. A\+S\+C\+I\+I\+Z string. The caller does not need to preserve the value once the function returns. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 160 of file evel\+\_\+fault.\+c.
+
+\hypertarget{evel_8h_aaafea6d63d296e8f33779387509e80cb}{}\index{evel.\+h@{evel.\+h}!evel\+\_\+fault\+\_\+type\+\_\+set@{evel\+\_\+fault\+\_\+type\+\_\+set}}
+\index{evel\+\_\+fault\+\_\+type\+\_\+set@{evel\+\_\+fault\+\_\+type\+\_\+set}!evel.\+h@{evel.\+h}}
+\subsubsection[{evel\+\_\+fault\+\_\+type\+\_\+set(\+E\+V\+E\+N\+T\+\_\+\+F\+A\+U\+L\+T $\ast$fault, const char const $\ast$type)}]{\setlength{\rightskip}{0pt plus 5cm}void evel\+\_\+fault\+\_\+type\+\_\+set (
+\begin{DoxyParamCaption}
+\item[{{\bf E\+V\+E\+N\+T\+\_\+\+F\+A\+U\+L\+T} $\ast$}]{fault, }
+\item[{const char const $\ast$}]{type}
+\end{DoxyParamCaption}
+)}\label{evel_8h_aaafea6d63d296e8f33779387509e80cb}
+
+
+Set the Event Type property of the Fault. 
+
+\begin{DoxyNote}{Note}
+The property is treated as immutable\+: it is only valid to call the setter once. However, we don\textquotesingle{}t assert if the caller tries to overwrite, just ignoring the update instead.
+\end{DoxyNote}
+
+\begin{DoxyParams}{Parameters}
+{\em fault} & Pointer to the fault. \\
+\hline
+{\em type} & The Event Typeto be set. A\+S\+C\+I\+I\+Z string. The caller does not need to preserve the value once the function returns\\
+\hline
+\end{DoxyParams}
+\begin{DoxyNote}{Note}
+The property is treated as immutable\+: it is only valid to call the setter once. However, we don\textquotesingle{}t assert if the caller tries to overwrite, just ignoring the update instead.
+\end{DoxyNote}
+
+\begin{DoxyParams}{Parameters}
+{\em fault} & Pointer to the fault. \\
+\hline
+{\em type} & The Event Type to be set. A\+S\+C\+I\+I\+Z string. The caller does not need to preserve the value once the function returns \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 198 of file evel\+\_\+fault.\+c.
+
+\hypertarget{evel_8h_a91faa4e06c4b079c2a8a1db1ccb2e47b}{}\index{evel.\+h@{evel.\+h}!evel\+\_\+free\+\_\+event@{evel\+\_\+free\+\_\+event}}
+\index{evel\+\_\+free\+\_\+event@{evel\+\_\+free\+\_\+event}!evel.\+h@{evel.\+h}}
+\subsubsection[{evel\+\_\+free\+\_\+event(void $\ast$event)}]{\setlength{\rightskip}{0pt plus 5cm}void evel\+\_\+free\+\_\+event (
+\begin{DoxyParamCaption}
+\item[{void $\ast$}]{event}
+\end{DoxyParamCaption}
+)}\label{evel_8h_a91faa4e06c4b079c2a8a1db1ccb2e47b}
+
+
+Free an event. 
+
+Free off the event supplied. Will recursively free all the contained allocated memory.
+
+\begin{DoxyNote}{Note}
+It is safe to free a N\+U\+L\+L pointer. 
+\end{DoxyNote}
+
+
+Definition at line 233 of file evel.\+c.
+
+\hypertarget{evel_8h_afd5a2244dbe54e189700f0f94901bbea}{}\index{evel.\+h@{evel.\+h}!evel\+\_\+free\+\_\+fault@{evel\+\_\+free\+\_\+fault}}
+\index{evel\+\_\+free\+\_\+fault@{evel\+\_\+free\+\_\+fault}!evel.\+h@{evel.\+h}}
+\subsubsection[{evel\+\_\+free\+\_\+fault(\+E\+V\+E\+N\+T\+\_\+\+F\+A\+U\+L\+T $\ast$event)}]{\setlength{\rightskip}{0pt plus 5cm}void evel\+\_\+free\+\_\+fault (
+\begin{DoxyParamCaption}
+\item[{{\bf E\+V\+E\+N\+T\+\_\+\+F\+A\+U\+L\+T} $\ast$}]{event}
+\end{DoxyParamCaption}
+)}\label{evel_8h_afd5a2244dbe54e189700f0f94901bbea}
+
+
+Free an Fault. 
+
+Free off the Fault supplied. Will recursively free all the contained allocated memory.
+
+\begin{DoxyNote}{Note}
+It does not free the Fault itself, since that may be part of a larger structure.
+\end{DoxyNote}
+Free an Fault.
+
+Free off the Fault supplied. Will recursively free all the contained allocated memory.
+
+\begin{DoxyNote}{Note}
+It does not free the Fault itself, since that may be part of a larger structure. 
+\end{DoxyNote}
+
+
+Definition at line 418 of file evel\+\_\+fault.\+c.
+
+\hypertarget{evel_8h_a8391052fcc38b65f65422a3441b8f551}{}\index{evel.\+h@{evel.\+h}!evel\+\_\+free\+\_\+header@{evel\+\_\+free\+\_\+header}}
+\index{evel\+\_\+free\+\_\+header@{evel\+\_\+free\+\_\+header}!evel.\+h@{evel.\+h}}
+\subsubsection[{evel\+\_\+free\+\_\+header(\+E\+V\+E\+N\+T\+\_\+\+H\+E\+A\+D\+E\+R $\ast$event)}]{\setlength{\rightskip}{0pt plus 5cm}void evel\+\_\+free\+\_\+header (
+\begin{DoxyParamCaption}
+\item[{{\bf E\+V\+E\+N\+T\+\_\+\+H\+E\+A\+D\+E\+R} $\ast$}]{event}
+\end{DoxyParamCaption}
+)}\label{evel_8h_a8391052fcc38b65f65422a3441b8f551}
+
+
+Free an event header. 
+
+Free off the event header supplied. Will recursively free all the contained allocated memory.
+
+\begin{DoxyNote}{Note}
+It does not free the header itself, since that may be part of a larger structure. 
+\end{DoxyNote}
+
+
+Definition at line 248 of file evel\+\_\+event.\+c.
+
+\hypertarget{evel_8h_af387e0637a37752961d013fbedf52dc1}{}\index{evel.\+h@{evel.\+h}!evel\+\_\+free\+\_\+measurement@{evel\+\_\+free\+\_\+measurement}}
+\index{evel\+\_\+free\+\_\+measurement@{evel\+\_\+free\+\_\+measurement}!evel.\+h@{evel.\+h}}
+\subsubsection[{evel\+\_\+free\+\_\+measurement(\+E\+V\+E\+N\+T\+\_\+\+M\+E\+A\+S\+U\+R\+E\+M\+E\+N\+T $\ast$event)}]{\setlength{\rightskip}{0pt plus 5cm}void evel\+\_\+free\+\_\+measurement (
+\begin{DoxyParamCaption}
+\item[{{\bf E\+V\+E\+N\+T\+\_\+\+M\+E\+A\+S\+U\+R\+E\+M\+E\+N\+T} $\ast$}]{event}
+\end{DoxyParamCaption}
+)}\label{evel_8h_af387e0637a37752961d013fbedf52dc1}
+
+
+Free a Measurement. 
+
+Free off the Measurement supplied. Will recursively free all the contained allocated memory.
+
+\begin{DoxyNote}{Note}
+It does not free the Fault itself, since that may be part of a larger structure.
+\end{DoxyNote}
+Free off the Measurement supplied. Will recursively free all the contained allocated memory.
+
+\begin{DoxyNote}{Note}
+It does not free the Measurement itself, since that may be part of a larger structure. 
+\end{DoxyNote}
+
+
+Definition at line 982 of file evel\+\_\+scaling\+\_\+measurement.\+c.
+
+\hypertarget{evel_8h_aafae69bbc8c2cbd07443dbb5616c8c94}{}\index{evel.\+h@{evel.\+h}!evel\+\_\+free\+\_\+report@{evel\+\_\+free\+\_\+report}}
+\index{evel\+\_\+free\+\_\+report@{evel\+\_\+free\+\_\+report}!evel.\+h@{evel.\+h}}
+\subsubsection[{evel\+\_\+free\+\_\+report(\+E\+V\+E\+N\+T\+\_\+\+R\+E\+P\+O\+R\+T $\ast$event)}]{\setlength{\rightskip}{0pt plus 5cm}void evel\+\_\+free\+\_\+report (
+\begin{DoxyParamCaption}
+\item[{{\bf E\+V\+E\+N\+T\+\_\+\+R\+E\+P\+O\+R\+T} $\ast$}]{event}
+\end{DoxyParamCaption}
+)}\label{evel_8h_aafae69bbc8c2cbd07443dbb5616c8c94}
+
+
+Free a Report. 
+
+Free off the Report supplied. Will recursively free all the contained allocated memory.
+
+\begin{DoxyNote}{Note}
+It does not free the Report itself, since that may be part of a larger structure. 
+\end{DoxyNote}
+
+
+Definition at line 394 of file evel\+\_\+reporting\+\_\+measurement.\+c.
+
+\hypertarget{evel_8h_a85f0ce991d0edaf92f9b7d131e37533c}{}\index{evel.\+h@{evel.\+h}!evel\+\_\+init\+\_\+header@{evel\+\_\+init\+\_\+header}}
+\index{evel\+\_\+init\+\_\+header@{evel\+\_\+init\+\_\+header}!evel.\+h@{evel.\+h}}
+\subsubsection[{evel\+\_\+init\+\_\+header(\+E\+V\+E\+N\+T\+\_\+\+H\+E\+A\+D\+E\+R $\ast$header)}]{\setlength{\rightskip}{0pt plus 5cm}void evel\+\_\+init\+\_\+header (
+\begin{DoxyParamCaption}
+\item[{{\bf E\+V\+E\+N\+T\+\_\+\+H\+E\+A\+D\+E\+R} $\ast$}]{header}
+\end{DoxyParamCaption}
+)}\label{evel_8h_a85f0ce991d0edaf92f9b7d131e37533c}
+
+
+Initialize a newly created event header. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em header} & Pointer to the header being initialized. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 97 of file evel\+\_\+event.\+c.
+
+\hypertarget{evel_8h_aff020c5505e724b414ac981e2a23fcd6}{}\index{evel.\+h@{evel.\+h}!evel\+\_\+initialize@{evel\+\_\+initialize}}
+\index{evel\+\_\+initialize@{evel\+\_\+initialize}!evel.\+h@{evel.\+h}}
+\subsubsection[{evel\+\_\+initialize(const char const $\ast$fqdn, int port, const char const $\ast$path, const char const $\ast$topic, int secure, const char const $\ast$username, const char const $\ast$password, E\+V\+E\+L\+\_\+\+S\+O\+U\+R\+C\+E\+\_\+\+T\+Y\+P\+E\+S source\+\_\+type, const char const $\ast$role, int verbosity)}]{\setlength{\rightskip}{0pt plus 5cm}{\bf E\+V\+E\+L\+\_\+\+E\+R\+R\+\_\+\+C\+O\+D\+E\+S} evel\+\_\+initialize (
+\begin{DoxyParamCaption}
+\item[{const char const $\ast$}]{fqdn, }
+\item[{int}]{port, }
+\item[{const char const $\ast$}]{path, }
+\item[{const char const $\ast$}]{topic, }
+\item[{int}]{secure, }
+\item[{const char const $\ast$}]{username, }
+\item[{const char const $\ast$}]{password, }
+\item[{{\bf E\+V\+E\+L\+\_\+\+S\+O\+U\+R\+C\+E\+\_\+\+T\+Y\+P\+E\+S}}]{source\+\_\+type, }
+\item[{const char const $\ast$}]{role, }
+\item[{int}]{verbosity}
+\end{DoxyParamCaption}
+)}\label{evel_8h_aff020c5505e724b414ac981e2a23fcd6}
+
+
+Library initialization. 
+
+Initialize the E\+V\+E\+L library.
+
+\begin{DoxyNote}{Note}
+This function initializes the c\+U\+R\+L library. Applications making use of libcurl may need to pull the initialization out of here. Note also that this function is not threadsafe as a result -\/ refer to libcurl\textquotesingle{}s A\+P\+I documentation for relevant warnings.
+\end{DoxyNote}
+\begin{DoxySeeAlso}{See also}
+Matching Term function.
+\end{DoxySeeAlso}
+
+\begin{DoxyParams}{Parameters}
+{\em fqdn} & The A\+P\+I\textquotesingle{}s F\+Q\+D\+N or I\+P address. \\
+\hline
+{\em port} & The A\+P\+I\textquotesingle{}s port. \\
+\hline
+{\em path} & The optional path (may be N\+U\+L\+L). \\
+\hline
+{\em topic} & The optional topic part of the U\+R\+L (may be N\+U\+L\+L). \\
+\hline
+{\em secure} & Whether to use H\+T\+T\+P\+S (0=H\+T\+T\+P, 1=H\+T\+T\+P\+S) \\
+\hline
+{\em username} & Username for Basic Authentication of requests. \\
+\hline
+{\em password} & Password for Basic Authentication of requests. \\
+\hline
+{\em source\+\_\+type} & The kind of node we represent. \\
+\hline
+{\em role} & The role this node undertakes. \\
+\hline
+{\em verbosity} & 0 for normal operation, positive values for chattier logs.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Status code 
+\end{DoxyReturn}
+
+\begin{DoxyRetVals}{Return values}
+{\em E\+V\+E\+L\+\_\+\+S\+U\+C\+C\+E\+S\+S} & On success \\
+\hline
+{\em \hyperlink{evel_8h_ae1f68b0d21fb98defcec46e99208a03e}{E\+V\+E\+L\+\_\+\+E\+R\+R\+\_\+\+C\+O\+D\+E\+S}} & On failure. \\
+\hline
+\end{DoxyRetVals}
+
+
+Definition at line 93 of file evel.\+c.
+
+\hypertarget{evel_8h_a3da83fe21887e3f336b54a1f63ac95cf}{}\index{evel.\+h@{evel.\+h}!evel\+\_\+json\+\_\+encode\+\_\+event@{evel\+\_\+json\+\_\+encode\+\_\+event}}
+\index{evel\+\_\+json\+\_\+encode\+\_\+event@{evel\+\_\+json\+\_\+encode\+\_\+event}!evel.\+h@{evel.\+h}}
+\subsubsection[{evel\+\_\+json\+\_\+encode\+\_\+event(char $\ast$json, int max\+\_\+size, E\+V\+E\+N\+T\+\_\+\+H\+E\+A\+D\+E\+R $\ast$event)}]{\setlength{\rightskip}{0pt plus 5cm}int evel\+\_\+json\+\_\+encode\+\_\+event (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{json, }
+\item[{int}]{max\+\_\+size, }
+\item[{{\bf E\+V\+E\+N\+T\+\_\+\+H\+E\+A\+D\+E\+R} $\ast$}]{event}
+\end{DoxyParamCaption}
+)}\label{evel_8h_a3da83fe21887e3f336b54a1f63ac95cf}
+
+
+Encode the event as a J\+S\+O\+N event object according to A\+T\&T\textquotesingle{}s schema. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em json} & Pointer to where to store the J\+S\+O\+N encoded data. \\
+\hline
+{\em max\+\_\+size} & Size of storage available in json\+\_\+body. \\
+\hline
+{\em event} & Pointer to the \hyperlink{evel_8h_aa0ea94c675729365ea7825c4fc7e06d8}{E\+V\+E\+N\+T\+\_\+\+H\+E\+A\+D\+E\+R} to encode. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Number of bytes actually written. 
+\end{DoxyReturn}
+
+
+Definition at line 280 of file evel\+\_\+event.\+c.
+
+\hypertarget{evel_8h_aae3ade62114a42156bb533be2c9ccb38}{}\index{evel.\+h@{evel.\+h}!evel\+\_\+json\+\_\+encode\+\_\+fault@{evel\+\_\+json\+\_\+encode\+\_\+fault}}
+\index{evel\+\_\+json\+\_\+encode\+\_\+fault@{evel\+\_\+json\+\_\+encode\+\_\+fault}!evel.\+h@{evel.\+h}}
+\subsubsection[{evel\+\_\+json\+\_\+encode\+\_\+fault(char $\ast$json, int max\+\_\+size, E\+V\+E\+N\+T\+\_\+\+F\+A\+U\+L\+T $\ast$event)}]{\setlength{\rightskip}{0pt plus 5cm}int evel\+\_\+json\+\_\+encode\+\_\+fault (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{json, }
+\item[{int}]{max\+\_\+size, }
+\item[{{\bf E\+V\+E\+N\+T\+\_\+\+F\+A\+U\+L\+T} $\ast$}]{event}
+\end{DoxyParamCaption}
+)}\label{evel_8h_aae3ade62114a42156bb533be2c9ccb38}
+
+
+Encode the fault as a J\+S\+O\+N fault. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em json} & Pointer to where to store the J\+S\+O\+N encoded data. \\
+\hline
+{\em max\+\_\+size} & Size of storage available in evel\+\_\+json\+\_\+encode\+\_\+fault\+::json. \\
+\hline
+{\em event} & Pointer to the \hyperlink{evel_8h_aab9e6f5e5cce300f2f4413c1d0228971}{E\+V\+E\+N\+T\+\_\+\+F\+A\+U\+L\+T} to encode. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Number of bytes actually written.
+\end{DoxyReturn}
+Encode the fault as a J\+S\+O\+N fault.
+
+
+\begin{DoxyParams}{Parameters}
+{\em json} & Pointer to where to store the J\+S\+O\+N encoded data. \\
+\hline
+{\em max\+\_\+size} & Size of storage available in evel\+\_\+json\+\_\+encode\+\_\+fault\+::json. \\
+\hline
+{\em event} & Pointer to the \hyperlink{evel_8h_aab9e6f5e5cce300f2f4413c1d0228971}{E\+V\+E\+N\+T\+\_\+\+F\+A\+U\+L\+T} to encode. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Number of bytes actually written. 
+\end{DoxyReturn}
+
+
+Definition at line 231 of file evel\+\_\+fault.\+c.
+
+\hypertarget{evel_8h_a2866c526bf6f3ceab59087c4618009e2}{}\index{evel.\+h@{evel.\+h}!evel\+\_\+json\+\_\+encode\+\_\+header@{evel\+\_\+json\+\_\+encode\+\_\+header}}
+\index{evel\+\_\+json\+\_\+encode\+\_\+header@{evel\+\_\+json\+\_\+encode\+\_\+header}!evel.\+h@{evel.\+h}}
+\subsubsection[{evel\+\_\+json\+\_\+encode\+\_\+header(char $\ast$json, int max\+\_\+size, E\+V\+E\+N\+T\+\_\+\+H\+E\+A\+D\+E\+R $\ast$event)}]{\setlength{\rightskip}{0pt plus 5cm}int evel\+\_\+json\+\_\+encode\+\_\+header (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{json, }
+\item[{int}]{max\+\_\+size, }
+\item[{{\bf E\+V\+E\+N\+T\+\_\+\+H\+E\+A\+D\+E\+R} $\ast$}]{event}
+\end{DoxyParamCaption}
+)}\label{evel_8h_a2866c526bf6f3ceab59087c4618009e2}
+
+
+Encode the header as a J\+S\+O\+N common\+Event\+Header. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em json} & Pointer to where to staore the J\+S\+O\+N encoded data. \\
+\hline
+{\em max\+\_\+size} & Size of storage available in evel\+\_\+json\+\_\+encode\+\_\+header\+::json. \\
+\hline
+{\em event} & Pointer to the \hyperlink{evel_8h_aa0ea94c675729365ea7825c4fc7e06d8}{E\+V\+E\+N\+T\+\_\+\+H\+E\+A\+D\+E\+R} to encode. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Number of bytes actually written. 
+\end{DoxyReturn}
+
+
+Definition at line 138 of file evel\+\_\+event.\+c.
+
+\hypertarget{evel_8h_a57d99198d0b9d89de97749eb839ed1fa}{}\index{evel.\+h@{evel.\+h}!evel\+\_\+json\+\_\+encode\+\_\+measurement@{evel\+\_\+json\+\_\+encode\+\_\+measurement}}
+\index{evel\+\_\+json\+\_\+encode\+\_\+measurement@{evel\+\_\+json\+\_\+encode\+\_\+measurement}!evel.\+h@{evel.\+h}}
+\subsubsection[{evel\+\_\+json\+\_\+encode\+\_\+measurement(char $\ast$json, int max\+\_\+size, E\+V\+E\+N\+T\+\_\+\+M\+E\+A\+S\+U\+R\+E\+M\+E\+N\+T $\ast$event)}]{\setlength{\rightskip}{0pt plus 5cm}int evel\+\_\+json\+\_\+encode\+\_\+measurement (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{json, }
+\item[{int}]{max\+\_\+size, }
+\item[{{\bf E\+V\+E\+N\+T\+\_\+\+M\+E\+A\+S\+U\+R\+E\+M\+E\+N\+T} $\ast$}]{event}
+\end{DoxyParamCaption}
+)}\label{evel_8h_a57d99198d0b9d89de97749eb839ed1fa}
+
+
+Encode the fault as a J\+S\+O\+N fault. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em json} & Pointer to where to store the J\+S\+O\+N encoded data. \\
+\hline
+{\em max\+\_\+size} & Size of storage available in evel\+\_\+json\+\_\+encode\+\_\+fault\+::json. \\
+\hline
+{\em event} & Pointer to the \hyperlink{evel_8h_aab9e6f5e5cce300f2f4413c1d0228971}{E\+V\+E\+N\+T\+\_\+\+F\+A\+U\+L\+T} to encode. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Number of bytes actually written.
+\end{DoxyReturn}
+Encode the fault as a J\+S\+O\+N fault.
+
+
+\begin{DoxyParams}{Parameters}
+{\em json} & Pointer to where to store the J\+S\+O\+N encoded data. \\
+\hline
+{\em max\+\_\+size} & Size of storage available in evel\+\_\+json\+\_\+encode\+\_\+measurement\+::json. \\
+\hline
+{\em event} & Pointer to the \hyperlink{evel_8h_a6aebe95622adf9a98ba33fc440c11ba0}{E\+V\+E\+N\+T\+\_\+\+M\+E\+A\+S\+U\+R\+E\+M\+E\+N\+T} to encode. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Number of bytes actually written. 
+\end{DoxyReturn}
+
+
+Definition at line 658 of file evel\+\_\+scaling\+\_\+measurement.\+c.
+
+\hypertarget{evel_8h_af7003fa536b3d2d5260c2d8f5c41d39c}{}\index{evel.\+h@{evel.\+h}!evel\+\_\+json\+\_\+encode\+\_\+report@{evel\+\_\+json\+\_\+encode\+\_\+report}}
+\index{evel\+\_\+json\+\_\+encode\+\_\+report@{evel\+\_\+json\+\_\+encode\+\_\+report}!evel.\+h@{evel.\+h}}
+\subsubsection[{evel\+\_\+json\+\_\+encode\+\_\+report(char $\ast$json, int max\+\_\+size, E\+V\+E\+N\+T\+\_\+\+R\+E\+P\+O\+R\+T $\ast$event)}]{\setlength{\rightskip}{0pt plus 5cm}int evel\+\_\+json\+\_\+encode\+\_\+report (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{json, }
+\item[{int}]{max\+\_\+size, }
+\item[{{\bf E\+V\+E\+N\+T\+\_\+\+R\+E\+P\+O\+R\+T} $\ast$}]{event}
+\end{DoxyParamCaption}
+)}\label{evel_8h_af7003fa536b3d2d5260c2d8f5c41d39c}
+
+
+Encode the report as a J\+S\+O\+N report. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em json} & Pointer to where to store the J\+S\+O\+N encoded data. \\
+\hline
+{\em max\+\_\+size} & Size of storage available in evel\+\_\+json\+\_\+encode\+\_\+report\+::json. \\
+\hline
+{\em event} & Pointer to the \hyperlink{evel_8h_abf6741459d5be3598c74302604481e77}{E\+V\+E\+N\+T\+\_\+\+R\+E\+P\+O\+R\+T} to encode. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Number of bytes actually written. 
+\end{DoxyReturn}
+
+
+Definition at line 273 of file evel\+\_\+reporting\+\_\+measurement.\+c.
+
+\hypertarget{evel_8h_ae30edcd72c4b9dd4740ad40e644964ba}{}\index{evel.\+h@{evel.\+h}!evel\+\_\+measurement\+\_\+agg\+\_\+cpu\+\_\+use\+\_\+set@{evel\+\_\+measurement\+\_\+agg\+\_\+cpu\+\_\+use\+\_\+set}}
+\index{evel\+\_\+measurement\+\_\+agg\+\_\+cpu\+\_\+use\+\_\+set@{evel\+\_\+measurement\+\_\+agg\+\_\+cpu\+\_\+use\+\_\+set}!evel.\+h@{evel.\+h}}
+\subsubsection[{evel\+\_\+measurement\+\_\+agg\+\_\+cpu\+\_\+use\+\_\+set(\+E\+V\+E\+N\+T\+\_\+\+M\+E\+A\+S\+U\+R\+E\+M\+E\+N\+T $\ast$measurement, double cpu\+\_\+use)}]{\setlength{\rightskip}{0pt plus 5cm}void evel\+\_\+measurement\+\_\+agg\+\_\+cpu\+\_\+use\+\_\+set (
+\begin{DoxyParamCaption}
+\item[{{\bf E\+V\+E\+N\+T\+\_\+\+M\+E\+A\+S\+U\+R\+E\+M\+E\+N\+T} $\ast$}]{measurement, }
+\item[{double}]{cpu\+\_\+use}
+\end{DoxyParamCaption}
+)}\label{evel_8h_ae30edcd72c4b9dd4740ad40e644964ba}
+
+
+\} Set the Aggregate C\+P\+U Use property of the Measurement. 
+
+\begin{DoxyNote}{Note}
+The property is treated as immutable\+: it is only valid to call the setter once. However, we don\textquotesingle{}t assert if the caller tries to overwrite, just ignoring the update instead.
+\end{DoxyNote}
+
+\begin{DoxyParams}{Parameters}
+{\em measurement} & Pointer to the measurement. \\
+\hline
+{\em cpu\+\_\+use} & The C\+P\+U use to set.\\
+\hline
+\end{DoxyParams}
+\} Set the Aggregate C\+P\+U Use property of the Measurement.
+
+\begin{DoxyNote}{Note}
+The property is treated as immutable\+: it is only valid to call the setter once. However, we don\textquotesingle{}t assert if the caller tries to overwrite, just ignoring the update instead.
+\end{DoxyNote}
+
+\begin{DoxyParams}{Parameters}
+{\em measurement} & Pointer to the measurement. \\
+\hline
+{\em cpu\+\_\+use} & The C\+P\+U use to set. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 549 of file evel\+\_\+scaling\+\_\+measurement.\+c.
+
+\hypertarget{evel_8h_a1176ef6423b8178bc0eecc80b6c2a4b7}{}\index{evel.\+h@{evel.\+h}!evel\+\_\+measurement\+\_\+codec\+\_\+use\+\_\+add@{evel\+\_\+measurement\+\_\+codec\+\_\+use\+\_\+add}}
+\index{evel\+\_\+measurement\+\_\+codec\+\_\+use\+\_\+add@{evel\+\_\+measurement\+\_\+codec\+\_\+use\+\_\+add}!evel.\+h@{evel.\+h}}
+\subsubsection[{evel\+\_\+measurement\+\_\+codec\+\_\+use\+\_\+add(\+E\+V\+E\+N\+T\+\_\+\+M\+E\+A\+S\+U\+R\+E\+M\+E\+N\+T $\ast$measurement, char $\ast$codec, int utilization)}]{\setlength{\rightskip}{0pt plus 5cm}void evel\+\_\+measurement\+\_\+codec\+\_\+use\+\_\+add (
+\begin{DoxyParamCaption}
+\item[{{\bf E\+V\+E\+N\+T\+\_\+\+M\+E\+A\+S\+U\+R\+E\+M\+E\+N\+T} $\ast$}]{measurement, }
+\item[{char $\ast$}]{codec, }
+\item[{int}]{utilization}
+\end{DoxyParamCaption}
+)}\label{evel_8h_a1176ef6423b8178bc0eecc80b6c2a4b7}
+
+
+Add a Codec usage value name/value pair to the Measurement. 
+
+The name is null delimited A\+S\+C\+I\+I string. The library takes a copy so the caller does not have to preserve values after the function returns.
+
+
+\begin{DoxyParams}{Parameters}
+{\em measurement} & Pointer to the measurement. \\
+\hline
+{\em codec} & A\+S\+C\+I\+I\+Z string with the codec\textquotesingle{}s name. \\
+\hline
+{\em utilization} & Utilization of the feature. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 509 of file evel\+\_\+scaling\+\_\+measurement.\+c.
+
+\hypertarget{evel_8h_ac5ee57e6574ae2286c0c5d3d6d1f9ca6}{}\index{evel.\+h@{evel.\+h}!evel\+\_\+measurement\+\_\+cpu\+\_\+use\+\_\+add@{evel\+\_\+measurement\+\_\+cpu\+\_\+use\+\_\+add}}
+\index{evel\+\_\+measurement\+\_\+cpu\+\_\+use\+\_\+add@{evel\+\_\+measurement\+\_\+cpu\+\_\+use\+\_\+add}!evel.\+h@{evel.\+h}}
+\subsubsection[{evel\+\_\+measurement\+\_\+cpu\+\_\+use\+\_\+add(\+E\+V\+E\+N\+T\+\_\+\+M\+E\+A\+S\+U\+R\+E\+M\+E\+N\+T $\ast$measurement, char $\ast$name, double value)}]{\setlength{\rightskip}{0pt plus 5cm}void evel\+\_\+measurement\+\_\+cpu\+\_\+use\+\_\+add (
+\begin{DoxyParamCaption}
+\item[{{\bf E\+V\+E\+N\+T\+\_\+\+M\+E\+A\+S\+U\+R\+E\+M\+E\+N\+T} $\ast$}]{measurement, }
+\item[{char $\ast$}]{name, }
+\item[{double}]{value}
+\end{DoxyParamCaption}
+)}\label{evel_8h_ac5ee57e6574ae2286c0c5d3d6d1f9ca6}
+
+
+Add an additional C\+P\+U usage value name/value pair to the Measurement. 
+
+The name and value are null delimited A\+S\+C\+I\+I strings. The library takes a copy so the caller does not have to preserve values after the function returns.
+
+
+\begin{DoxyParams}{Parameters}
+{\em measurement} & Pointer to the measurement. \\
+\hline
+{\em name} & A\+S\+C\+I\+I\+Z string with the attribute\textquotesingle{}s name. \\
+\hline
+{\em value} & A\+S\+C\+I\+I\+Z string with the attribute\textquotesingle{}s value.\\
+\hline
+\end{DoxyParams}
+The name and value are null delimited A\+S\+C\+I\+I strings. The library takes a copy so the caller does not have to preserve values after the function returns.
+
+
+\begin{DoxyParams}{Parameters}
+{\em measurement} & Pointer to the measurement. \\
+\hline
+{\em name} & A\+S\+C\+I\+I\+Z string with the C\+P\+U\textquotesingle{}s name. \\
+\hline
+{\em value} & C\+P\+U utilization. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 180 of file evel\+\_\+scaling\+\_\+measurement.\+c.
+
+\hypertarget{evel_8h_abfc0ab882100cbc69d3f1e26a6c53666}{}\index{evel.\+h@{evel.\+h}!evel\+\_\+measurement\+\_\+custom\+\_\+measurement\+\_\+add@{evel\+\_\+measurement\+\_\+custom\+\_\+measurement\+\_\+add}}
+\index{evel\+\_\+measurement\+\_\+custom\+\_\+measurement\+\_\+add@{evel\+\_\+measurement\+\_\+custom\+\_\+measurement\+\_\+add}!evel.\+h@{evel.\+h}}
+\subsubsection[{evel\+\_\+measurement\+\_\+custom\+\_\+measurement\+\_\+add(\+E\+V\+E\+N\+T\+\_\+\+M\+E\+A\+S\+U\+R\+E\+M\+E\+N\+T $\ast$measurement, const char const $\ast$group, const char const $\ast$name, const char const $\ast$value)}]{\setlength{\rightskip}{0pt plus 5cm}void evel\+\_\+measurement\+\_\+custom\+\_\+measurement\+\_\+add (
+\begin{DoxyParamCaption}
+\item[{{\bf E\+V\+E\+N\+T\+\_\+\+M\+E\+A\+S\+U\+R\+E\+M\+E\+N\+T} $\ast$}]{measurement, }
+\item[{const char const $\ast$}]{group, }
+\item[{const char const $\ast$}]{name, }
+\item[{const char const $\ast$}]{value}
+\end{DoxyParamCaption}
+)}\label{evel_8h_abfc0ab882100cbc69d3f1e26a6c53666}
+
+
+Add a Additional Measurement value name/value pair to the Report. 
+
+The name is null delimited A\+S\+C\+I\+I string. The library takes a copy so the caller does not have to preserve values after the function returns.
+
+
+\begin{DoxyParams}{Parameters}
+{\em measurement} & Pointer to the Measurement. \\
+\hline
+{\em group} & A\+S\+C\+I\+I\+Z string with the measurement group\textquotesingle{}s name. \\
+\hline
+{\em name} & A\+S\+C\+I\+I\+Z string containing the measurement\textquotesingle{}s name. \\
+\hline
+{\em name} & A\+S\+C\+I\+I\+Z string containing the measurement\textquotesingle{}s value.\\
+\hline
+\end{DoxyParams}
+The name is null delimited A\+S\+C\+I\+I string. The library takes a copy so the caller does not have to preserve values after the function returns.
+
+
+\begin{DoxyParams}{Parameters}
+{\em measurement} & Pointer to the Measaurement. \\
+\hline
+{\em group} & A\+S\+C\+I\+I\+Z string with the measurement group\textquotesingle{}s name. \\
+\hline
+{\em name} & A\+S\+C\+I\+I\+Z string containing the measurement\textquotesingle{}s name. \\
+\hline
+{\em value} & A\+S\+C\+I\+I\+Z string containing the measurement\textquotesingle{}s value. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 429 of file evel\+\_\+scaling\+\_\+measurement.\+c.
+
+\hypertarget{evel_8h_a5742d44274ac0ded45d4725cd3614df6}{}\index{evel.\+h@{evel.\+h}!evel\+\_\+measurement\+\_\+feature\+\_\+use\+\_\+add@{evel\+\_\+measurement\+\_\+feature\+\_\+use\+\_\+add}}
+\index{evel\+\_\+measurement\+\_\+feature\+\_\+use\+\_\+add@{evel\+\_\+measurement\+\_\+feature\+\_\+use\+\_\+add}!evel.\+h@{evel.\+h}}
+\subsubsection[{evel\+\_\+measurement\+\_\+feature\+\_\+use\+\_\+add(\+E\+V\+E\+N\+T\+\_\+\+M\+E\+A\+S\+U\+R\+E\+M\+E\+N\+T $\ast$measurement, char $\ast$feature, double utilization)}]{\setlength{\rightskip}{0pt plus 5cm}void evel\+\_\+measurement\+\_\+feature\+\_\+use\+\_\+add (
+\begin{DoxyParamCaption}
+\item[{{\bf E\+V\+E\+N\+T\+\_\+\+M\+E\+A\+S\+U\+R\+E\+M\+E\+N\+T} $\ast$}]{measurement, }
+\item[{char $\ast$}]{feature, }
+\item[{double}]{utilization}
+\end{DoxyParamCaption}
+)}\label{evel_8h_a5742d44274ac0ded45d4725cd3614df6}
+
+
+Add a Feature usage value name/value pair to the Measurement. 
+
+The name is null delimited A\+S\+C\+I\+I string. The library takes a copy so the caller does not have to preserve values after the function returns.
+
+
+\begin{DoxyParams}{Parameters}
+{\em measurement} & Pointer to the measurement. \\
+\hline
+{\em feature} & A\+S\+C\+I\+I\+Z string with the feature\textquotesingle{}s name. \\
+\hline
+{\em utilization} & Utilization of the feature. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 387 of file evel\+\_\+scaling\+\_\+measurement.\+c.
+
+\hypertarget{evel_8h_a0c4b236085beb0e1c8971ff6bdaa490d}{}\index{evel.\+h@{evel.\+h}!evel\+\_\+measurement\+\_\+fsys\+\_\+use\+\_\+add@{evel\+\_\+measurement\+\_\+fsys\+\_\+use\+\_\+add}}
+\index{evel\+\_\+measurement\+\_\+fsys\+\_\+use\+\_\+add@{evel\+\_\+measurement\+\_\+fsys\+\_\+use\+\_\+add}!evel.\+h@{evel.\+h}}
+\subsubsection[{evel\+\_\+measurement\+\_\+fsys\+\_\+use\+\_\+add(\+E\+V\+E\+N\+T\+\_\+\+M\+E\+A\+S\+U\+R\+E\+M\+E\+N\+T $\ast$measurement, char $\ast$vm\+\_\+id, double block\+\_\+configured, double block\+\_\+used, int block\+\_\+iops, double ephemeral\+\_\+configured, double ephemeral\+\_\+used, int ephemeral\+\_\+iops)}]{\setlength{\rightskip}{0pt plus 5cm}void evel\+\_\+measurement\+\_\+fsys\+\_\+use\+\_\+add (
+\begin{DoxyParamCaption}
+\item[{{\bf E\+V\+E\+N\+T\+\_\+\+M\+E\+A\+S\+U\+R\+E\+M\+E\+N\+T} $\ast$}]{measurement, }
+\item[{char $\ast$}]{vm\+\_\+id, }
+\item[{double}]{block\+\_\+configured, }
+\item[{double}]{block\+\_\+used, }
+\item[{int}]{block\+\_\+iops, }
+\item[{double}]{ephemeral\+\_\+configured, }
+\item[{double}]{ephemeral\+\_\+used, }
+\item[{int}]{ephemeral\+\_\+iops}
+\end{DoxyParamCaption}
+)}\label{evel_8h_a0c4b236085beb0e1c8971ff6bdaa490d}
+
+
+Add an additional File System usage value name/value pair to the Measurement. 
+
+The I\+D is null delimited A\+S\+C\+I\+I string. The library takes a copy so the caller does not have to preserve values after the function returns.
+
+
+\begin{DoxyParams}{Parameters}
+{\em measurement} & Pointer to the measurement. \\
+\hline
+{\em vm\+\_\+id} & A\+S\+C\+I\+I\+Z string with the file-\/system\textquotesingle{}s U\+U\+I\+D. \\
+\hline
+{\em block\+\_\+configured} & Block storage configured. \\
+\hline
+{\em block\+\_\+used} & Block storage in use. \\
+\hline
+{\em block\+\_\+iops} & Block storage I\+O\+P\+S. \\
+\hline
+{\em ephemeral\+\_\+configured} & Ephemeral storage configured. \\
+\hline
+{\em ephemeral\+\_\+used} & Ephemeral storage in use. \\
+\hline
+{\em ephemeral\+\_\+iops} & Ephemeral storage I\+O\+P\+S. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 225 of file evel\+\_\+scaling\+\_\+measurement.\+c.
+
+\hypertarget{evel_8h_a3bd2dbe3741fe360175c7016277098b9}{}\index{evel.\+h@{evel.\+h}!evel\+\_\+measurement\+\_\+latency\+\_\+add@{evel\+\_\+measurement\+\_\+latency\+\_\+add}}
+\index{evel\+\_\+measurement\+\_\+latency\+\_\+add@{evel\+\_\+measurement\+\_\+latency\+\_\+add}!evel.\+h@{evel.\+h}}
+\subsubsection[{evel\+\_\+measurement\+\_\+latency\+\_\+add(\+E\+V\+E\+N\+T\+\_\+\+M\+E\+A\+S\+U\+R\+E\+M\+E\+N\+T $\ast$measurement, double low\+\_\+end, double high\+\_\+end, int count)}]{\setlength{\rightskip}{0pt plus 5cm}void evel\+\_\+measurement\+\_\+latency\+\_\+add (
+\begin{DoxyParamCaption}
+\item[{{\bf E\+V\+E\+N\+T\+\_\+\+M\+E\+A\+S\+U\+R\+E\+M\+E\+N\+T} $\ast$}]{measurement, }
+\item[{double}]{low\+\_\+end, }
+\item[{double}]{high\+\_\+end, }
+\item[{int}]{count}
+\end{DoxyParamCaption}
+)}\label{evel_8h_a3bd2dbe3741fe360175c7016277098b9}
+
+
+Add an additional Latency Distribution bucket to the Measurement. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em measurement} & Pointer to the measurement. \\
+\hline
+{\em low\+\_\+end} & Low end of the bucket\textquotesingle{}s range. \\
+\hline
+{\em high\+\_\+end} & High end of the bucket\textquotesingle{}s range. \\
+\hline
+{\em count} & Count of events in this bucket. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 277 of file evel\+\_\+scaling\+\_\+measurement.\+c.
+
+\hypertarget{evel_8h_a644cbd19fa718727c07c3d21e434f2d6}{}\index{evel.\+h@{evel.\+h}!evel\+\_\+measurement\+\_\+media\+\_\+port\+\_\+use\+\_\+set@{evel\+\_\+measurement\+\_\+media\+\_\+port\+\_\+use\+\_\+set}}
+\index{evel\+\_\+measurement\+\_\+media\+\_\+port\+\_\+use\+\_\+set@{evel\+\_\+measurement\+\_\+media\+\_\+port\+\_\+use\+\_\+set}!evel.\+h@{evel.\+h}}
+\subsubsection[{evel\+\_\+measurement\+\_\+media\+\_\+port\+\_\+use\+\_\+set(\+E\+V\+E\+N\+T\+\_\+\+M\+E\+A\+S\+U\+R\+E\+M\+E\+N\+T $\ast$measurement, int media\+\_\+ports\+\_\+in\+\_\+use)}]{\setlength{\rightskip}{0pt plus 5cm}void evel\+\_\+measurement\+\_\+media\+\_\+port\+\_\+use\+\_\+set (
+\begin{DoxyParamCaption}
+\item[{{\bf E\+V\+E\+N\+T\+\_\+\+M\+E\+A\+S\+U\+R\+E\+M\+E\+N\+T} $\ast$}]{measurement, }
+\item[{int}]{media\+\_\+ports\+\_\+in\+\_\+use}
+\end{DoxyParamCaption}
+)}\label{evel_8h_a644cbd19fa718727c07c3d21e434f2d6}
+
+
+Set the Media Ports in Use property of the Measurement. 
+
+\begin{DoxyNote}{Note}
+The property is treated as immutable\+: it is only valid to call the setter once. However, we don\textquotesingle{}t assert if the caller tries to overwrite, just ignoring the update instead.
+\end{DoxyNote}
+
+\begin{DoxyParams}{Parameters}
+{\em measurement} & Pointer to the measurement. \\
+\hline
+{\em media\+\_\+ports\+\_\+in\+\_\+use} & The media port usage to set. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 586 of file evel\+\_\+scaling\+\_\+measurement.\+c.
+
+\hypertarget{evel_8h_a2806c174913da55fd8f44281ce60b5ac}{}\index{evel.\+h@{evel.\+h}!evel\+\_\+measurement\+\_\+type\+\_\+set@{evel\+\_\+measurement\+\_\+type\+\_\+set}}
+\index{evel\+\_\+measurement\+\_\+type\+\_\+set@{evel\+\_\+measurement\+\_\+type\+\_\+set}!evel.\+h@{evel.\+h}}
+\subsubsection[{evel\+\_\+measurement\+\_\+type\+\_\+set(\+E\+V\+E\+N\+T\+\_\+\+M\+E\+A\+S\+U\+R\+E\+M\+E\+N\+T $\ast$measurement, const char const $\ast$type)}]{\setlength{\rightskip}{0pt plus 5cm}void evel\+\_\+measurement\+\_\+type\+\_\+set (
+\begin{DoxyParamCaption}
+\item[{{\bf E\+V\+E\+N\+T\+\_\+\+M\+E\+A\+S\+U\+R\+E\+M\+E\+N\+T} $\ast$}]{measurement, }
+\item[{const char const $\ast$}]{type}
+\end{DoxyParamCaption}
+)}\label{evel_8h_a2806c174913da55fd8f44281ce60b5ac}
+
+
+Set the Event Type property of the Measurement. 
+
+\begin{DoxyNote}{Note}
+The property is treated as immutable\+: it is only valid to call the setter once. However, we don\textquotesingle{}t assert if the caller tries to overwrite, just ignoring the update instead.
+\end{DoxyNote}
+
+\begin{DoxyParams}{Parameters}
+{\em measurement} & Pointer to the Measurement. \\
+\hline
+{\em type} & The Event Type to be set. A\+S\+C\+I\+I\+Z string. The caller does not need to preserve the value once the function returns \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 143 of file evel\+\_\+scaling\+\_\+measurement.\+c.
+
+\hypertarget{evel_8h_aed7dfc26f57c8474f1df4278e5e08d48}{}\index{evel.\+h@{evel.\+h}!evel\+\_\+measurement\+\_\+vnfc\+\_\+scaling\+\_\+metric\+\_\+set@{evel\+\_\+measurement\+\_\+vnfc\+\_\+scaling\+\_\+metric\+\_\+set}}
+\index{evel\+\_\+measurement\+\_\+vnfc\+\_\+scaling\+\_\+metric\+\_\+set@{evel\+\_\+measurement\+\_\+vnfc\+\_\+scaling\+\_\+metric\+\_\+set}!evel.\+h@{evel.\+h}}
+\subsubsection[{evel\+\_\+measurement\+\_\+vnfc\+\_\+scaling\+\_\+metric\+\_\+set(\+E\+V\+E\+N\+T\+\_\+\+M\+E\+A\+S\+U\+R\+E\+M\+E\+N\+T $\ast$measurement, double scaling\+\_\+metric)}]{\setlength{\rightskip}{0pt plus 5cm}void evel\+\_\+measurement\+\_\+vnfc\+\_\+scaling\+\_\+metric\+\_\+set (
+\begin{DoxyParamCaption}
+\item[{{\bf E\+V\+E\+N\+T\+\_\+\+M\+E\+A\+S\+U\+R\+E\+M\+E\+N\+T} $\ast$}]{measurement, }
+\item[{double}]{scaling\+\_\+metric}
+\end{DoxyParamCaption}
+)}\label{evel_8h_aed7dfc26f57c8474f1df4278e5e08d48}
+
+
+Set the V\+N\+F\+C Scaling Metric property of the Measurement. 
+
+\begin{DoxyNote}{Note}
+The property is treated as immutable\+: it is only valid to call the setter once. However, we don\textquotesingle{}t assert if the caller tries to overwrite, just ignoring the update instead.
+\end{DoxyNote}
+
+\begin{DoxyParams}{Parameters}
+{\em measurement} & Pointer to the measurement. \\
+\hline
+{\em scaling\+\_\+metric} & The scaling metric to set. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 623 of file evel\+\_\+scaling\+\_\+measurement.\+c.
+
+\hypertarget{evel_8h_a292975ca70b798acaf8fdc1665e55cdb}{}\index{evel.\+h@{evel.\+h}!evel\+\_\+measurement\+\_\+vnic\+\_\+use\+\_\+add@{evel\+\_\+measurement\+\_\+vnic\+\_\+use\+\_\+add}}
+\index{evel\+\_\+measurement\+\_\+vnic\+\_\+use\+\_\+add@{evel\+\_\+measurement\+\_\+vnic\+\_\+use\+\_\+add}!evel.\+h@{evel.\+h}}
+\subsubsection[{evel\+\_\+measurement\+\_\+vnic\+\_\+use\+\_\+add(\+E\+V\+E\+N\+T\+\_\+\+M\+E\+A\+S\+U\+R\+E\+M\+E\+N\+T $\ast$measurement, char $\ast$vnic\+\_\+id, int broadcast\+\_\+packets\+\_\+in, int broadcast\+\_\+packets\+\_\+out, int bytes\+\_\+in, int bytes\+\_\+out, int multicast\+\_\+packets\+\_\+in, int multicast\+\_\+packets\+\_\+out, int unicast\+\_\+packets\+\_\+in, int unicast\+\_\+packets\+\_\+out)}]{\setlength{\rightskip}{0pt plus 5cm}void evel\+\_\+measurement\+\_\+vnic\+\_\+use\+\_\+add (
+\begin{DoxyParamCaption}
+\item[{{\bf E\+V\+E\+N\+T\+\_\+\+M\+E\+A\+S\+U\+R\+E\+M\+E\+N\+T} $\ast$}]{measurement, }
+\item[{char $\ast$}]{vnic\+\_\+id, }
+\item[{int}]{broadcast\+\_\+packets\+\_\+in, }
+\item[{int}]{broadcast\+\_\+packets\+\_\+out, }
+\item[{int}]{bytes\+\_\+in, }
+\item[{int}]{bytes\+\_\+out, }
+\item[{int}]{multicast\+\_\+packets\+\_\+in, }
+\item[{int}]{multicast\+\_\+packets\+\_\+out, }
+\item[{int}]{unicast\+\_\+packets\+\_\+in, }
+\item[{int}]{unicast\+\_\+packets\+\_\+out}
+\end{DoxyParamCaption}
+)}\label{evel_8h_a292975ca70b798acaf8fdc1665e55cdb}
+
+
+Add an additional v\+N\+I\+C usage record Measurement. 
+
+The I\+D is null delimited A\+S\+C\+I\+I string. The library takes a copy so the caller does not have to preserve values after the function returns.
+
+
+\begin{DoxyParams}{Parameters}
+{\em measurement} & Pointer to the measurement. \\
+\hline
+{\em vnic\+\_\+id} & A\+S\+C\+I\+I\+Z string with the v\+N\+I\+C\textquotesingle{}s I\+D. \\
+\hline
+{\em broadcast\+\_\+packets\+\_\+in} & Broadcast packets received. \\
+\hline
+{\em broadcast\+\_\+packets\+\_\+out} & Broadcast packets transmitted. \\
+\hline
+{\em bytes\+\_\+in} & Total bytes received. \\
+\hline
+{\em bytes\+\_\+out} & Total bytes transmitted. \\
+\hline
+{\em multicast\+\_\+packets\+\_\+in} & Multicast packets received. \\
+\hline
+{\em multicast\+\_\+packets\+\_\+out} & Multicast packets transmitted. \\
+\hline
+{\em unicast\+\_\+packets\+\_\+in} & Unicast packets received. \\
+\hline
+{\em unicast\+\_\+packets\+\_\+out} & Unicast packets transmitted. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 326 of file evel\+\_\+scaling\+\_\+measurement.\+c.
+
+\hypertarget{evel_8h_ae31203fde9153686a32b2fc2a1183fa0}{}\index{evel.\+h@{evel.\+h}!evel\+\_\+new\+\_\+fault@{evel\+\_\+new\+\_\+fault}}
+\index{evel\+\_\+new\+\_\+fault@{evel\+\_\+new\+\_\+fault}!evel.\+h@{evel.\+h}}
+\subsubsection[{evel\+\_\+new\+\_\+fault(const char const $\ast$condition, const char const $\ast$specific\+\_\+problem, E\+V\+E\+L\+\_\+\+E\+V\+E\+N\+T\+\_\+\+P\+R\+I\+O\+R\+I\+T\+I\+E\+S priority, E\+V\+E\+L\+\_\+\+F\+A\+U\+L\+T\+\_\+\+S\+E\+V\+E\+R\+I\+T\+I\+E\+S severity)}]{\setlength{\rightskip}{0pt plus 5cm}{\bf E\+V\+E\+N\+T\+\_\+\+F\+A\+U\+L\+T}$\ast$ evel\+\_\+new\+\_\+fault (
+\begin{DoxyParamCaption}
+\item[{const char const $\ast$}]{condition, }
+\item[{const char const $\ast$}]{specific\+\_\+problem, }
+\item[{{\bf E\+V\+E\+L\+\_\+\+E\+V\+E\+N\+T\+\_\+\+P\+R\+I\+O\+R\+I\+T\+I\+E\+S}}]{priority, }
+\item[{{\bf E\+V\+E\+L\+\_\+\+F\+A\+U\+L\+T\+\_\+\+S\+E\+V\+E\+R\+I\+T\+I\+E\+S}}]{severity}
+\end{DoxyParamCaption}
+)}\label{evel_8h_ae31203fde9153686a32b2fc2a1183fa0}
+
+
+Create a new fault event. 
+
+\begin{DoxyReturn}{Returns}
+pointer to the newly manufactured \hyperlink{evel_8h_aab9e6f5e5cce300f2f4413c1d0228971}{E\+V\+E\+N\+T\+\_\+\+F\+A\+U\+L\+T}. If the event is not used it must be released using \hyperlink{evel_8h_a91faa4e06c4b079c2a8a1db1ccb2e47b}{evel\+\_\+free\+\_\+event} 
+\end{DoxyReturn}
+
+\begin{DoxyRetVals}{Return values}
+{\em N\+U\+L\+L} & Failed to create the event.\\
+\hline
+\end{DoxyRetVals}
+\begin{DoxyNote}{Note}
+The mandatory fields on the Fault must be supplied to this factory function and are immutable once set. Optional fields have explicit setter functions, but again values may only be set once so that the Fault has immutable properties. 
+\end{DoxyNote}
+
+\begin{DoxyParams}{Parameters}
+{\em condition} & The condition indicated by the Fault. \\
+\hline
+{\em specific\+\_\+problem} & The specific problem triggering the fault. \\
+\hline
+{\em priority} & The priority of the event. \\
+\hline
+{\em severity} & The severity of the Fault. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+pointer to the newly manufactured \hyperlink{evel_8h_aab9e6f5e5cce300f2f4413c1d0228971}{E\+V\+E\+N\+T\+\_\+\+F\+A\+U\+L\+T}. If the event is not used (i.\+e. posted) it must be released using \hyperlink{evel_8h_a91faa4e06c4b079c2a8a1db1ccb2e47b}{evel\+\_\+free\+\_\+event}. 
+\end{DoxyReturn}
+
+\begin{DoxyRetVals}{Return values}
+{\em N\+U\+L\+L} & Failed to create the event. \\
+\hline
+\end{DoxyRetVals}
+
+
+Definition at line 60 of file evel\+\_\+fault.\+c.
+
+\hypertarget{evel_8h_a3f91c0b7ebd4c48dfa57f6b810f010c4}{}\index{evel.\+h@{evel.\+h}!evel\+\_\+new\+\_\+heartbeat@{evel\+\_\+new\+\_\+heartbeat}}
+\index{evel\+\_\+new\+\_\+heartbeat@{evel\+\_\+new\+\_\+heartbeat}!evel.\+h@{evel.\+h}}
+\subsubsection[{evel\+\_\+new\+\_\+heartbeat()}]{\setlength{\rightskip}{0pt plus 5cm}{\bf E\+V\+E\+N\+T\+\_\+\+H\+E\+A\+D\+E\+R}$\ast$ evel\+\_\+new\+\_\+heartbeat (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\label{evel_8h_a3f91c0b7ebd4c48dfa57f6b810f010c4}
+
+
+Create a new heartbeat event. 
+
+\begin{DoxyNote}{Note}
+that the heartbeat is just a \char`\"{}naked\char`\"{} common\+Event\+Header!
+\end{DoxyNote}
+\begin{DoxyReturn}{Returns}
+pointer to the newly manufactured \hyperlink{evel_8h_aa0ea94c675729365ea7825c4fc7e06d8}{E\+V\+E\+N\+T\+\_\+\+H\+E\+A\+D\+E\+R}. If the event is not used it must be released using \hyperlink{evel_8h_a91faa4e06c4b079c2a8a1db1ccb2e47b}{evel\+\_\+free\+\_\+event} 
+\end{DoxyReturn}
+
+\begin{DoxyRetVals}{Return values}
+{\em N\+U\+L\+L} & Failed to create the event. \\
+\hline
+\end{DoxyRetVals}
+
+
+Definition at line 63 of file evel\+\_\+event.\+c.
+
+\hypertarget{evel_8h_a162ce37ab7f24dbbea23d46b77c974ce}{}\index{evel.\+h@{evel.\+h}!evel\+\_\+new\+\_\+measurement@{evel\+\_\+new\+\_\+measurement}}
+\index{evel\+\_\+new\+\_\+measurement@{evel\+\_\+new\+\_\+measurement}!evel.\+h@{evel.\+h}}
+\subsubsection[{evel\+\_\+new\+\_\+measurement(int concurrent\+\_\+sessions, int configured\+\_\+entities, double mean\+\_\+request\+\_\+latency, double measurement\+\_\+interval, double memory\+\_\+configured, double memory\+\_\+used, int request\+\_\+rate)}]{\setlength{\rightskip}{0pt plus 5cm}{\bf E\+V\+E\+N\+T\+\_\+\+M\+E\+A\+S\+U\+R\+E\+M\+E\+N\+T}$\ast$ evel\+\_\+new\+\_\+measurement (
+\begin{DoxyParamCaption}
+\item[{int}]{concurrent\+\_\+sessions, }
+\item[{int}]{configured\+\_\+entities, }
+\item[{double}]{mean\+\_\+request\+\_\+latency, }
+\item[{double}]{measurement\+\_\+interval, }
+\item[{double}]{memory\+\_\+configured, }
+\item[{double}]{memory\+\_\+used, }
+\item[{int}]{request\+\_\+rate}
+\end{DoxyParamCaption}
+)}\label{evel_8h_a162ce37ab7f24dbbea23d46b77c974ce}
+
+
+Create a new Measurement event. 
+
+\begin{DoxyNote}{Note}
+The mandatory fields on the Measurement must be supplied to this factory function and are immutable once set. Optional fields have explicit setter functions, but again values may only be set once so that the Measurement has immutable properties.
+\end{DoxyNote}
+
+\begin{DoxyParams}{Parameters}
+{\em concurrent\+\_\+sessions} & \\
+\hline
+{\em configured\+\_\+entities} & \\
+\hline
+{\em mean\+\_\+request\+\_\+latency} & \\
+\hline
+{\em measurement\+\_\+interval} & \\
+\hline
+{\em memory\+\_\+configured} & \\
+\hline
+{\em memory\+\_\+used} & \\
+\hline
+{\em request\+\_\+rate} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+pointer to the newly manufactured \hyperlink{evel_8h_a6aebe95622adf9a98ba33fc440c11ba0}{E\+V\+E\+N\+T\+\_\+\+M\+E\+A\+S\+U\+R\+E\+M\+E\+N\+T}. If the event is not used (i.\+e. posted) it must be released using \hyperlink{evel_8h_a91faa4e06c4b079c2a8a1db1ccb2e47b}{evel\+\_\+free\+\_\+event}. 
+\end{DoxyReturn}
+
+\begin{DoxyRetVals}{Return values}
+{\em N\+U\+L\+L} & Failed to create the event. \\
+\hline
+\end{DoxyRetVals}
+
+
+Definition at line 65 of file evel\+\_\+scaling\+\_\+measurement.\+c.
+
+\hypertarget{evel_8h_a77971f763ebf42efb1a5b0a12bbe579d}{}\index{evel.\+h@{evel.\+h}!evel\+\_\+new\+\_\+report@{evel\+\_\+new\+\_\+report}}
+\index{evel\+\_\+new\+\_\+report@{evel\+\_\+new\+\_\+report}!evel.\+h@{evel.\+h}}
+\subsubsection[{evel\+\_\+new\+\_\+report(double measurement\+\_\+interval)}]{\setlength{\rightskip}{0pt plus 5cm}{\bf E\+V\+E\+N\+T\+\_\+\+R\+E\+P\+O\+R\+T}$\ast$ evel\+\_\+new\+\_\+report (
+\begin{DoxyParamCaption}
+\item[{double}]{measurement\+\_\+interval}
+\end{DoxyParamCaption}
+)}\label{evel_8h_a77971f763ebf42efb1a5b0a12bbe579d}
+
+
+Create a new Report event. 
+
+\begin{DoxyNote}{Note}
+The mandatory fields on the Report must be supplied to this factory function and are immutable once set. Optional fields have explicit setter functions, but again values may only be set once so that the Report has immutable properties.
+\end{DoxyNote}
+
+\begin{DoxyParams}{Parameters}
+{\em measurement\+\_\+interval} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+pointer to the newly manufactured \hyperlink{evel_8h_abf6741459d5be3598c74302604481e77}{E\+V\+E\+N\+T\+\_\+\+R\+E\+P\+O\+R\+T}. If the event is not used (i.\+e. posted) it must be released using \hyperlink{evel_8h_a91faa4e06c4b079c2a8a1db1ccb2e47b}{evel\+\_\+free\+\_\+event}. 
+\end{DoxyReturn}
+
+\begin{DoxyRetVals}{Return values}
+{\em N\+U\+L\+L} & Failed to create the event. \\
+\hline
+\end{DoxyRetVals}
+
+
+Definition at line 66 of file evel\+\_\+reporting\+\_\+measurement.\+c.
+
+\hypertarget{evel_8h_a209d2e5dbffe9e11ac79ae140f4a81bd}{}\index{evel.\+h@{evel.\+h}!evel\+\_\+post\+\_\+event@{evel\+\_\+post\+\_\+event}}
+\index{evel\+\_\+post\+\_\+event@{evel\+\_\+post\+\_\+event}!evel.\+h@{evel.\+h}}
+\subsubsection[{evel\+\_\+post\+\_\+event(\+E\+V\+E\+N\+T\+\_\+\+H\+E\+A\+D\+E\+R $\ast$event)}]{\setlength{\rightskip}{0pt plus 5cm}{\bf E\+V\+E\+L\+\_\+\+E\+R\+R\+\_\+\+C\+O\+D\+E\+S} evel\+\_\+post\+\_\+event (
+\begin{DoxyParamCaption}
+\item[{{\bf E\+V\+E\+N\+T\+\_\+\+H\+E\+A\+D\+E\+R} $\ast$}]{event}
+\end{DoxyParamCaption}
+)}\label{evel_8h_a209d2e5dbffe9e11ac79ae140f4a81bd}
+
+
+Post an event. 
+
+\begin{DoxyNote}{Note}
+So far as the caller is concerned, successfully posting the event relinquishes all responsibility for the event -\/ the library will take care of freeing the event in due course.
+\end{DoxyNote}
+
+\begin{DoxyParams}{Parameters}
+{\em event} & The event to be posted.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Status code 
+\end{DoxyReturn}
+
+\begin{DoxyRetVals}{Return values}
+{\em E\+V\+E\+L\+\_\+\+S\+U\+C\+C\+E\+S\+S} & On success \\
+\hline
+{\em One of \+::\+E\+V\+E\+L\+\_\+\+E\+R\+R\+\_\+\+C\+O\+D\+E\+S} & On failure. \\
+\hline
+\end{DoxyRetVals}
+
+
+Definition at line 445 of file evel\+\_\+event\+\_\+mgr.\+c.
+
+\hypertarget{evel_8h_a22ca63d2e78a125d6912db577e5bde50}{}\index{evel.\+h@{evel.\+h}!evel\+\_\+report\+\_\+custom\+\_\+measurement\+\_\+add@{evel\+\_\+report\+\_\+custom\+\_\+measurement\+\_\+add}}
+\index{evel\+\_\+report\+\_\+custom\+\_\+measurement\+\_\+add@{evel\+\_\+report\+\_\+custom\+\_\+measurement\+\_\+add}!evel.\+h@{evel.\+h}}
+\subsubsection[{evel\+\_\+report\+\_\+custom\+\_\+measurement\+\_\+add(\+E\+V\+E\+N\+T\+\_\+\+R\+E\+P\+O\+R\+T $\ast$report, const char const $\ast$group, const char const $\ast$name, const char const $\ast$value)}]{\setlength{\rightskip}{0pt plus 5cm}void evel\+\_\+report\+\_\+custom\+\_\+measurement\+\_\+add (
+\begin{DoxyParamCaption}
+\item[{{\bf E\+V\+E\+N\+T\+\_\+\+R\+E\+P\+O\+R\+T} $\ast$}]{report, }
+\item[{const char const $\ast$}]{group, }
+\item[{const char const $\ast$}]{name, }
+\item[{const char const $\ast$}]{value}
+\end{DoxyParamCaption}
+)}\label{evel_8h_a22ca63d2e78a125d6912db577e5bde50}
+
+
+Add a Additional Measurement value name/value pair to the Report. 
+
+The name is null delimited A\+S\+C\+I\+I string. The library takes a copy so the caller does not have to preserve values after the function returns.
+
+
+\begin{DoxyParams}{Parameters}
+{\em report} & Pointer to the report. \\
+\hline
+{\em group} & A\+S\+C\+I\+I\+Z string with the measurement group\textquotesingle{}s name. \\
+\hline
+{\em name} & A\+S\+C\+I\+I\+Z string containing the measurement\textquotesingle{}s name. \\
+\hline
+{\em value} & A\+S\+C\+I\+I\+Z string containing the measurement\textquotesingle{}s value. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 196 of file evel\+\_\+reporting\+\_\+measurement.\+c.
+
+\hypertarget{evel_8h_acdaadc0612641af3ce52a248e001988e}{}\index{evel.\+h@{evel.\+h}!evel\+\_\+report\+\_\+feature\+\_\+use\+\_\+add@{evel\+\_\+report\+\_\+feature\+\_\+use\+\_\+add}}
+\index{evel\+\_\+report\+\_\+feature\+\_\+use\+\_\+add@{evel\+\_\+report\+\_\+feature\+\_\+use\+\_\+add}!evel.\+h@{evel.\+h}}
+\subsubsection[{evel\+\_\+report\+\_\+feature\+\_\+use\+\_\+add(\+E\+V\+E\+N\+T\+\_\+\+R\+E\+P\+O\+R\+T $\ast$report, char $\ast$feature, double utilization)}]{\setlength{\rightskip}{0pt plus 5cm}void evel\+\_\+report\+\_\+feature\+\_\+use\+\_\+add (
+\begin{DoxyParamCaption}
+\item[{{\bf E\+V\+E\+N\+T\+\_\+\+R\+E\+P\+O\+R\+T} $\ast$}]{report, }
+\item[{char $\ast$}]{feature, }
+\item[{double}]{utilization}
+\end{DoxyParamCaption}
+)}\label{evel_8h_acdaadc0612641af3ce52a248e001988e}
+
+
+Add a Feature usage value name/value pair to the Report. 
+
+The name is null delimited A\+S\+C\+I\+I string. The library takes a copy so the caller does not have to preserve values after the function returns.
+
+
+\begin{DoxyParams}{Parameters}
+{\em report} & Pointer to the report. \\
+\hline
+{\em feature} & A\+S\+C\+I\+I\+Z string with the feature\textquotesingle{}s name. \\
+\hline
+{\em utilization} & Utilization of the feature. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 154 of file evel\+\_\+reporting\+\_\+measurement.\+c.
+
+\hypertarget{evel_8h_adf9d2abb11b462846df674e3368e8483}{}\index{evel.\+h@{evel.\+h}!evel\+\_\+report\+\_\+type\+\_\+set@{evel\+\_\+report\+\_\+type\+\_\+set}}
+\index{evel\+\_\+report\+\_\+type\+\_\+set@{evel\+\_\+report\+\_\+type\+\_\+set}!evel.\+h@{evel.\+h}}
+\subsubsection[{evel\+\_\+report\+\_\+type\+\_\+set(\+E\+V\+E\+N\+T\+\_\+\+R\+E\+P\+O\+R\+T $\ast$report, const char const $\ast$type)}]{\setlength{\rightskip}{0pt plus 5cm}void evel\+\_\+report\+\_\+type\+\_\+set (
+\begin{DoxyParamCaption}
+\item[{{\bf E\+V\+E\+N\+T\+\_\+\+R\+E\+P\+O\+R\+T} $\ast$}]{report, }
+\item[{const char const $\ast$}]{type}
+\end{DoxyParamCaption}
+)}\label{evel_8h_adf9d2abb11b462846df674e3368e8483}
+
+
+Set the Event Type property of the Report. 
+
+\begin{DoxyNote}{Note}
+The property is treated as immutable\+: it is only valid to call the setter once. However, we don\textquotesingle{}t assert if the caller tries to overwrite, just ignoring the update instead.
+\end{DoxyNote}
+
+\begin{DoxyParams}{Parameters}
+{\em report} & Pointer to the Report. \\
+\hline
+{\em type} & The Event Type to be set. A\+S\+C\+I\+I\+Z string. The caller does not need to preserve the value once the function returns \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 117 of file evel\+\_\+reporting\+\_\+measurement.\+c.
+
+\hypertarget{evel_8h_ab3f6225ddb9c5113d74503d4fcd17e5b}{}\index{evel.\+h@{evel.\+h}!evel\+\_\+terminate@{evel\+\_\+terminate}}
+\index{evel\+\_\+terminate@{evel\+\_\+terminate}!evel.\+h@{evel.\+h}}
+\subsubsection[{evel\+\_\+terminate(void)}]{\setlength{\rightskip}{0pt plus 5cm}{\bf E\+V\+E\+L\+\_\+\+E\+R\+R\+\_\+\+C\+O\+D\+E\+S} evel\+\_\+terminate (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}\label{evel_8h_ab3f6225ddb9c5113d74503d4fcd17e5b}
+
+
+Clean up the E\+V\+E\+L library. 
+
+\begin{DoxyNote}{Note}
+that at present don\textquotesingle{}t expect Init/\+Term cycling not to leak memory!
+\end{DoxyNote}
+\begin{DoxyReturn}{Returns}
+Status code 
+\end{DoxyReturn}
+
+\begin{DoxyRetVals}{Return values}
+{\em E\+V\+E\+L\+\_\+\+S\+U\+C\+C\+E\+S\+S} & On success \\
+\hline
+{\em One of \+::\+E\+V\+E\+L\+\_\+\+E\+R\+R\+\_\+\+C\+O\+D\+E\+S} & On failure. \\
+\hline
+\end{DoxyRetVals}
+
+
+Definition at line 198 of file evel.\+c.
+
+\hypertarget{evel_8h_a1bb7d9765fc0f716b8c982920cfeca8c}{}\index{evel.\+h@{evel.\+h}!evel\+\_\+write\+\_\+callback@{evel\+\_\+write\+\_\+callback}}
+\index{evel\+\_\+write\+\_\+callback@{evel\+\_\+write\+\_\+callback}!evel.\+h@{evel.\+h}}
+\subsubsection[{evel\+\_\+write\+\_\+callback(void $\ast$contents, size\+\_\+t size, size\+\_\+t nmemb, void $\ast$userp)}]{\setlength{\rightskip}{0pt plus 5cm}size\+\_\+t evel\+\_\+write\+\_\+callback (
+\begin{DoxyParamCaption}
+\item[{void $\ast$}]{contents, }
+\item[{size\+\_\+t}]{size, }
+\item[{size\+\_\+t}]{nmemb, }
+\item[{void $\ast$}]{userp}
+\end{DoxyParamCaption}
+)}\label{evel_8h_a1bb7d9765fc0f716b8c982920cfeca8c}
+
+
+Callback function to provide returned data. 
+
+Copy data into the supplied buffer, write\+\_\+callback\+::ptr, checking size limits.
+
+\begin{DoxyReturn}{Returns}
+Number of bytes placed into write\+\_\+callback\+::ptr. 0 for E\+O\+F. 
+\end{DoxyReturn}
+
+
+Definition at line 648 of file evel\+\_\+event\+\_\+mgr.\+c.
+
+\hypertarget{evel_8h_ab6073d0ad433cc7e272b66952063a4fb}{}\index{evel.\+h@{evel.\+h}!log\+\_\+debug@{log\+\_\+debug}}
+\index{log\+\_\+debug@{log\+\_\+debug}!evel.\+h@{evel.\+h}}
+\subsubsection[{log\+\_\+debug(\+E\+V\+E\+L\+\_\+\+L\+O\+G\+\_\+\+L\+E\+V\+E\+L\+S level, char $\ast$format,...)}]{\setlength{\rightskip}{0pt plus 5cm}void log\+\_\+debug (
+\begin{DoxyParamCaption}
+\item[{{\bf E\+V\+E\+L\+\_\+\+L\+O\+G\+\_\+\+L\+E\+V\+E\+L\+S}}]{level, }
+\item[{char $\ast$}]{format, }
+\item[{}]{...}
+\end{DoxyParamCaption}
+)}\label{evel_8h_ab6073d0ad433cc7e272b66952063a4fb}
+
+
+Log debug information. 
+
+Logs debugging information in a platform independent manner.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em level} & The debugging level -\/ one of \hyperlink{evel_8h_a802542777d6cfd68dfdcbd50690e015f}{E\+V\+E\+L\+\_\+\+L\+O\+G\+\_\+\+L\+E\+V\+E\+L\+S} \\
+\hline
+\mbox{\tt in}  & {\em format} & Log formatting string in printf format. \\
+\hline
+\mbox{\tt in}  & {\em ...} & Variable argument list.\\
+\hline
+\end{DoxyParams}
+Log debug information.
+
+Provides an interface to syslog with formatting of the nesting level so that it\textquotesingle{}s easier to see function entry/exit.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em level} & The debug level -\/ see \hyperlink{evel_8h_a802542777d6cfd68dfdcbd50690e015f}{E\+V\+E\+L\+\_\+\+L\+O\+G\+\_\+\+L\+E\+V\+E\+L\+S}. \\
+\hline
+\mbox{\tt in}  & {\em format} & The output formatting in printf style. \\
+\hline
+\mbox{\tt in}  & {\em ...} & Variable arguments as specified in the format string. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 120 of file evel\+\_\+logging.\+c.
+
+\hypertarget{evel_8h_a2031624e863d0caabc96d307687a1883}{}\index{evel.\+h@{evel.\+h}!log\+\_\+error\+\_\+state@{log\+\_\+error\+\_\+state}}
+\index{log\+\_\+error\+\_\+state@{log\+\_\+error\+\_\+state}!evel.\+h@{evel.\+h}}
+\subsubsection[{log\+\_\+error\+\_\+state(char $\ast$format,...)}]{\setlength{\rightskip}{0pt plus 5cm}void log\+\_\+error\+\_\+state (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{format, }
+\item[{}]{...}
+\end{DoxyParamCaption}
+)}\label{evel_8h_a2031624e863d0caabc96d307687a1883}
+
+
+Definition at line 98 of file evel\+\_\+logging.\+c.
+
+\hypertarget{evel_8h_a7e62b4de31e7c058e1534d0ac6040e98}{}\index{evel.\+h@{evel.\+h}!log\+\_\+initialize@{log\+\_\+initialize}}
+\index{log\+\_\+initialize@{log\+\_\+initialize}!evel.\+h@{evel.\+h}}
+\subsubsection[{log\+\_\+initialize(\+E\+V\+E\+L\+\_\+\+L\+O\+G\+\_\+\+L\+E\+V\+E\+L\+S level, const char $\ast$ident)}]{\setlength{\rightskip}{0pt plus 5cm}void log\+\_\+initialize (
+\begin{DoxyParamCaption}
+\item[{{\bf E\+V\+E\+L\+\_\+\+L\+O\+G\+\_\+\+L\+E\+V\+E\+L\+S}}]{level, }
+\item[{const char $\ast$}]{ident}
+\end{DoxyParamCaption}
+)}\label{evel_8h_a7e62b4de31e7c058e1534d0ac6040e98}
+
+
+Initialize logging. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em level} & The debugging level -\/ one of \hyperlink{evel_8h_a802542777d6cfd68dfdcbd50690e015f}{E\+V\+E\+L\+\_\+\+L\+O\+G\+\_\+\+L\+E\+V\+E\+L\+S} \\
+\hline
+\mbox{\tt in}  & {\em ident} & The identifier for our logs. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 68 of file evel\+\_\+logging.\+c.
+
+
+
+\subsection{Variable Documentation}
+\hypertarget{evel_8h_abe0a56f90c6c8b261d23838bbeda2d22}{}\index{evel.\+h@{evel.\+h}!debug\+\_\+indent@{debug\+\_\+indent}}
+\index{debug\+\_\+indent@{debug\+\_\+indent}!evel.\+h@{evel.\+h}}
+\subsubsection[{debug\+\_\+indent}]{\setlength{\rightskip}{0pt plus 5cm}int debug\+\_\+indent}\label{evel_8h_abe0a56f90c6c8b261d23838bbeda2d22}
+
+
+Definition at line 54 of file evel\+\_\+logging.\+c.
+
+\hypertarget{evel_8h_a52ad99cc519509a2e699ac4808f47178}{}\index{evel.\+h@{evel.\+h}!debug\+\_\+level@{debug\+\_\+level}}
+\index{debug\+\_\+level@{debug\+\_\+level}!evel.\+h@{evel.\+h}}
+\subsubsection[{debug\+\_\+level}]{\setlength{\rightskip}{0pt plus 5cm}{\bf E\+V\+E\+L\+\_\+\+L\+O\+G\+\_\+\+L\+E\+V\+E\+L\+S} debug\+\_\+level}\label{evel_8h_a52ad99cc519509a2e699ac4808f47178}
+
+
+Definition at line 52 of file evel\+\_\+logging.\+c.
+
+\hypertarget{evel_8h_acec19516a59050bb447192fe318e6a9c}{}\index{evel.\+h@{evel.\+h}!fout@{fout}}
+\index{fout@{fout}!evel.\+h@{evel.\+h}}
+\subsubsection[{fout}]{\setlength{\rightskip}{0pt plus 5cm}F\+I\+L\+E$\ast$ fout}\label{evel_8h_acec19516a59050bb447192fe318e6a9c}

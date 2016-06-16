@@ -1,0 +1,5 @@
+<map id="event_report" name="event_report">
+<area shape="rect" id="node2" href="$structevent__header.html" title="Event header. " alt="" coords="5,123,104,152"/>
+<area shape="rect" id="node4" href="$structdlist.html" title="Double&#45;linked list structure. " alt="" coords="128,123,173,152"/>
+<area shape="rect" id="node6" href="$structdlist__item.html" title="dlist_item" alt="" coords="112,8,189,37"/>
+</map>

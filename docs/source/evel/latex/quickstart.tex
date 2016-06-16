@@ -1,0 +1,282 @@
+\hypertarget{quickstart_qs_intro}{}\section{Introduction}\label{quickstart_qs_intro}
+This Quick-\/\+Start section describes how to\+:
+
+
+\begin{DoxyItemize}
+\item Install and compile the supplied library code
+\item Integrate an existing project to use the E\+V\+E\+L library
+\end{DoxyItemize}\hypertarget{quickstart_qs_install}{}\section{Installation}\label{quickstart_qs_install}
+The library is supplied as a source-\/code compressed-\/tar file. It is straightforward to install and build to integrate with an existing or new development project.\hypertarget{quickstart_qs_unpack}{}\subsection{Unpack the Source Code}\label{quickstart_qs_unpack}
+The file should unpacked into your development environment\+: 
+\begin{DoxyCode}
+1 $ mkdir evel
+2 $ cd evel
+3 $ tar zxvf evel-library-package.tgz
+\end{DoxyCode}
+ \hypertarget{quickstart_qs_depend}{}\subsubsection{Satisfy Dependencies}\label{quickstart_qs_depend}
+Note that all commands in this section are based on Cent\+O\+S package management tools and you may need to substitute the appropriate tools/packages for your distribution, for example {\ttfamily apt-\/get} for Ubuntu.
+
+Ensure that G\+C\+C development tools are available.
+
+
+\begin{DoxyCode}
+1 $ sudo yum install gcc
+\end{DoxyCode}
+ Additionally, the library has a dependency on the c\+U\+R\+L library, so you\textquotesingle{}ll need the development tools for lib\+Curl installed. (At runtime, only the runtime library is required, of course.)
+
+
+\begin{DoxyCode}
+1 $ sudo yum install libcurl-devel
+\end{DoxyCode}
+ If you wish to make the project documentation, then Doxygen and Graphviz are required. (Again, this is only in the development environment, not the runtime environment!
+
+
+\begin{DoxyCode}
+1 $ sudo yum install doxygen graphviz
+\end{DoxyCode}
+
+
+Note that some distributions have quite old versions of Doxygen by default and it may be necessary to install a later version to use all the features.
+
+If you want to build P\+D\+Fs from the La\+Te\+X you will need a texlive install.
+
+
+\begin{DoxyCode}
+1 $ sudo yum install texlive
+\end{DoxyCode}
+\hypertarget{quickstart_qs_build}{}\subsubsection{Test Build}\label{quickstart_qs_build}
+Make sure that the library makes cleanly\+:
+
+
+\begin{DoxyCode}
+1 $ cd bldjobs
+2 $ make
+3 Making metadata.o from metadata.c
+4 Making ring\_buffer.o from ring\_buffer.c
+5 Making double\_list.o from double\_list.c
+6 Making evel\_event.o from evel\_event.c
+7 Making evel\_fault.o from evel\_fault.c
+8 Making evel\_measurement.o from evel\_measurement.c
+9 Making evel\_event\_mgr.o from evel\_event\_mgr.c
+10 Making evel\_logging.o from evel\_logging.c
+11 Linking API Shared Library
+12 Linking API Static Library
+13 Linking EVEL demo
+14 
+15 $
+\end{DoxyCode}
+ You should now be able to run the demo C\+L\+I application. Since it will want to dynamically link to the library that you\textquotesingle{}ve just made, you will need to set your {\ttfamily L\+D\+\_\+\+L\+I\+B\+R\+A\+R\+Y\+\_\+\+P\+A\+T\+H} appropriately first. Make sure that you specify your actual directory paths correctly in the following\+:
+
+
+\begin{DoxyCode}
+1 $ export LD\_LIBRARY\_PATH=$LD\_LIBRARY\_PATH:/home/centos/evel/libs/x86\_64
+2 $ ../output/x86\_64/evel\_demo
+3 evel\_demo [--help]
+4           --fqdn <domain>
+5           --port <port\_number>
+6           [--path <path>]
+7           [--topic <topic>]
+8           [--https]
+9 
+10 Demonstrate use of the ECOMP Vendor Event Listener API.
+11 
+12   -h         Display this usage message.
+13   --help
+14 
+15   -f         The FQDN or IP address to the RESTful API.
+16   --fqdn
+17 
+18   -n         The port number the RESTful API.
+19   --port
+20 
+21   -p         The optional path prefix to the RESTful API.
+22   --path
+23 
+24   -t         The optional topic part of the RESTful API.
+25   --topic
+26 
+27   -s         Use HTTPS rather than HTTP for the transport.
+28   --https
+29 
+30   -v         Generate much chattier logs.
+31   --verbose
+32 
+33 $
+\end{DoxyCode}
+ Assuming that all worked as expected, you are ready to start integrating with your application. It probably makes sense to make the L\+D\+\_\+\+L\+I\+B\+R\+A\+R\+Y\+\_\+\+P\+A\+T\+H change above permanent by incorporating it into your {\ttfamily .bash\+\_\+profile} file.\hypertarget{quickstart_qs_build_docs}{}\subsubsection{Project Documentation}\label{quickstart_qs_build_docs}
+The source comes with its own documentation included. The documentation can be built using the {\ttfamily docs} target in the Makefile. By default this builds H\+T\+M\+L and La\+Te\+X documentation, the latter being used to prepare P\+D\+Fs.
+
+To make the documentation\+: 
+\begin{DoxyCode}
+1 $ cd bldjobs
+2 $ make docs
+3 Cleaning docs...
+4 Making Doxygen documentation
+5 $ 
+\end{DoxyCode}
+
+
+There is a make target that is intended to install the documentation on a \char`\"{}team server\char`\"{} -\/ it will need adaptation for your team\textquotesingle{}s environment -\/ see the {\ttfamily docs\+\_\+install} target in the Makefile\+:
+
+
+\begin{DoxyCode}
+1 $ make docs\_install
+2 Cleaning docs...
+3 Making Doxygen documentation
+4 Copying docs to team web-server...
+5 Enter passphrase for key '/data/home/.ssh/id\_rsa':
+6 annotated.html                           100% 8088     7.9KB/s   00:00    
+7 arrowdown.png                            100%  246     0.2KB/s   00:00    
+8 arrowright.png                           100%  229     0.2KB/s   00:00    
+9   ...
+10 $
+\end{DoxyCode}
+\hypertarget{quickstart_qs_integrate}{}\section{Project Integration}\label{quickstart_qs_integrate}
+There are two key steps to the integration which have to be undertaken\+:
+
+
+\begin{DoxyItemize}
+\item Initialization/\+Termination of the library.
+\item Creation \& posting of individual events.
+\end{DoxyItemize}
+
+Additionally, it may be necessary to consider changes to the E\+V\+E\+L library\textquotesingle{}s source code if assumptions made by the library are either not satisfied or inconvenient. In particular\+:
+
+
+\begin{DoxyItemize}
+\item If the project already uses libcurl then the global initialization of the library should be removed from the {\itshape E\+V\+E\+L Library}.
+\item The {\itshape E\+V\+E\+L Library} uses {\ttfamily syslog} for event logging. If the project uses a different event logging process, then E\+V\+E\+L\textquotesingle{}s event logging macros should be rewritten appropriately.
+\end{DoxyItemize}
+
+These steps are considered in the \hyperlink{quickstart_qs_normal_use}{Normal Use} and \hyperlink{quickstart_qs_adaptation}{E\+V\+E\+L Adaptation} sections below.\hypertarget{quickstart_qs_normal_use}{}\subsection{Normal Use}\label{quickstart_qs_normal_use}
+The {\itshape E\+V\+E\+L Library} should be integrated with your project at a per-\/process level\+: each process is an independent client of the E\+C\+O\+M\+P Vendor Event Listener A\+P\+I.\hypertarget{quickstart_qs_initialize}{}\subsubsection{Initialization}\label{quickstart_qs_initialize}
+The {\itshape E\+V\+E\+L Library} should be initialized before the process becomes multi-\/threaded. This constraint arises from the use of libcurl which imposes the constraint that initialization occurs before the system is multi-\/threaded. This is described in more detail in the libcurl documentation for the \href{https://curl.haxx.se/libcurl/c/curl_global_init.html}{\tt curl\+\_\+global\+\_\+init} function.
+
+Initialization stores configuration of the Vendor Event Listener A\+P\+I\textquotesingle{}s details, such as the F\+Q\+D\+N or I\+P address of the service, so the initializing process must have either extracted this information from its configuration or have this information \char`\"{}hard-\/wired\char`\"{} into the application, so that it is available at the point the {\ttfamily \hyperlink{evel_8c_aff020c5505e724b414ac981e2a23fcd6}{evel\+\_\+initialize()}} function is called\+:
+
+
+\begin{DoxyCode}
+\textcolor{preprocessor}{#include "\hyperlink{evel_8h}{evel.h}"}
+...
+if (\hyperlink{evel_8c_aff020c5505e724b414ac981e2a23fcd6}{evel\_initialize}(api\_fqdn,
+                    api\_port,
+                    api\_path,
+                    api\_topic,
+                    api\_secure,
+                    \textcolor{stringliteral}{"Alice"},
+                    \textcolor{stringliteral}{"This isn't very secure!"},
+                    \hyperlink{evel_8h_a304eae0d024005dc4c7031bdd774d64aa4fbe43c85c55ae14048a2dc7fc5bfcc8}{EVEL\_SOURCE\_VIRTUAL\_MACHINE},
+                    \textcolor{stringliteral}{"EVEL demo client"},
+                    verbose\_mode))
+\{
+  fprintf(stderr, \textcolor{stringliteral}{"Failed to initialize the EVEL library!!!"});
+  exit(-1);
+\}
+...
+\end{DoxyCode}
+ Once initialization has occurred successfully, the application may raise events and may also use the logging functions such as \hyperlink{evel_8h_a4230856762649c13d728edb6384d7e62}{E\+V\+E\+L\+\_\+\+I\+N\+F\+O()}.
+
+Initialization is entirely local (there is no interaction with the service) so it is very unlikely to fail, unless the application environment is seriously degraded.\hypertarget{quickstart_qs_generate}{}\subsubsection{Event Generation}\label{quickstart_qs_generate}
+Generating events is a two stage process\+:
+
+
+\begin{DoxyEnumerate}
+\item Firstly, the {\itshape E\+V\+E\+L Library} is called to allocate an event of the correct type.
+\begin{DoxyItemize}
+\item If this is successful, the caller is given a pointer to the event.
+\item All mandatory fields on the event are provided to this factory function and are thereafter immutable.
+\item The application may add any necessary optional fields to the event, using the pointer previously returned.
+\end{DoxyItemize}
+\item The event is sent to the J\+S\+O\+N A\+P\+I using the \hyperlink{evel_8h_a209d2e5dbffe9e11ac79ae140f4a81bd}{evel\+\_\+post\+\_\+event()} function.
+\begin{DoxyItemize}
+\item At this point, the application relinquishes all responsibility for the event\+:
+\begin{DoxyItemize}
+\item It will be posted to the J\+S\+O\+N A\+P\+I, if possible.
+\item Whether or not the posting is successful, the memory used will be freed.
+\end{DoxyItemize}
+\end{DoxyItemize}
+\end{DoxyEnumerate}
+
+In practice this looks like\+:
+
+
+\begin{DoxyCode}
+\textcolor{preprocessor}{#include "\hyperlink{evel_8h}{evel.h}"}
+...
+
+\textcolor{comment}{/***************************************************************************/}
+\textcolor{comment}{/* Create a new Fault object, setting mandatory fields as we do so...      */}
+\textcolor{comment}{/***************************************************************************/}
+fault = \hyperlink{evel_8h_ae31203fde9153686a32b2fc2a1183fa0}{evel\_new\_fault}(\textcolor{stringliteral}{"My alarm condition"},
+                       \textcolor{stringliteral}{"It broke very badly"},
+                       \hyperlink{evel_8h_ad1bf6807fa6710332251611207490484af656e2fbfee66b25faa06447799a9011}{EVEL\_PRIORITY\_NORMAL},
+                       \hyperlink{evel_8h_ac52696495e0b34b23a0726f467670d0fac454e36d0a4678cd7ae2de725f513b61}{EVEL\_SEVERITY\_MAJOR});
+\textcolor{keywordflow}{if} (fault != NULL)
+\{
+  \textcolor{comment}{/*************************************************************************/}
+  \textcolor{comment}{/* We have a Fault object - add some optional fields to it...            */}
+  \textcolor{comment}{/*************************************************************************/}
+  \hyperlink{evel_8h_aaafea6d63d296e8f33779387509e80cb}{evel\_fault\_type\_set}(fault, \textcolor{stringliteral}{"Bad things happen..."});
+  \hyperlink{evel_8h_ae56fef27e31906a535793f941bba6d7e}{evel\_fault\_interface\_set}(fault, \textcolor{stringliteral}{"My Interface Card"});
+  \hyperlink{evel_8h_a07076c0fa1d2941102f957af3b47df44}{evel\_fault\_addl\_info\_add}(fault, \textcolor{stringliteral}{"name1"}, \textcolor{stringliteral}{"value1"});
+  \hyperlink{evel_8h_a07076c0fa1d2941102f957af3b47df44}{evel\_fault\_addl\_info\_add}(fault, \textcolor{stringliteral}{"name2"}, \textcolor{stringliteral}{"value2"});
+
+  \textcolor{comment}{/*************************************************************************/}
+  \textcolor{comment}{/* Finally, post the Fault.  In practice this will only ever fail if     */}
+  \textcolor{comment}{/* local ring-buffer is full because of event overload.                  */}
+  \textcolor{comment}{/*************************************************************************/}
+  evel\_rc = \hyperlink{evel_8h_a209d2e5dbffe9e11ac79ae140f4a81bd}{evel\_post\_event}((\hyperlink{structevent__header}{EVENT\_HEADER} *)fault);
+  \textcolor{keywordflow}{if} (evel\_rc != \hyperlink{evel_8h_ae1f68b0d21fb98defcec46e99208a03eaa9369500f041c2898e5c2b4f07b6d152}{EVEL\_SUCCESS})
+  \{
+    \hyperlink{evel_8h_a08905640aa895fc0d555d6ea08544bc9}{EVEL\_ERROR}(\textcolor{stringliteral}{"Post failed %d (%s)"}, evel\_rc, \hyperlink{evel_8h_a4e26e681850483196ff690d928ab7896}{evel\_error\_string}());
+  \}
+\}
+...
+\end{DoxyCode}
+ \hypertarget{quickstart_qs_event_types}{}\subsubsection{Event Types}\label{quickstart_qs_event_types}
+The {\itshape E\+V\+E\+L Library} supports three types of events\+:
+
+
+\begin{DoxyEnumerate}
+\item Faults
+
+These represent the {\bfseries fault} type in the event schema.
+\item Measurements
+
+These represent the {\bfseries measurements\+For\+Vf\+Scaling} type in the event schema.
+\item Reports
+
+This is an experimental type, designed to allow V\+N\+Fs to report application-\/level statistics unencumbered with platform measurements. The formal A\+T\&T schema has been updated to include this experimental type as {\bfseries measurements\+For\+Vf\+Reporting}.
+\end{DoxyEnumerate}\hypertarget{quickstart_qs_termination}{}\subsubsection{Termination}\label{quickstart_qs_termination}
+Termination of the {\itshape E\+V\+E\+L Library} is swift and brutal! Events in the buffer at the time are \char`\"{}dropped on the floor\char`\"{} rather than waiting for the buffer to deplete first.
+
+
+\begin{DoxyCode}
+\textcolor{preprocessor}{#include "\hyperlink{evel_8h}{evel.h}"}
+...
+
+\textcolor{comment}{/***************************************************************************/}
+\textcolor{comment}{/* Shutdown the library.                                                   */}
+\textcolor{comment}{/***************************************************************************/}
+evel\_terminate();
+
+...
+\end{DoxyCode}
+\hypertarget{quickstart_qs_adaptation}{}\subsection{E\+V\+E\+L Adaptation}\label{quickstart_qs_adaptation}
+The {\itshape E\+V\+E\+L Library} is relatively simple and should be easy to adapt into other project environments.
+
+\subsubsection*{Libc\+U\+R\+L Lifecycle}
+
+There are two circumstances where initialization of libcurl may be required\+:
+
+
+\begin{DoxyEnumerate}
+\item If libcurl is used by the project already, and therefore already takes responsibility of its initialization, then the libcurl initialization and termination functions should be removed from \hyperlink{evel_8c_aff020c5505e724b414ac981e2a23fcd6}{evel\+\_\+initialize()} and \hyperlink{evel_8c_ab3f6225ddb9c5113d74503d4fcd17e5b}{evel\+\_\+terminate()} respectively.
+\item If the project is unable to satisfy the constraint that libcurl initialization takes place in a single-\/threaded environment at the point that the {\itshape E\+V\+E\+L Library} can be initialized (for example, if M\+T code is necessary to read the configuration parameters required for {\itshape E\+V\+E\+L Library} initialization) then it may be necessary to extract the libcurl functions and call them separately, earlier in the program\textquotesingle{}s operation.
+\end{DoxyEnumerate}
+
+\subsubsection*{Event Logging}
+
+The {\itshape E\+V\+E\+L Library} uses {\ttfamily syslog} for logging. If this is inappropriate then the \hyperlink{evel_8h_ab6073d0ad433cc7e272b66952063a4fb}{log\+\_\+debug()} and \hyperlink{evel_8h_a7e62b4de31e7c058e1534d0ac6040e98}{log\+\_\+initialize()} functions should be rewritten accordingly.
+
+{\bfseries Note}\+: it would be a really bad idea to use the {\itshape E\+V\+E\+L Library} itself for this logging function. \href{https://en.wikipedia.org/wiki/Turtles_all_the_way_down}{\tt Turtles all the way down...} 
