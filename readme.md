@@ -26,5 +26,3 @@ the included Makefile. See the [readme file](./code/evel_library/readme.md).
 
 Clone this repo and load the [user guide](./docs/source/evel/html/index.html)
 in your web browser.
-
-
