@@ -5,13 +5,13 @@
 Wrap the Open\+Stack metadata service.  
 
 
-{\ttfamily \#include \char`\"{}evel.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}evel.\+h\char`\"{}}\newline
 Include dependency graph for metadata.\+h\+:
 \nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=284pt]{metadata_8h__incl}
+\includegraphics[width=350pt]{metadata_8h__incl}
 \end{center}
 \end{figure}
 This graph shows which files directly or indirectly include this file\+:
@@ -19,18 +19,20 @@ This graph shows which files directly or indirectly include this file\+:
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=212pt]{metadata_8h__dep__incl}
+\includegraphics[width=296pt]{metadata_8h__dep__incl}
 \end{center}
 \end{figure}
 \subsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
-\hyperlink{evel_8h_ae1f68b0d21fb98defcec46e99208a03e}{E\+V\+E\+L\+\_\+\+E\+R\+R\+\_\+\+C\+O\+D\+E\+S} \hyperlink{metadata_8h_a6c8b985638bd5cadc9729b2cef41bdf1}{openstack\+\_\+metadata} (int verbosity)
+\hyperlink{evel_8h_ae1f68b0d21fb98defcec46e99208a03e}{E\+V\+E\+L\+\_\+\+E\+R\+R\+\_\+\+C\+O\+D\+ES} \hyperlink{metadata_8h_a6c8b985638bd5cadc9729b2cef41bdf1}{openstack\+\_\+metadata} (int verbosity)
 \begin{DoxyCompactList}\small\item\em Download metadata from the Open\+Stack metadata service. \end{DoxyCompactList}\item 
+void \hyperlink{metadata_8h_a44f74345e79ad17e280abff053258d42}{openstack\+\_\+metadata\+\_\+initialize} ()
+\begin{DoxyCompactList}\small\item\em Initialize default values for vm\+\_\+name and vm\+\_\+uuid -\/ for testing purposes. \end{DoxyCompactList}\item 
 const char $\ast$ \hyperlink{metadata_8h_a2cfff5a78f2cb48c30a1c7cc27f8b566}{openstack\+\_\+vm\+\_\+name} ()
-\begin{DoxyCompactList}\small\item\em Get the V\+M name provided by the metadata service. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Get the VM name provided by the metadata service. \end{DoxyCompactList}\item 
 const char $\ast$ \hyperlink{metadata_8h_a9f9a52a47eafe7d2e28aeee7d217affa}{openstack\+\_\+vm\+\_\+uuid} ()
-\begin{DoxyCompactList}\small\item\em Get the V\+M U\+U\+I\+D provided by the metadata service. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Get the VM U\+U\+ID provided by the metadata service. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \subsection{Detailed Description}
@@ -38,7 +40,7 @@ Wrap the Open\+Stack metadata service.
 
 \subsubsection*{License }
 
-Copyright(c) $<$2016$>$, A\+T\&T Intellectual Property. All other rights reserved.
+Copyright(c) $<$2016$>$, AT\&T Intellectual Property. All other rights reserved.
 
 Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met\+:
 
@@ -46,20 +48,19 @@ Redistribution and use in source and binary forms, with or without modification,
 \begin{DoxyEnumerate}
 \item Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
 \item Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.
-\item All advertising materials mentioning features or use of this software must display the following acknowledgement\+: This product includes software developed by the A\+T\&T.
-\item Neither the name of A\+T\&T nor the names of its contributors may be used to endorse or promote products derived from this software without specific prior written permission.
+\item All advertising materials mentioning features or use of this software must display the following acknowledgement\+: This product includes software developed by the AT\&T.
+\item Neither the name of AT\&T nor the names of its contributors may be used to endorse or promote products derived from this software without specific prior written permission.
 \end{DoxyEnumerate}
 
-T\+H\+I\+S S\+O\+F\+T\+W\+A\+R\+E I\+S P\+R\+O\+V\+I\+D\+E\+D B\+Y A\+T\&T I\+N\+T\+E\+L\+L\+E\+C\+T\+U\+A\+L P\+R\+O\+P\+E\+R\+T\+Y \textquotesingle{}\textquotesingle{}A\+S I\+S\textquotesingle{}\textquotesingle{} A\+N\+D A\+N\+Y E\+X\+P\+R\+E\+S\+S O\+R I\+M\+P\+L\+I\+E\+D W\+A\+R\+R\+A\+N\+T\+I\+E\+S, I\+N\+C\+L\+U\+D\+I\+N\+G, B\+U\+T N\+O\+T L\+I\+M\+I\+T\+E\+D T\+O, T\+H\+E I\+M\+P\+L\+I\+E\+D W\+A\+R\+R\+A\+N\+T\+I\+E\+S O\+F M\+E\+R\+C\+H\+A\+N\+T\+A\+B\+I\+L\+I\+T\+Y A\+N\+D F\+I\+T\+N\+E\+S\+S F\+O\+R A P\+A\+R\+T\+I\+C\+U\+L\+A\+R P\+U\+R\+P\+O\+S\+E A\+R\+E D\+I\+S\+C\+L\+A\+I\+M\+E\+D. I\+N N\+O E\+V\+E\+N\+T S\+H\+A\+L\+L A\+T\&T I\+N\+T\+E\+L\+L\+E\+C\+T\+U\+A\+L P\+R\+O\+P\+E\+R\+T\+Y B\+E L\+I\+A\+B\+L\+E F\+O\+R A\+N\+Y D\+I\+R\+E\+C\+T, I\+N\+D\+I\+R\+E\+C\+T, I\+N\+C\+I\+D\+E\+N\+T\+A\+L, S\+P\+E\+C\+I\+A\+L, E\+X\+E\+M\+P\+L\+A\+R\+Y, O\+R C\+O\+N\+S\+E\+Q\+U\+E\+N\+T\+I\+A\+L D\+A\+M\+A\+G\+E\+S (I\+N\+C\+L\+U\+D\+I\+N\+G, B\+U\+T N\+O\+T L\+I\+M\+I\+T\+E\+D T\+O, P\+R\+O\+C\+U\+R\+E\+M\+E\+N\+T O\+F S\+U\+B\+S\+T\+I\+T\+U\+T\+E G\+O\+O\+D\+S O\+R S\+E\+R\+V\+I\+C\+E\+S; L\+O\+S\+S O\+F U\+S\+E, D\+A\+T\+A, O\+R P\+R\+O\+F\+I\+T\+S; O\+R B\+U\+S\+I\+N\+E\+S\+S I\+N\+T\+E\+R\+R\+U\+P\+T\+I\+O\+N) H\+O\+W\+E\+V\+E\+R C\+A\+U\+S\+E\+D A\+N\+D O\+N A\+N\+Y T\+H\+E\+O\+R\+Y O\+F L\+I\+A\+B\+I\+L\+I\+T\+Y, W\+H\+E\+T\+H\+E\+R I\+N C\+O\+N\+T\+R\+A\+C\+T, S\+T\+R\+I\+C\+T L\+I\+A\+B\+I\+L\+I\+T\+Y, O\+R T\+O\+R\+T (I\+N\+C\+L\+U\+D\+I\+N\+G N\+E\+G\+L\+I\+G\+E\+N\+C\+E O\+R O\+T\+H\+E\+R\+W\+I\+S\+E) A\+R\+I\+S\+I\+N\+G I\+N A\+N\+Y W\+A\+Y O\+U\+T O\+F T\+H\+E U\+S\+E O\+F T\+H\+I\+S S\+O\+F\+T\+W\+A\+R\+E, E\+V\+E\+N I\+F A\+D\+V\+I\+S\+E\+D O\+F T\+H\+E P\+O\+S\+S\+I\+B\+I\+L\+I\+T\+Y O\+F S\+U\+C\+H D\+A\+M\+A\+G\+E. 
+T\+H\+IS S\+O\+F\+T\+W\+A\+RE IS P\+R\+O\+V\+I\+D\+ED BY AT\&T I\+N\+T\+E\+L\+L\+E\+C\+T\+U\+AL P\+R\+O\+P\+E\+R\+TY \textquotesingle{}\textquotesingle{}AS IS\textquotesingle{}\textquotesingle{} A\+ND A\+NY E\+X\+P\+R\+E\+SS OR I\+M\+P\+L\+I\+ED W\+A\+R\+R\+A\+N\+T\+I\+ES, I\+N\+C\+L\+U\+D\+I\+NG, B\+UT N\+OT L\+I\+M\+I\+T\+ED TO, T\+HE I\+M\+P\+L\+I\+ED W\+A\+R\+R\+A\+N\+T\+I\+ES OF M\+E\+R\+C\+H\+A\+N\+T\+A\+B\+I\+L\+I\+TY A\+ND F\+I\+T\+N\+E\+SS F\+OR A P\+A\+R\+T\+I\+C\+U\+L\+AR P\+U\+R\+P\+O\+SE A\+RE D\+I\+S\+C\+L\+A\+I\+M\+ED. IN NO E\+V\+E\+NT S\+H\+A\+LL AT\&T I\+N\+T\+E\+L\+L\+E\+C\+T\+U\+AL P\+R\+O\+P\+E\+R\+TY BE L\+I\+A\+B\+LE F\+OR A\+NY D\+I\+R\+E\+CT, I\+N\+D\+I\+R\+E\+CT, I\+N\+C\+I\+D\+E\+N\+T\+AL, S\+P\+E\+C\+I\+AL, E\+X\+E\+M\+P\+L\+A\+RY, OR C\+O\+N\+S\+E\+Q\+U\+E\+N\+T\+I\+AL D\+A\+M\+A\+G\+ES (I\+N\+C\+L\+U\+D\+I\+NG, B\+UT N\+OT L\+I\+M\+I\+T\+ED TO, P\+R\+O\+C\+U\+R\+E\+M\+E\+NT OF S\+U\+B\+S\+T\+I\+T\+U\+TE G\+O\+O\+DS OR S\+E\+R\+V\+I\+C\+ES; L\+O\+SS OF U\+SE, D\+A\+TA, OR P\+R\+O\+F\+I\+TS; OR B\+U\+S\+I\+N\+E\+SS I\+N\+T\+E\+R\+R\+U\+P\+T\+I\+ON) H\+O\+W\+E\+V\+ER C\+A\+U\+S\+ED A\+ND ON A\+NY T\+H\+E\+O\+RY OF L\+I\+A\+B\+I\+L\+I\+TY, W\+H\+E\+T\+H\+ER IN C\+O\+N\+T\+R\+A\+CT, S\+T\+R\+I\+CT L\+I\+A\+B\+I\+L\+I\+TY, OR T\+O\+RT (I\+N\+C\+L\+U\+D\+I\+NG N\+E\+G\+L\+I\+G\+E\+N\+CE OR O\+T\+H\+E\+R\+W\+I\+SE) A\+R\+I\+S\+I\+NG IN A\+NY W\+AY O\+UT OF T\+HE U\+SE OF T\+H\+IS S\+O\+F\+T\+W\+A\+RE, E\+V\+EN IF A\+D\+V\+I\+S\+ED OF T\+HE P\+O\+S\+S\+I\+B\+I\+L\+I\+TY OF S\+U\+CH D\+A\+M\+A\+GE. 
 
 \subsection{Function Documentation}
-\hypertarget{metadata_8h_a6c8b985638bd5cadc9729b2cef41bdf1}{}\index{metadata.\+h@{metadata.\+h}!openstack\+\_\+metadata@{openstack\+\_\+metadata}}
+\hypertarget{metadata_8h_a6c8b985638bd5cadc9729b2cef41bdf1}{}\label{metadata_8h_a6c8b985638bd5cadc9729b2cef41bdf1} 
+\index{metadata.\+h@{metadata.\+h}!openstack\+\_\+metadata@{openstack\+\_\+metadata}}
 \index{openstack\+\_\+metadata@{openstack\+\_\+metadata}!metadata.\+h@{metadata.\+h}}
-\subsubsection[{openstack\+\_\+metadata(int verbosity)}]{\setlength{\rightskip}{0pt plus 5cm}{\bf E\+V\+E\+L\+\_\+\+E\+R\+R\+\_\+\+C\+O\+D\+E\+S} openstack\+\_\+metadata (
-\begin{DoxyParamCaption}
-\item[{int}]{verbosity}
-\end{DoxyParamCaption}
-)}\label{metadata_8h_a6c8b985638bd5cadc9729b2cef41bdf1}
+\subsubsection{\texorpdfstring{openstack\+\_\+metadata()}{openstack\_metadata()}}
+{\footnotesize\ttfamily \hyperlink{evel_8h_ae1f68b0d21fb98defcec46e99208a03e}{E\+V\+E\+L\+\_\+\+E\+R\+R\+\_\+\+C\+O\+D\+ES} openstack\+\_\+metadata (\begin{DoxyParamCaption}\item[{int}]{verbosity }\end{DoxyParamCaption})}
+
 
 
 Download metadata from the Open\+Stack metadata service. 
@@ -74,48 +75,60 @@ Status code
 \end{DoxyReturn}
 
 \begin{DoxyRetVals}{Return values}
-{\em E\+V\+E\+L\+\_\+\+S\+U\+C\+C\+E\+S\+S} & On success \\
+{\em E\+V\+E\+L\+\_\+\+S\+U\+C\+C\+E\+SS} & On success \\
 \hline
-{\em \hyperlink{evel_8h_ae1f68b0d21fb98defcec46e99208a03e}{E\+V\+E\+L\+\_\+\+E\+R\+R\+\_\+\+C\+O\+D\+E\+S}} & On failure. \\
+{\em \hyperlink{evel_8h_ae1f68b0d21fb98defcec46e99208a03e}{E\+V\+E\+L\+\_\+\+E\+R\+R\+\_\+\+C\+O\+D\+ES}} & On failure. \\
 \hline
 \end{DoxyRetVals}
 
 
-Definition at line 100 of file metadata.\+c.
+Definition at line 105 of file metadata.\+c.
 
-\hypertarget{metadata_8h_a2cfff5a78f2cb48c30a1c7cc27f8b566}{}\index{metadata.\+h@{metadata.\+h}!openstack\+\_\+vm\+\_\+name@{openstack\+\_\+vm\+\_\+name}}
+\hypertarget{metadata_8h_a44f74345e79ad17e280abff053258d42}{}\label{metadata_8h_a44f74345e79ad17e280abff053258d42} 
+\index{metadata.\+h@{metadata.\+h}!openstack\+\_\+metadata\+\_\+initialize@{openstack\+\_\+metadata\+\_\+initialize}}
+\index{openstack\+\_\+metadata\+\_\+initialize@{openstack\+\_\+metadata\+\_\+initialize}!metadata.\+h@{metadata.\+h}}
+\subsubsection{\texorpdfstring{openstack\+\_\+metadata\+\_\+initialize()}{openstack\_metadata\_initialize()}}
+{\footnotesize\ttfamily void openstack\+\_\+metadata\+\_\+initialize (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Initialize default values for vm\+\_\+name and vm\+\_\+uuid -\/ for testing purposes. 
+
+
+
+Definition at line 328 of file metadata.\+c.
+
+\hypertarget{metadata_8h_a2cfff5a78f2cb48c30a1c7cc27f8b566}{}\label{metadata_8h_a2cfff5a78f2cb48c30a1c7cc27f8b566} 
+\index{metadata.\+h@{metadata.\+h}!openstack\+\_\+vm\+\_\+name@{openstack\+\_\+vm\+\_\+name}}
 \index{openstack\+\_\+vm\+\_\+name@{openstack\+\_\+vm\+\_\+name}!metadata.\+h@{metadata.\+h}}
-\subsubsection[{openstack\+\_\+vm\+\_\+name()}]{\setlength{\rightskip}{0pt plus 5cm}const char$\ast$ openstack\+\_\+vm\+\_\+name (
-\begin{DoxyParamCaption}
-{}
-\end{DoxyParamCaption}
-)}\label{metadata_8h_a2cfff5a78f2cb48c30a1c7cc27f8b566}
+\subsubsection{\texorpdfstring{openstack\+\_\+vm\+\_\+name()}{openstack\_vm\_name()}}
+{\footnotesize\ttfamily const char$\ast$ openstack\+\_\+vm\+\_\+name (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
 
-Get the V\+M name provided by the metadata service. 
+
+Get the VM name provided by the metadata service. 
 
 \begin{DoxyReturn}{Returns}
-V\+M name 
+VM name 
 \end{DoxyReturn}
 
 
-Definition at line 450 of file metadata.\+c.
+Definition at line 594 of file metadata.\+c.
 
-\hypertarget{metadata_8h_a9f9a52a47eafe7d2e28aeee7d217affa}{}\index{metadata.\+h@{metadata.\+h}!openstack\+\_\+vm\+\_\+uuid@{openstack\+\_\+vm\+\_\+uuid}}
+\hypertarget{metadata_8h_a9f9a52a47eafe7d2e28aeee7d217affa}{}\label{metadata_8h_a9f9a52a47eafe7d2e28aeee7d217affa} 
+\index{metadata.\+h@{metadata.\+h}!openstack\+\_\+vm\+\_\+uuid@{openstack\+\_\+vm\+\_\+uuid}}
 \index{openstack\+\_\+vm\+\_\+uuid@{openstack\+\_\+vm\+\_\+uuid}!metadata.\+h@{metadata.\+h}}
-\subsubsection[{openstack\+\_\+vm\+\_\+uuid()}]{\setlength{\rightskip}{0pt plus 5cm}const char$\ast$ openstack\+\_\+vm\+\_\+uuid (
-\begin{DoxyParamCaption}
-{}
-\end{DoxyParamCaption}
-)}\label{metadata_8h_a9f9a52a47eafe7d2e28aeee7d217affa}
+\subsubsection{\texorpdfstring{openstack\+\_\+vm\+\_\+uuid()}{openstack\_vm\_uuid()}}
+{\footnotesize\ttfamily const char$\ast$ openstack\+\_\+vm\+\_\+uuid (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
 
-Get the V\+M U\+U\+I\+D provided by the metadata service. 
+
+Get the VM U\+U\+ID provided by the metadata service. 
 
 \begin{DoxyReturn}{Returns}
-V\+M U\+U\+I\+D 
+VM U\+U\+ID 
 \end{DoxyReturn}
 
 
-Definition at line 460 of file metadata.\+c.
+Definition at line 604 of file metadata.\+c.
 

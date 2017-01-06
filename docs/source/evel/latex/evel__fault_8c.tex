@@ -2,14 +2,15 @@
 \label{evel__fault_8c}\index{evel\+\_\+fault.\+c@{evel\+\_\+fault.\+c}}
 
 
-Implementation of E\+V\+E\+L functions relating to the Fault.  
+Implementation of E\+V\+EL functions relating to the Fault.  
 
 
-{\ttfamily \#include $<$string.\+h$>$}\\*
-{\ttfamily \#include $<$assert.\+h$>$}\\*
-{\ttfamily \#include $<$stdlib.\+h$>$}\\*
-{\ttfamily \#include \char`\"{}evel.\+h\char`\"{}}\\*
-{\ttfamily \#include \char`\"{}evel\+\_\+internal.\+h\char`\"{}}\\*
+{\ttfamily \#include $<$string.\+h$>$}\newline
+{\ttfamily \#include $<$assert.\+h$>$}\newline
+{\ttfamily \#include $<$stdlib.\+h$>$}\newline
+{\ttfamily \#include \char`\"{}evel.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}evel\+\_\+internal.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}evel\+\_\+throttle.\+h\char`\"{}}\newline
 Include dependency graph for evel\+\_\+fault.\+c\+:
 \nopagebreak
 \begin{figure}[H]
@@ -21,26 +22,26 @@ Include dependency graph for evel\+\_\+fault.\+c\+:
 \subsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
-\hyperlink{evel_8h_aab9e6f5e5cce300f2f4413c1d0228971}{E\+V\+E\+N\+T\+\_\+\+F\+A\+U\+L\+T} $\ast$ \hyperlink{evel__fault_8c_ae31203fde9153686a32b2fc2a1183fa0}{evel\+\_\+new\+\_\+fault} (const char const $\ast$condition, const char const $\ast$specific\+\_\+problem, \hyperlink{evel_8h_ad1bf6807fa6710332251611207490484}{E\+V\+E\+L\+\_\+\+E\+V\+E\+N\+T\+\_\+\+P\+R\+I\+O\+R\+I\+T\+I\+E\+S} priority, \hyperlink{evel_8h_ac52696495e0b34b23a0726f467670d0f}{E\+V\+E\+L\+\_\+\+F\+A\+U\+L\+T\+\_\+\+S\+E\+V\+E\+R\+I\+T\+I\+E\+S} severity)
+\hyperlink{evel_8h_aab9e6f5e5cce300f2f4413c1d0228971}{E\+V\+E\+N\+T\+\_\+\+F\+A\+U\+LT} $\ast$ \hyperlink{evel__fault_8c_a6dd9b72800e61e661dc133b588aab892}{evel\+\_\+new\+\_\+fault} (const char $\ast$const condition, const char $\ast$const specific\+\_\+problem, \hyperlink{evel_8h_ad1bf6807fa6710332251611207490484}{E\+V\+E\+L\+\_\+\+E\+V\+E\+N\+T\+\_\+\+P\+R\+I\+O\+R\+I\+T\+I\+ES} priority, \hyperlink{evel_8h_ad28dcc9cce27ecb7e4c9020107a6db9c}{E\+V\+E\+L\+\_\+\+S\+E\+V\+E\+R\+I\+T\+I\+ES} severity)
 \begin{DoxyCompactList}\small\item\em Create a new fault event. \end{DoxyCompactList}\item 
-void \hyperlink{evel__fault_8c_a07076c0fa1d2941102f957af3b47df44}{evel\+\_\+fault\+\_\+addl\+\_\+info\+\_\+add} (\hyperlink{evel_8h_aab9e6f5e5cce300f2f4413c1d0228971}{E\+V\+E\+N\+T\+\_\+\+F\+A\+U\+L\+T} $\ast$fault, char $\ast$name, char $\ast$value)
+void \hyperlink{evel__fault_8c_a07076c0fa1d2941102f957af3b47df44}{evel\+\_\+fault\+\_\+addl\+\_\+info\+\_\+add} (\hyperlink{evel_8h_aab9e6f5e5cce300f2f4413c1d0228971}{E\+V\+E\+N\+T\+\_\+\+F\+A\+U\+LT} $\ast$fault, char $\ast$name, char $\ast$value)
 \begin{DoxyCompactList}\small\item\em Add an additional value name/value pair to the Fault. \end{DoxyCompactList}\item 
-void \hyperlink{evel__fault_8c_ae56fef27e31906a535793f941bba6d7e}{evel\+\_\+fault\+\_\+interface\+\_\+set} (\hyperlink{evel_8h_aab9e6f5e5cce300f2f4413c1d0228971}{E\+V\+E\+N\+T\+\_\+\+F\+A\+U\+L\+T} $\ast$fault, const char const $\ast$interface)
+void \hyperlink{evel__fault_8c_a60ccecf94decb577e09fac9ee34358f2}{evel\+\_\+fault\+\_\+interface\+\_\+set} (\hyperlink{evel_8h_aab9e6f5e5cce300f2f4413c1d0228971}{E\+V\+E\+N\+T\+\_\+\+F\+A\+U\+LT} $\ast$fault, const char $\ast$const interface)
 \begin{DoxyCompactList}\small\item\em Set the Alarm Interface A property of the Fault. \end{DoxyCompactList}\item 
-void \hyperlink{evel__fault_8c_aaafea6d63d296e8f33779387509e80cb}{evel\+\_\+fault\+\_\+type\+\_\+set} (\hyperlink{evel_8h_aab9e6f5e5cce300f2f4413c1d0228971}{E\+V\+E\+N\+T\+\_\+\+F\+A\+U\+L\+T} $\ast$fault, const char const $\ast$type)
+void \hyperlink{evel__fault_8c_a08233f1e66ab6cdb0998fb3f5495ac45}{evel\+\_\+fault\+\_\+type\+\_\+set} (\hyperlink{evel_8h_aab9e6f5e5cce300f2f4413c1d0228971}{E\+V\+E\+N\+T\+\_\+\+F\+A\+U\+LT} $\ast$fault, const char $\ast$const type)
 \begin{DoxyCompactList}\small\item\em Set the Event Type property of the Fault. \end{DoxyCompactList}\item 
-int \hyperlink{evel__fault_8c_aae3ade62114a42156bb533be2c9ccb38}{evel\+\_\+json\+\_\+encode\+\_\+fault} (char $\ast$json, int max\+\_\+size, \hyperlink{evel_8h_aab9e6f5e5cce300f2f4413c1d0228971}{E\+V\+E\+N\+T\+\_\+\+F\+A\+U\+L\+T} $\ast$event)
-\begin{DoxyCompactList}\small\item\em Encode the fault in J\+S\+O\+N according to A\+T\&T\textquotesingle{}s schema for the fault type. \end{DoxyCompactList}\item 
-void \hyperlink{evel__fault_8c_afd5a2244dbe54e189700f0f94901bbea}{evel\+\_\+free\+\_\+fault} (\hyperlink{evel_8h_aab9e6f5e5cce300f2f4413c1d0228971}{E\+V\+E\+N\+T\+\_\+\+F\+A\+U\+L\+T} $\ast$event)
+void \hyperlink{evel__fault_8c_ac9645c134c236b1ff1799f17fe813818}{evel\+\_\+json\+\_\+encode\+\_\+fault} (\hyperlink{evel__internal_8h_af9c576f6ffebdf8c5164ccf9827b323a}{E\+V\+E\+L\+\_\+\+J\+S\+O\+N\+\_\+\+B\+U\+F\+F\+ER} $\ast$jbuf, \hyperlink{evel_8h_aab9e6f5e5cce300f2f4413c1d0228971}{E\+V\+E\+N\+T\+\_\+\+F\+A\+U\+LT} $\ast$event)
+\begin{DoxyCompactList}\small\item\em Encode the fault in J\+S\+ON according to AT\&T\textquotesingle{}s schema for the fault type. \end{DoxyCompactList}\item 
+void \hyperlink{evel__fault_8c_afd5a2244dbe54e189700f0f94901bbea}{evel\+\_\+free\+\_\+fault} (\hyperlink{evel_8h_aab9e6f5e5cce300f2f4413c1d0228971}{E\+V\+E\+N\+T\+\_\+\+F\+A\+U\+LT} $\ast$event)
 \begin{DoxyCompactList}\small\item\em Free a Fault. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \subsection{Detailed Description}
-Implementation of E\+V\+E\+L functions relating to the Fault. 
+Implementation of E\+V\+EL functions relating to the Fault. 
 
 \subsubsection*{License }
 
-Copyright(c) $<$2016$>$, A\+T\&T Intellectual Property. All other rights reserved.
+Copyright(c) $<$2016$>$, AT\&T Intellectual Property. All other rights reserved.
 
 Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met\+:
 
@@ -48,49 +49,44 @@ Redistribution and use in source and binary forms, with or without modification,
 \begin{DoxyEnumerate}
 \item Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
 \item Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.
-\item All advertising materials mentioning features or use of this software must display the following acknowledgement\+: This product includes software developed by the A\+T\&T.
-\item Neither the name of A\+T\&T nor the names of its contributors may be used to endorse or promote products derived from this software without specific prior written permission.
+\item All advertising materials mentioning features or use of this software must display the following acknowledgement\+: This product includes software developed by the AT\&T.
+\item Neither the name of AT\&T nor the names of its contributors may be used to endorse or promote products derived from this software without specific prior written permission.
 \end{DoxyEnumerate}
 
-T\+H\+I\+S S\+O\+F\+T\+W\+A\+R\+E I\+S P\+R\+O\+V\+I\+D\+E\+D B\+Y A\+T\&T I\+N\+T\+E\+L\+L\+E\+C\+T\+U\+A\+L P\+R\+O\+P\+E\+R\+T\+Y \textquotesingle{}\textquotesingle{}A\+S I\+S\textquotesingle{}\textquotesingle{} A\+N\+D A\+N\+Y E\+X\+P\+R\+E\+S\+S O\+R I\+M\+P\+L\+I\+E\+D W\+A\+R\+R\+A\+N\+T\+I\+E\+S, I\+N\+C\+L\+U\+D\+I\+N\+G, B\+U\+T N\+O\+T L\+I\+M\+I\+T\+E\+D T\+O, T\+H\+E I\+M\+P\+L\+I\+E\+D W\+A\+R\+R\+A\+N\+T\+I\+E\+S O\+F M\+E\+R\+C\+H\+A\+N\+T\+A\+B\+I\+L\+I\+T\+Y A\+N\+D F\+I\+T\+N\+E\+S\+S F\+O\+R A P\+A\+R\+T\+I\+C\+U\+L\+A\+R P\+U\+R\+P\+O\+S\+E A\+R\+E D\+I\+S\+C\+L\+A\+I\+M\+E\+D. I\+N N\+O E\+V\+E\+N\+T S\+H\+A\+L\+L A\+T\&T I\+N\+T\+E\+L\+L\+E\+C\+T\+U\+A\+L P\+R\+O\+P\+E\+R\+T\+Y B\+E L\+I\+A\+B\+L\+E F\+O\+R A\+N\+Y D\+I\+R\+E\+C\+T, I\+N\+D\+I\+R\+E\+C\+T, I\+N\+C\+I\+D\+E\+N\+T\+A\+L, S\+P\+E\+C\+I\+A\+L, E\+X\+E\+M\+P\+L\+A\+R\+Y, O\+R C\+O\+N\+S\+E\+Q\+U\+E\+N\+T\+I\+A\+L D\+A\+M\+A\+G\+E\+S (I\+N\+C\+L\+U\+D\+I\+N\+G, B\+U\+T N\+O\+T L\+I\+M\+I\+T\+E\+D T\+O, P\+R\+O\+C\+U\+R\+E\+M\+E\+N\+T O\+F S\+U\+B\+S\+T\+I\+T\+U\+T\+E G\+O\+O\+D\+S O\+R S\+E\+R\+V\+I\+C\+E\+S; L\+O\+S\+S O\+F U\+S\+E, D\+A\+T\+A, O\+R P\+R\+O\+F\+I\+T\+S; O\+R B\+U\+S\+I\+N\+E\+S\+S I\+N\+T\+E\+R\+R\+U\+P\+T\+I\+O\+N) H\+O\+W\+E\+V\+E\+R C\+A\+U\+S\+E\+D A\+N\+D O\+N A\+N\+Y T\+H\+E\+O\+R\+Y O\+F L\+I\+A\+B\+I\+L\+I\+T\+Y, W\+H\+E\+T\+H\+E\+R I\+N C\+O\+N\+T\+R\+A\+C\+T, S\+T\+R\+I\+C\+T L\+I\+A\+B\+I\+L\+I\+T\+Y, O\+R T\+O\+R\+T (I\+N\+C\+L\+U\+D\+I\+N\+G N\+E\+G\+L\+I\+G\+E\+N\+C\+E O\+R O\+T\+H\+E\+R\+W\+I\+S\+E) A\+R\+I\+S\+I\+N\+G I\+N A\+N\+Y W\+A\+Y O\+U\+T O\+F T\+H\+E U\+S\+E O\+F T\+H\+I\+S S\+O\+F\+T\+W\+A\+R\+E, E\+V\+E\+N I\+F A\+D\+V\+I\+S\+E\+D O\+F T\+H\+E P\+O\+S\+S\+I\+B\+I\+L\+I\+T\+Y O\+F S\+U\+C\+H D\+A\+M\+A\+G\+E. 
+T\+H\+IS S\+O\+F\+T\+W\+A\+RE IS P\+R\+O\+V\+I\+D\+ED BY AT\&T I\+N\+T\+E\+L\+L\+E\+C\+T\+U\+AL P\+R\+O\+P\+E\+R\+TY \textquotesingle{}\textquotesingle{}AS IS\textquotesingle{}\textquotesingle{} A\+ND A\+NY E\+X\+P\+R\+E\+SS OR I\+M\+P\+L\+I\+ED W\+A\+R\+R\+A\+N\+T\+I\+ES, I\+N\+C\+L\+U\+D\+I\+NG, B\+UT N\+OT L\+I\+M\+I\+T\+ED TO, T\+HE I\+M\+P\+L\+I\+ED W\+A\+R\+R\+A\+N\+T\+I\+ES OF M\+E\+R\+C\+H\+A\+N\+T\+A\+B\+I\+L\+I\+TY A\+ND F\+I\+T\+N\+E\+SS F\+OR A P\+A\+R\+T\+I\+C\+U\+L\+AR P\+U\+R\+P\+O\+SE A\+RE D\+I\+S\+C\+L\+A\+I\+M\+ED. IN NO E\+V\+E\+NT S\+H\+A\+LL AT\&T I\+N\+T\+E\+L\+L\+E\+C\+T\+U\+AL P\+R\+O\+P\+E\+R\+TY BE L\+I\+A\+B\+LE F\+OR A\+NY D\+I\+R\+E\+CT, I\+N\+D\+I\+R\+E\+CT, I\+N\+C\+I\+D\+E\+N\+T\+AL, S\+P\+E\+C\+I\+AL, E\+X\+E\+M\+P\+L\+A\+RY, OR C\+O\+N\+S\+E\+Q\+U\+E\+N\+T\+I\+AL D\+A\+M\+A\+G\+ES (I\+N\+C\+L\+U\+D\+I\+NG, B\+UT N\+OT L\+I\+M\+I\+T\+ED TO, P\+R\+O\+C\+U\+R\+E\+M\+E\+NT OF S\+U\+B\+S\+T\+I\+T\+U\+TE G\+O\+O\+DS OR S\+E\+R\+V\+I\+C\+ES; L\+O\+SS OF U\+SE, D\+A\+TA, OR P\+R\+O\+F\+I\+TS; OR B\+U\+S\+I\+N\+E\+SS I\+N\+T\+E\+R\+R\+U\+P\+T\+I\+ON) H\+O\+W\+E\+V\+ER C\+A\+U\+S\+ED A\+ND ON A\+NY T\+H\+E\+O\+RY OF L\+I\+A\+B\+I\+L\+I\+TY, W\+H\+E\+T\+H\+ER IN C\+O\+N\+T\+R\+A\+CT, S\+T\+R\+I\+CT L\+I\+A\+B\+I\+L\+I\+TY, OR T\+O\+RT (I\+N\+C\+L\+U\+D\+I\+NG N\+E\+G\+L\+I\+G\+E\+N\+CE OR O\+T\+H\+E\+R\+W\+I\+SE) A\+R\+I\+S\+I\+NG IN A\+NY W\+AY O\+UT OF T\+HE U\+SE OF T\+H\+IS S\+O\+F\+T\+W\+A\+RE, E\+V\+EN IF A\+D\+V\+I\+S\+ED OF T\+HE P\+O\+S\+S\+I\+B\+I\+L\+I\+TY OF S\+U\+CH D\+A\+M\+A\+GE. 
 
 \subsection{Function Documentation}
-\hypertarget{evel__fault_8c_a07076c0fa1d2941102f957af3b47df44}{}\index{evel\+\_\+fault.\+c@{evel\+\_\+fault.\+c}!evel\+\_\+fault\+\_\+addl\+\_\+info\+\_\+add@{evel\+\_\+fault\+\_\+addl\+\_\+info\+\_\+add}}
+\hypertarget{evel__fault_8c_a07076c0fa1d2941102f957af3b47df44}{}\label{evel__fault_8c_a07076c0fa1d2941102f957af3b47df44} 
+\index{evel\+\_\+fault.\+c@{evel\+\_\+fault.\+c}!evel\+\_\+fault\+\_\+addl\+\_\+info\+\_\+add@{evel\+\_\+fault\+\_\+addl\+\_\+info\+\_\+add}}
 \index{evel\+\_\+fault\+\_\+addl\+\_\+info\+\_\+add@{evel\+\_\+fault\+\_\+addl\+\_\+info\+\_\+add}!evel\+\_\+fault.\+c@{evel\+\_\+fault.\+c}}
-\subsubsection[{evel\+\_\+fault\+\_\+addl\+\_\+info\+\_\+add(\+E\+V\+E\+N\+T\+\_\+\+F\+A\+U\+L\+T $\ast$fault, char $\ast$name, char $\ast$value)}]{\setlength{\rightskip}{0pt plus 5cm}void evel\+\_\+fault\+\_\+addl\+\_\+info\+\_\+add (
-\begin{DoxyParamCaption}
-\item[{{\bf E\+V\+E\+N\+T\+\_\+\+F\+A\+U\+L\+T} $\ast$}]{fault, }
-\item[{char $\ast$}]{name, }
-\item[{char $\ast$}]{value}
-\end{DoxyParamCaption}
-)}\label{evel__fault_8c_a07076c0fa1d2941102f957af3b47df44}
+\subsubsection{\texorpdfstring{evel\+\_\+fault\+\_\+addl\+\_\+info\+\_\+add()}{evel\_fault\_addl\_info\_add()}}
+{\footnotesize\ttfamily void evel\+\_\+fault\+\_\+addl\+\_\+info\+\_\+add (\begin{DoxyParamCaption}\item[{\hyperlink{evel_8h_aab9e6f5e5cce300f2f4413c1d0228971}{E\+V\+E\+N\+T\+\_\+\+F\+A\+U\+LT} $\ast$}]{fault,  }\item[{char $\ast$}]{name,  }\item[{char $\ast$}]{value }\end{DoxyParamCaption})}
+
 
 
 Add an additional value name/value pair to the Fault. 
 
-The name and value are null delimited A\+S\+C\+I\+I strings. The library takes a copy so the caller does not have to preserve values after the function returns.
+The name and value are null delimited A\+S\+C\+II strings. The library takes a copy so the caller does not have to preserve values after the function returns.
 
 
 \begin{DoxyParams}{Parameters}
 {\em fault} & Pointer to the fault. \\
 \hline
-{\em name} & A\+S\+C\+I\+I\+Z string with the attribute\textquotesingle{}s name. The caller does not need to preserve the value once the function returns. \\
+{\em name} & A\+S\+C\+I\+IZ string with the attribute\textquotesingle{}s name. The caller does not need to preserve the value once the function returns. \\
 \hline
-{\em value} & A\+S\+C\+I\+I\+Z string with the attribute\textquotesingle{}s value. The caller does not need to preserve the value once the function returns. \\
+{\em value} & A\+S\+C\+I\+IZ string with the attribute\textquotesingle{}s value. The caller does not need to preserve the value once the function returns. \\
 \hline
 \end{DoxyParams}
 
 
-Definition at line 122 of file evel\+\_\+fault.\+c.
+Definition at line 125 of file evel\+\_\+fault.\+c.
 
-\hypertarget{evel__fault_8c_ae56fef27e31906a535793f941bba6d7e}{}\index{evel\+\_\+fault.\+c@{evel\+\_\+fault.\+c}!evel\+\_\+fault\+\_\+interface\+\_\+set@{evel\+\_\+fault\+\_\+interface\+\_\+set}}
+\hypertarget{evel__fault_8c_a60ccecf94decb577e09fac9ee34358f2}{}\label{evel__fault_8c_a60ccecf94decb577e09fac9ee34358f2} 
+\index{evel\+\_\+fault.\+c@{evel\+\_\+fault.\+c}!evel\+\_\+fault\+\_\+interface\+\_\+set@{evel\+\_\+fault\+\_\+interface\+\_\+set}}
 \index{evel\+\_\+fault\+\_\+interface\+\_\+set@{evel\+\_\+fault\+\_\+interface\+\_\+set}!evel\+\_\+fault.\+c@{evel\+\_\+fault.\+c}}
-\subsubsection[{evel\+\_\+fault\+\_\+interface\+\_\+set(\+E\+V\+E\+N\+T\+\_\+\+F\+A\+U\+L\+T $\ast$fault, const char const $\ast$interface)}]{\setlength{\rightskip}{0pt plus 5cm}void evel\+\_\+fault\+\_\+interface\+\_\+set (
-\begin{DoxyParamCaption}
-\item[{{\bf E\+V\+E\+N\+T\+\_\+\+F\+A\+U\+L\+T} $\ast$}]{fault, }
-\item[{const char const $\ast$}]{interface}
-\end{DoxyParamCaption}
-)}\label{evel__fault_8c_ae56fef27e31906a535793f941bba6d7e}
+\subsubsection{\texorpdfstring{evel\+\_\+fault\+\_\+interface\+\_\+set()}{evel\_fault\_interface\_set()}}
+{\footnotesize\ttfamily void evel\+\_\+fault\+\_\+interface\+\_\+set (\begin{DoxyParamCaption}\item[{\hyperlink{evel_8h_aab9e6f5e5cce300f2f4413c1d0228971}{E\+V\+E\+N\+T\+\_\+\+F\+A\+U\+LT} $\ast$}]{fault,  }\item[{const char $\ast$const}]{interface }\end{DoxyParamCaption})}
+
 
 
 Set the Alarm Interface A property of the Fault. 
@@ -102,21 +98,19 @@ The property is treated as immutable\+: it is only valid to call the setter once
 \begin{DoxyParams}{Parameters}
 {\em fault} & Pointer to the fault. \\
 \hline
-{\em interface} & The Alarm Interface A to be set. A\+S\+C\+I\+I\+Z string. The caller does not need to preserve the value once the function returns. \\
+{\em interface} & The Alarm Interface A to be set. A\+S\+C\+I\+IZ string. The caller does not need to preserve the value once the function returns. \\
 \hline
 \end{DoxyParams}
 
 
-Definition at line 160 of file evel\+\_\+fault.\+c.
+Definition at line 164 of file evel\+\_\+fault.\+c.
 
-\hypertarget{evel__fault_8c_aaafea6d63d296e8f33779387509e80cb}{}\index{evel\+\_\+fault.\+c@{evel\+\_\+fault.\+c}!evel\+\_\+fault\+\_\+type\+\_\+set@{evel\+\_\+fault\+\_\+type\+\_\+set}}
+\hypertarget{evel__fault_8c_a08233f1e66ab6cdb0998fb3f5495ac45}{}\label{evel__fault_8c_a08233f1e66ab6cdb0998fb3f5495ac45} 
+\index{evel\+\_\+fault.\+c@{evel\+\_\+fault.\+c}!evel\+\_\+fault\+\_\+type\+\_\+set@{evel\+\_\+fault\+\_\+type\+\_\+set}}
 \index{evel\+\_\+fault\+\_\+type\+\_\+set@{evel\+\_\+fault\+\_\+type\+\_\+set}!evel\+\_\+fault.\+c@{evel\+\_\+fault.\+c}}
-\subsubsection[{evel\+\_\+fault\+\_\+type\+\_\+set(\+E\+V\+E\+N\+T\+\_\+\+F\+A\+U\+L\+T $\ast$fault, const char const $\ast$type)}]{\setlength{\rightskip}{0pt plus 5cm}void evel\+\_\+fault\+\_\+type\+\_\+set (
-\begin{DoxyParamCaption}
-\item[{{\bf E\+V\+E\+N\+T\+\_\+\+F\+A\+U\+L\+T} $\ast$}]{fault, }
-\item[{const char const $\ast$}]{type}
-\end{DoxyParamCaption}
-)}\label{evel__fault_8c_aaafea6d63d296e8f33779387509e80cb}
+\subsubsection{\texorpdfstring{evel\+\_\+fault\+\_\+type\+\_\+set()}{evel\_fault\_type\_set()}}
+{\footnotesize\ttfamily void evel\+\_\+fault\+\_\+type\+\_\+set (\begin{DoxyParamCaption}\item[{\hyperlink{evel_8h_aab9e6f5e5cce300f2f4413c1d0228971}{E\+V\+E\+N\+T\+\_\+\+F\+A\+U\+LT} $\ast$}]{fault,  }\item[{const char $\ast$const}]{type }\end{DoxyParamCaption})}
+
 
 
 Set the Event Type property of the Fault. 
@@ -128,76 +122,59 @@ The property is treated as immutable\+: it is only valid to call the setter once
 \begin{DoxyParams}{Parameters}
 {\em fault} & Pointer to the fault. \\
 \hline
-{\em type} & The Event Type to be set. A\+S\+C\+I\+I\+Z string. The caller does not need to preserve the value once the function returns \\
+{\em type} & The Event Type to be set. A\+S\+C\+I\+IZ string. The caller does not need to preserve the value once the function returns. \\
 \hline
 \end{DoxyParams}
 
 
-Definition at line 198 of file evel\+\_\+fault.\+c.
+Definition at line 194 of file evel\+\_\+fault.\+c.
 
-\hypertarget{evel__fault_8c_afd5a2244dbe54e189700f0f94901bbea}{}\index{evel\+\_\+fault.\+c@{evel\+\_\+fault.\+c}!evel\+\_\+free\+\_\+fault@{evel\+\_\+free\+\_\+fault}}
+\hypertarget{evel__fault_8c_afd5a2244dbe54e189700f0f94901bbea}{}\label{evel__fault_8c_afd5a2244dbe54e189700f0f94901bbea} 
+\index{evel\+\_\+fault.\+c@{evel\+\_\+fault.\+c}!evel\+\_\+free\+\_\+fault@{evel\+\_\+free\+\_\+fault}}
 \index{evel\+\_\+free\+\_\+fault@{evel\+\_\+free\+\_\+fault}!evel\+\_\+fault.\+c@{evel\+\_\+fault.\+c}}
-\subsubsection[{evel\+\_\+free\+\_\+fault(\+E\+V\+E\+N\+T\+\_\+\+F\+A\+U\+L\+T $\ast$event)}]{\setlength{\rightskip}{0pt plus 5cm}void evel\+\_\+free\+\_\+fault (
-\begin{DoxyParamCaption}
-\item[{{\bf E\+V\+E\+N\+T\+\_\+\+F\+A\+U\+L\+T} $\ast$}]{event}
-\end{DoxyParamCaption}
-)}\label{evel__fault_8c_afd5a2244dbe54e189700f0f94901bbea}
+\subsubsection{\texorpdfstring{evel\+\_\+free\+\_\+fault()}{evel\_free\_fault()}}
+{\footnotesize\ttfamily void evel\+\_\+free\+\_\+fault (\begin{DoxyParamCaption}\item[{\hyperlink{evel_8h_aab9e6f5e5cce300f2f4413c1d0228971}{E\+V\+E\+N\+T\+\_\+\+F\+A\+U\+LT} $\ast$}]{event }\end{DoxyParamCaption})}
+
 
 
 Free a Fault. 
 
-Free an Fault.
-
-Free off the Fault supplied. Will recursively free all the contained allocated memory.
+Free off the Fault supplied. Will free all the contained allocated memory.
 
 \begin{DoxyNote}{Note}
 It does not free the Fault itself, since that may be part of a larger structure. 
 \end{DoxyNote}
 
 
-Definition at line 418 of file evel\+\_\+fault.\+c.
+Definition at line 304 of file evel\+\_\+fault.\+c.
 
-\hypertarget{evel__fault_8c_aae3ade62114a42156bb533be2c9ccb38}{}\index{evel\+\_\+fault.\+c@{evel\+\_\+fault.\+c}!evel\+\_\+json\+\_\+encode\+\_\+fault@{evel\+\_\+json\+\_\+encode\+\_\+fault}}
+\hypertarget{evel__fault_8c_ac9645c134c236b1ff1799f17fe813818}{}\label{evel__fault_8c_ac9645c134c236b1ff1799f17fe813818} 
+\index{evel\+\_\+fault.\+c@{evel\+\_\+fault.\+c}!evel\+\_\+json\+\_\+encode\+\_\+fault@{evel\+\_\+json\+\_\+encode\+\_\+fault}}
 \index{evel\+\_\+json\+\_\+encode\+\_\+fault@{evel\+\_\+json\+\_\+encode\+\_\+fault}!evel\+\_\+fault.\+c@{evel\+\_\+fault.\+c}}
-\subsubsection[{evel\+\_\+json\+\_\+encode\+\_\+fault(char $\ast$json, int max\+\_\+size, E\+V\+E\+N\+T\+\_\+\+F\+A\+U\+L\+T $\ast$event)}]{\setlength{\rightskip}{0pt plus 5cm}int evel\+\_\+json\+\_\+encode\+\_\+fault (
-\begin{DoxyParamCaption}
-\item[{char $\ast$}]{json, }
-\item[{int}]{max\+\_\+size, }
-\item[{{\bf E\+V\+E\+N\+T\+\_\+\+F\+A\+U\+L\+T} $\ast$}]{event}
-\end{DoxyParamCaption}
-)}\label{evel__fault_8c_aae3ade62114a42156bb533be2c9ccb38}
+\subsubsection{\texorpdfstring{evel\+\_\+json\+\_\+encode\+\_\+fault()}{evel\_json\_encode\_fault()}}
+{\footnotesize\ttfamily void evel\+\_\+json\+\_\+encode\+\_\+fault (\begin{DoxyParamCaption}\item[{\hyperlink{evel__internal_8h_af9c576f6ffebdf8c5164ccf9827b323a}{E\+V\+E\+L\+\_\+\+J\+S\+O\+N\+\_\+\+B\+U\+F\+F\+ER} $\ast$}]{jbuf,  }\item[{\hyperlink{evel_8h_aab9e6f5e5cce300f2f4413c1d0228971}{E\+V\+E\+N\+T\+\_\+\+F\+A\+U\+LT} $\ast$}]{event }\end{DoxyParamCaption})}
 
 
-Encode the fault in J\+S\+O\+N according to A\+T\&T\textquotesingle{}s schema for the fault type. 
 
-Encode the fault as a J\+S\+O\+N fault.
+Encode the fault in J\+S\+ON according to AT\&T\textquotesingle{}s schema for the fault type. 
 
 
 \begin{DoxyParams}{Parameters}
-{\em json} & Pointer to where to store the J\+S\+O\+N encoded data. \\
+{\em jbuf} & Pointer to the \hyperlink{evel__internal_8h_af9c576f6ffebdf8c5164ccf9827b323a}{E\+V\+E\+L\+\_\+\+J\+S\+O\+N\+\_\+\+B\+U\+F\+F\+ER} to encode into. \\
 \hline
-{\em max\+\_\+size} & Size of storage available in evel\+\_\+json\+\_\+encode\+\_\+fault\+::json. \\
-\hline
-{\em event} & Pointer to the \hyperlink{evel_8h_aab9e6f5e5cce300f2f4413c1d0228971}{E\+V\+E\+N\+T\+\_\+\+F\+A\+U\+L\+T} to encode. \\
+{\em event} & Pointer to the \hyperlink{evel_8h_aa0ea94c675729365ea7825c4fc7e06d8}{E\+V\+E\+N\+T\+\_\+\+H\+E\+A\+D\+ER} to encode. \\
 \hline
 \end{DoxyParams}
-\begin{DoxyReturn}{Returns}
-Number of bytes actually written. 
-\end{DoxyReturn}
 
 
-Definition at line 231 of file evel\+\_\+fault.\+c.
+Definition at line 214 of file evel\+\_\+fault.\+c.
 
-\hypertarget{evel__fault_8c_ae31203fde9153686a32b2fc2a1183fa0}{}\index{evel\+\_\+fault.\+c@{evel\+\_\+fault.\+c}!evel\+\_\+new\+\_\+fault@{evel\+\_\+new\+\_\+fault}}
+\hypertarget{evel__fault_8c_a6dd9b72800e61e661dc133b588aab892}{}\label{evel__fault_8c_a6dd9b72800e61e661dc133b588aab892} 
+\index{evel\+\_\+fault.\+c@{evel\+\_\+fault.\+c}!evel\+\_\+new\+\_\+fault@{evel\+\_\+new\+\_\+fault}}
 \index{evel\+\_\+new\+\_\+fault@{evel\+\_\+new\+\_\+fault}!evel\+\_\+fault.\+c@{evel\+\_\+fault.\+c}}
-\subsubsection[{evel\+\_\+new\+\_\+fault(const char const $\ast$condition, const char const $\ast$specific\+\_\+problem, E\+V\+E\+L\+\_\+\+E\+V\+E\+N\+T\+\_\+\+P\+R\+I\+O\+R\+I\+T\+I\+E\+S priority, E\+V\+E\+L\+\_\+\+F\+A\+U\+L\+T\+\_\+\+S\+E\+V\+E\+R\+I\+T\+I\+E\+S severity)}]{\setlength{\rightskip}{0pt plus 5cm}{\bf E\+V\+E\+N\+T\+\_\+\+F\+A\+U\+L\+T}$\ast$ evel\+\_\+new\+\_\+fault (
-\begin{DoxyParamCaption}
-\item[{const char const $\ast$}]{condition, }
-\item[{const char const $\ast$}]{specific\+\_\+problem, }
-\item[{{\bf E\+V\+E\+L\+\_\+\+E\+V\+E\+N\+T\+\_\+\+P\+R\+I\+O\+R\+I\+T\+I\+E\+S}}]{priority, }
-\item[{{\bf E\+V\+E\+L\+\_\+\+F\+A\+U\+L\+T\+\_\+\+S\+E\+V\+E\+R\+I\+T\+I\+E\+S}}]{severity}
-\end{DoxyParamCaption}
-)}\label{evel__fault_8c_ae31203fde9153686a32b2fc2a1183fa0}
+\subsubsection{\texorpdfstring{evel\+\_\+new\+\_\+fault()}{evel\_new\_fault()}}
+{\footnotesize\ttfamily \hyperlink{evel_8h_aab9e6f5e5cce300f2f4413c1d0228971}{E\+V\+E\+N\+T\+\_\+\+F\+A\+U\+LT}$\ast$ evel\+\_\+new\+\_\+fault (\begin{DoxyParamCaption}\item[{const char $\ast$const}]{condition,  }\item[{const char $\ast$const}]{specific\+\_\+problem,  }\item[{\hyperlink{evel_8h_ad1bf6807fa6710332251611207490484}{E\+V\+E\+L\+\_\+\+E\+V\+E\+N\+T\+\_\+\+P\+R\+I\+O\+R\+I\+T\+I\+ES}}]{priority,  }\item[{\hyperlink{evel_8h_ad28dcc9cce27ecb7e4c9020107a6db9c}{E\+V\+E\+L\+\_\+\+S\+E\+V\+E\+R\+I\+T\+I\+ES}}]{severity }\end{DoxyParamCaption})}
+
 
 
 Create a new fault event. 
@@ -217,11 +194,11 @@ The mandatory fields on the Fault must be supplied to this factory function and 
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
-pointer to the newly manufactured \hyperlink{evel_8h_aab9e6f5e5cce300f2f4413c1d0228971}{E\+V\+E\+N\+T\+\_\+\+F\+A\+U\+L\+T}. If the event is not used (i.\+e. posted) it must be released using \hyperlink{evel_8h_a91faa4e06c4b079c2a8a1db1ccb2e47b}{evel\+\_\+free\+\_\+event}. 
+pointer to the newly manufactured \hyperlink{evel_8h_aab9e6f5e5cce300f2f4413c1d0228971}{E\+V\+E\+N\+T\+\_\+\+F\+A\+U\+LT}. If the event is not used (i.\+e. posted) it must be released using \hyperlink{evel__fault_8c_afd5a2244dbe54e189700f0f94901bbea}{evel\+\_\+free\+\_\+fault}. 
 \end{DoxyReturn}
 
 \begin{DoxyRetVals}{Return values}
-{\em N\+U\+L\+L} & Failed to create the event. \\
+{\em N\+U\+LL} & Failed to create the event. \\
 \hline
 \end{DoxyRetVals}
 

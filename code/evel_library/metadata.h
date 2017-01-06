@@ -51,6 +51,11 @@
 EVEL_ERR_CODES openstack_metadata(int verbosity);
 
 /**************************************************************************//**
+ * Initialize default values for vm_name and vm_uuid - for testing purposes.
+ *****************************************************************************/
+void openstack_metadata_initialize();
+
+/**************************************************************************//**
  * Get the VM name provided by the metadata service.
  *
  * @returns VM name

@@ -1,30 +1,41 @@
 \section*{Introduction}
 
-The E\+C\+O\+M\+P Vendor Event Listener (\char`\"{}\+E\+V\+E\+L\char`\"{}) library encapsulates the use of A\+T\&T\textquotesingle{}s J\+S\+O\+N A\+P\+I to the collector function within the E\+C\+O\+M\+P infrastructure.
+The E\+C\+O\+MP Vendor Event Listener (\char`\"{}\+E\+V\+E\+L\char`\"{}) library encapsulates the use of AT\&T\textquotesingle{}s J\+S\+ON A\+PI to the collector function within the E\+C\+O\+MP infrastructure.
 
-As such, it provides a reference implementation of the E\+V\+E\+L J\+S\+O\+N A\+P\+I which can either be directly as part of a project or can be used to inform the independent implementation of an equivalent binding to the A\+P\+I in another development environment.
+As such, it provides a reference implementation of the E\+V\+EL J\+S\+ON A\+PI which can either be directly as part of a project or can be used to inform the independent implementation of an equivalent binding to the A\+PI in another development environment.
 
-This section provides an overview of the library and how it is integrated into the target application. If all you want is a set of instructions to get you started, the \hyperlink{quickstart}{Quick Start} section is for you. If you want a more in-\/depth understanding of the {\itshape E\+V\+E\+L Library} then this section provides an overview and then you can read the detailed A\+P\+I documentation for each function. The documentation for \hyperlink{evel_8h}{evel.\+h} is a good starting point, since that defines the public A\+P\+I of the {\itshape E\+V\+E\+L Library}.
+This section provides an overview of the library and how it is integrated into the target application. If all you want is a set of instructions to get you started, the \hyperlink{quickstart}{Quick Start} section is for you. If you want a more in-\/depth understanding of the {\itshape E\+V\+EL Library} then this section provides an overview and then you can read the detailed A\+PI documentation for each function. The documentation for \hyperlink{evel_8h}{evel.\+h} is a good starting point, since that defines the public A\+PI of the {\itshape E\+V\+EL Library}.
 
 \section*{Library Structure}
 
-The A\+P\+I is designed to be used on multi-\/process platforms where each process may be multi-\/threaded. Each process using this library will create an independent H\+T\+T\+P client (using libc\+U\+R\+L). Each process will have a single thread running the H\+T\+T\+P client but that thread receives work on a ring-\/buffer from however may threads are required to implement the function.
+The A\+PI is designed to be used on multi-\/process platforms where each process may be multi-\/threaded. Each process using this library will create an independent H\+T\+TP client (using libc\+U\+RL). Each process will have a single thread running the H\+T\+TP client but that thread receives work on a ring-\/buffer from however may threads are required to implement the function.
 
 {\bfseries Note}\+: libcurl imposes a constraint that it is initialized before the process starts multi-\/threaded operation.
 
 \section*{Typical Usage}
 
-The library is designed to be very straightforward to use and lightweight to integrate into projects. The only serious external dependency is on libc\+U\+R\+L.
+The library is designed to be very straightforward to use and lightweight to integrate into projects. The only serious external dependency is on libc\+U\+RL.
 
 The supplied Makefile produces a single library {\bfseries libevel.\+so} or {\bfseries libevel.\+a} which your application needs to be linked against.
 
-Each process within the application which wants to generate events needs to call \hyperlink{evel_8h_aff020c5505e724b414ac981e2a23fcd6}{evel\+\_\+initialize} at the start of day (observing the above warning about not being M\+T safe at this stage.) The initialization specifies the details of where the A\+P\+I is located. Management of configuration is the responsibility of the client.
+Each process within the application which wants to generate events needs to call \hyperlink{evel_8h_a059033f948f5bf406fedb4a7ef1966da}{evel\+\_\+initialize} at the start of day (observing the above warning about not being MT safe at this stage.) The initialization specifies the details of where the A\+PI is located. Management of configuration is the responsibility of the client.
 
-Once initialized, and now M\+T-\/safe, there are factory functions to produce new Faults (\hyperlink{evel__fault_8c_ae31203fde9153686a32b2fc2a1183fa0}{evel\+\_\+new\+\_\+fault}) and new Measurements (\hyperlink{evel__scaling__measurement_8c_a162ce37ab7f24dbbea23d46b77c974ce}{evel\+\_\+new\+\_\+measurement}).
+Once initialized, and now M\+T-\/safe, there are factory functions to produce new events\+:
+\begin{DoxyItemize}
+\item Faults -\/ \hyperlink{evel__fault_8c_a6dd9b72800e61e661dc133b588aab892}{evel\+\_\+new\+\_\+fault}
+\item Measurements -\/ \hyperlink{evel__scaling__measurement_8c_af19dc9c6757bfaa522f078a7a2248569}{evel\+\_\+new\+\_\+measurement}
+\item Report -\/ \hyperlink{evel__reporting__measurement_8c_a77971f763ebf42efb1a5b0a12bbe579d}{evel\+\_\+new\+\_\+report}
+\item State Change -\/ \hyperlink{evel__state__change_8c_a4f0a7868b54799f13f282ada5c9dcc2e}{evel\+\_\+new\+\_\+state\+\_\+change}
+\item Syslog -\/ \hyperlink{evel__syslog_8c_ab8e1f617e4d69633fdd1f7dd297871d6}{evel\+\_\+new\+\_\+syslog}
+\item Other -\/ \hyperlink{evel__other_8c_ac49e6b3de08b4d4677a7bad8d615c97b}{evel\+\_\+new\+\_\+other}
+\item Mobile Flow -\/ \hyperlink{evel__mobile__flow_8c_a91056c1aef2f8a33a32920fdfc4fe23a}{evel\+\_\+new\+\_\+mobile\+\_\+flow}
+\end{DoxyItemize}
 
-The Fault and Measurement structures are initialized with mandatory fields at the point of creation and optional fields may be added thereafter. Once set, values in the structures are immutable.
+There is also a factory function \hyperlink{evel__mobile__flow_8c_a8440103cf9c7ba48182528948d2ebc49}{evel\+\_\+new\+\_\+mobile\+\_\+gtp\+\_\+flow\+\_\+metrics} to create the parameter gtp\+\_\+per\+\_\+flow\+\_\+metrics, which is then configured and passed to the \hyperlink{evel__mobile__flow_8c_a91056c1aef2f8a33a32920fdfc4fe23a}{evel\+\_\+new\+\_\+mobile\+\_\+flow} factory function.
 
-Once the event is prepared, it may be posted, using \hyperlink{evel__event__mgr_8c_a209d2e5dbffe9e11ac79ae140f4a81bd}{evel\+\_\+post\+\_\+event}, at which point the calling thread relinquishes all responsibility for the event. It will be freed once successfully or unsuccessfully posted to the A\+P\+I. If, for any reason, you change your mind and don\textquotesingle{}t want to post a created event, it must be destroyed with \hyperlink{evel_8h_a91faa4e06c4b079c2a8a1db1ccb2e47b}{evel\+\_\+free\+\_\+event}.
+The event structures are initialized with mandatory fields at the point of creation and optional fields may be added thereafter. Once set, values in the structures are immutable.
+
+Once the event is prepared, it may be posted, using \hyperlink{evel__event__mgr_8c_a209d2e5dbffe9e11ac79ae140f4a81bd}{evel\+\_\+post\+\_\+event}, at which point the calling thread relinquishes all responsibility for the event. It will be freed once successfully or unsuccessfully posted to the A\+PI. If, for any reason, you change your mind and don\textquotesingle{}t want to post a created event, it must be destroyed with \hyperlink{evel_8h_a91faa4e06c4b079c2a8a1db1ccb2e47b}{evel\+\_\+free\+\_\+event}.
 
 Finally, at the end of day, the library can be terminated cleanly by calling \hyperlink{evel_8h_ab3f6225ddb9c5113d74503d4fcd17e5b}{evel\+\_\+terminate}.
 
@@ -34,7 +45,7 @@ The following fragment illustrates the above usage\+:
 
 
 \begin{DoxyCode}
-\textcolor{keywordflow}{if} (\hyperlink{evel_8c_aff020c5505e724b414ac981e2a23fcd6}{evel\_initialize}(api\_fqdn,
+\textcolor{keywordflow}{if} (\hyperlink{evel_8c_a059033f948f5bf406fedb4a7ef1966da}{evel\_initialize}(api\_fqdn,
                     api\_port,
                     api\_path,
                     api\_topic,
@@ -51,26 +62,26 @@ The following fragment illustrates the above usage\+:
 
 ...
 
-fault = \hyperlink{evel_8h_ae31203fde9153686a32b2fc2a1183fa0}{evel\_new\_fault}(\textcolor{stringliteral}{"My alarm condition"},
+fault = \hyperlink{evel_8h_a6dd9b72800e61e661dc133b588aab892}{evel\_new\_fault}(\textcolor{stringliteral}{"My alarm condition"},
                        \textcolor{stringliteral}{"It broke very badly"},
                        \hyperlink{evel_8h_ad1bf6807fa6710332251611207490484af656e2fbfee66b25faa06447799a9011}{EVEL\_PRIORITY\_NORMAL},
-                       \hyperlink{evel_8h_ac52696495e0b34b23a0726f467670d0fac454e36d0a4678cd7ae2de725f513b61}{EVEL\_SEVERITY\_MAJOR});
+                       \hyperlink{evel_8h_ad28dcc9cce27ecb7e4c9020107a6db9cac454e36d0a4678cd7ae2de725f513b61}{EVEL\_SEVERITY\_MAJOR});
 \textcolor{keywordflow}{if} (fault != NULL)
 \{
-  \hyperlink{evel_8h_aaafea6d63d296e8f33779387509e80cb}{evel\_fault\_type\_set}(fault, \textcolor{stringliteral}{"Bad things happen..."});
-  \hyperlink{evel_8h_ae56fef27e31906a535793f941bba6d7e}{evel\_fault\_interface\_set}(fault, \textcolor{stringliteral}{"My Interface Card"});
+  \hyperlink{evel_8h_a08233f1e66ab6cdb0998fb3f5495ac45}{evel\_fault\_type\_set}(fault, \textcolor{stringliteral}{"Bad things happen..."});
+  \hyperlink{evel_8h_a60ccecf94decb577e09fac9ee34358f2}{evel\_fault\_interface\_set}(fault, \textcolor{stringliteral}{"My Interface Card"});
   \hyperlink{evel_8h_a07076c0fa1d2941102f957af3b47df44}{evel\_fault\_addl\_info\_add}(fault, \textcolor{stringliteral}{"name1"}, \textcolor{stringliteral}{"value1"});
   \hyperlink{evel_8h_a07076c0fa1d2941102f957af3b47df44}{evel\_fault\_addl\_info\_add}(fault, \textcolor{stringliteral}{"name2"}, \textcolor{stringliteral}{"value2"});
   evel\_rc = \hyperlink{evel_8h_a209d2e5dbffe9e11ac79ae140f4a81bd}{evel\_post\_event}((\hyperlink{structevent__header}{EVENT\_HEADER} *)fault);
   \textcolor{keywordflow}{if} (evel\_rc != \hyperlink{evel_8h_ae1f68b0d21fb98defcec46e99208a03eaa9369500f041c2898e5c2b4f07b6d152}{EVEL\_SUCCESS})
   \{
-    \hyperlink{evel_8h_a08905640aa895fc0d555d6ea08544bc9}{EVEL\_ERROR}(\textcolor{stringliteral}{"Post failed %d (%s)"}, evel\_rc, \hyperlink{evel_8h_a4e26e681850483196ff690d928ab7896}{evel\_error\_string}());
+    \hyperlink{evel_8h_afdddf91265803ed3fd502fedd7dabebf}{EVEL\_ERROR}(\textcolor{stringliteral}{"Post failed %d (%s)"}, evel\_rc, \hyperlink{evel_8h_acc6a1997021796b0a09fcdb8e89ea384}{evel\_error\_string}());
   \}
 \}
 \end{DoxyCode}
 
 
-The public A\+P\+I to the library is defined in \hyperlink{evel_8h}{evel.\+h}. The internal A\+P\+Is within library are defined in separate headers ({\itshape e.\+g.} \hyperlink{evel__internal_8h}{evel\+\_\+internal.\+h}), but these should not need to be included by the code using the library.
+The public A\+PI to the library is defined in \hyperlink{evel_8h}{evel.\+h}. The internal A\+P\+Is within library are defined in separate headers ({\itshape e.\+g.} \hyperlink{evel__internal_8h}{evel\+\_\+internal.\+h}), but these should not need to be included by the code using the library.
 
 \section*{Example Application}
 
@@ -78,70 +89,70 @@ A simple command-\/line application to generate events is provided as part of th
 
 The following illustrates its operation to a co-\/located \char`\"{}test-\/collector\char`\"{}\+: 
 \begin{DoxyCode}
-1 $ ./evel\_demo --fqdn 127.0.0.1 --port 30000 --path vendor\_event\_listener --topic example\_vnf --verbose
-2 ./evel\_demo built Feb 26 2016 18:14:48
-3 * About to connect() to 169.254.169.254 port 80 (#0)
-4 *   Trying 169.254.169.254... * Timeout
-5 * connect() timed out!
-6 * Closing connection #0
-7 * About to connect() to 127.0.0.1 port 30000 (#0)
-8 *   Trying 127.0.0.1... * connected
-9 * Connected to 127.0.0.1 (127.0.0.1) port 30000 (#0)
-10 * Server auth using Basic with user 'Alice'
-11 > POST /vendor\_event\_listener/eventListener/v1/example\_vnf HTTP/1.1
-12 Authorization: Basic QWxpY2U6VGhpcyBpc24ndCB2ZXJ5IHNlY3VyZSE=
-13 User-Agent: libcurl-agent/1.0
-14 Host: 127.0.0.1:30000
-15 Accept: */*
-16 Content-type: application/json
-17 Content-Length: 510
-18 
-19 * HTTP 1.0, assume close after body
-20 < HTTP/1.0 204 No Content
-21 < Date: Fri, 04 Mar 2016 15:37:22 GMT
-22 < Server: WSGIServer/0.1 Python/2.6.6
-23 < 
-24 * Closing connection #0
-25 * About to connect() to 127.0.0.1 port 30000 (#0)
-26 *   Trying 127.0.0.1... * connected
-27 * Connected to 127.0.0.1 (127.0.0.1) port 30000 (#0)
-28 * Server auth using Basic with user 'Alice'
-29 > POST /vendor\_event\_listener/eventListener/v1/example\_vnf HTTP/1.1
-30 Authorization: Basic QWxpY2U6VGhpcyBpc24ndCB2ZXJ5IHNlY3VyZSE=
-31 User-Agent: libcurl-agent/1.0
-32 Host: 127.0.0.1:30000
-33 Accept: */*
-34 Content-type: application/json
-35 Content-Length: 865
-36 
-37 * HTTP 1.0, assume close after body
-38 < HTTP/1.0 204 No Content
-39 < Date: Fri, 04 Mar 2016 15:37:22 GMT
-40 < Server: WSGIServer/0.1 Python/2.6.6
-41 < 
-42 * Closing connection #0
-43 * About to connect() to 127.0.0.1 port 30000 (#0)
-44 *   Trying 127.0.0.1... * connected
-45 * Connected to 127.0.0.1 (127.0.0.1) port 30000 (#0)
-46 * Server auth using Basic with user 'Alice'
-47 > POST /vendor\_event\_listener/eventListener/v1/example\_vnf HTTP/1.1
-48 Authorization: Basic QWxpY2U6VGhpcyBpc24ndCB2ZXJ5IHNlY3VyZSE=
-49 User-Agent: libcurl-agent/1.0
-50 Host: 127.0.0.1:30000
-51 Accept: */*
-52 Content-type: application/json
-53 Content-Length: 2325
-54 
-55 * HTTP 1.0, assume close after body
-56 < HTTP/1.0 204 No Content
-57 < Date: Fri, 04 Mar 2016 15:37:22 GMT
-58 < Server: WSGIServer/0.1 Python/2.6.6
-59 < 
-60 * Closing connection #0
-61 ^C
-62 
-63 Interrupted - quitting!
-64 $
+$ ./evel\_demo --fqdn 127.0.0.1 --port 30000 --path vendor\_event\_listener --topic example\_vnf --verbose
+./evel\_demo built Feb 26 2016 18:14:48
+* About to connect() to 169.254.169.254 port 80 (#0)
+*   Trying 169.254.169.254... * Timeout
+* connect() timed out!
+* Closing connection #0
+* About to connect() to 127.0.0.1 port 30000 (#0)
+*   Trying 127.0.0.1... * connected
+* Connected to 127.0.0.1 (127.0.0.1) port 30000 (#0)
+* Server auth using Basic with user 'Alice'
+> POST /vendor\_event\_listener/eventListener/v1/example\_vnf HTTP/1.1
+Authorization: Basic QWxpY2U6VGhpcyBpc24ndCB2ZXJ5IHNlY3VyZSE=
+User-Agent: libcurl-agent/1.0
+Host: 127.0.0.1:30000
+Accept: */*
+Content-type: application/json
+Content-Length: 510
+
+* HTTP 1.0, assume close after body
+< HTTP/1.0 204 No Content
+< Date: Fri, 04 Mar 2016 15:37:22 GMT
+< Server: WSGIServer/0.1 Python/2.6.6
+< 
+* Closing connection #0
+* About to connect() to 127.0.0.1 port 30000 (#0)
+*   Trying 127.0.0.1... * connected
+* Connected to 127.0.0.1 (127.0.0.1) port 30000 (#0)
+* Server auth using Basic with user 'Alice'
+> POST /vendor\_event\_listener/eventListener/v1/example\_vnf HTTP/1.1
+Authorization: Basic QWxpY2U6VGhpcyBpc24ndCB2ZXJ5IHNlY3VyZSE=
+User-Agent: libcurl-agent/1.0
+Host: 127.0.0.1:30000
+Accept: */*
+Content-type: application/json
+Content-Length: 865
+
+* HTTP 1.0, assume close after body
+< HTTP/1.0 204 No Content
+< Date: Fri, 04 Mar 2016 15:37:22 GMT
+< Server: WSGIServer/0.1 Python/2.6.6
+< 
+* Closing connection #0
+* About to connect() to 127.0.0.1 port 30000 (#0)
+*   Trying 127.0.0.1... * connected
+* Connected to 127.0.0.1 (127.0.0.1) port 30000 (#0)
+* Server auth using Basic with user 'Alice'
+> POST /vendor\_event\_listener/eventListener/v1/example\_vnf HTTP/1.1
+Authorization: Basic QWxpY2U6VGhpcyBpc24ndCB2ZXJ5IHNlY3VyZSE=
+User-Agent: libcurl-agent/1.0
+Host: 127.0.0.1:30000
+Accept: */*
+Content-type: application/json
+Content-Length: 2325
+
+* HTTP 1.0, assume close after body
+< HTTP/1.0 204 No Content
+< Date: Fri, 04 Mar 2016 15:37:22 GMT
+< Server: WSGIServer/0.1 Python/2.6.6
+< 
+* Closing connection #0
+^C
+
+Interrupted - quitting!
+$
 \end{DoxyCode}
 
 
@@ -149,17 +160,17 @@ The following illustrates its operation to a co-\/located \char`\"{}test-\/colle
 
 \subsection*{Constraint Validation}
 
-The {\itshape E\+V\+E\+L Library} has been designed to be production-\/safe code with the emphasis at this stage being in correctness of operation rather than raw performance.
+The {\itshape E\+V\+EL Library} has been designed to be production-\/safe code with the emphasis at this stage being in correctness of operation rather than raw performance.
 
-The A\+P\+I tries to check as much information as possible to avoid misuse and will {\bfseries assert()} if constraints are not satisfied. This is likely to lead to the rapid discovery of coding errors by programmers, but does mean that the application can fail abruptly if the library is misused in any way.
+The A\+PI tries to check as much information as possible to avoid misuse and will {\bfseries assert()} if constraints are not satisfied. This is likely to lead to the rapid discovery of coding errors by programmers, but does mean that the application can fail abruptly if the library is misused in any way.
 
 \subsection*{Performance}
 
 The default Makefile avoids aggressive optimizations so that any core-\/files are easy to interpret. Production code should use greater optimization levels.
 
-As described above, the H\+T\+T\+P client is single threaded and will run all transactions synchronously. As transactions are serialized, a client that generates a lot of events will be paced by the round-\/trip time.
+As described above, the H\+T\+TP client is single threaded and will run all transactions synchronously. As transactions are serialized, a client that generates a lot of events will be paced by the round-\/trip time.
 
-It would be a straightforward enhancement to use the multi-\/thread A\+P\+I into libcurl and use a pool of client threads to run transactions in parallel if this ever became a bottleneck.
+It would be a straightforward enhancement to use the multi-\/thread A\+PI into libcurl and use a pool of client threads to run transactions in parallel if this ever became a bottleneck.
 
 \subsection*{Logging}
 
@@ -167,10 +178,10 @@ The initialization of the library includes the log verbosity. The verbose operat
 
 
 \begin{DoxyCode}
-1 # Log all user messages so debug information is captured.
-2 
-3 user.*      /var/log/debug
+# Log all user messages so debug information is captured.
+
+user.*      /var/log/debug
 \end{DoxyCode}
 
 
-If verbose logging is enabled, the c\+U\+R\+L library will generate information about the H\+T\+T\+P operations on {\bfseries stdout}. 
+If verbose logging is enabled, the c\+U\+RL library will generate information about the H\+T\+TP operations on {\bfseries stdout}. 

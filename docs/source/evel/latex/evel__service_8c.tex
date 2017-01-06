@@ -1,0 +1,959 @@
+\hypertarget{evel__service_8c}{}\section{evel\+\_\+service.\+c File Reference}
+\label{evel__service_8c}\index{evel\+\_\+service.\+c@{evel\+\_\+service.\+c}}
+
+
+Implementation of E\+V\+EL functions relating to Service.  
+
+
+{\ttfamily \#include $<$string.\+h$>$}\newline
+{\ttfamily \#include $<$assert.\+h$>$}\newline
+{\ttfamily \#include $<$stdlib.\+h$>$}\newline
+{\ttfamily \#include \char`\"{}evel\+\_\+throttle.\+h\char`\"{}}\newline
+Include dependency graph for evel\+\_\+service.\+c\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{evel__service_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{evel_8h_a6f02314b48f9fea01756a53ef520215d}{E\+V\+E\+N\+T\+\_\+\+S\+E\+R\+V\+I\+CE} $\ast$ \hyperlink{evel__service_8c_a7b1bd5885121e6792e81fc5f15801ae6}{evel\+\_\+new\+\_\+service} (const char $\ast$const vendor\+\_\+id, const char $\ast$const event\+\_\+id)
+\begin{DoxyCompactList}\small\item\em Create a new Service event. \end{DoxyCompactList}\item 
+void \hyperlink{evel__service_8c_a804f2802c4f5f5e75bc8c7985f1e6f57}{evel\+\_\+service\+\_\+type\+\_\+set} (\hyperlink{evel_8h_a6f02314b48f9fea01756a53ef520215d}{E\+V\+E\+N\+T\+\_\+\+S\+E\+R\+V\+I\+CE} $\ast$const event, const char $\ast$const type)
+\begin{DoxyCompactList}\small\item\em Set the Event Type property of the Service event. \end{DoxyCompactList}\item 
+void \hyperlink{evel__service_8c_a1379704cad2324bc6cd4dbb897765132}{evel\+\_\+service\+\_\+addl\+\_\+field\+\_\+add} (\hyperlink{evel_8h_a6f02314b48f9fea01756a53ef520215d}{E\+V\+E\+N\+T\+\_\+\+S\+E\+R\+V\+I\+CE} $\ast$const event, const char $\ast$const name, const char $\ast$const value)
+\begin{DoxyCompactList}\small\item\em Add a name/value pair to the Service, under the additional\+Fields array. \end{DoxyCompactList}\item 
+void \hyperlink{evel__service_8c_ac6aefc698895c9e7761ecbd3722bc1fc}{evel\+\_\+service\+\_\+product\+\_\+id\+\_\+set} (\hyperlink{evel_8h_a6f02314b48f9fea01756a53ef520215d}{E\+V\+E\+N\+T\+\_\+\+S\+E\+R\+V\+I\+CE} $\ast$const event, const char $\ast$const product\+\_\+id)
+\begin{DoxyCompactList}\small\item\em Set the Product Id property of the Service event. \end{DoxyCompactList}\item 
+void \hyperlink{evel__service_8c_a55a540b64bac5ba1f0478e53cdb350f3}{evel\+\_\+service\+\_\+subsystem\+\_\+id\+\_\+set} (\hyperlink{evel_8h_a6f02314b48f9fea01756a53ef520215d}{E\+V\+E\+N\+T\+\_\+\+S\+E\+R\+V\+I\+CE} $\ast$const event, const char $\ast$const subsystem\+\_\+id)
+\begin{DoxyCompactList}\small\item\em Set the Subsystem Id property of the Service event. \end{DoxyCompactList}\item 
+void \hyperlink{evel__service_8c_ac3e8aed2f973f1fb6446552eaf1cb7f8}{evel\+\_\+service\+\_\+friendly\+\_\+name\+\_\+set} (\hyperlink{evel_8h_a6f02314b48f9fea01756a53ef520215d}{E\+V\+E\+N\+T\+\_\+\+S\+E\+R\+V\+I\+CE} $\ast$const event, const char $\ast$const friendly\+\_\+name)
+\begin{DoxyCompactList}\small\item\em Set the Friendly Name property of the Service event. \end{DoxyCompactList}\item 
+void \hyperlink{evel__service_8c_a6a66912e9abac57d8bed0cc23ec2fb70}{evel\+\_\+service\+\_\+correlator\+\_\+set} (\hyperlink{evel_8h_a6f02314b48f9fea01756a53ef520215d}{E\+V\+E\+N\+T\+\_\+\+S\+E\+R\+V\+I\+CE} $\ast$const event, const char $\ast$const correlator)
+\begin{DoxyCompactList}\small\item\em Set the Correlator property of the Service event. \end{DoxyCompactList}\item 
+void \hyperlink{evel__service_8c_a9b9f0b4ba5438679705e1d92439eeb34}{evel\+\_\+service\+\_\+codec\+\_\+set} (\hyperlink{evel_8h_a6f02314b48f9fea01756a53ef520215d}{E\+V\+E\+N\+T\+\_\+\+S\+E\+R\+V\+I\+CE} $\ast$const event, const char $\ast$const codec)
+\begin{DoxyCompactList}\small\item\em Set the Codec property of the Service event. \end{DoxyCompactList}\item 
+void \hyperlink{evel__service_8c_a731f7678cdfff6e6a11e833c09617ab8}{evel\+\_\+service\+\_\+callee\+\_\+codec\+\_\+set} (\hyperlink{evel_8h_a6f02314b48f9fea01756a53ef520215d}{E\+V\+E\+N\+T\+\_\+\+S\+E\+R\+V\+I\+CE} $\ast$const event, const char $\ast$const codec)
+\begin{DoxyCompactList}\small\item\em Set the Callee Side Codec property of the Service event. \end{DoxyCompactList}\item 
+void \hyperlink{evel__service_8c_a111c066f3e27e29ff7351f44eacecdf8}{evel\+\_\+service\+\_\+caller\+\_\+codec\+\_\+set} (\hyperlink{evel_8h_a6f02314b48f9fea01756a53ef520215d}{E\+V\+E\+N\+T\+\_\+\+S\+E\+R\+V\+I\+CE} $\ast$const event, const char $\ast$const codec)
+\begin{DoxyCompactList}\small\item\em Set the Caller Side Codec property of the Service event. \end{DoxyCompactList}\item 
+void \hyperlink{evel__service_8c_acb89b6b8b16bed817d6232edbba5ec0a}{evel\+\_\+service\+\_\+rtcp\+\_\+data\+\_\+set} (\hyperlink{evel_8h_a6f02314b48f9fea01756a53ef520215d}{E\+V\+E\+N\+T\+\_\+\+S\+E\+R\+V\+I\+CE} $\ast$const event, const char $\ast$const rtcp\+\_\+data)
+\begin{DoxyCompactList}\small\item\em Set the R\+T\+CP Data property of the Service event. \end{DoxyCompactList}\item 
+void \hyperlink{evel__service_8c_aa03b8f510643fbf31e64e2b143ae52e1}{evel\+\_\+service\+\_\+adjacency\+\_\+name\+\_\+set} (\hyperlink{evel_8h_a6f02314b48f9fea01756a53ef520215d}{E\+V\+E\+N\+T\+\_\+\+S\+E\+R\+V\+I\+CE} $\ast$const event, const char $\ast$const adjacency\+\_\+name)
+\begin{DoxyCompactList}\small\item\em Set the Adjacency Name property of the Service event. \end{DoxyCompactList}\item 
+void \hyperlink{evel__service_8c_aa526a085c5981264b613df22499b82e2}{evel\+\_\+service\+\_\+endpoint\+\_\+desc\+\_\+set} (\hyperlink{evel_8h_a6f02314b48f9fea01756a53ef520215d}{E\+V\+E\+N\+T\+\_\+\+S\+E\+R\+V\+I\+CE} $\ast$const event, const \hyperlink{evel_8h_afeae65c30729877eb7671ece2318ae67}{E\+V\+E\+L\+\_\+\+S\+E\+R\+V\+I\+C\+E\+\_\+\+E\+N\+D\+P\+O\+I\+N\+T\+\_\+\+D\+E\+SC} endpoint\+\_\+desc)
+\begin{DoxyCompactList}\small\item\em Set the Endpoint Descriptor property of the Service event. \end{DoxyCompactList}\item 
+void \hyperlink{evel__service_8c_adcf6ded43d98a2653422a910d216c8c4}{evel\+\_\+service\+\_\+endpoint\+\_\+jitter\+\_\+set} (\hyperlink{evel_8h_a6f02314b48f9fea01756a53ef520215d}{E\+V\+E\+N\+T\+\_\+\+S\+E\+R\+V\+I\+CE} $\ast$const event, const int jitter)
+\begin{DoxyCompactList}\small\item\em Set the Endpoint Jitter property of the Service event. \end{DoxyCompactList}\item 
+void \hyperlink{evel__service_8c_afeb598172abd1df195bba5cf702ba0e8}{evel\+\_\+service\+\_\+endpoint\+\_\+rtp\+\_\+oct\+\_\+disc\+\_\+set} (\hyperlink{evel_8h_a6f02314b48f9fea01756a53ef520215d}{E\+V\+E\+N\+T\+\_\+\+S\+E\+R\+V\+I\+CE} $\ast$const event, const int rtp\+\_\+oct\+\_\+disc)
+\begin{DoxyCompactList}\small\item\em Set the Endpoint Rtp Octets Discarded property of the Service event. \end{DoxyCompactList}\item 
+void \hyperlink{evel__service_8c_a600a247bc99474df56b054f7fbd24653}{evel\+\_\+service\+\_\+endpoint\+\_\+rtp\+\_\+oct\+\_\+recv\+\_\+set} (\hyperlink{evel_8h_a6f02314b48f9fea01756a53ef520215d}{E\+V\+E\+N\+T\+\_\+\+S\+E\+R\+V\+I\+CE} $\ast$const event, const int rtp\+\_\+oct\+\_\+recv)
+\begin{DoxyCompactList}\small\item\em Set the Endpoint Rtp Octets Received property of the Service event. \end{DoxyCompactList}\item 
+void \hyperlink{evel__service_8c_aa345084a9d3f5198a4603dad24f6f089}{evel\+\_\+service\+\_\+endpoint\+\_\+rtp\+\_\+oct\+\_\+sent\+\_\+set} (\hyperlink{evel_8h_a6f02314b48f9fea01756a53ef520215d}{E\+V\+E\+N\+T\+\_\+\+S\+E\+R\+V\+I\+CE} $\ast$const event, const int rtp\+\_\+oct\+\_\+sent)
+\begin{DoxyCompactList}\small\item\em Set the Endpoint Rtp Octets Sent property of the Service event. \end{DoxyCompactList}\item 
+void \hyperlink{evel__service_8c_a15fe35525e3ad2bd3d08eabd9656fd4e}{evel\+\_\+service\+\_\+endpoint\+\_\+rtp\+\_\+pkt\+\_\+disc\+\_\+set} (\hyperlink{evel_8h_a6f02314b48f9fea01756a53ef520215d}{E\+V\+E\+N\+T\+\_\+\+S\+E\+R\+V\+I\+CE} $\ast$const event, const int rtp\+\_\+pkt\+\_\+disc)
+\begin{DoxyCompactList}\small\item\em Set the Endpoint Rtp Packets Discarded property of the Service event. \end{DoxyCompactList}\item 
+void \hyperlink{evel__service_8c_a76bee8f14a0972cf436c4ff30a25711e}{evel\+\_\+service\+\_\+endpoint\+\_\+rtp\+\_\+pkt\+\_\+recv\+\_\+set} (\hyperlink{evel_8h_a6f02314b48f9fea01756a53ef520215d}{E\+V\+E\+N\+T\+\_\+\+S\+E\+R\+V\+I\+CE} $\ast$const event, const int rtp\+\_\+pkt\+\_\+recv)
+\begin{DoxyCompactList}\small\item\em Set the Endpoint Rtp Packets Received property of the Service event. \end{DoxyCompactList}\item 
+void \hyperlink{evel__service_8c_acaab9cb5da46c02a5dff5a6aa120aac3}{evel\+\_\+service\+\_\+endpoint\+\_\+rtp\+\_\+pkt\+\_\+sent\+\_\+set} (\hyperlink{evel_8h_a6f02314b48f9fea01756a53ef520215d}{E\+V\+E\+N\+T\+\_\+\+S\+E\+R\+V\+I\+CE} $\ast$const event, const int rtp\+\_\+pkt\+\_\+sent)
+\begin{DoxyCompactList}\small\item\em Set the Endpoint Rtp Packets Sent property of the Service event. \end{DoxyCompactList}\item 
+void \hyperlink{evel__service_8c_ab6cb200286ad37947904d02eba4cbf68}{evel\+\_\+service\+\_\+local\+\_\+jitter\+\_\+set} (\hyperlink{evel_8h_a6f02314b48f9fea01756a53ef520215d}{E\+V\+E\+N\+T\+\_\+\+S\+E\+R\+V\+I\+CE} $\ast$const event, const int jitter)
+\begin{DoxyCompactList}\small\item\em Set the Local Jitter property of the Service event. \end{DoxyCompactList}\item 
+void \hyperlink{evel__service_8c_ac592e4c8189c90e4768c5d99866215d7}{evel\+\_\+service\+\_\+local\+\_\+rtp\+\_\+oct\+\_\+disc\+\_\+set} (\hyperlink{evel_8h_a6f02314b48f9fea01756a53ef520215d}{E\+V\+E\+N\+T\+\_\+\+S\+E\+R\+V\+I\+CE} $\ast$const event, const int rtp\+\_\+oct\+\_\+disc)
+\begin{DoxyCompactList}\small\item\em Set the Local Rtp Octets Discarded property of the Service event. \end{DoxyCompactList}\item 
+void \hyperlink{evel__service_8c_ae4a91877ee00605f07956181608ec8cd}{evel\+\_\+service\+\_\+local\+\_\+rtp\+\_\+oct\+\_\+recv\+\_\+set} (\hyperlink{evel_8h_a6f02314b48f9fea01756a53ef520215d}{E\+V\+E\+N\+T\+\_\+\+S\+E\+R\+V\+I\+CE} $\ast$const event, const int rtp\+\_\+oct\+\_\+recv)
+\begin{DoxyCompactList}\small\item\em Set the Local Rtp Octets Received property of the Service event. \end{DoxyCompactList}\item 
+void \hyperlink{evel__service_8c_a63c5f06a8f3254ea02015bd2ae8fbc9c}{evel\+\_\+service\+\_\+local\+\_\+rtp\+\_\+oct\+\_\+sent\+\_\+set} (\hyperlink{evel_8h_a6f02314b48f9fea01756a53ef520215d}{E\+V\+E\+N\+T\+\_\+\+S\+E\+R\+V\+I\+CE} $\ast$const event, const int rtp\+\_\+oct\+\_\+sent)
+\begin{DoxyCompactList}\small\item\em Set the Local Rtp Octets Sent property of the Service event. \end{DoxyCompactList}\item 
+void \hyperlink{evel__service_8c_a48b4fcf9ed4c506573abfdb074f8da90}{evel\+\_\+service\+\_\+local\+\_\+rtp\+\_\+pkt\+\_\+disc\+\_\+set} (\hyperlink{evel_8h_a6f02314b48f9fea01756a53ef520215d}{E\+V\+E\+N\+T\+\_\+\+S\+E\+R\+V\+I\+CE} $\ast$const event, const int rtp\+\_\+pkt\+\_\+disc)
+\begin{DoxyCompactList}\small\item\em Set the Local Rtp Packets Discarded property of the Service event. \end{DoxyCompactList}\item 
+void \hyperlink{evel__service_8c_ad34ea701ea8cd93caeb2753087d22684}{evel\+\_\+service\+\_\+local\+\_\+rtp\+\_\+pkt\+\_\+recv\+\_\+set} (\hyperlink{evel_8h_a6f02314b48f9fea01756a53ef520215d}{E\+V\+E\+N\+T\+\_\+\+S\+E\+R\+V\+I\+CE} $\ast$const event, const int rtp\+\_\+pkt\+\_\+recv)
+\begin{DoxyCompactList}\small\item\em Set the Local Rtp Packets Received property of the Service event. \end{DoxyCompactList}\item 
+void \hyperlink{evel__service_8c_aee21cb9a26b97da8b005dd3d30e6e9a9}{evel\+\_\+service\+\_\+local\+\_\+rtp\+\_\+pkt\+\_\+sent\+\_\+set} (\hyperlink{evel_8h_a6f02314b48f9fea01756a53ef520215d}{E\+V\+E\+N\+T\+\_\+\+S\+E\+R\+V\+I\+CE} $\ast$const event, const int rtp\+\_\+pkt\+\_\+sent)
+\begin{DoxyCompactList}\small\item\em Set the Local Rtp Packets Sent property of the Service event. \end{DoxyCompactList}\item 
+void \hyperlink{evel__service_8c_a55ec9f34fe3a19380ba7db8e9b028e3c}{evel\+\_\+service\+\_\+mos\+\_\+cqe\+\_\+set} (\hyperlink{evel_8h_a6f02314b48f9fea01756a53ef520215d}{E\+V\+E\+N\+T\+\_\+\+S\+E\+R\+V\+I\+CE} $\ast$const event, const double mos\+\_\+cqe)
+\begin{DoxyCompactList}\small\item\em Set the Mos Cqe property of the Service event. \end{DoxyCompactList}\item 
+void \hyperlink{evel__service_8c_a964626b25158ede639e214be5c0a9e16}{evel\+\_\+service\+\_\+packets\+\_\+lost\+\_\+set} (\hyperlink{evel_8h_a6f02314b48f9fea01756a53ef520215d}{E\+V\+E\+N\+T\+\_\+\+S\+E\+R\+V\+I\+CE} $\ast$const event, const int packets\+\_\+lost)
+\begin{DoxyCompactList}\small\item\em Set the Packets Lost property of the Service event. \end{DoxyCompactList}\item 
+void \hyperlink{evel__service_8c_afa5ae1ab1e4665390a17b9ddd7dcf6d3}{evel\+\_\+service\+\_\+packet\+\_\+loss\+\_\+percent\+\_\+set} (\hyperlink{evel_8h_a6f02314b48f9fea01756a53ef520215d}{E\+V\+E\+N\+T\+\_\+\+S\+E\+R\+V\+I\+CE} $\ast$const event, const double packet\+\_\+loss\+\_\+percent)
+\begin{DoxyCompactList}\small\item\em Set the packet Loss Percent property of the Service event. \end{DoxyCompactList}\item 
+void \hyperlink{evel__service_8c_acc499f297b34b8f5f2ef5ce30c906fb3}{evel\+\_\+service\+\_\+r\+\_\+factor\+\_\+set} (\hyperlink{evel_8h_a6f02314b48f9fea01756a53ef520215d}{E\+V\+E\+N\+T\+\_\+\+S\+E\+R\+V\+I\+CE} $\ast$const event, const int r\+\_\+factor)
+\begin{DoxyCompactList}\small\item\em Set the R Factor property of the Service event. \end{DoxyCompactList}\item 
+void \hyperlink{evel__service_8c_aa7c6b2310e7129b61779107f5069b209}{evel\+\_\+service\+\_\+round\+\_\+trip\+\_\+delay\+\_\+set} (\hyperlink{evel_8h_a6f02314b48f9fea01756a53ef520215d}{E\+V\+E\+N\+T\+\_\+\+S\+E\+R\+V\+I\+CE} $\ast$const event, const int round\+\_\+trip\+\_\+delay)
+\begin{DoxyCompactList}\small\item\em Set the Round Trip Delay property of the Service event. \end{DoxyCompactList}\item 
+void \hyperlink{evel__service_8c_a047c3ca2ade1d9d0c19f1b2db4b18bc3}{evel\+\_\+service\+\_\+phone\+\_\+number\+\_\+set} (\hyperlink{evel_8h_a6f02314b48f9fea01756a53ef520215d}{E\+V\+E\+N\+T\+\_\+\+S\+E\+R\+V\+I\+CE} $\ast$const event, const char $\ast$const phone\+\_\+number)
+\begin{DoxyCompactList}\small\item\em Set the Phone Number property of the Service event. \end{DoxyCompactList}\item 
+void \hyperlink{evel__service_8c_aa04a0a990461be4be70a9691a6701786}{evel\+\_\+json\+\_\+encode\+\_\+service} (\hyperlink{evel__internal_8h_af9c576f6ffebdf8c5164ccf9827b323a}{E\+V\+E\+L\+\_\+\+J\+S\+O\+N\+\_\+\+B\+U\+F\+F\+ER} $\ast$const jbuf, \hyperlink{evel_8h_a6f02314b48f9fea01756a53ef520215d}{E\+V\+E\+N\+T\+\_\+\+S\+E\+R\+V\+I\+CE} $\ast$const event)
+\begin{DoxyCompactList}\small\item\em Encode the Service in J\+S\+ON according to AT\&T\textquotesingle{}s schema for the event type. \end{DoxyCompactList}\item 
+void \hyperlink{evel__service_8c_ae673603dad2efbd0d93c108c24e1771a}{evel\+\_\+free\+\_\+service} (\hyperlink{evel_8h_a6f02314b48f9fea01756a53ef520215d}{E\+V\+E\+N\+T\+\_\+\+S\+E\+R\+V\+I\+CE} $\ast$const event)
+\begin{DoxyCompactList}\small\item\em Free a Service event. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Implementation of E\+V\+EL functions relating to Service. 
+
+\subsubsection*{License }
+
+Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met\+:
+
+
+\begin{DoxyEnumerate}
+\item Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
+\item Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.
+\item All advertising materials mentioning features or use of this software must display the following acknowledgement\+: This product includes software developed by the AT\&T.
+\item Neither the name of AT\&T nor the names of its contributors may be used to endorse or promote products derived from this software without specific prior written permission.
+\end{DoxyEnumerate}
+
+T\+H\+IS S\+O\+F\+T\+W\+A\+RE IS P\+R\+O\+V\+I\+D\+ED BY AT\&T I\+N\+T\+E\+L\+L\+E\+C\+T\+U\+AL P\+R\+O\+P\+E\+R\+TY \textquotesingle{}\textquotesingle{}AS IS\textquotesingle{}\textquotesingle{} A\+ND A\+NY E\+X\+P\+R\+E\+SS OR I\+M\+P\+L\+I\+ED W\+A\+R\+R\+A\+N\+T\+I\+ES, I\+N\+C\+L\+U\+D\+I\+NG, B\+UT N\+OT L\+I\+M\+I\+T\+ED TO, T\+HE I\+M\+P\+L\+I\+ED W\+A\+R\+R\+A\+N\+T\+I\+ES OF M\+E\+R\+C\+H\+A\+N\+T\+A\+B\+I\+L\+I\+TY A\+ND F\+I\+T\+N\+E\+SS F\+OR A P\+A\+R\+T\+I\+C\+U\+L\+AR P\+U\+R\+P\+O\+SE A\+RE D\+I\+S\+C\+L\+A\+I\+M\+ED. IN NO E\+V\+E\+NT S\+H\+A\+LL AT\&T I\+N\+T\+E\+L\+L\+E\+C\+T\+U\+AL P\+R\+O\+P\+E\+R\+TY BE L\+I\+A\+B\+LE F\+OR A\+NY D\+I\+R\+E\+CT, I\+N\+D\+I\+R\+E\+CT, I\+N\+C\+I\+D\+E\+N\+T\+AL, S\+P\+E\+C\+I\+AL, E\+X\+E\+M\+P\+L\+A\+RY, OR C\+O\+N\+S\+E\+Q\+U\+E\+N\+T\+I\+AL D\+A\+M\+A\+G\+ES (I\+N\+C\+L\+U\+D\+I\+NG, B\+UT N\+OT L\+I\+M\+I\+T\+ED TO, P\+R\+O\+C\+U\+R\+E\+M\+E\+NT OF S\+U\+B\+S\+T\+I\+T\+U\+TE G\+O\+O\+DS OR S\+E\+R\+V\+I\+C\+ES; L\+O\+SS OF U\+SE, D\+A\+TA, OR P\+R\+O\+F\+I\+TS; OR B\+U\+S\+I\+N\+E\+SS I\+N\+T\+E\+R\+R\+U\+P\+T\+I\+ON) H\+O\+W\+E\+V\+ER C\+A\+U\+S\+ED A\+ND ON A\+NY T\+H\+E\+O\+RY OF L\+I\+A\+B\+I\+L\+I\+TY, W\+H\+E\+T\+H\+ER IN C\+O\+N\+T\+R\+A\+CT, S\+T\+R\+I\+CT L\+I\+A\+B\+I\+L\+I\+TY, OR T\+O\+RT (I\+N\+C\+L\+U\+D\+I\+NG N\+E\+G\+L\+I\+G\+E\+N\+CE OR O\+T\+H\+E\+R\+W\+I\+SE) A\+R\+I\+S\+I\+NG IN A\+NY W\+AY O\+UT OF T\+HE U\+SE OF T\+H\+IS S\+O\+F\+T\+W\+A\+RE, E\+V\+EN IF A\+D\+V\+I\+S\+ED OF T\+HE P\+O\+S\+S\+I\+B\+I\+L\+I\+TY OF S\+U\+CH D\+A\+M\+A\+GE. 
+
+\subsection{Function Documentation}
+\hypertarget{evel__service_8c_ae673603dad2efbd0d93c108c24e1771a}{}\label{evel__service_8c_ae673603dad2efbd0d93c108c24e1771a} 
+\index{evel\+\_\+service.\+c@{evel\+\_\+service.\+c}!evel\+\_\+free\+\_\+service@{evel\+\_\+free\+\_\+service}}
+\index{evel\+\_\+free\+\_\+service@{evel\+\_\+free\+\_\+service}!evel\+\_\+service.\+c@{evel\+\_\+service.\+c}}
+\subsubsection{\texorpdfstring{evel\+\_\+free\+\_\+service()}{evel\_free\_service()}}
+{\footnotesize\ttfamily void evel\+\_\+free\+\_\+service (\begin{DoxyParamCaption}\item[{\hyperlink{evel_8h_a6f02314b48f9fea01756a53ef520215d}{E\+V\+E\+N\+T\+\_\+\+S\+E\+R\+V\+I\+CE} $\ast$const}]{event }\end{DoxyParamCaption})}
+
+
+
+Free a Service event. 
+
+Free a Service Events event.
+
+Free off the event supplied. Will free all the contained allocated memory.
+
+\begin{DoxyNote}{Note}
+It does not free the event itself, since that may be part of a larger structure. 
+\end{DoxyNote}
+
+
+Definition at line 1277 of file evel\+\_\+service.\+c.
+
+\hypertarget{evel__service_8c_aa04a0a990461be4be70a9691a6701786}{}\label{evel__service_8c_aa04a0a990461be4be70a9691a6701786} 
+\index{evel\+\_\+service.\+c@{evel\+\_\+service.\+c}!evel\+\_\+json\+\_\+encode\+\_\+service@{evel\+\_\+json\+\_\+encode\+\_\+service}}
+\index{evel\+\_\+json\+\_\+encode\+\_\+service@{evel\+\_\+json\+\_\+encode\+\_\+service}!evel\+\_\+service.\+c@{evel\+\_\+service.\+c}}
+\subsubsection{\texorpdfstring{evel\+\_\+json\+\_\+encode\+\_\+service()}{evel\_json\_encode\_service()}}
+{\footnotesize\ttfamily void evel\+\_\+json\+\_\+encode\+\_\+service (\begin{DoxyParamCaption}\item[{\hyperlink{evel__internal_8h_af9c576f6ffebdf8c5164ccf9827b323a}{E\+V\+E\+L\+\_\+\+J\+S\+O\+N\+\_\+\+B\+U\+F\+F\+ER} $\ast$const}]{jbuf,  }\item[{\hyperlink{evel_8h_a6f02314b48f9fea01756a53ef520215d}{E\+V\+E\+N\+T\+\_\+\+S\+E\+R\+V\+I\+CE} $\ast$const}]{event }\end{DoxyParamCaption})}
+
+
+
+Encode the Service in J\+S\+ON according to AT\&T\textquotesingle{}s schema for the event type. 
+
+Encode the Service Event in J\+S\+ON according to AT\&T\textquotesingle{}s schema for the event type.
+
+
+\begin{DoxyParams}{Parameters}
+{\em jbuf} & Pointer to the \hyperlink{evel__internal_8h_af9c576f6ffebdf8c5164ccf9827b323a}{E\+V\+E\+L\+\_\+\+J\+S\+O\+N\+\_\+\+B\+U\+F\+F\+ER} to encode into. \\
+\hline
+{\em event} & Pointer to the \hyperlink{evel_8h_aa0ea94c675729365ea7825c4fc7e06d8}{E\+V\+E\+N\+T\+\_\+\+H\+E\+A\+D\+ER} to encode. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 1030 of file evel\+\_\+service.\+c.
+
+\hypertarget{evel__service_8c_a7b1bd5885121e6792e81fc5f15801ae6}{}\label{evel__service_8c_a7b1bd5885121e6792e81fc5f15801ae6} 
+\index{evel\+\_\+service.\+c@{evel\+\_\+service.\+c}!evel\+\_\+new\+\_\+service@{evel\+\_\+new\+\_\+service}}
+\index{evel\+\_\+new\+\_\+service@{evel\+\_\+new\+\_\+service}!evel\+\_\+service.\+c@{evel\+\_\+service.\+c}}
+\subsubsection{\texorpdfstring{evel\+\_\+new\+\_\+service()}{evel\_new\_service()}}
+{\footnotesize\ttfamily \hyperlink{evel_8h_a6f02314b48f9fea01756a53ef520215d}{E\+V\+E\+N\+T\+\_\+\+S\+E\+R\+V\+I\+CE}$\ast$ evel\+\_\+new\+\_\+service (\begin{DoxyParamCaption}\item[{const char $\ast$const}]{vendor\+\_\+id,  }\item[{const char $\ast$const}]{event\+\_\+id }\end{DoxyParamCaption})}
+
+
+
+Create a new Service event. 
+
+\begin{DoxyNote}{Note}
+The mandatory fields on the Service must be supplied to this factory function and are immutable once set. Optional fields have explicit setter functions, but again values may only be set once so that the event has immutable properties. 
+\end{DoxyNote}
+
+\begin{DoxyParams}{Parameters}
+{\em vendor\+\_\+id} & The vendor id to encode in the event instance id. \\
+\hline
+{\em event\+\_\+id} & The vendor event id to encode in the event instance id. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+pointer to the newly manufactured \hyperlink{evel_8h_a6f02314b48f9fea01756a53ef520215d}{E\+V\+E\+N\+T\+\_\+\+S\+E\+R\+V\+I\+CE}. If the event is not used (i.\+e. posted) it must be released using \hyperlink{evel__service_8c_ae673603dad2efbd0d93c108c24e1771a}{evel\+\_\+free\+\_\+service}. 
+\end{DoxyReturn}
+
+\begin{DoxyRetVals}{Return values}
+{\em N\+U\+LL} & Failed to create the event. \\
+\hline
+\end{DoxyRetVals}
+
+
+Definition at line 55 of file evel\+\_\+service.\+c.
+
+\hypertarget{evel__service_8c_a1379704cad2324bc6cd4dbb897765132}{}\label{evel__service_8c_a1379704cad2324bc6cd4dbb897765132} 
+\index{evel\+\_\+service.\+c@{evel\+\_\+service.\+c}!evel\+\_\+service\+\_\+addl\+\_\+field\+\_\+add@{evel\+\_\+service\+\_\+addl\+\_\+field\+\_\+add}}
+\index{evel\+\_\+service\+\_\+addl\+\_\+field\+\_\+add@{evel\+\_\+service\+\_\+addl\+\_\+field\+\_\+add}!evel\+\_\+service.\+c@{evel\+\_\+service.\+c}}
+\subsubsection{\texorpdfstring{evel\+\_\+service\+\_\+addl\+\_\+field\+\_\+add()}{evel\_service\_addl\_field\_add()}}
+{\footnotesize\ttfamily void evel\+\_\+service\+\_\+addl\+\_\+field\+\_\+add (\begin{DoxyParamCaption}\item[{\hyperlink{evel_8h_a6f02314b48f9fea01756a53ef520215d}{E\+V\+E\+N\+T\+\_\+\+S\+E\+R\+V\+I\+CE} $\ast$const}]{event,  }\item[{const char $\ast$const}]{name,  }\item[{const char $\ast$const}]{value }\end{DoxyParamCaption})}
+
+
+
+Add a name/value pair to the Service, under the additional\+Fields array. 
+
+The name and value are null delimited A\+S\+C\+II strings. The library takes a copy so the caller does not have to preserve values after the function returns.
+
+
+\begin{DoxyParams}{Parameters}
+{\em event} & Pointer to the Service event. \\
+\hline
+{\em name} & A\+S\+C\+I\+IZ string with the field\textquotesingle{}s name. The caller does not need to preserve the value once the function returns. \\
+\hline
+{\em value} & A\+S\+C\+I\+IZ string with the field\textquotesingle{}s value. The caller does not need to preserve the value once the function returns. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 163 of file evel\+\_\+service.\+c.
+
+\hypertarget{evel__service_8c_aa03b8f510643fbf31e64e2b143ae52e1}{}\label{evel__service_8c_aa03b8f510643fbf31e64e2b143ae52e1} 
+\index{evel\+\_\+service.\+c@{evel\+\_\+service.\+c}!evel\+\_\+service\+\_\+adjacency\+\_\+name\+\_\+set@{evel\+\_\+service\+\_\+adjacency\+\_\+name\+\_\+set}}
+\index{evel\+\_\+service\+\_\+adjacency\+\_\+name\+\_\+set@{evel\+\_\+service\+\_\+adjacency\+\_\+name\+\_\+set}!evel\+\_\+service.\+c@{evel\+\_\+service.\+c}}
+\subsubsection{\texorpdfstring{evel\+\_\+service\+\_\+adjacency\+\_\+name\+\_\+set()}{evel\_service\_adjacency\_name\_set()}}
+{\footnotesize\ttfamily void evel\+\_\+service\+\_\+adjacency\+\_\+name\+\_\+set (\begin{DoxyParamCaption}\item[{\hyperlink{evel_8h_a6f02314b48f9fea01756a53ef520215d}{E\+V\+E\+N\+T\+\_\+\+S\+E\+R\+V\+I\+CE} $\ast$const}]{event,  }\item[{const char $\ast$const}]{adjacency\+\_\+name }\end{DoxyParamCaption})}
+
+
+
+Set the Adjacency Name property of the Service event. 
+
+\begin{DoxyNote}{Note}
+The property is treated as immutable\+: it is only valid to call the setter once. However, we don\textquotesingle{}t assert if the caller tries to overwrite, just ignoring the update instead.
+\end{DoxyNote}
+
+\begin{DoxyParams}{Parameters}
+{\em event} & Pointer to the Service event. \\
+\hline
+{\em adjacency\+\_\+name} & The adjacency name to be set. A\+S\+C\+I\+IZ string. The caller does not need to preserve the value once the function returns. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 434 of file evel\+\_\+service.\+c.
+
+\hypertarget{evel__service_8c_a731f7678cdfff6e6a11e833c09617ab8}{}\label{evel__service_8c_a731f7678cdfff6e6a11e833c09617ab8} 
+\index{evel\+\_\+service.\+c@{evel\+\_\+service.\+c}!evel\+\_\+service\+\_\+callee\+\_\+codec\+\_\+set@{evel\+\_\+service\+\_\+callee\+\_\+codec\+\_\+set}}
+\index{evel\+\_\+service\+\_\+callee\+\_\+codec\+\_\+set@{evel\+\_\+service\+\_\+callee\+\_\+codec\+\_\+set}!evel\+\_\+service.\+c@{evel\+\_\+service.\+c}}
+\subsubsection{\texorpdfstring{evel\+\_\+service\+\_\+callee\+\_\+codec\+\_\+set()}{evel\_service\_callee\_codec\_set()}}
+{\footnotesize\ttfamily void evel\+\_\+service\+\_\+callee\+\_\+codec\+\_\+set (\begin{DoxyParamCaption}\item[{\hyperlink{evel_8h_a6f02314b48f9fea01756a53ef520215d}{E\+V\+E\+N\+T\+\_\+\+S\+E\+R\+V\+I\+CE} $\ast$const}]{event,  }\item[{const char $\ast$const}]{codec }\end{DoxyParamCaption})}
+
+
+
+Set the Callee Side Codec property of the Service event. 
+
+\begin{DoxyNote}{Note}
+The property is treated as immutable\+: it is only valid to call the setter once. However, we don\textquotesingle{}t assert if the caller tries to overwrite, just ignoring the update instead.
+\end{DoxyNote}
+
+\begin{DoxyParams}{Parameters}
+{\em event} & Pointer to the Service event. \\
+\hline
+{\em codec} & The codec to be set. A\+S\+C\+I\+IZ string. The caller does not need to preserve the value once the function returns. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 347 of file evel\+\_\+service.\+c.
+
+\hypertarget{evel__service_8c_a111c066f3e27e29ff7351f44eacecdf8}{}\label{evel__service_8c_a111c066f3e27e29ff7351f44eacecdf8} 
+\index{evel\+\_\+service.\+c@{evel\+\_\+service.\+c}!evel\+\_\+service\+\_\+caller\+\_\+codec\+\_\+set@{evel\+\_\+service\+\_\+caller\+\_\+codec\+\_\+set}}
+\index{evel\+\_\+service\+\_\+caller\+\_\+codec\+\_\+set@{evel\+\_\+service\+\_\+caller\+\_\+codec\+\_\+set}!evel\+\_\+service.\+c@{evel\+\_\+service.\+c}}
+\subsubsection{\texorpdfstring{evel\+\_\+service\+\_\+caller\+\_\+codec\+\_\+set()}{evel\_service\_caller\_codec\_set()}}
+{\footnotesize\ttfamily void evel\+\_\+service\+\_\+caller\+\_\+codec\+\_\+set (\begin{DoxyParamCaption}\item[{\hyperlink{evel_8h_a6f02314b48f9fea01756a53ef520215d}{E\+V\+E\+N\+T\+\_\+\+S\+E\+R\+V\+I\+CE} $\ast$const}]{event,  }\item[{const char $\ast$const}]{codec }\end{DoxyParamCaption})}
+
+
+
+Set the Caller Side Codec property of the Service event. 
+
+\begin{DoxyNote}{Note}
+The property is treated as immutable\+: it is only valid to call the setter once. However, we don\textquotesingle{}t assert if the caller tries to overwrite, just ignoring the update instead.
+\end{DoxyNote}
+
+\begin{DoxyParams}{Parameters}
+{\em event} & Pointer to the Service event. \\
+\hline
+{\em codec} & The codec to be set. A\+S\+C\+I\+IZ string. The caller does not need to preserve the value once the function returns. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 375 of file evel\+\_\+service.\+c.
+
+\hypertarget{evel__service_8c_a9b9f0b4ba5438679705e1d92439eeb34}{}\label{evel__service_8c_a9b9f0b4ba5438679705e1d92439eeb34} 
+\index{evel\+\_\+service.\+c@{evel\+\_\+service.\+c}!evel\+\_\+service\+\_\+codec\+\_\+set@{evel\+\_\+service\+\_\+codec\+\_\+set}}
+\index{evel\+\_\+service\+\_\+codec\+\_\+set@{evel\+\_\+service\+\_\+codec\+\_\+set}!evel\+\_\+service.\+c@{evel\+\_\+service.\+c}}
+\subsubsection{\texorpdfstring{evel\+\_\+service\+\_\+codec\+\_\+set()}{evel\_service\_codec\_set()}}
+{\footnotesize\ttfamily void evel\+\_\+service\+\_\+codec\+\_\+set (\begin{DoxyParamCaption}\item[{\hyperlink{evel_8h_a6f02314b48f9fea01756a53ef520215d}{E\+V\+E\+N\+T\+\_\+\+S\+E\+R\+V\+I\+CE} $\ast$const}]{event,  }\item[{const char $\ast$const}]{codec }\end{DoxyParamCaption})}
+
+
+
+Set the Codec property of the Service event. 
+
+\begin{DoxyNote}{Note}
+The property is treated as immutable\+: it is only valid to call the setter once. However, we don\textquotesingle{}t assert if the caller tries to overwrite, just ignoring the update instead.
+\end{DoxyNote}
+
+\begin{DoxyParams}{Parameters}
+{\em event} & Pointer to the Service event. \\
+\hline
+{\em codec} & The codec to be set. A\+S\+C\+I\+IZ string. The caller does not need to preserve the value once the function returns. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 319 of file evel\+\_\+service.\+c.
+
+\hypertarget{evel__service_8c_a6a66912e9abac57d8bed0cc23ec2fb70}{}\label{evel__service_8c_a6a66912e9abac57d8bed0cc23ec2fb70} 
+\index{evel\+\_\+service.\+c@{evel\+\_\+service.\+c}!evel\+\_\+service\+\_\+correlator\+\_\+set@{evel\+\_\+service\+\_\+correlator\+\_\+set}}
+\index{evel\+\_\+service\+\_\+correlator\+\_\+set@{evel\+\_\+service\+\_\+correlator\+\_\+set}!evel\+\_\+service.\+c@{evel\+\_\+service.\+c}}
+\subsubsection{\texorpdfstring{evel\+\_\+service\+\_\+correlator\+\_\+set()}{evel\_service\_correlator\_set()}}
+{\footnotesize\ttfamily void evel\+\_\+service\+\_\+correlator\+\_\+set (\begin{DoxyParamCaption}\item[{\hyperlink{evel_8h_a6f02314b48f9fea01756a53ef520215d}{E\+V\+E\+N\+T\+\_\+\+S\+E\+R\+V\+I\+CE} $\ast$const}]{event,  }\item[{const char $\ast$const}]{correlator }\end{DoxyParamCaption})}
+
+
+
+Set the Correlator property of the Service event. 
+
+Set the correlator property of the Service event.
+
+\begin{DoxyNote}{Note}
+The property is treated as immutable\+: it is only valid to call the setter once. However, we don\textquotesingle{}t assert if the caller tries to overwrite, just ignoring the update instead.
+\end{DoxyNote}
+
+\begin{DoxyParams}{Parameters}
+{\em event} & Pointer to the Service event. \\
+\hline
+{\em correlator} & The correlator to be set. A\+S\+C\+I\+IZ string. The caller does not need to preserve the value once the function returns. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 291 of file evel\+\_\+service.\+c.
+
+\hypertarget{evel__service_8c_aa526a085c5981264b613df22499b82e2}{}\label{evel__service_8c_aa526a085c5981264b613df22499b82e2} 
+\index{evel\+\_\+service.\+c@{evel\+\_\+service.\+c}!evel\+\_\+service\+\_\+endpoint\+\_\+desc\+\_\+set@{evel\+\_\+service\+\_\+endpoint\+\_\+desc\+\_\+set}}
+\index{evel\+\_\+service\+\_\+endpoint\+\_\+desc\+\_\+set@{evel\+\_\+service\+\_\+endpoint\+\_\+desc\+\_\+set}!evel\+\_\+service.\+c@{evel\+\_\+service.\+c}}
+\subsubsection{\texorpdfstring{evel\+\_\+service\+\_\+endpoint\+\_\+desc\+\_\+set()}{evel\_service\_endpoint\_desc\_set()}}
+{\footnotesize\ttfamily void evel\+\_\+service\+\_\+endpoint\+\_\+desc\+\_\+set (\begin{DoxyParamCaption}\item[{\hyperlink{evel_8h_a6f02314b48f9fea01756a53ef520215d}{E\+V\+E\+N\+T\+\_\+\+S\+E\+R\+V\+I\+CE} $\ast$const}]{event,  }\item[{const \hyperlink{evel_8h_afeae65c30729877eb7671ece2318ae67}{E\+V\+E\+L\+\_\+\+S\+E\+R\+V\+I\+C\+E\+\_\+\+E\+N\+D\+P\+O\+I\+N\+T\+\_\+\+D\+E\+SC}}]{endpoint\+\_\+desc }\end{DoxyParamCaption})}
+
+
+
+Set the Endpoint Descriptor property of the Service event. 
+
+\begin{DoxyNote}{Note}
+The property is treated as immutable\+: it is only valid to call the setter once. However, we don\textquotesingle{}t assert if the caller tries to overwrite, just ignoring the update instead.
+\end{DoxyNote}
+
+\begin{DoxyParams}{Parameters}
+{\em event} & Pointer to the Service event. \\
+\hline
+{\em endpoint\+\_\+desc} & The endpoint descriptor to be set. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 461 of file evel\+\_\+service.\+c.
+
+\hypertarget{evel__service_8c_adcf6ded43d98a2653422a910d216c8c4}{}\label{evel__service_8c_adcf6ded43d98a2653422a910d216c8c4} 
+\index{evel\+\_\+service.\+c@{evel\+\_\+service.\+c}!evel\+\_\+service\+\_\+endpoint\+\_\+jitter\+\_\+set@{evel\+\_\+service\+\_\+endpoint\+\_\+jitter\+\_\+set}}
+\index{evel\+\_\+service\+\_\+endpoint\+\_\+jitter\+\_\+set@{evel\+\_\+service\+\_\+endpoint\+\_\+jitter\+\_\+set}!evel\+\_\+service.\+c@{evel\+\_\+service.\+c}}
+\subsubsection{\texorpdfstring{evel\+\_\+service\+\_\+endpoint\+\_\+jitter\+\_\+set()}{evel\_service\_endpoint\_jitter\_set()}}
+{\footnotesize\ttfamily void evel\+\_\+service\+\_\+endpoint\+\_\+jitter\+\_\+set (\begin{DoxyParamCaption}\item[{\hyperlink{evel_8h_a6f02314b48f9fea01756a53ef520215d}{E\+V\+E\+N\+T\+\_\+\+S\+E\+R\+V\+I\+CE} $\ast$const}]{event,  }\item[{const int}]{jitter }\end{DoxyParamCaption})}
+
+
+
+Set the Endpoint Jitter property of the Service event. 
+
+\begin{DoxyNote}{Note}
+The property is treated as immutable\+: it is only valid to call the setter once. However, we don\textquotesingle{}t assert if the caller tries to overwrite, just ignoring the update instead.
+\end{DoxyNote}
+
+\begin{DoxyParams}{Parameters}
+{\em event} & Pointer to the Service event. \\
+\hline
+{\em jitter} & The jitter to be set. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 489 of file evel\+\_\+service.\+c.
+
+\hypertarget{evel__service_8c_afeb598172abd1df195bba5cf702ba0e8}{}\label{evel__service_8c_afeb598172abd1df195bba5cf702ba0e8} 
+\index{evel\+\_\+service.\+c@{evel\+\_\+service.\+c}!evel\+\_\+service\+\_\+endpoint\+\_\+rtp\+\_\+oct\+\_\+disc\+\_\+set@{evel\+\_\+service\+\_\+endpoint\+\_\+rtp\+\_\+oct\+\_\+disc\+\_\+set}}
+\index{evel\+\_\+service\+\_\+endpoint\+\_\+rtp\+\_\+oct\+\_\+disc\+\_\+set@{evel\+\_\+service\+\_\+endpoint\+\_\+rtp\+\_\+oct\+\_\+disc\+\_\+set}!evel\+\_\+service.\+c@{evel\+\_\+service.\+c}}
+\subsubsection{\texorpdfstring{evel\+\_\+service\+\_\+endpoint\+\_\+rtp\+\_\+oct\+\_\+disc\+\_\+set()}{evel\_service\_endpoint\_rtp\_oct\_disc\_set()}}
+{\footnotesize\ttfamily void evel\+\_\+service\+\_\+endpoint\+\_\+rtp\+\_\+oct\+\_\+disc\+\_\+set (\begin{DoxyParamCaption}\item[{\hyperlink{evel_8h_a6f02314b48f9fea01756a53ef520215d}{E\+V\+E\+N\+T\+\_\+\+S\+E\+R\+V\+I\+CE} $\ast$const}]{event,  }\item[{const int}]{rtp\+\_\+oct\+\_\+disc }\end{DoxyParamCaption})}
+
+
+
+Set the Endpoint Rtp Octets Discarded property of the Service event. 
+
+\begin{DoxyNote}{Note}
+The property is treated as immutable\+: it is only valid to call the setter once. However, we don\textquotesingle{}t assert if the caller tries to overwrite, just ignoring the update instead.
+\end{DoxyNote}
+
+\begin{DoxyParams}{Parameters}
+{\em event} & Pointer to the Service event. \\
+\hline
+{\em rtp\+\_\+oct\+\_\+disc} & The discard count. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 516 of file evel\+\_\+service.\+c.
+
+\hypertarget{evel__service_8c_a600a247bc99474df56b054f7fbd24653}{}\label{evel__service_8c_a600a247bc99474df56b054f7fbd24653} 
+\index{evel\+\_\+service.\+c@{evel\+\_\+service.\+c}!evel\+\_\+service\+\_\+endpoint\+\_\+rtp\+\_\+oct\+\_\+recv\+\_\+set@{evel\+\_\+service\+\_\+endpoint\+\_\+rtp\+\_\+oct\+\_\+recv\+\_\+set}}
+\index{evel\+\_\+service\+\_\+endpoint\+\_\+rtp\+\_\+oct\+\_\+recv\+\_\+set@{evel\+\_\+service\+\_\+endpoint\+\_\+rtp\+\_\+oct\+\_\+recv\+\_\+set}!evel\+\_\+service.\+c@{evel\+\_\+service.\+c}}
+\subsubsection{\texorpdfstring{evel\+\_\+service\+\_\+endpoint\+\_\+rtp\+\_\+oct\+\_\+recv\+\_\+set()}{evel\_service\_endpoint\_rtp\_oct\_recv\_set()}}
+{\footnotesize\ttfamily void evel\+\_\+service\+\_\+endpoint\+\_\+rtp\+\_\+oct\+\_\+recv\+\_\+set (\begin{DoxyParamCaption}\item[{\hyperlink{evel_8h_a6f02314b48f9fea01756a53ef520215d}{E\+V\+E\+N\+T\+\_\+\+S\+E\+R\+V\+I\+CE} $\ast$const}]{event,  }\item[{const int}]{rtp\+\_\+oct\+\_\+recv }\end{DoxyParamCaption})}
+
+
+
+Set the Endpoint Rtp Octets Received property of the Service event. 
+
+\begin{DoxyNote}{Note}
+The property is treated as immutable\+: it is only valid to call the setter once. However, we don\textquotesingle{}t assert if the caller tries to overwrite, just ignoring the update instead.
+\end{DoxyNote}
+
+\begin{DoxyParams}{Parameters}
+{\em event} & Pointer to the Service event. \\
+\hline
+{\em rtp\+\_\+oct\+\_\+recv} & The receive count. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 543 of file evel\+\_\+service.\+c.
+
+\hypertarget{evel__service_8c_aa345084a9d3f5198a4603dad24f6f089}{}\label{evel__service_8c_aa345084a9d3f5198a4603dad24f6f089} 
+\index{evel\+\_\+service.\+c@{evel\+\_\+service.\+c}!evel\+\_\+service\+\_\+endpoint\+\_\+rtp\+\_\+oct\+\_\+sent\+\_\+set@{evel\+\_\+service\+\_\+endpoint\+\_\+rtp\+\_\+oct\+\_\+sent\+\_\+set}}
+\index{evel\+\_\+service\+\_\+endpoint\+\_\+rtp\+\_\+oct\+\_\+sent\+\_\+set@{evel\+\_\+service\+\_\+endpoint\+\_\+rtp\+\_\+oct\+\_\+sent\+\_\+set}!evel\+\_\+service.\+c@{evel\+\_\+service.\+c}}
+\subsubsection{\texorpdfstring{evel\+\_\+service\+\_\+endpoint\+\_\+rtp\+\_\+oct\+\_\+sent\+\_\+set()}{evel\_service\_endpoint\_rtp\_oct\_sent\_set()}}
+{\footnotesize\ttfamily void evel\+\_\+service\+\_\+endpoint\+\_\+rtp\+\_\+oct\+\_\+sent\+\_\+set (\begin{DoxyParamCaption}\item[{\hyperlink{evel_8h_a6f02314b48f9fea01756a53ef520215d}{E\+V\+E\+N\+T\+\_\+\+S\+E\+R\+V\+I\+CE} $\ast$const}]{event,  }\item[{const int}]{rtp\+\_\+oct\+\_\+sent }\end{DoxyParamCaption})}
+
+
+
+Set the Endpoint Rtp Octets Sent property of the Service event. 
+
+\begin{DoxyNote}{Note}
+The property is treated as immutable\+: it is only valid to call the setter once. However, we don\textquotesingle{}t assert if the caller tries to overwrite, just ignoring the update instead.
+\end{DoxyNote}
+
+\begin{DoxyParams}{Parameters}
+{\em event} & Pointer to the Service event. \\
+\hline
+{\em rtp\+\_\+oct\+\_\+sent} & The send count. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 570 of file evel\+\_\+service.\+c.
+
+\hypertarget{evel__service_8c_a15fe35525e3ad2bd3d08eabd9656fd4e}{}\label{evel__service_8c_a15fe35525e3ad2bd3d08eabd9656fd4e} 
+\index{evel\+\_\+service.\+c@{evel\+\_\+service.\+c}!evel\+\_\+service\+\_\+endpoint\+\_\+rtp\+\_\+pkt\+\_\+disc\+\_\+set@{evel\+\_\+service\+\_\+endpoint\+\_\+rtp\+\_\+pkt\+\_\+disc\+\_\+set}}
+\index{evel\+\_\+service\+\_\+endpoint\+\_\+rtp\+\_\+pkt\+\_\+disc\+\_\+set@{evel\+\_\+service\+\_\+endpoint\+\_\+rtp\+\_\+pkt\+\_\+disc\+\_\+set}!evel\+\_\+service.\+c@{evel\+\_\+service.\+c}}
+\subsubsection{\texorpdfstring{evel\+\_\+service\+\_\+endpoint\+\_\+rtp\+\_\+pkt\+\_\+disc\+\_\+set()}{evel\_service\_endpoint\_rtp\_pkt\_disc\_set()}}
+{\footnotesize\ttfamily void evel\+\_\+service\+\_\+endpoint\+\_\+rtp\+\_\+pkt\+\_\+disc\+\_\+set (\begin{DoxyParamCaption}\item[{\hyperlink{evel_8h_a6f02314b48f9fea01756a53ef520215d}{E\+V\+E\+N\+T\+\_\+\+S\+E\+R\+V\+I\+CE} $\ast$const}]{event,  }\item[{const int}]{rtp\+\_\+pkt\+\_\+disc }\end{DoxyParamCaption})}
+
+
+
+Set the Endpoint Rtp Packets Discarded property of the Service event. 
+
+\begin{DoxyNote}{Note}
+The property is treated as immutable\+: it is only valid to call the setter once. However, we don\textquotesingle{}t assert if the caller tries to overwrite, just ignoring the update instead.
+\end{DoxyNote}
+
+\begin{DoxyParams}{Parameters}
+{\em event} & Pointer to the Service event. \\
+\hline
+{\em rtp\+\_\+pkt\+\_\+disc} & The discard count. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 597 of file evel\+\_\+service.\+c.
+
+\hypertarget{evel__service_8c_a76bee8f14a0972cf436c4ff30a25711e}{}\label{evel__service_8c_a76bee8f14a0972cf436c4ff30a25711e} 
+\index{evel\+\_\+service.\+c@{evel\+\_\+service.\+c}!evel\+\_\+service\+\_\+endpoint\+\_\+rtp\+\_\+pkt\+\_\+recv\+\_\+set@{evel\+\_\+service\+\_\+endpoint\+\_\+rtp\+\_\+pkt\+\_\+recv\+\_\+set}}
+\index{evel\+\_\+service\+\_\+endpoint\+\_\+rtp\+\_\+pkt\+\_\+recv\+\_\+set@{evel\+\_\+service\+\_\+endpoint\+\_\+rtp\+\_\+pkt\+\_\+recv\+\_\+set}!evel\+\_\+service.\+c@{evel\+\_\+service.\+c}}
+\subsubsection{\texorpdfstring{evel\+\_\+service\+\_\+endpoint\+\_\+rtp\+\_\+pkt\+\_\+recv\+\_\+set()}{evel\_service\_endpoint\_rtp\_pkt\_recv\_set()}}
+{\footnotesize\ttfamily void evel\+\_\+service\+\_\+endpoint\+\_\+rtp\+\_\+pkt\+\_\+recv\+\_\+set (\begin{DoxyParamCaption}\item[{\hyperlink{evel_8h_a6f02314b48f9fea01756a53ef520215d}{E\+V\+E\+N\+T\+\_\+\+S\+E\+R\+V\+I\+CE} $\ast$const}]{event,  }\item[{const int}]{rtp\+\_\+pkt\+\_\+recv }\end{DoxyParamCaption})}
+
+
+
+Set the Endpoint Rtp Packets Received property of the Service event. 
+
+\begin{DoxyNote}{Note}
+The property is treated as immutable\+: it is only valid to call the setter once. However, we don\textquotesingle{}t assert if the caller tries to overwrite, just ignoring the update instead.
+\end{DoxyNote}
+
+\begin{DoxyParams}{Parameters}
+{\em event} & Pointer to the Service event. \\
+\hline
+{\em rtp\+\_\+pkt\+\_\+recv} & The receive count. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 624 of file evel\+\_\+service.\+c.
+
+\hypertarget{evel__service_8c_acaab9cb5da46c02a5dff5a6aa120aac3}{}\label{evel__service_8c_acaab9cb5da46c02a5dff5a6aa120aac3} 
+\index{evel\+\_\+service.\+c@{evel\+\_\+service.\+c}!evel\+\_\+service\+\_\+endpoint\+\_\+rtp\+\_\+pkt\+\_\+sent\+\_\+set@{evel\+\_\+service\+\_\+endpoint\+\_\+rtp\+\_\+pkt\+\_\+sent\+\_\+set}}
+\index{evel\+\_\+service\+\_\+endpoint\+\_\+rtp\+\_\+pkt\+\_\+sent\+\_\+set@{evel\+\_\+service\+\_\+endpoint\+\_\+rtp\+\_\+pkt\+\_\+sent\+\_\+set}!evel\+\_\+service.\+c@{evel\+\_\+service.\+c}}
+\subsubsection{\texorpdfstring{evel\+\_\+service\+\_\+endpoint\+\_\+rtp\+\_\+pkt\+\_\+sent\+\_\+set()}{evel\_service\_endpoint\_rtp\_pkt\_sent\_set()}}
+{\footnotesize\ttfamily void evel\+\_\+service\+\_\+endpoint\+\_\+rtp\+\_\+pkt\+\_\+sent\+\_\+set (\begin{DoxyParamCaption}\item[{\hyperlink{evel_8h_a6f02314b48f9fea01756a53ef520215d}{E\+V\+E\+N\+T\+\_\+\+S\+E\+R\+V\+I\+CE} $\ast$const}]{event,  }\item[{const int}]{rtp\+\_\+pkt\+\_\+sent }\end{DoxyParamCaption})}
+
+
+
+Set the Endpoint Rtp Packets Sent property of the Service event. 
+
+\begin{DoxyNote}{Note}
+The property is treated as immutable\+: it is only valid to call the setter once. However, we don\textquotesingle{}t assert if the caller tries to overwrite, just ignoring the update instead.
+\end{DoxyNote}
+
+\begin{DoxyParams}{Parameters}
+{\em event} & Pointer to the Service event. \\
+\hline
+{\em rtp\+\_\+pkt\+\_\+sent} & The send count. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 651 of file evel\+\_\+service.\+c.
+
+\hypertarget{evel__service_8c_ac3e8aed2f973f1fb6446552eaf1cb7f8}{}\label{evel__service_8c_ac3e8aed2f973f1fb6446552eaf1cb7f8} 
+\index{evel\+\_\+service.\+c@{evel\+\_\+service.\+c}!evel\+\_\+service\+\_\+friendly\+\_\+name\+\_\+set@{evel\+\_\+service\+\_\+friendly\+\_\+name\+\_\+set}}
+\index{evel\+\_\+service\+\_\+friendly\+\_\+name\+\_\+set@{evel\+\_\+service\+\_\+friendly\+\_\+name\+\_\+set}!evel\+\_\+service.\+c@{evel\+\_\+service.\+c}}
+\subsubsection{\texorpdfstring{evel\+\_\+service\+\_\+friendly\+\_\+name\+\_\+set()}{evel\_service\_friendly\_name\_set()}}
+{\footnotesize\ttfamily void evel\+\_\+service\+\_\+friendly\+\_\+name\+\_\+set (\begin{DoxyParamCaption}\item[{\hyperlink{evel_8h_a6f02314b48f9fea01756a53ef520215d}{E\+V\+E\+N\+T\+\_\+\+S\+E\+R\+V\+I\+CE} $\ast$const}]{event,  }\item[{const char $\ast$const}]{friendly\+\_\+name }\end{DoxyParamCaption})}
+
+
+
+Set the Friendly Name property of the Service event. 
+
+\begin{DoxyNote}{Note}
+The property is treated as immutable\+: it is only valid to call the setter once. However, we don\textquotesingle{}t assert if the caller tries to overwrite, just ignoring the update instead.
+\end{DoxyNote}
+
+\begin{DoxyParams}{Parameters}
+{\em event} & Pointer to the Service event. \\
+\hline
+{\em friendly\+\_\+name} & The vendor friendly name to be set. A\+S\+C\+I\+IZ string. The caller does not need to preserve the value once the function returns. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 262 of file evel\+\_\+service.\+c.
+
+\hypertarget{evel__service_8c_ab6cb200286ad37947904d02eba4cbf68}{}\label{evel__service_8c_ab6cb200286ad37947904d02eba4cbf68} 
+\index{evel\+\_\+service.\+c@{evel\+\_\+service.\+c}!evel\+\_\+service\+\_\+local\+\_\+jitter\+\_\+set@{evel\+\_\+service\+\_\+local\+\_\+jitter\+\_\+set}}
+\index{evel\+\_\+service\+\_\+local\+\_\+jitter\+\_\+set@{evel\+\_\+service\+\_\+local\+\_\+jitter\+\_\+set}!evel\+\_\+service.\+c@{evel\+\_\+service.\+c}}
+\subsubsection{\texorpdfstring{evel\+\_\+service\+\_\+local\+\_\+jitter\+\_\+set()}{evel\_service\_local\_jitter\_set()}}
+{\footnotesize\ttfamily void evel\+\_\+service\+\_\+local\+\_\+jitter\+\_\+set (\begin{DoxyParamCaption}\item[{\hyperlink{evel_8h_a6f02314b48f9fea01756a53ef520215d}{E\+V\+E\+N\+T\+\_\+\+S\+E\+R\+V\+I\+CE} $\ast$const}]{event,  }\item[{const int}]{jitter }\end{DoxyParamCaption})}
+
+
+
+Set the Local Jitter property of the Service event. 
+
+\begin{DoxyNote}{Note}
+The property is treated as immutable\+: it is only valid to call the setter once. However, we don\textquotesingle{}t assert if the caller tries to overwrite, just ignoring the update instead.
+\end{DoxyNote}
+
+\begin{DoxyParams}{Parameters}
+{\em event} & Pointer to the Service event. \\
+\hline
+{\em jitter} & The jitter to be set. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 678 of file evel\+\_\+service.\+c.
+
+\hypertarget{evel__service_8c_ac592e4c8189c90e4768c5d99866215d7}{}\label{evel__service_8c_ac592e4c8189c90e4768c5d99866215d7} 
+\index{evel\+\_\+service.\+c@{evel\+\_\+service.\+c}!evel\+\_\+service\+\_\+local\+\_\+rtp\+\_\+oct\+\_\+disc\+\_\+set@{evel\+\_\+service\+\_\+local\+\_\+rtp\+\_\+oct\+\_\+disc\+\_\+set}}
+\index{evel\+\_\+service\+\_\+local\+\_\+rtp\+\_\+oct\+\_\+disc\+\_\+set@{evel\+\_\+service\+\_\+local\+\_\+rtp\+\_\+oct\+\_\+disc\+\_\+set}!evel\+\_\+service.\+c@{evel\+\_\+service.\+c}}
+\subsubsection{\texorpdfstring{evel\+\_\+service\+\_\+local\+\_\+rtp\+\_\+oct\+\_\+disc\+\_\+set()}{evel\_service\_local\_rtp\_oct\_disc\_set()}}
+{\footnotesize\ttfamily void evel\+\_\+service\+\_\+local\+\_\+rtp\+\_\+oct\+\_\+disc\+\_\+set (\begin{DoxyParamCaption}\item[{\hyperlink{evel_8h_a6f02314b48f9fea01756a53ef520215d}{E\+V\+E\+N\+T\+\_\+\+S\+E\+R\+V\+I\+CE} $\ast$const}]{event,  }\item[{const int}]{rtp\+\_\+oct\+\_\+disc }\end{DoxyParamCaption})}
+
+
+
+Set the Local Rtp Octets Discarded property of the Service event. 
+
+\begin{DoxyNote}{Note}
+The property is treated as immutable\+: it is only valid to call the setter once. However, we don\textquotesingle{}t assert if the caller tries to overwrite, just ignoring the update instead.
+\end{DoxyNote}
+
+\begin{DoxyParams}{Parameters}
+{\em event} & Pointer to the Service event. \\
+\hline
+{\em rtp\+\_\+oct\+\_\+disc} & The discard count. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 705 of file evel\+\_\+service.\+c.
+
+\hypertarget{evel__service_8c_ae4a91877ee00605f07956181608ec8cd}{}\label{evel__service_8c_ae4a91877ee00605f07956181608ec8cd} 
+\index{evel\+\_\+service.\+c@{evel\+\_\+service.\+c}!evel\+\_\+service\+\_\+local\+\_\+rtp\+\_\+oct\+\_\+recv\+\_\+set@{evel\+\_\+service\+\_\+local\+\_\+rtp\+\_\+oct\+\_\+recv\+\_\+set}}
+\index{evel\+\_\+service\+\_\+local\+\_\+rtp\+\_\+oct\+\_\+recv\+\_\+set@{evel\+\_\+service\+\_\+local\+\_\+rtp\+\_\+oct\+\_\+recv\+\_\+set}!evel\+\_\+service.\+c@{evel\+\_\+service.\+c}}
+\subsubsection{\texorpdfstring{evel\+\_\+service\+\_\+local\+\_\+rtp\+\_\+oct\+\_\+recv\+\_\+set()}{evel\_service\_local\_rtp\_oct\_recv\_set()}}
+{\footnotesize\ttfamily void evel\+\_\+service\+\_\+local\+\_\+rtp\+\_\+oct\+\_\+recv\+\_\+set (\begin{DoxyParamCaption}\item[{\hyperlink{evel_8h_a6f02314b48f9fea01756a53ef520215d}{E\+V\+E\+N\+T\+\_\+\+S\+E\+R\+V\+I\+CE} $\ast$const}]{event,  }\item[{const int}]{rtp\+\_\+oct\+\_\+recv }\end{DoxyParamCaption})}
+
+
+
+Set the Local Rtp Octets Received property of the Service event. 
+
+\begin{DoxyNote}{Note}
+The property is treated as immutable\+: it is only valid to call the setter once. However, we don\textquotesingle{}t assert if the caller tries to overwrite, just ignoring the update instead.
+\end{DoxyNote}
+
+\begin{DoxyParams}{Parameters}
+{\em event} & Pointer to the Service event. \\
+\hline
+{\em rtp\+\_\+oct\+\_\+recv} & The receive count. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 732 of file evel\+\_\+service.\+c.
+
+\hypertarget{evel__service_8c_a63c5f06a8f3254ea02015bd2ae8fbc9c}{}\label{evel__service_8c_a63c5f06a8f3254ea02015bd2ae8fbc9c} 
+\index{evel\+\_\+service.\+c@{evel\+\_\+service.\+c}!evel\+\_\+service\+\_\+local\+\_\+rtp\+\_\+oct\+\_\+sent\+\_\+set@{evel\+\_\+service\+\_\+local\+\_\+rtp\+\_\+oct\+\_\+sent\+\_\+set}}
+\index{evel\+\_\+service\+\_\+local\+\_\+rtp\+\_\+oct\+\_\+sent\+\_\+set@{evel\+\_\+service\+\_\+local\+\_\+rtp\+\_\+oct\+\_\+sent\+\_\+set}!evel\+\_\+service.\+c@{evel\+\_\+service.\+c}}
+\subsubsection{\texorpdfstring{evel\+\_\+service\+\_\+local\+\_\+rtp\+\_\+oct\+\_\+sent\+\_\+set()}{evel\_service\_local\_rtp\_oct\_sent\_set()}}
+{\footnotesize\ttfamily void evel\+\_\+service\+\_\+local\+\_\+rtp\+\_\+oct\+\_\+sent\+\_\+set (\begin{DoxyParamCaption}\item[{\hyperlink{evel_8h_a6f02314b48f9fea01756a53ef520215d}{E\+V\+E\+N\+T\+\_\+\+S\+E\+R\+V\+I\+CE} $\ast$const}]{event,  }\item[{const int}]{rtp\+\_\+oct\+\_\+sent }\end{DoxyParamCaption})}
+
+
+
+Set the Local Rtp Octets Sent property of the Service event. 
+
+\begin{DoxyNote}{Note}
+The property is treated as immutable\+: it is only valid to call the setter once. However, we don\textquotesingle{}t assert if the caller tries to overwrite, just ignoring the update instead.
+\end{DoxyNote}
+
+\begin{DoxyParams}{Parameters}
+{\em event} & Pointer to the Service event. \\
+\hline
+{\em rtp\+\_\+oct\+\_\+sent} & The send count. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 759 of file evel\+\_\+service.\+c.
+
+\hypertarget{evel__service_8c_a48b4fcf9ed4c506573abfdb074f8da90}{}\label{evel__service_8c_a48b4fcf9ed4c506573abfdb074f8da90} 
+\index{evel\+\_\+service.\+c@{evel\+\_\+service.\+c}!evel\+\_\+service\+\_\+local\+\_\+rtp\+\_\+pkt\+\_\+disc\+\_\+set@{evel\+\_\+service\+\_\+local\+\_\+rtp\+\_\+pkt\+\_\+disc\+\_\+set}}
+\index{evel\+\_\+service\+\_\+local\+\_\+rtp\+\_\+pkt\+\_\+disc\+\_\+set@{evel\+\_\+service\+\_\+local\+\_\+rtp\+\_\+pkt\+\_\+disc\+\_\+set}!evel\+\_\+service.\+c@{evel\+\_\+service.\+c}}
+\subsubsection{\texorpdfstring{evel\+\_\+service\+\_\+local\+\_\+rtp\+\_\+pkt\+\_\+disc\+\_\+set()}{evel\_service\_local\_rtp\_pkt\_disc\_set()}}
+{\footnotesize\ttfamily void evel\+\_\+service\+\_\+local\+\_\+rtp\+\_\+pkt\+\_\+disc\+\_\+set (\begin{DoxyParamCaption}\item[{\hyperlink{evel_8h_a6f02314b48f9fea01756a53ef520215d}{E\+V\+E\+N\+T\+\_\+\+S\+E\+R\+V\+I\+CE} $\ast$const}]{event,  }\item[{const int}]{rtp\+\_\+pkt\+\_\+disc }\end{DoxyParamCaption})}
+
+
+
+Set the Local Rtp Packets Discarded property of the Service event. 
+
+\begin{DoxyNote}{Note}
+The property is treated as immutable\+: it is only valid to call the setter once. However, we don\textquotesingle{}t assert if the caller tries to overwrite, just ignoring the update instead.
+\end{DoxyNote}
+
+\begin{DoxyParams}{Parameters}
+{\em event} & Pointer to the Service event. \\
+\hline
+{\em rtp\+\_\+pkt\+\_\+disc} & The discard count. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 786 of file evel\+\_\+service.\+c.
+
+\hypertarget{evel__service_8c_ad34ea701ea8cd93caeb2753087d22684}{}\label{evel__service_8c_ad34ea701ea8cd93caeb2753087d22684} 
+\index{evel\+\_\+service.\+c@{evel\+\_\+service.\+c}!evel\+\_\+service\+\_\+local\+\_\+rtp\+\_\+pkt\+\_\+recv\+\_\+set@{evel\+\_\+service\+\_\+local\+\_\+rtp\+\_\+pkt\+\_\+recv\+\_\+set}}
+\index{evel\+\_\+service\+\_\+local\+\_\+rtp\+\_\+pkt\+\_\+recv\+\_\+set@{evel\+\_\+service\+\_\+local\+\_\+rtp\+\_\+pkt\+\_\+recv\+\_\+set}!evel\+\_\+service.\+c@{evel\+\_\+service.\+c}}
+\subsubsection{\texorpdfstring{evel\+\_\+service\+\_\+local\+\_\+rtp\+\_\+pkt\+\_\+recv\+\_\+set()}{evel\_service\_local\_rtp\_pkt\_recv\_set()}}
+{\footnotesize\ttfamily void evel\+\_\+service\+\_\+local\+\_\+rtp\+\_\+pkt\+\_\+recv\+\_\+set (\begin{DoxyParamCaption}\item[{\hyperlink{evel_8h_a6f02314b48f9fea01756a53ef520215d}{E\+V\+E\+N\+T\+\_\+\+S\+E\+R\+V\+I\+CE} $\ast$const}]{event,  }\item[{const int}]{rtp\+\_\+pkt\+\_\+recv }\end{DoxyParamCaption})}
+
+
+
+Set the Local Rtp Packets Received property of the Service event. 
+
+\begin{DoxyNote}{Note}
+The property is treated as immutable\+: it is only valid to call the setter once. However, we don\textquotesingle{}t assert if the caller tries to overwrite, just ignoring the update instead.
+\end{DoxyNote}
+
+\begin{DoxyParams}{Parameters}
+{\em event} & Pointer to the Service event. \\
+\hline
+{\em rtp\+\_\+pkt\+\_\+recv} & The receive count. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 813 of file evel\+\_\+service.\+c.
+
+\hypertarget{evel__service_8c_aee21cb9a26b97da8b005dd3d30e6e9a9}{}\label{evel__service_8c_aee21cb9a26b97da8b005dd3d30e6e9a9} 
+\index{evel\+\_\+service.\+c@{evel\+\_\+service.\+c}!evel\+\_\+service\+\_\+local\+\_\+rtp\+\_\+pkt\+\_\+sent\+\_\+set@{evel\+\_\+service\+\_\+local\+\_\+rtp\+\_\+pkt\+\_\+sent\+\_\+set}}
+\index{evel\+\_\+service\+\_\+local\+\_\+rtp\+\_\+pkt\+\_\+sent\+\_\+set@{evel\+\_\+service\+\_\+local\+\_\+rtp\+\_\+pkt\+\_\+sent\+\_\+set}!evel\+\_\+service.\+c@{evel\+\_\+service.\+c}}
+\subsubsection{\texorpdfstring{evel\+\_\+service\+\_\+local\+\_\+rtp\+\_\+pkt\+\_\+sent\+\_\+set()}{evel\_service\_local\_rtp\_pkt\_sent\_set()}}
+{\footnotesize\ttfamily void evel\+\_\+service\+\_\+local\+\_\+rtp\+\_\+pkt\+\_\+sent\+\_\+set (\begin{DoxyParamCaption}\item[{\hyperlink{evel_8h_a6f02314b48f9fea01756a53ef520215d}{E\+V\+E\+N\+T\+\_\+\+S\+E\+R\+V\+I\+CE} $\ast$const}]{event,  }\item[{const int}]{rtp\+\_\+pkt\+\_\+sent }\end{DoxyParamCaption})}
+
+
+
+Set the Local Rtp Packets Sent property of the Service event. 
+
+\begin{DoxyNote}{Note}
+The property is treated as immutable\+: it is only valid to call the setter once. However, we don\textquotesingle{}t assert if the caller tries to overwrite, just ignoring the update instead.
+\end{DoxyNote}
+
+\begin{DoxyParams}{Parameters}
+{\em event} & Pointer to the Service event. \\
+\hline
+{\em rtp\+\_\+pkt\+\_\+sent} & The send count. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 840 of file evel\+\_\+service.\+c.
+
+\hypertarget{evel__service_8c_a55ec9f34fe3a19380ba7db8e9b028e3c}{}\label{evel__service_8c_a55ec9f34fe3a19380ba7db8e9b028e3c} 
+\index{evel\+\_\+service.\+c@{evel\+\_\+service.\+c}!evel\+\_\+service\+\_\+mos\+\_\+cqe\+\_\+set@{evel\+\_\+service\+\_\+mos\+\_\+cqe\+\_\+set}}
+\index{evel\+\_\+service\+\_\+mos\+\_\+cqe\+\_\+set@{evel\+\_\+service\+\_\+mos\+\_\+cqe\+\_\+set}!evel\+\_\+service.\+c@{evel\+\_\+service.\+c}}
+\subsubsection{\texorpdfstring{evel\+\_\+service\+\_\+mos\+\_\+cqe\+\_\+set()}{evel\_service\_mos\_cqe\_set()}}
+{\footnotesize\ttfamily void evel\+\_\+service\+\_\+mos\+\_\+cqe\+\_\+set (\begin{DoxyParamCaption}\item[{\hyperlink{evel_8h_a6f02314b48f9fea01756a53ef520215d}{E\+V\+E\+N\+T\+\_\+\+S\+E\+R\+V\+I\+CE} $\ast$const}]{event,  }\item[{const double}]{mos\+\_\+cqe }\end{DoxyParamCaption})}
+
+
+
+Set the Mos Cqe property of the Service event. 
+
+\begin{DoxyNote}{Note}
+The property is treated as immutable\+: it is only valid to call the setter once. However, we don\textquotesingle{}t assert if the caller tries to overwrite, just ignoring the update instead.
+\end{DoxyNote}
+
+\begin{DoxyParams}{Parameters}
+{\em event} & Pointer to the Service event. \\
+\hline
+{\em mos\+\_\+cqe} & The mos\+Cqe to be set. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 867 of file evel\+\_\+service.\+c.
+
+\hypertarget{evel__service_8c_afa5ae1ab1e4665390a17b9ddd7dcf6d3}{}\label{evel__service_8c_afa5ae1ab1e4665390a17b9ddd7dcf6d3} 
+\index{evel\+\_\+service.\+c@{evel\+\_\+service.\+c}!evel\+\_\+service\+\_\+packet\+\_\+loss\+\_\+percent\+\_\+set@{evel\+\_\+service\+\_\+packet\+\_\+loss\+\_\+percent\+\_\+set}}
+\index{evel\+\_\+service\+\_\+packet\+\_\+loss\+\_\+percent\+\_\+set@{evel\+\_\+service\+\_\+packet\+\_\+loss\+\_\+percent\+\_\+set}!evel\+\_\+service.\+c@{evel\+\_\+service.\+c}}
+\subsubsection{\texorpdfstring{evel\+\_\+service\+\_\+packet\+\_\+loss\+\_\+percent\+\_\+set()}{evel\_service\_packet\_loss\_percent\_set()}}
+{\footnotesize\ttfamily void evel\+\_\+service\+\_\+packet\+\_\+loss\+\_\+percent\+\_\+set (\begin{DoxyParamCaption}\item[{\hyperlink{evel_8h_a6f02314b48f9fea01756a53ef520215d}{E\+V\+E\+N\+T\+\_\+\+S\+E\+R\+V\+I\+CE} $\ast$const}]{event,  }\item[{const double}]{packet\+\_\+loss\+\_\+percent }\end{DoxyParamCaption})}
+
+
+
+Set the packet Loss Percent property of the Service event. 
+
+\begin{DoxyNote}{Note}
+The property is treated as immutable\+: it is only valid to call the setter once. However, we don\textquotesingle{}t assert if the caller tries to overwrite, just ignoring the update instead.
+\end{DoxyNote}
+
+\begin{DoxyParams}{Parameters}
+{\em event} & Pointer to the Service event. \\
+\hline
+{\em packet\+\_\+loss\+\_\+percent} & The packet loss in percent. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 922 of file evel\+\_\+service.\+c.
+
+\hypertarget{evel__service_8c_a964626b25158ede639e214be5c0a9e16}{}\label{evel__service_8c_a964626b25158ede639e214be5c0a9e16} 
+\index{evel\+\_\+service.\+c@{evel\+\_\+service.\+c}!evel\+\_\+service\+\_\+packets\+\_\+lost\+\_\+set@{evel\+\_\+service\+\_\+packets\+\_\+lost\+\_\+set}}
+\index{evel\+\_\+service\+\_\+packets\+\_\+lost\+\_\+set@{evel\+\_\+service\+\_\+packets\+\_\+lost\+\_\+set}!evel\+\_\+service.\+c@{evel\+\_\+service.\+c}}
+\subsubsection{\texorpdfstring{evel\+\_\+service\+\_\+packets\+\_\+lost\+\_\+set()}{evel\_service\_packets\_lost\_set()}}
+{\footnotesize\ttfamily void evel\+\_\+service\+\_\+packets\+\_\+lost\+\_\+set (\begin{DoxyParamCaption}\item[{\hyperlink{evel_8h_a6f02314b48f9fea01756a53ef520215d}{E\+V\+E\+N\+T\+\_\+\+S\+E\+R\+V\+I\+CE} $\ast$const}]{event,  }\item[{const int}]{packets\+\_\+lost }\end{DoxyParamCaption})}
+
+
+
+Set the Packets Lost property of the Service event. 
+
+\begin{DoxyNote}{Note}
+The property is treated as immutable\+: it is only valid to call the setter once. However, we don\textquotesingle{}t assert if the caller tries to overwrite, just ignoring the update instead.
+\end{DoxyNote}
+
+\begin{DoxyParams}{Parameters}
+{\em event} & Pointer to the Service event. \\
+\hline
+{\em packets\+\_\+lost} & The number of packets lost to be set. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 894 of file evel\+\_\+service.\+c.
+
+\hypertarget{evel__service_8c_a047c3ca2ade1d9d0c19f1b2db4b18bc3}{}\label{evel__service_8c_a047c3ca2ade1d9d0c19f1b2db4b18bc3} 
+\index{evel\+\_\+service.\+c@{evel\+\_\+service.\+c}!evel\+\_\+service\+\_\+phone\+\_\+number\+\_\+set@{evel\+\_\+service\+\_\+phone\+\_\+number\+\_\+set}}
+\index{evel\+\_\+service\+\_\+phone\+\_\+number\+\_\+set@{evel\+\_\+service\+\_\+phone\+\_\+number\+\_\+set}!evel\+\_\+service.\+c@{evel\+\_\+service.\+c}}
+\subsubsection{\texorpdfstring{evel\+\_\+service\+\_\+phone\+\_\+number\+\_\+set()}{evel\_service\_phone\_number\_set()}}
+{\footnotesize\ttfamily void evel\+\_\+service\+\_\+phone\+\_\+number\+\_\+set (\begin{DoxyParamCaption}\item[{\hyperlink{evel_8h_a6f02314b48f9fea01756a53ef520215d}{E\+V\+E\+N\+T\+\_\+\+S\+E\+R\+V\+I\+CE} $\ast$const}]{event,  }\item[{const char $\ast$const}]{phone\+\_\+number }\end{DoxyParamCaption})}
+
+
+
+Set the Phone Number property of the Service event. 
+
+\begin{DoxyNote}{Note}
+The property is treated as immutable\+: it is only valid to call the setter once. However, we don\textquotesingle{}t assert if the caller tries to overwrite, just ignoring the update instead.
+\end{DoxyNote}
+
+\begin{DoxyParams}{Parameters}
+{\em event} & Pointer to the Service event. \\
+\hline
+{\em phone\+\_\+number} & The Phone Number to be set. A\+S\+C\+I\+IZ string. The caller does not need to preserve the value once the function returns. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 1006 of file evel\+\_\+service.\+c.
+
+\hypertarget{evel__service_8c_ac6aefc698895c9e7761ecbd3722bc1fc}{}\label{evel__service_8c_ac6aefc698895c9e7761ecbd3722bc1fc} 
+\index{evel\+\_\+service.\+c@{evel\+\_\+service.\+c}!evel\+\_\+service\+\_\+product\+\_\+id\+\_\+set@{evel\+\_\+service\+\_\+product\+\_\+id\+\_\+set}}
+\index{evel\+\_\+service\+\_\+product\+\_\+id\+\_\+set@{evel\+\_\+service\+\_\+product\+\_\+id\+\_\+set}!evel\+\_\+service.\+c@{evel\+\_\+service.\+c}}
+\subsubsection{\texorpdfstring{evel\+\_\+service\+\_\+product\+\_\+id\+\_\+set()}{evel\_service\_product\_id\_set()}}
+{\footnotesize\ttfamily void evel\+\_\+service\+\_\+product\+\_\+id\+\_\+set (\begin{DoxyParamCaption}\item[{\hyperlink{evel_8h_a6f02314b48f9fea01756a53ef520215d}{E\+V\+E\+N\+T\+\_\+\+S\+E\+R\+V\+I\+CE} $\ast$const}]{event,  }\item[{const char $\ast$const}]{product\+\_\+id }\end{DoxyParamCaption})}
+
+
+
+Set the Product Id property of the Service event. 
+
+\begin{DoxyNote}{Note}
+The property is treated as immutable\+: it is only valid to call the setter once. However, we don\textquotesingle{}t assert if the caller tries to overwrite, just ignoring the update instead.
+\end{DoxyNote}
+
+\begin{DoxyParams}{Parameters}
+{\em event} & Pointer to the Service event. \\
+\hline
+{\em product\+\_\+id} & The vendor product id to be set. A\+S\+C\+I\+IZ string. The caller does not need to preserve the value once the function returns. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 204 of file evel\+\_\+service.\+c.
+
+\hypertarget{evel__service_8c_acc499f297b34b8f5f2ef5ce30c906fb3}{}\label{evel__service_8c_acc499f297b34b8f5f2ef5ce30c906fb3} 
+\index{evel\+\_\+service.\+c@{evel\+\_\+service.\+c}!evel\+\_\+service\+\_\+r\+\_\+factor\+\_\+set@{evel\+\_\+service\+\_\+r\+\_\+factor\+\_\+set}}
+\index{evel\+\_\+service\+\_\+r\+\_\+factor\+\_\+set@{evel\+\_\+service\+\_\+r\+\_\+factor\+\_\+set}!evel\+\_\+service.\+c@{evel\+\_\+service.\+c}}
+\subsubsection{\texorpdfstring{evel\+\_\+service\+\_\+r\+\_\+factor\+\_\+set()}{evel\_service\_r\_factor\_set()}}
+{\footnotesize\ttfamily void evel\+\_\+service\+\_\+r\+\_\+factor\+\_\+set (\begin{DoxyParamCaption}\item[{\hyperlink{evel_8h_a6f02314b48f9fea01756a53ef520215d}{E\+V\+E\+N\+T\+\_\+\+S\+E\+R\+V\+I\+CE} $\ast$const}]{event,  }\item[{const int}]{r\+\_\+factor }\end{DoxyParamCaption})}
+
+
+
+Set the R Factor property of the Service event. 
+
+\begin{DoxyNote}{Note}
+The property is treated as immutable\+: it is only valid to call the setter once. However, we don\textquotesingle{}t assert if the caller tries to overwrite, just ignoring the update instead.
+\end{DoxyNote}
+
+\begin{DoxyParams}{Parameters}
+{\em event} & Pointer to the Service event. \\
+\hline
+{\em r\+\_\+factor} & The R Factor to be set. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 949 of file evel\+\_\+service.\+c.
+
+\hypertarget{evel__service_8c_aa7c6b2310e7129b61779107f5069b209}{}\label{evel__service_8c_aa7c6b2310e7129b61779107f5069b209} 
+\index{evel\+\_\+service.\+c@{evel\+\_\+service.\+c}!evel\+\_\+service\+\_\+round\+\_\+trip\+\_\+delay\+\_\+set@{evel\+\_\+service\+\_\+round\+\_\+trip\+\_\+delay\+\_\+set}}
+\index{evel\+\_\+service\+\_\+round\+\_\+trip\+\_\+delay\+\_\+set@{evel\+\_\+service\+\_\+round\+\_\+trip\+\_\+delay\+\_\+set}!evel\+\_\+service.\+c@{evel\+\_\+service.\+c}}
+\subsubsection{\texorpdfstring{evel\+\_\+service\+\_\+round\+\_\+trip\+\_\+delay\+\_\+set()}{evel\_service\_round\_trip\_delay\_set()}}
+{\footnotesize\ttfamily void evel\+\_\+service\+\_\+round\+\_\+trip\+\_\+delay\+\_\+set (\begin{DoxyParamCaption}\item[{\hyperlink{evel_8h_a6f02314b48f9fea01756a53ef520215d}{E\+V\+E\+N\+T\+\_\+\+S\+E\+R\+V\+I\+CE} $\ast$const}]{event,  }\item[{const int}]{round\+\_\+trip\+\_\+delay }\end{DoxyParamCaption})}
+
+
+
+Set the Round Trip Delay property of the Service event. 
+
+\begin{DoxyNote}{Note}
+The property is treated as immutable\+: it is only valid to call the setter once. However, we don\textquotesingle{}t assert if the caller tries to overwrite, just ignoring the update instead.
+\end{DoxyNote}
+
+\begin{DoxyParams}{Parameters}
+{\em event} & Pointer to the Service event. \\
+\hline
+{\em round\+\_\+trip\+\_\+delay} & The Round trip delay to be set. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 977 of file evel\+\_\+service.\+c.
+
+\hypertarget{evel__service_8c_acb89b6b8b16bed817d6232edbba5ec0a}{}\label{evel__service_8c_acb89b6b8b16bed817d6232edbba5ec0a} 
+\index{evel\+\_\+service.\+c@{evel\+\_\+service.\+c}!evel\+\_\+service\+\_\+rtcp\+\_\+data\+\_\+set@{evel\+\_\+service\+\_\+rtcp\+\_\+data\+\_\+set}}
+\index{evel\+\_\+service\+\_\+rtcp\+\_\+data\+\_\+set@{evel\+\_\+service\+\_\+rtcp\+\_\+data\+\_\+set}!evel\+\_\+service.\+c@{evel\+\_\+service.\+c}}
+\subsubsection{\texorpdfstring{evel\+\_\+service\+\_\+rtcp\+\_\+data\+\_\+set()}{evel\_service\_rtcp\_data\_set()}}
+{\footnotesize\ttfamily void evel\+\_\+service\+\_\+rtcp\+\_\+data\+\_\+set (\begin{DoxyParamCaption}\item[{\hyperlink{evel_8h_a6f02314b48f9fea01756a53ef520215d}{E\+V\+E\+N\+T\+\_\+\+S\+E\+R\+V\+I\+CE} $\ast$const}]{event,  }\item[{const char $\ast$const}]{rtcp\+\_\+data }\end{DoxyParamCaption})}
+
+
+
+Set the R\+T\+CP Data property of the Service event. 
+
+\begin{DoxyNote}{Note}
+The property is treated as immutable\+: it is only valid to call the setter once. However, we don\textquotesingle{}t assert if the caller tries to overwrite, just ignoring the update instead.
+\end{DoxyNote}
+
+\begin{DoxyParams}{Parameters}
+{\em event} & Pointer to the Service event. \\
+\hline
+{\em rtcp\+\_\+data} & The R\+T\+CP Data to be set. A\+S\+C\+I\+IZ string. The caller does not need to preserve the value once the function returns. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 404 of file evel\+\_\+service.\+c.
+
+\hypertarget{evel__service_8c_a55a540b64bac5ba1f0478e53cdb350f3}{}\label{evel__service_8c_a55a540b64bac5ba1f0478e53cdb350f3} 
+\index{evel\+\_\+service.\+c@{evel\+\_\+service.\+c}!evel\+\_\+service\+\_\+subsystem\+\_\+id\+\_\+set@{evel\+\_\+service\+\_\+subsystem\+\_\+id\+\_\+set}}
+\index{evel\+\_\+service\+\_\+subsystem\+\_\+id\+\_\+set@{evel\+\_\+service\+\_\+subsystem\+\_\+id\+\_\+set}!evel\+\_\+service.\+c@{evel\+\_\+service.\+c}}
+\subsubsection{\texorpdfstring{evel\+\_\+service\+\_\+subsystem\+\_\+id\+\_\+set()}{evel\_service\_subsystem\_id\_set()}}
+{\footnotesize\ttfamily void evel\+\_\+service\+\_\+subsystem\+\_\+id\+\_\+set (\begin{DoxyParamCaption}\item[{\hyperlink{evel_8h_a6f02314b48f9fea01756a53ef520215d}{E\+V\+E\+N\+T\+\_\+\+S\+E\+R\+V\+I\+CE} $\ast$const}]{event,  }\item[{const char $\ast$const}]{subsystem\+\_\+id }\end{DoxyParamCaption})}
+
+
+
+Set the Subsystem Id property of the Service event. 
+
+\begin{DoxyNote}{Note}
+The property is treated as immutable\+: it is only valid to call the setter once. However, we don\textquotesingle{}t assert if the caller tries to overwrite, just ignoring the update instead.
+\end{DoxyNote}
+
+\begin{DoxyParams}{Parameters}
+{\em event} & Pointer to the Service event. \\
+\hline
+{\em subsystem\+\_\+id} & The vendor subsystem id to be set. A\+S\+C\+I\+IZ string. The caller does not need to preserve the value once the function returns. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 233 of file evel\+\_\+service.\+c.
+
+\hypertarget{evel__service_8c_a804f2802c4f5f5e75bc8c7985f1e6f57}{}\label{evel__service_8c_a804f2802c4f5f5e75bc8c7985f1e6f57} 
+\index{evel\+\_\+service.\+c@{evel\+\_\+service.\+c}!evel\+\_\+service\+\_\+type\+\_\+set@{evel\+\_\+service\+\_\+type\+\_\+set}}
+\index{evel\+\_\+service\+\_\+type\+\_\+set@{evel\+\_\+service\+\_\+type\+\_\+set}!evel\+\_\+service.\+c@{evel\+\_\+service.\+c}}
+\subsubsection{\texorpdfstring{evel\+\_\+service\+\_\+type\+\_\+set()}{evel\_service\_type\_set()}}
+{\footnotesize\ttfamily void evel\+\_\+service\+\_\+type\+\_\+set (\begin{DoxyParamCaption}\item[{\hyperlink{evel_8h_a6f02314b48f9fea01756a53ef520215d}{E\+V\+E\+N\+T\+\_\+\+S\+E\+R\+V\+I\+CE} $\ast$const}]{event,  }\item[{const char $\ast$const}]{type }\end{DoxyParamCaption})}
+
+
+
+Set the Event Type property of the Service event. 
+
+\begin{DoxyNote}{Note}
+The property is treated as immutable\+: it is only valid to call the setter once. However, we don\textquotesingle{}t assert if the caller tries to overwrite, just ignoring the update instead.
+\end{DoxyNote}
+
+\begin{DoxyParams}{Parameters}
+{\em event} & Pointer to the Service event. \\
+\hline
+{\em type} & The Event Type to be set. A\+S\+C\+I\+IZ string. The caller does not need to preserve the value once the function returns. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 135 of file evel\+\_\+service.\+c.
+

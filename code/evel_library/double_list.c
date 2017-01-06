@@ -129,12 +129,66 @@ void dlist_push_first(DLIST * list, void * item)
   }
 }
 
+void dlist_push_last(DLIST * list, void * item)
+{
+  DLIST_ITEM * new_element = NULL;
+  DLIST_ITEM * current_tail = NULL;
+
+  /***************************************************************************/
+  /* Check assumptions.  Note that we do allow putting NULL pointers into    */
+  /* the list - not sure you'd want to, but let it happen.                   */
+  /***************************************************************************/
+  assert(list != NULL);
+
+  current_tail = list->tail;
+
+  new_element = malloc(sizeof(DLIST_ITEM));
+  assert(new_element != NULL);
+  new_element->next = NULL;
+  new_element->previous = current_tail;
+  new_element->item = item;
+  list->tail = new_element;
+
+  if (current_tail != NULL)
+  {
+    current_tail->next = new_element;
+  }
+  else
+  {
+    list->head = new_element;
+  }
+}
+
 DLIST_ITEM * dlist_get_first(DLIST * list)
 {
   return list->head;
 }
 
+DLIST_ITEM * dlist_get_last(DLIST * list)
+{
+  return list->tail;
+}
+
 DLIST_ITEM * dlist_get_next(DLIST_ITEM * item)
 {
   return item->next;
+}
+
+int dlist_is_empty(DLIST * list)
+{
+  return (list->head == NULL);
+}
+
+int dlist_count(DLIST * list)
+{
+  int count = 0;
+  DLIST_ITEM * item = list->head;
+
+  while (item != NULL)
+  {
+    count++;
+    item = item->next;
+  }
+
+  return count;
 }

@@ -1,5 +1,7 @@
 <map id="evel_reporting_measurement.c" name="evel_reporting_measurement.c">
-<area shape="rect" id="node9" href="$evel_8h.html" title="Header for EVEL library. " alt="" coords="275,83,331,112"/>
-<area shape="rect" id="node17" href="$evel__internal_8h.html" title="EVEL internal definitions. " alt="" coords="355,83,461,112"/>
-<area shape="rect" id="node15" href="$double__list_8h.html" title="A simple double&#45;linked list. " alt="" coords="361,160,455,189"/>
+<area shape="rect" id="node5" href="$evel_8h.html" title="Header for EVEL library. " alt="" coords="306,229,363,256"/>
+<area shape="rect" id="node11" href="$evel__internal_8h.html" title="EVEL internal definitions. " alt="" coords="327,155,433,181"/>
+<area shape="rect" id="node12" href="$evel__throttle_8h.html" title="EVEL throttle definitions. " alt="" coords="377,80,481,107"/>
+<area shape="rect" id="node10" href="$double__list_8h.html" title="A simple double&#45;linked list. " alt="" coords="477,304,571,331"/>
+<area shape="rect" id="node13" href="$jsmn_8h.html" title="jsmn.h" alt="" coords="457,155,519,181"/>
 </map>

@@ -2,16 +2,17 @@
 \label{evel__event_8c}\index{evel\+\_\+event.\+c@{evel\+\_\+event.\+c}}
 
 
-Implementation of E\+V\+E\+L functions relating to Event Headers -\/ since Heartbeats only contain the Event Header, the Heartbeat factory function is here too.  
+Implementation of E\+V\+EL functions relating to Event Headers -\/ since Heartbeats only contain the Event Header, the Heartbeat factory function is here too.  
 
 
-{\ttfamily \#include $<$string.\+h$>$}\\*
-{\ttfamily \#include $<$assert.\+h$>$}\\*
-{\ttfamily \#include $<$stdlib.\+h$>$}\\*
-{\ttfamily \#include $<$sys/time.\+h$>$}\\*
-{\ttfamily \#include \char`\"{}evel.\+h\char`\"{}}\\*
-{\ttfamily \#include \char`\"{}evel\+\_\+internal.\+h\char`\"{}}\\*
-{\ttfamily \#include \char`\"{}metadata.\+h\char`\"{}}\\*
+{\ttfamily \#include $<$string.\+h$>$}\newline
+{\ttfamily \#include $<$assert.\+h$>$}\newline
+{\ttfamily \#include $<$stdlib.\+h$>$}\newline
+{\ttfamily \#include $<$sys/time.\+h$>$}\newline
+{\ttfamily \#include \char`\"{}evel.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}evel\+\_\+internal.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}evel\+\_\+throttle.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}metadata.\+h\char`\"{}}\newline
 Include dependency graph for evel\+\_\+event.\+c\+:
 \nopagebreak
 \begin{figure}[H]
@@ -23,24 +24,42 @@ Include dependency graph for evel\+\_\+event.\+c\+:
 \subsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
-\hyperlink{evel_8h_aa0ea94c675729365ea7825c4fc7e06d8}{E\+V\+E\+N\+T\+\_\+\+H\+E\+A\+D\+E\+R} $\ast$ \hyperlink{evel__event_8c_a3f91c0b7ebd4c48dfa57f6b810f010c4}{evel\+\_\+new\+\_\+heartbeat} ()
+void \hyperlink{evel__event_8c_a0f4cb914dd259782887c14422673c082}{evel\+\_\+set\+\_\+next\+\_\+event\+\_\+sequence} (const int sequence)
+\begin{DoxyCompactList}\small\item\em Set the next event\+\_\+sequence to use. \end{DoxyCompactList}\item 
+\hyperlink{evel_8h_aa0ea94c675729365ea7825c4fc7e06d8}{E\+V\+E\+N\+T\+\_\+\+H\+E\+A\+D\+ER} $\ast$ \hyperlink{evel__event_8c_a3f91c0b7ebd4c48dfa57f6b810f010c4}{evel\+\_\+new\+\_\+heartbeat} ()
 \begin{DoxyCompactList}\small\item\em Create a new heartbeat event. \end{DoxyCompactList}\item 
-void \hyperlink{evel__event_8c_a85f0ce991d0edaf92f9b7d131e37533c}{evel\+\_\+init\+\_\+header} (\hyperlink{evel_8h_aa0ea94c675729365ea7825c4fc7e06d8}{E\+V\+E\+N\+T\+\_\+\+H\+E\+A\+D\+E\+R} $\ast$header)
+void \hyperlink{evel__event_8c_abb080d24d5ab6963dee533648314b747}{evel\+\_\+init\+\_\+header} (\hyperlink{evel_8h_aa0ea94c675729365ea7825c4fc7e06d8}{E\+V\+E\+N\+T\+\_\+\+H\+E\+A\+D\+ER} $\ast$const header)
 \begin{DoxyCompactList}\small\item\em Initialize a newly created event header. \end{DoxyCompactList}\item 
-int \hyperlink{evel__event_8c_a2866c526bf6f3ceab59087c4618009e2}{evel\+\_\+json\+\_\+encode\+\_\+header} (char $\ast$json, int max\+\_\+size, \hyperlink{evel_8h_aa0ea94c675729365ea7825c4fc7e06d8}{E\+V\+E\+N\+T\+\_\+\+H\+E\+A\+D\+E\+R} $\ast$event)
-\begin{DoxyCompactList}\small\item\em Encode the header as a J\+S\+O\+N common\+Event\+Header. \end{DoxyCompactList}\item 
-void \hyperlink{evel__event_8c_a8391052fcc38b65f65422a3441b8f551}{evel\+\_\+free\+\_\+header} (\hyperlink{evel_8h_aa0ea94c675729365ea7825c4fc7e06d8}{E\+V\+E\+N\+T\+\_\+\+H\+E\+A\+D\+E\+R} $\ast$event)
+void \hyperlink{evel__event_8c_a72a4ed84cb8984c423098a2361d4f422}{evel\+\_\+header\+\_\+type\+\_\+set} (\hyperlink{evel_8h_aa0ea94c675729365ea7825c4fc7e06d8}{E\+V\+E\+N\+T\+\_\+\+H\+E\+A\+D\+ER} $\ast$const header, const char $\ast$const type)
+\begin{DoxyCompactList}\small\item\em Set the Event Type property of the event header. \end{DoxyCompactList}\item 
+void \hyperlink{evel__event_8c_a3700cb4c08811910fa80b92a42e58d96}{evel\+\_\+start\+\_\+epoch\+\_\+set} (\hyperlink{evel_8h_aa0ea94c675729365ea7825c4fc7e06d8}{E\+V\+E\+N\+T\+\_\+\+H\+E\+A\+D\+ER} $\ast$const header, const unsigned long long start\+\_\+epoch\+\_\+microsec)
+\begin{DoxyCompactList}\small\item\em Set the Start Epoch property of the event header. \end{DoxyCompactList}\item 
+void \hyperlink{evel__event_8c_a2708e32af8b6e6ee903ea4757db931a6}{evel\+\_\+last\+\_\+epoch\+\_\+set} (\hyperlink{evel_8h_aa0ea94c675729365ea7825c4fc7e06d8}{E\+V\+E\+N\+T\+\_\+\+H\+E\+A\+D\+ER} $\ast$const header, const unsigned long long last\+\_\+epoch\+\_\+microsec)
+\begin{DoxyCompactList}\small\item\em Set the Last Epoch property of the event header. \end{DoxyCompactList}\item 
+void \hyperlink{evel__event_8c_aeaebbaa0f2637e69774655d43d0cad5b}{evel\+\_\+reporting\+\_\+entity\+\_\+name\+\_\+set} (\hyperlink{evel_8h_aa0ea94c675729365ea7825c4fc7e06d8}{E\+V\+E\+N\+T\+\_\+\+H\+E\+A\+D\+ER} $\ast$const header, const char $\ast$const entity\+\_\+name)
+\begin{DoxyCompactList}\small\item\em Set the Reporting Entity Name property of the event header. \end{DoxyCompactList}\item 
+void \hyperlink{evel__event_8c_a698c363a770e400e8059984daccb9b12}{evel\+\_\+reporting\+\_\+entity\+\_\+id\+\_\+set} (\hyperlink{evel_8h_aa0ea94c675729365ea7825c4fc7e06d8}{E\+V\+E\+N\+T\+\_\+\+H\+E\+A\+D\+ER} $\ast$const header, const char $\ast$const entity\+\_\+id)
+\begin{DoxyCompactList}\small\item\em Set the Reporting Entity Id property of the event header. \end{DoxyCompactList}\item 
+void \hyperlink{evel__event_8c_a79e6622b27588c5dd2ebd559b5f25130}{evel\+\_\+json\+\_\+encode\+\_\+header} (\hyperlink{evel__internal_8h_af9c576f6ffebdf8c5164ccf9827b323a}{E\+V\+E\+L\+\_\+\+J\+S\+O\+N\+\_\+\+B\+U\+F\+F\+ER} $\ast$jbuf, \hyperlink{evel_8h_aa0ea94c675729365ea7825c4fc7e06d8}{E\+V\+E\+N\+T\+\_\+\+H\+E\+A\+D\+ER} $\ast$event)
+\begin{DoxyCompactList}\small\item\em Encode the event as a J\+S\+ON event object according to AT\&T\textquotesingle{}s schema. \end{DoxyCompactList}\item 
+void \hyperlink{evel__event_8c_a78f63ac6d76881caacfcb3060217b991}{evel\+\_\+free\+\_\+header} (\hyperlink{evel_8h_aa0ea94c675729365ea7825c4fc7e06d8}{E\+V\+E\+N\+T\+\_\+\+H\+E\+A\+D\+ER} $\ast$const event)
 \begin{DoxyCompactList}\small\item\em Free an event header. \end{DoxyCompactList}\item 
-int \hyperlink{evel__event_8c_a3da83fe21887e3f336b54a1f63ac95cf}{evel\+\_\+json\+\_\+encode\+\_\+event} (char $\ast$json, int max\+\_\+size, \hyperlink{evel_8h_aa0ea94c675729365ea7825c4fc7e06d8}{E\+V\+E\+N\+T\+\_\+\+H\+E\+A\+D\+E\+R} $\ast$event)
-\begin{DoxyCompactList}\small\item\em Encode the event as a J\+S\+O\+N event object according to A\+T\&T\textquotesingle{}s schema. \end{DoxyCompactList}\end{DoxyCompactItemize}
+int \hyperlink{evel__event_8c_a3da83fe21887e3f336b54a1f63ac95cf}{evel\+\_\+json\+\_\+encode\+\_\+event} (char $\ast$json, int max\+\_\+size, \hyperlink{evel_8h_aa0ea94c675729365ea7825c4fc7e06d8}{E\+V\+E\+N\+T\+\_\+\+H\+E\+A\+D\+ER} $\ast$event)
+\begin{DoxyCompactList}\small\item\em Encode the event as a J\+S\+ON event object according to AT\&T\textquotesingle{}s schema. \end{DoxyCompactList}\item 
+void \hyperlink{evel__event_8c_a5531e2635501b7240eadd1cfd400c915}{evel\+\_\+init\+\_\+event\+\_\+instance\+\_\+id} (\hyperlink{evel_8h_a4569c7e4bcb933caf47237a323d7c872}{E\+V\+E\+L\+\_\+\+E\+V\+E\+N\+T\+\_\+\+I\+N\+S\+T\+A\+N\+C\+E\+\_\+\+ID} $\ast$const instance\+\_\+id, const char $\ast$const vendor\+\_\+id, const char $\ast$const event\+\_\+id)
+\begin{DoxyCompactList}\small\item\em Initialize an event instance id. \end{DoxyCompactList}\item 
+void \hyperlink{evel__event_8c_afa60803071c0538bc2cdf90c94beb147}{evel\+\_\+free\+\_\+event\+\_\+instance\+\_\+id} (\hyperlink{evel_8h_a4569c7e4bcb933caf47237a323d7c872}{E\+V\+E\+L\+\_\+\+E\+V\+E\+N\+T\+\_\+\+I\+N\+S\+T\+A\+N\+C\+E\+\_\+\+ID} $\ast$const instance\+\_\+id)
+\begin{DoxyCompactList}\small\item\em Free an event instance id. \end{DoxyCompactList}\item 
+void \hyperlink{evel__event_8c_a74f075d3cd6633e41d395488d328b2b7}{evel\+\_\+json\+\_\+encode\+\_\+instance\+\_\+id} (\hyperlink{evel__internal_8h_af9c576f6ffebdf8c5164ccf9827b323a}{E\+V\+E\+L\+\_\+\+J\+S\+O\+N\+\_\+\+B\+U\+F\+F\+ER} $\ast$jbuf, \hyperlink{evel_8h_a4569c7e4bcb933caf47237a323d7c872}{E\+V\+E\+L\+\_\+\+E\+V\+E\+N\+T\+\_\+\+I\+N\+S\+T\+A\+N\+C\+E\+\_\+\+ID} $\ast$instance\+\_\+id)
+\begin{DoxyCompactList}\small\item\em Encode the instance id as a J\+S\+ON object according to AT\&T\textquotesingle{}s schema. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \subsection{Detailed Description}
-Implementation of E\+V\+E\+L functions relating to Event Headers -\/ since Heartbeats only contain the Event Header, the Heartbeat factory function is here too. 
+Implementation of E\+V\+EL functions relating to Event Headers -\/ since Heartbeats only contain the Event Header, the Heartbeat factory function is here too. 
 
 \subsubsection*{License }
 
-Copyright(c) $<$2016$>$, A\+T\&T Intellectual Property. All other rights reserved.
+Copyright(c) $<$2016$>$, AT\&T Intellectual Property. All other rights reserved.
 
 Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met\+:
 
@@ -48,40 +67,106 @@ Redistribution and use in source and binary forms, with or without modification,
 \begin{DoxyEnumerate}
 \item Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
 \item Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.
-\item All advertising materials mentioning features or use of this software must display the following acknowledgement\+: This product includes software developed by the A\+T\&T.
-\item Neither the name of A\+T\&T nor the names of its contributors may be used to endorse or promote products derived from this software without specific prior written permission.
+\item All advertising materials mentioning features or use of this software must display the following acknowledgement\+: This product includes software developed by the AT\&T.
+\item Neither the name of AT\&T nor the names of its contributors may be used to endorse or promote products derived from this software without specific prior written permission.
 \end{DoxyEnumerate}
 
-T\+H\+I\+S S\+O\+F\+T\+W\+A\+R\+E I\+S P\+R\+O\+V\+I\+D\+E\+D B\+Y A\+T\&T I\+N\+T\+E\+L\+L\+E\+C\+T\+U\+A\+L P\+R\+O\+P\+E\+R\+T\+Y \textquotesingle{}\textquotesingle{}A\+S I\+S\textquotesingle{}\textquotesingle{} A\+N\+D A\+N\+Y E\+X\+P\+R\+E\+S\+S O\+R I\+M\+P\+L\+I\+E\+D W\+A\+R\+R\+A\+N\+T\+I\+E\+S, I\+N\+C\+L\+U\+D\+I\+N\+G, B\+U\+T N\+O\+T L\+I\+M\+I\+T\+E\+D T\+O, T\+H\+E I\+M\+P\+L\+I\+E\+D W\+A\+R\+R\+A\+N\+T\+I\+E\+S O\+F M\+E\+R\+C\+H\+A\+N\+T\+A\+B\+I\+L\+I\+T\+Y A\+N\+D F\+I\+T\+N\+E\+S\+S F\+O\+R A P\+A\+R\+T\+I\+C\+U\+L\+A\+R P\+U\+R\+P\+O\+S\+E A\+R\+E D\+I\+S\+C\+L\+A\+I\+M\+E\+D. I\+N N\+O E\+V\+E\+N\+T S\+H\+A\+L\+L A\+T\&T I\+N\+T\+E\+L\+L\+E\+C\+T\+U\+A\+L P\+R\+O\+P\+E\+R\+T\+Y B\+E L\+I\+A\+B\+L\+E F\+O\+R A\+N\+Y D\+I\+R\+E\+C\+T, I\+N\+D\+I\+R\+E\+C\+T, I\+N\+C\+I\+D\+E\+N\+T\+A\+L, S\+P\+E\+C\+I\+A\+L, E\+X\+E\+M\+P\+L\+A\+R\+Y, O\+R C\+O\+N\+S\+E\+Q\+U\+E\+N\+T\+I\+A\+L D\+A\+M\+A\+G\+E\+S (I\+N\+C\+L\+U\+D\+I\+N\+G, B\+U\+T N\+O\+T L\+I\+M\+I\+T\+E\+D T\+O, P\+R\+O\+C\+U\+R\+E\+M\+E\+N\+T O\+F S\+U\+B\+S\+T\+I\+T\+U\+T\+E G\+O\+O\+D\+S O\+R S\+E\+R\+V\+I\+C\+E\+S; L\+O\+S\+S O\+F U\+S\+E, D\+A\+T\+A, O\+R P\+R\+O\+F\+I\+T\+S; O\+R B\+U\+S\+I\+N\+E\+S\+S I\+N\+T\+E\+R\+R\+U\+P\+T\+I\+O\+N) H\+O\+W\+E\+V\+E\+R C\+A\+U\+S\+E\+D A\+N\+D O\+N A\+N\+Y T\+H\+E\+O\+R\+Y O\+F L\+I\+A\+B\+I\+L\+I\+T\+Y, W\+H\+E\+T\+H\+E\+R I\+N C\+O\+N\+T\+R\+A\+C\+T, S\+T\+R\+I\+C\+T L\+I\+A\+B\+I\+L\+I\+T\+Y, O\+R T\+O\+R\+T (I\+N\+C\+L\+U\+D\+I\+N\+G N\+E\+G\+L\+I\+G\+E\+N\+C\+E O\+R O\+T\+H\+E\+R\+W\+I\+S\+E) A\+R\+I\+S\+I\+N\+G I\+N A\+N\+Y W\+A\+Y O\+U\+T O\+F T\+H\+E U\+S\+E O\+F T\+H\+I\+S S\+O\+F\+T\+W\+A\+R\+E, E\+V\+E\+N I\+F A\+D\+V\+I\+S\+E\+D O\+F T\+H\+E P\+O\+S\+S\+I\+B\+I\+L\+I\+T\+Y O\+F S\+U\+C\+H D\+A\+M\+A\+G\+E. 
+T\+H\+IS S\+O\+F\+T\+W\+A\+RE IS P\+R\+O\+V\+I\+D\+ED BY AT\&T I\+N\+T\+E\+L\+L\+E\+C\+T\+U\+AL P\+R\+O\+P\+E\+R\+TY \textquotesingle{}\textquotesingle{}AS IS\textquotesingle{}\textquotesingle{} A\+ND A\+NY E\+X\+P\+R\+E\+SS OR I\+M\+P\+L\+I\+ED W\+A\+R\+R\+A\+N\+T\+I\+ES, I\+N\+C\+L\+U\+D\+I\+NG, B\+UT N\+OT L\+I\+M\+I\+T\+ED TO, T\+HE I\+M\+P\+L\+I\+ED W\+A\+R\+R\+A\+N\+T\+I\+ES OF M\+E\+R\+C\+H\+A\+N\+T\+A\+B\+I\+L\+I\+TY A\+ND F\+I\+T\+N\+E\+SS F\+OR A P\+A\+R\+T\+I\+C\+U\+L\+AR P\+U\+R\+P\+O\+SE A\+RE D\+I\+S\+C\+L\+A\+I\+M\+ED. IN NO E\+V\+E\+NT S\+H\+A\+LL AT\&T I\+N\+T\+E\+L\+L\+E\+C\+T\+U\+AL P\+R\+O\+P\+E\+R\+TY BE L\+I\+A\+B\+LE F\+OR A\+NY D\+I\+R\+E\+CT, I\+N\+D\+I\+R\+E\+CT, I\+N\+C\+I\+D\+E\+N\+T\+AL, S\+P\+E\+C\+I\+AL, E\+X\+E\+M\+P\+L\+A\+RY, OR C\+O\+N\+S\+E\+Q\+U\+E\+N\+T\+I\+AL D\+A\+M\+A\+G\+ES (I\+N\+C\+L\+U\+D\+I\+NG, B\+UT N\+OT L\+I\+M\+I\+T\+ED TO, P\+R\+O\+C\+U\+R\+E\+M\+E\+NT OF S\+U\+B\+S\+T\+I\+T\+U\+TE G\+O\+O\+DS OR S\+E\+R\+V\+I\+C\+ES; L\+O\+SS OF U\+SE, D\+A\+TA, OR P\+R\+O\+F\+I\+TS; OR B\+U\+S\+I\+N\+E\+SS I\+N\+T\+E\+R\+R\+U\+P\+T\+I\+ON) H\+O\+W\+E\+V\+ER C\+A\+U\+S\+ED A\+ND ON A\+NY T\+H\+E\+O\+RY OF L\+I\+A\+B\+I\+L\+I\+TY, W\+H\+E\+T\+H\+ER IN C\+O\+N\+T\+R\+A\+CT, S\+T\+R\+I\+CT L\+I\+A\+B\+I\+L\+I\+TY, OR T\+O\+RT (I\+N\+C\+L\+U\+D\+I\+NG N\+E\+G\+L\+I\+G\+E\+N\+CE OR O\+T\+H\+E\+R\+W\+I\+SE) A\+R\+I\+S\+I\+NG IN A\+NY W\+AY O\+UT OF T\+HE U\+SE OF T\+H\+IS S\+O\+F\+T\+W\+A\+RE, E\+V\+EN IF A\+D\+V\+I\+S\+ED OF T\+HE P\+O\+S\+S\+I\+B\+I\+L\+I\+TY OF S\+U\+CH D\+A\+M\+A\+GE. 
 
 \subsection{Function Documentation}
-\hypertarget{evel__event_8c_a8391052fcc38b65f65422a3441b8f551}{}\index{evel\+\_\+event.\+c@{evel\+\_\+event.\+c}!evel\+\_\+free\+\_\+header@{evel\+\_\+free\+\_\+header}}
+\hypertarget{evel__event_8c_afa60803071c0538bc2cdf90c94beb147}{}\label{evel__event_8c_afa60803071c0538bc2cdf90c94beb147} 
+\index{evel\+\_\+event.\+c@{evel\+\_\+event.\+c}!evel\+\_\+free\+\_\+event\+\_\+instance\+\_\+id@{evel\+\_\+free\+\_\+event\+\_\+instance\+\_\+id}}
+\index{evel\+\_\+free\+\_\+event\+\_\+instance\+\_\+id@{evel\+\_\+free\+\_\+event\+\_\+instance\+\_\+id}!evel\+\_\+event.\+c@{evel\+\_\+event.\+c}}
+\subsubsection{\texorpdfstring{evel\+\_\+free\+\_\+event\+\_\+instance\+\_\+id()}{evel\_free\_event\_instance\_id()}}
+{\footnotesize\ttfamily void evel\+\_\+free\+\_\+event\+\_\+instance\+\_\+id (\begin{DoxyParamCaption}\item[{\hyperlink{evel_8h_a4569c7e4bcb933caf47237a323d7c872}{E\+V\+E\+L\+\_\+\+E\+V\+E\+N\+T\+\_\+\+I\+N\+S\+T\+A\+N\+C\+E\+\_\+\+ID} $\ast$const}]{instance\+\_\+id }\end{DoxyParamCaption})}
+
+
+
+Free an event instance id. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em instance\+\_\+id} & Pointer to the event instance id being initialized. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 505 of file evel\+\_\+event.\+c.
+
+\hypertarget{evel__event_8c_a78f63ac6d76881caacfcb3060217b991}{}\label{evel__event_8c_a78f63ac6d76881caacfcb3060217b991} 
+\index{evel\+\_\+event.\+c@{evel\+\_\+event.\+c}!evel\+\_\+free\+\_\+header@{evel\+\_\+free\+\_\+header}}
 \index{evel\+\_\+free\+\_\+header@{evel\+\_\+free\+\_\+header}!evel\+\_\+event.\+c@{evel\+\_\+event.\+c}}
-\subsubsection[{evel\+\_\+free\+\_\+header(\+E\+V\+E\+N\+T\+\_\+\+H\+E\+A\+D\+E\+R $\ast$event)}]{\setlength{\rightskip}{0pt plus 5cm}void evel\+\_\+free\+\_\+header (
-\begin{DoxyParamCaption}
-\item[{{\bf E\+V\+E\+N\+T\+\_\+\+H\+E\+A\+D\+E\+R} $\ast$}]{event}
-\end{DoxyParamCaption}
-)}\label{evel__event_8c_a8391052fcc38b65f65422a3441b8f551}
+\subsubsection{\texorpdfstring{evel\+\_\+free\+\_\+header()}{evel\_free\_header()}}
+{\footnotesize\ttfamily void evel\+\_\+free\+\_\+header (\begin{DoxyParamCaption}\item[{\hyperlink{evel_8h_aa0ea94c675729365ea7825c4fc7e06d8}{E\+V\+E\+N\+T\+\_\+\+H\+E\+A\+D\+ER} $\ast$const}]{event }\end{DoxyParamCaption})}
+
 
 
 Free an event header. 
 
-Free off the event header supplied. Will recursively free all the contained allocated memory.
+Free off the event header supplied. Will free all the contained allocated memory.
 
 \begin{DoxyNote}{Note}
 It does not free the header itself, since that may be part of a larger structure. 
 \end{DoxyNote}
 
 
-Definition at line 248 of file evel\+\_\+event.\+c.
+Definition at line 349 of file evel\+\_\+event.\+c.
 
-\hypertarget{evel__event_8c_a85f0ce991d0edaf92f9b7d131e37533c}{}\index{evel\+\_\+event.\+c@{evel\+\_\+event.\+c}!evel\+\_\+init\+\_\+header@{evel\+\_\+init\+\_\+header}}
+\hypertarget{evel__event_8c_a72a4ed84cb8984c423098a2361d4f422}{}\label{evel__event_8c_a72a4ed84cb8984c423098a2361d4f422} 
+\index{evel\+\_\+event.\+c@{evel\+\_\+event.\+c}!evel\+\_\+header\+\_\+type\+\_\+set@{evel\+\_\+header\+\_\+type\+\_\+set}}
+\index{evel\+\_\+header\+\_\+type\+\_\+set@{evel\+\_\+header\+\_\+type\+\_\+set}!evel\+\_\+event.\+c@{evel\+\_\+event.\+c}}
+\subsubsection{\texorpdfstring{evel\+\_\+header\+\_\+type\+\_\+set()}{evel\_header\_type\_set()}}
+{\footnotesize\ttfamily void evel\+\_\+header\+\_\+type\+\_\+set (\begin{DoxyParamCaption}\item[{\hyperlink{evel_8h_aa0ea94c675729365ea7825c4fc7e06d8}{E\+V\+E\+N\+T\+\_\+\+H\+E\+A\+D\+ER} $\ast$const}]{header,  }\item[{const char $\ast$const}]{type }\end{DoxyParamCaption})}
+
+
+
+Set the Event Type property of the event header. 
+
+\begin{DoxyNote}{Note}
+The property is treated as immutable\+: it is only valid to call the setter once. However, we don\textquotesingle{}t assert if the caller tries to overwrite, just ignoring the update instead.
+\end{DoxyNote}
+
+\begin{DoxyParams}{Parameters}
+{\em header} & Pointer to the \hyperlink{evel_8h_aa0ea94c675729365ea7825c4fc7e06d8}{E\+V\+E\+N\+T\+\_\+\+H\+E\+A\+D\+ER}. \\
+\hline
+{\em type} & The Event Type to be set. A\+S\+C\+I\+IZ string. The caller does not need to preserve the value once the function returns. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 164 of file evel\+\_\+event.\+c.
+
+\hypertarget{evel__event_8c_a5531e2635501b7240eadd1cfd400c915}{}\label{evel__event_8c_a5531e2635501b7240eadd1cfd400c915} 
+\index{evel\+\_\+event.\+c@{evel\+\_\+event.\+c}!evel\+\_\+init\+\_\+event\+\_\+instance\+\_\+id@{evel\+\_\+init\+\_\+event\+\_\+instance\+\_\+id}}
+\index{evel\+\_\+init\+\_\+event\+\_\+instance\+\_\+id@{evel\+\_\+init\+\_\+event\+\_\+instance\+\_\+id}!evel\+\_\+event.\+c@{evel\+\_\+event.\+c}}
+\subsubsection{\texorpdfstring{evel\+\_\+init\+\_\+event\+\_\+instance\+\_\+id()}{evel\_init\_event\_instance\_id()}}
+{\footnotesize\ttfamily void evel\+\_\+init\+\_\+event\+\_\+instance\+\_\+id (\begin{DoxyParamCaption}\item[{\hyperlink{evel_8h_a4569c7e4bcb933caf47237a323d7c872}{E\+V\+E\+L\+\_\+\+E\+V\+E\+N\+T\+\_\+\+I\+N\+S\+T\+A\+N\+C\+E\+\_\+\+ID} $\ast$const}]{instance\+\_\+id,  }\item[{const char $\ast$const}]{vendor\+\_\+id,  }\item[{const char $\ast$const}]{event\+\_\+id }\end{DoxyParamCaption})}
+
+
+
+Initialize an event instance id. 
+
+Initialize an event instance id, typically embedded in an event.
+
+
+\begin{DoxyParams}{Parameters}
+{\em instance\+\_\+id} & Pointer to the event instance id being initialized. \\
+\hline
+{\em vendor\+\_\+id} & The vendor id to encode in the event instance id. \\
+\hline
+{\em event\+\_\+id} & The event id to encode in the event instance id. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 471 of file evel\+\_\+event.\+c.
+
+\hypertarget{evel__event_8c_abb080d24d5ab6963dee533648314b747}{}\label{evel__event_8c_abb080d24d5ab6963dee533648314b747} 
+\index{evel\+\_\+event.\+c@{evel\+\_\+event.\+c}!evel\+\_\+init\+\_\+header@{evel\+\_\+init\+\_\+header}}
 \index{evel\+\_\+init\+\_\+header@{evel\+\_\+init\+\_\+header}!evel\+\_\+event.\+c@{evel\+\_\+event.\+c}}
-\subsubsection[{evel\+\_\+init\+\_\+header(\+E\+V\+E\+N\+T\+\_\+\+H\+E\+A\+D\+E\+R $\ast$header)}]{\setlength{\rightskip}{0pt plus 5cm}void evel\+\_\+init\+\_\+header (
-\begin{DoxyParamCaption}
-\item[{{\bf E\+V\+E\+N\+T\+\_\+\+H\+E\+A\+D\+E\+R} $\ast$}]{header}
-\end{DoxyParamCaption}
-)}\label{evel__event_8c_a85f0ce991d0edaf92f9b7d131e37533c}
+\subsubsection{\texorpdfstring{evel\+\_\+init\+\_\+header()}{evel\_init\_header()}}
+{\footnotesize\ttfamily void evel\+\_\+init\+\_\+header (\begin{DoxyParamCaption}\item[{\hyperlink{evel_8h_aa0ea94c675729365ea7825c4fc7e06d8}{E\+V\+E\+N\+T\+\_\+\+H\+E\+A\+D\+ER} $\ast$const}]{header }\end{DoxyParamCaption})}
+
 
 
 Initialize a newly created event header. 
@@ -93,28 +178,25 @@ Initialize a newly created event header.
 \end{DoxyParams}
 
 
-Definition at line 97 of file evel\+\_\+event.\+c.
+Definition at line 112 of file evel\+\_\+event.\+c.
 
-\hypertarget{evel__event_8c_a3da83fe21887e3f336b54a1f63ac95cf}{}\index{evel\+\_\+event.\+c@{evel\+\_\+event.\+c}!evel\+\_\+json\+\_\+encode\+\_\+event@{evel\+\_\+json\+\_\+encode\+\_\+event}}
+\hypertarget{evel__event_8c_a3da83fe21887e3f336b54a1f63ac95cf}{}\label{evel__event_8c_a3da83fe21887e3f336b54a1f63ac95cf} 
+\index{evel\+\_\+event.\+c@{evel\+\_\+event.\+c}!evel\+\_\+json\+\_\+encode\+\_\+event@{evel\+\_\+json\+\_\+encode\+\_\+event}}
 \index{evel\+\_\+json\+\_\+encode\+\_\+event@{evel\+\_\+json\+\_\+encode\+\_\+event}!evel\+\_\+event.\+c@{evel\+\_\+event.\+c}}
-\subsubsection[{evel\+\_\+json\+\_\+encode\+\_\+event(char $\ast$json, int max\+\_\+size, E\+V\+E\+N\+T\+\_\+\+H\+E\+A\+D\+E\+R $\ast$event)}]{\setlength{\rightskip}{0pt plus 5cm}int evel\+\_\+json\+\_\+encode\+\_\+event (
-\begin{DoxyParamCaption}
-\item[{char $\ast$}]{json, }
-\item[{int}]{max\+\_\+size, }
-\item[{{\bf E\+V\+E\+N\+T\+\_\+\+H\+E\+A\+D\+E\+R} $\ast$}]{event}
-\end{DoxyParamCaption}
-)}\label{evel__event_8c_a3da83fe21887e3f336b54a1f63ac95cf}
+\subsubsection{\texorpdfstring{evel\+\_\+json\+\_\+encode\+\_\+event()}{evel\_json\_encode\_event()}}
+{\footnotesize\ttfamily int evel\+\_\+json\+\_\+encode\+\_\+event (\begin{DoxyParamCaption}\item[{char $\ast$}]{json,  }\item[{int}]{max\+\_\+size,  }\item[{\hyperlink{evel_8h_aa0ea94c675729365ea7825c4fc7e06d8}{E\+V\+E\+N\+T\+\_\+\+H\+E\+A\+D\+ER} $\ast$}]{event }\end{DoxyParamCaption})}
 
 
-Encode the event as a J\+S\+O\+N event object according to A\+T\&T\textquotesingle{}s schema. 
+
+Encode the event as a J\+S\+ON event object according to AT\&T\textquotesingle{}s schema. 
 
 
 \begin{DoxyParams}{Parameters}
-{\em json} & Pointer to where to store the J\+S\+O\+N encoded data. \\
+{\em json} & Pointer to where to store the J\+S\+ON encoded data. \\
 \hline
 {\em max\+\_\+size} & Size of storage available in json\+\_\+body. \\
 \hline
-{\em event} & Pointer to the \hyperlink{evel_8h_aa0ea94c675729365ea7825c4fc7e06d8}{E\+V\+E\+N\+T\+\_\+\+H\+E\+A\+D\+E\+R} to encode. \\
+{\em event} & Pointer to the \hyperlink{evel_8h_aa0ea94c675729365ea7825c4fc7e06d8}{E\+V\+E\+N\+T\+\_\+\+H\+E\+A\+D\+ER} to encode. \\
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
@@ -122,44 +204,80 @@ Number of bytes actually written.
 \end{DoxyReturn}
 
 
-Definition at line 280 of file evel\+\_\+event.\+c.
+Definition at line 381 of file evel\+\_\+event.\+c.
 
-\hypertarget{evel__event_8c_a2866c526bf6f3ceab59087c4618009e2}{}\index{evel\+\_\+event.\+c@{evel\+\_\+event.\+c}!evel\+\_\+json\+\_\+encode\+\_\+header@{evel\+\_\+json\+\_\+encode\+\_\+header}}
+\hypertarget{evel__event_8c_a79e6622b27588c5dd2ebd559b5f25130}{}\label{evel__event_8c_a79e6622b27588c5dd2ebd559b5f25130} 
+\index{evel\+\_\+event.\+c@{evel\+\_\+event.\+c}!evel\+\_\+json\+\_\+encode\+\_\+header@{evel\+\_\+json\+\_\+encode\+\_\+header}}
 \index{evel\+\_\+json\+\_\+encode\+\_\+header@{evel\+\_\+json\+\_\+encode\+\_\+header}!evel\+\_\+event.\+c@{evel\+\_\+event.\+c}}
-\subsubsection[{evel\+\_\+json\+\_\+encode\+\_\+header(char $\ast$json, int max\+\_\+size, E\+V\+E\+N\+T\+\_\+\+H\+E\+A\+D\+E\+R $\ast$event)}]{\setlength{\rightskip}{0pt plus 5cm}int evel\+\_\+json\+\_\+encode\+\_\+header (
-\begin{DoxyParamCaption}
-\item[{char $\ast$}]{json, }
-\item[{int}]{max\+\_\+size, }
-\item[{{\bf E\+V\+E\+N\+T\+\_\+\+H\+E\+A\+D\+E\+R} $\ast$}]{event}
-\end{DoxyParamCaption}
-)}\label{evel__event_8c_a2866c526bf6f3ceab59087c4618009e2}
+\subsubsection{\texorpdfstring{evel\+\_\+json\+\_\+encode\+\_\+header()}{evel\_json\_encode\_header()}}
+{\footnotesize\ttfamily void evel\+\_\+json\+\_\+encode\+\_\+header (\begin{DoxyParamCaption}\item[{\hyperlink{evel__internal_8h_af9c576f6ffebdf8c5164ccf9827b323a}{E\+V\+E\+L\+\_\+\+J\+S\+O\+N\+\_\+\+B\+U\+F\+F\+ER} $\ast$}]{jbuf,  }\item[{\hyperlink{evel_8h_aa0ea94c675729365ea7825c4fc7e06d8}{E\+V\+E\+N\+T\+\_\+\+H\+E\+A\+D\+ER} $\ast$}]{event }\end{DoxyParamCaption})}
 
 
-Encode the header as a J\+S\+O\+N common\+Event\+Header. 
+
+Encode the event as a J\+S\+ON event object according to AT\&T\textquotesingle{}s schema. 
 
 
 \begin{DoxyParams}{Parameters}
-{\em json} & Pointer to where to staore the J\+S\+O\+N encoded data. \\
+{\em jbuf} & Pointer to the \hyperlink{evel__internal_8h_af9c576f6ffebdf8c5164ccf9827b323a}{E\+V\+E\+L\+\_\+\+J\+S\+O\+N\+\_\+\+B\+U\+F\+F\+ER} to encode into. \\
 \hline
-{\em max\+\_\+size} & Size of storage available in evel\+\_\+json\+\_\+encode\+\_\+header\+::json. \\
-\hline
-{\em event} & Pointer to the \hyperlink{evel_8h_aa0ea94c675729365ea7825c4fc7e06d8}{E\+V\+E\+N\+T\+\_\+\+H\+E\+A\+D\+E\+R} to encode. \\
+{\em event} & Pointer to the \hyperlink{evel_8h_aa0ea94c675729365ea7825c4fc7e06d8}{E\+V\+E\+N\+T\+\_\+\+H\+E\+A\+D\+ER} to encode. \\
 \hline
 \end{DoxyParams}
-\begin{DoxyReturn}{Returns}
-Number of bytes actually written. 
-\end{DoxyReturn}
 
 
-Definition at line 138 of file evel\+\_\+event.\+c.
+Definition at line 291 of file evel\+\_\+event.\+c.
 
-\hypertarget{evel__event_8c_a3f91c0b7ebd4c48dfa57f6b810f010c4}{}\index{evel\+\_\+event.\+c@{evel\+\_\+event.\+c}!evel\+\_\+new\+\_\+heartbeat@{evel\+\_\+new\+\_\+heartbeat}}
+\hypertarget{evel__event_8c_a74f075d3cd6633e41d395488d328b2b7}{}\label{evel__event_8c_a74f075d3cd6633e41d395488d328b2b7} 
+\index{evel\+\_\+event.\+c@{evel\+\_\+event.\+c}!evel\+\_\+json\+\_\+encode\+\_\+instance\+\_\+id@{evel\+\_\+json\+\_\+encode\+\_\+instance\+\_\+id}}
+\index{evel\+\_\+json\+\_\+encode\+\_\+instance\+\_\+id@{evel\+\_\+json\+\_\+encode\+\_\+instance\+\_\+id}!evel\+\_\+event.\+c@{evel\+\_\+event.\+c}}
+\subsubsection{\texorpdfstring{evel\+\_\+json\+\_\+encode\+\_\+instance\+\_\+id()}{evel\_json\_encode\_instance\_id()}}
+{\footnotesize\ttfamily void evel\+\_\+json\+\_\+encode\+\_\+instance\+\_\+id (\begin{DoxyParamCaption}\item[{\hyperlink{evel__internal_8h_af9c576f6ffebdf8c5164ccf9827b323a}{E\+V\+E\+L\+\_\+\+J\+S\+O\+N\+\_\+\+B\+U\+F\+F\+ER} $\ast$}]{jbuf,  }\item[{\hyperlink{evel_8h_a4569c7e4bcb933caf47237a323d7c872}{E\+V\+E\+L\+\_\+\+E\+V\+E\+N\+T\+\_\+\+I\+N\+S\+T\+A\+N\+C\+E\+\_\+\+ID} $\ast$}]{instance\+\_\+id }\end{DoxyParamCaption})}
+
+
+
+Encode the instance id as a J\+S\+ON object according to AT\&T\textquotesingle{}s schema. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em jbuf} & Pointer to the \hyperlink{evel__internal_8h_af9c576f6ffebdf8c5164ccf9827b323a}{E\+V\+E\+L\+\_\+\+J\+S\+O\+N\+\_\+\+B\+U\+F\+F\+ER} to encode into. \\
+\hline
+{\em instance\+\_\+id} & Pointer to the \hyperlink{evel_8h_a4569c7e4bcb933caf47237a323d7c872}{E\+V\+E\+L\+\_\+\+E\+V\+E\+N\+T\+\_\+\+I\+N\+S\+T\+A\+N\+C\+E\+\_\+\+ID} to encode. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 534 of file evel\+\_\+event.\+c.
+
+\hypertarget{evel__event_8c_a2708e32af8b6e6ee903ea4757db931a6}{}\label{evel__event_8c_a2708e32af8b6e6ee903ea4757db931a6} 
+\index{evel\+\_\+event.\+c@{evel\+\_\+event.\+c}!evel\+\_\+last\+\_\+epoch\+\_\+set@{evel\+\_\+last\+\_\+epoch\+\_\+set}}
+\index{evel\+\_\+last\+\_\+epoch\+\_\+set@{evel\+\_\+last\+\_\+epoch\+\_\+set}!evel\+\_\+event.\+c@{evel\+\_\+event.\+c}}
+\subsubsection{\texorpdfstring{evel\+\_\+last\+\_\+epoch\+\_\+set()}{evel\_last\_epoch\_set()}}
+{\footnotesize\ttfamily void evel\+\_\+last\+\_\+epoch\+\_\+set (\begin{DoxyParamCaption}\item[{\hyperlink{evel_8h_aa0ea94c675729365ea7825c4fc7e06d8}{E\+V\+E\+N\+T\+\_\+\+H\+E\+A\+D\+ER} $\ast$const}]{header,  }\item[{const unsigned long long}]{last\+\_\+epoch\+\_\+microsec }\end{DoxyParamCaption})}
+
+
+
+Set the Last Epoch property of the event header. 
+
+\begin{DoxyNote}{Note}
+The Last Epoch defaults to the time of event creation.
+\end{DoxyNote}
+
+\begin{DoxyParams}{Parameters}
+{\em header} & Pointer to the \hyperlink{evel_8h_aa0ea94c675729365ea7825c4fc7e06d8}{E\+V\+E\+N\+T\+\_\+\+H\+E\+A\+D\+ER}. \\
+\hline
+{\em last\+\_\+epoch\+\_\+microsec} & The last epoch to set, in microseconds. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 212 of file evel\+\_\+event.\+c.
+
+\hypertarget{evel__event_8c_a3f91c0b7ebd4c48dfa57f6b810f010c4}{}\label{evel__event_8c_a3f91c0b7ebd4c48dfa57f6b810f010c4} 
+\index{evel\+\_\+event.\+c@{evel\+\_\+event.\+c}!evel\+\_\+new\+\_\+heartbeat@{evel\+\_\+new\+\_\+heartbeat}}
 \index{evel\+\_\+new\+\_\+heartbeat@{evel\+\_\+new\+\_\+heartbeat}!evel\+\_\+event.\+c@{evel\+\_\+event.\+c}}
-\subsubsection[{evel\+\_\+new\+\_\+heartbeat()}]{\setlength{\rightskip}{0pt plus 5cm}{\bf E\+V\+E\+N\+T\+\_\+\+H\+E\+A\+D\+E\+R}$\ast$ evel\+\_\+new\+\_\+heartbeat (
-\begin{DoxyParamCaption}
-{}
-\end{DoxyParamCaption}
-)}\label{evel__event_8c_a3f91c0b7ebd4c48dfa57f6b810f010c4}
+\subsubsection{\texorpdfstring{evel\+\_\+new\+\_\+heartbeat()}{evel\_new\_heartbeat()}}
+{\footnotesize\ttfamily \hyperlink{evel_8h_aa0ea94c675729365ea7825c4fc7e06d8}{E\+V\+E\+N\+T\+\_\+\+H\+E\+A\+D\+ER}$\ast$ evel\+\_\+new\+\_\+heartbeat (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
 
 
 Create a new heartbeat event. 
@@ -168,14 +286,105 @@ Create a new heartbeat event.
 that the heartbeat is just a \char`\"{}naked\char`\"{} common\+Event\+Header!
 \end{DoxyNote}
 \begin{DoxyReturn}{Returns}
-pointer to the newly manufactured \hyperlink{evel_8h_aa0ea94c675729365ea7825c4fc7e06d8}{E\+V\+E\+N\+T\+\_\+\+H\+E\+A\+D\+E\+R}. If the event is not used it must be released using \hyperlink{evel_8h_a91faa4e06c4b079c2a8a1db1ccb2e47b}{evel\+\_\+free\+\_\+event} 
+pointer to the newly manufactured \hyperlink{evel_8h_aa0ea94c675729365ea7825c4fc7e06d8}{E\+V\+E\+N\+T\+\_\+\+H\+E\+A\+D\+ER}. If the event is not used it must be released using \hyperlink{evel_8h_a91faa4e06c4b079c2a8a1db1ccb2e47b}{evel\+\_\+free\+\_\+event} 
 \end{DoxyReturn}
 
 \begin{DoxyRetVals}{Return values}
-{\em N\+U\+L\+L} & Failed to create the event. \\
+{\em N\+U\+LL} & Failed to create the event. \\
 \hline
 \end{DoxyRetVals}
 
 
-Definition at line 63 of file evel\+\_\+event.\+c.
+Definition at line 78 of file evel\+\_\+event.\+c.
+
+\hypertarget{evel__event_8c_a698c363a770e400e8059984daccb9b12}{}\label{evel__event_8c_a698c363a770e400e8059984daccb9b12} 
+\index{evel\+\_\+event.\+c@{evel\+\_\+event.\+c}!evel\+\_\+reporting\+\_\+entity\+\_\+id\+\_\+set@{evel\+\_\+reporting\+\_\+entity\+\_\+id\+\_\+set}}
+\index{evel\+\_\+reporting\+\_\+entity\+\_\+id\+\_\+set@{evel\+\_\+reporting\+\_\+entity\+\_\+id\+\_\+set}!evel\+\_\+event.\+c@{evel\+\_\+event.\+c}}
+\subsubsection{\texorpdfstring{evel\+\_\+reporting\+\_\+entity\+\_\+id\+\_\+set()}{evel\_reporting\_entity\_id\_set()}}
+{\footnotesize\ttfamily void evel\+\_\+reporting\+\_\+entity\+\_\+id\+\_\+set (\begin{DoxyParamCaption}\item[{\hyperlink{evel_8h_aa0ea94c675729365ea7825c4fc7e06d8}{E\+V\+E\+N\+T\+\_\+\+H\+E\+A\+D\+ER} $\ast$const}]{header,  }\item[{const char $\ast$const}]{entity\+\_\+id }\end{DoxyParamCaption})}
+
+
+
+Set the Reporting Entity Id property of the event header. 
+
+\begin{DoxyNote}{Note}
+The Reporting Entity Id defaults to the Open\+Stack VM U\+U\+ID.
+\end{DoxyNote}
+
+\begin{DoxyParams}{Parameters}
+{\em header} & Pointer to the \hyperlink{evel_8h_aa0ea94c675729365ea7825c4fc7e06d8}{E\+V\+E\+N\+T\+\_\+\+H\+E\+A\+D\+ER}. \\
+\hline
+{\em entity\+\_\+id} & The entity id to set. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 264 of file evel\+\_\+event.\+c.
+
+\hypertarget{evel__event_8c_aeaebbaa0f2637e69774655d43d0cad5b}{}\label{evel__event_8c_aeaebbaa0f2637e69774655d43d0cad5b} 
+\index{evel\+\_\+event.\+c@{evel\+\_\+event.\+c}!evel\+\_\+reporting\+\_\+entity\+\_\+name\+\_\+set@{evel\+\_\+reporting\+\_\+entity\+\_\+name\+\_\+set}}
+\index{evel\+\_\+reporting\+\_\+entity\+\_\+name\+\_\+set@{evel\+\_\+reporting\+\_\+entity\+\_\+name\+\_\+set}!evel\+\_\+event.\+c@{evel\+\_\+event.\+c}}
+\subsubsection{\texorpdfstring{evel\+\_\+reporting\+\_\+entity\+\_\+name\+\_\+set()}{evel\_reporting\_entity\_name\_set()}}
+{\footnotesize\ttfamily void evel\+\_\+reporting\+\_\+entity\+\_\+name\+\_\+set (\begin{DoxyParamCaption}\item[{\hyperlink{evel_8h_aa0ea94c675729365ea7825c4fc7e06d8}{E\+V\+E\+N\+T\+\_\+\+H\+E\+A\+D\+ER} $\ast$const}]{header,  }\item[{const char $\ast$const}]{entity\+\_\+name }\end{DoxyParamCaption})}
+
+
+
+Set the Reporting Entity Name property of the event header. 
+
+\begin{DoxyNote}{Note}
+The Reporting Entity Name defaults to the Open\+Stack VM Name.
+\end{DoxyNote}
+
+\begin{DoxyParams}{Parameters}
+{\em header} & Pointer to the \hyperlink{evel_8h_aa0ea94c675729365ea7825c4fc7e06d8}{E\+V\+E\+N\+T\+\_\+\+H\+E\+A\+D\+ER}. \\
+\hline
+{\em entity\+\_\+name} & The entity name to set. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 234 of file evel\+\_\+event.\+c.
+
+\hypertarget{evel__event_8c_a0f4cb914dd259782887c14422673c082}{}\label{evel__event_8c_a0f4cb914dd259782887c14422673c082} 
+\index{evel\+\_\+event.\+c@{evel\+\_\+event.\+c}!evel\+\_\+set\+\_\+next\+\_\+event\+\_\+sequence@{evel\+\_\+set\+\_\+next\+\_\+event\+\_\+sequence}}
+\index{evel\+\_\+set\+\_\+next\+\_\+event\+\_\+sequence@{evel\+\_\+set\+\_\+next\+\_\+event\+\_\+sequence}!evel\+\_\+event.\+c@{evel\+\_\+event.\+c}}
+\subsubsection{\texorpdfstring{evel\+\_\+set\+\_\+next\+\_\+event\+\_\+sequence()}{evel\_set\_next\_event\_sequence()}}
+{\footnotesize\ttfamily void evel\+\_\+set\+\_\+next\+\_\+event\+\_\+sequence (\begin{DoxyParamCaption}\item[{const int}]{sequence }\end{DoxyParamCaption})}
+
+
+
+Set the next event\+\_\+sequence to use. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em sequence} & The next sequence number to use. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 59 of file evel\+\_\+event.\+c.
+
+\hypertarget{evel__event_8c_a3700cb4c08811910fa80b92a42e58d96}{}\label{evel__event_8c_a3700cb4c08811910fa80b92a42e58d96} 
+\index{evel\+\_\+event.\+c@{evel\+\_\+event.\+c}!evel\+\_\+start\+\_\+epoch\+\_\+set@{evel\+\_\+start\+\_\+epoch\+\_\+set}}
+\index{evel\+\_\+start\+\_\+epoch\+\_\+set@{evel\+\_\+start\+\_\+epoch\+\_\+set}!evel\+\_\+event.\+c@{evel\+\_\+event.\+c}}
+\subsubsection{\texorpdfstring{evel\+\_\+start\+\_\+epoch\+\_\+set()}{evel\_start\_epoch\_set()}}
+{\footnotesize\ttfamily void evel\+\_\+start\+\_\+epoch\+\_\+set (\begin{DoxyParamCaption}\item[{\hyperlink{evel_8h_aa0ea94c675729365ea7825c4fc7e06d8}{E\+V\+E\+N\+T\+\_\+\+H\+E\+A\+D\+ER} $\ast$const}]{header,  }\item[{const unsigned long long}]{start\+\_\+epoch\+\_\+microsec }\end{DoxyParamCaption})}
+
+
+
+Set the Start Epoch property of the event header. 
+
+\begin{DoxyNote}{Note}
+The Start Epoch defaults to the time of event creation.
+\end{DoxyNote}
+
+\begin{DoxyParams}{Parameters}
+{\em header} & Pointer to the \hyperlink{evel_8h_aa0ea94c675729365ea7825c4fc7e06d8}{E\+V\+E\+N\+T\+\_\+\+H\+E\+A\+D\+ER}. \\
+\hline
+{\em start\+\_\+epoch\+\_\+microsec} & The start epoch to set, in microseconds. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 189 of file evel\+\_\+event.\+c.
 

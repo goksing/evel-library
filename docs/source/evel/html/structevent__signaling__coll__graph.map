@@ -1,0 +1,5 @@
+<map id="event_signaling" name="event_signaling">
+<area shape="rect" id="node2" href="$structevel__option__string.html" title="Optional parameter holder for string. " alt="" coords="164,5,290,32"/>
+<area shape="rect" id="node3" href="$structevel__event__instance__id.html" title="Event Instance Identifier JSON equivalent field: eventInstanceIdentifier. " alt="" coords="148,164,306,191"/>
+<area shape="rect" id="node4" href="$structevent__header.html" title="Event header. " alt="" coords="330,164,430,191"/>
+</map>

@@ -27,7 +27,7 @@ Note that all commands in this section are based on CentOS package management
 tools and you may need to substitute the appropriate tools/packages for your
 distribution, for example `apt-get` for Ubuntu.
 
-Ensure that GCC development tools are available.  
+Ensure that GCC development tools are available.
 
 ```
 $ sudo yum install gcc
@@ -41,7 +41,7 @@ $ sudo yum install libcurl-devel
 ```
 If you wish to make the project documentation, then Doxygen and Graphviz are
 required. (Again, this is only in the development environment, not the runtime 
-environment!
+environment!)
 
 ```
 $ sudo yum install doxygen graphviz
@@ -62,18 +62,59 @@ Make sure that the library makes cleanly:
 ```
 $ cd bldjobs
 $ make
+Making dependency file evel_unit.d for evel_unit.c
+Making dependency file evel_test_control.d for evel_test_control.c
+Making dependency file evel_demo.d for evel_demo.c
+Making dependency file jsmn.d for jsmn.c
+Making dependency file evel_logging.d for evel_logging.c
+Making dependency file evel_event_mgr.d for evel_event_mgr.c
+Making dependency file evel_internal_event.d for evel_internal_event.c
+Making dependency file evel_throttle.d for evel_throttle.c
+Making dependency file evel_syslog.d for evel_syslog.c
+Making dependency file evel_strings.d for evel_strings.c
+Making dependency file evel_state_change.d for evel_state_change.c
+Making dependency file evel_scaling_measurement.d for evel_scaling_measurement.c
+Making dependency file evel_signaling.d for evel_signaling.c
+Making dependency file evel_service.d for evel_service.c
+Making dependency file evel_reporting_measurement.d for evel_reporting_measurement.c
+Making dependency file evel_json_buffer.d for evel_json_buffer.c
+Making dependency file evel_other.d for evel_other.c
+Making dependency file evel_option.d for evel_option.c
+Making dependency file evel_mobile_flow.d for evel_mobile_flow.c
+Making dependency file evel_fault.d for evel_fault.c
+Making dependency file evel_event.d for evel_event.c
+Making dependency file double_list.d for double_list.c
+Making dependency file ring_buffer.d for ring_buffer.c
+Making dependency file metadata.d for metadata.c
+Making dependency file evel.d for evel.c
+Making evel.o from evel.c
 Making metadata.o from metadata.c
 Making ring_buffer.o from ring_buffer.c
 Making double_list.o from double_list.c
 Making evel_event.o from evel_event.c
 Making evel_fault.o from evel_fault.c
-Making evel_measurement.o from evel_measurement.c
+Making evel_mobile_flow.o from evel_mobile_flow.c
+Making evel_option.o from evel_option.c
+Making evel_other.o from evel_other.c
+Making evel_json_buffer.o from evel_json_buffer.c
+Making evel_reporting_measurement.o from evel_reporting_measurement.c
+Making evel_service.o from evel_service.c
+Making evel_signaling.o from evel_signaling.c
+Making evel_scaling_measurement.o from evel_scaling_measurement.c
+Making evel_state_change.o from evel_state_change.c
+Making evel_strings.o from evel_strings.c
+Making evel_syslog.o from evel_syslog.c
+Making evel_throttle.o from evel_throttle.c
+Making evel_internal_event.o from evel_internal_event.c
 Making evel_event_mgr.o from evel_event_mgr.c
 Making evel_logging.o from evel_logging.c
+Making jsmn.o from jsmn.c
 Linking API Shared Library
 Linking API Static Library
+Making evel_demo.o from evel_demo.c
+Making evel_test_control.o from evel_test_control.c
 Linking EVEL demo
-
+Making EVEL training
 $
 ``` 
 You should now be able to run the demo CLI application.  Since it will want to
@@ -89,7 +130,11 @@ evel_demo [--help]
           --port <port_number>
           [--path <path>]
           [--topic <topic>]
+          [--username <username>]
+          [--password <password>]
           [--https]
+          [--cycles <cycles>]
+          [--nothrott]
 
 Demonstrate use of the ECOMP Vendor Event Listener API.
 
@@ -108,11 +153,23 @@ Demonstrate use of the ECOMP Vendor Event Listener API.
   -t         The optional topic part of the RESTful API.
   --topic
 
+  -u         The optional username for basic authentication of requests.
+  --username
+
+  -w         The optional password for basic authentication of requests.
+  --password
+
   -s         Use HTTPS rather than HTTP for the transport.
   --https
 
+  -c         Loop <cycles> times round the main loop.  Default = 1.
+  --cycles
+
   -v         Generate much chattier logs.
   --verbose
+
+  -x         Exclude throttling commands from demonstration.
+  --nothrott
 
 $
 ```
@@ -274,15 +331,15 @@ In practice this looks like:
 ```
 ### Event Types {#qs_event_types}
 
-The _EVEL Library_ supports three types of events:
+The _EVEL Library_ supports the following types of events:
 
   1.  Faults
   
-      These represent the **fault** type in the event schema.
+      These represent the **fault** domain in the event schema.
       
   2.  Measurements
   
-      These represent the **measurementsForVfScaling** type in the event 
+      These represent the **measurementsForVfScaling** domain in the event
       schema.
       
   3.  Reports
@@ -291,7 +348,52 @@ The _EVEL Library_ supports three types of events:
       application-level statistics unencumbered with platform measurements.
       The formal AT&T schema has been updated to include this experimental
       type as **measurementsForVfReporting**. 
-  
+
+  4.  Mobile Flow
+
+      These represent the **mobileFlow** domain in the event schema.
+
+  5.  Other
+
+      These represent the **other** domain in the event schema.
+
+  6.  Service Events
+
+      These represent the **serviceEvents** domain in the event schema.
+
+  7.  Signaling
+
+      These represent the **signaling** domain in the event schema.
+
+  8.  State Change
+
+      These represent the **stateChange** domain in the event schema.
+
+  9.  Syslog
+
+      These represent the **syslog** domain in the event schema.
+
+### Throttling {#qs_throttling}
+
+The _EVEL library_ supports the following command types as defined in the JSON API:
+
+  1.  commandType: throttlingSpecification
+
+    This is handled internally by the EVEL library, which stores the provided
+    throttling specification internally and applies it to all subsequent events.
+
+  2. commandType: provideThrottlingState
+
+    This is handled internally by the EVEL library, which returns the current
+    throttling specification for each domain.
+
+  3. commandType: measurementIntervalChange
+
+    This is handled by the EVEL library, which makes the latest measurement
+    interval available via the ::evel_get_measurement_interval function.
+    The application is responsible for checking and adhering to the latest
+    provided interval.
+
 ### Termination {#qs_termination}
 
 Termination of the _EVEL Library_ is swift and brutal!  Events in the buffer

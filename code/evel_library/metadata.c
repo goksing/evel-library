@@ -43,13 +43,13 @@
 #include "evel.h"
 #include "evel_internal.h"
 #include "jsmn.h"
-
+#include "metadata.h"
 
 /**************************************************************************//**
  * URL on the link-local IP address where we can get the metadata in
  * machine-friendly format.
  *****************************************************************************/
-static const char const * OPENSTACK_METADATA_URL =
+static const char * OPENSTACK_METADATA_URL =
                       "http://169.254.169.254/openstack/latest/meta_data.json";
 
 /**************************************************************************//**
@@ -81,11 +81,16 @@ static const int MAX_METADATA_TOKENS = 128;
 /*****************************************************************************/
 /* Local prototypes.                                                         */
 /*****************************************************************************/
+static EVEL_ERR_CODES json_get_top_level_string(const char * json_string,
+                                                const jsmntok_t *tokens,
+                                                int json_token_count,
+                                                const char * key,
+                                                char * value);
 static EVEL_ERR_CODES json_get_string(const char * json_string,
-                               const jsmntok_t *tokens,
-                               int json_token_count,
-                               const char * key,
-                               char * value);
+                                      const jsmntok_t *tokens,
+                                      int json_token_count,
+                                      const char * key,
+                                      char * value);
 static int jsoneq(const char *json, const jsmntok_t *tok, const char *s);
 
 /**************************************************************************//**
@@ -114,12 +119,7 @@ EVEL_ERR_CODES openstack_metadata(int verbosity)
   /* Initialize dummy values for the metadata - needed for test              */
   /* environments.                                                           */
   /***************************************************************************/
-  strncpy(vm_uuid,
-          "Dummy VM UUID - No Metadata available",
-          MAX_METADATA_STRING);
-  strncpy(vm_name,
-          "Dummy VM name - No Metadata available",
-          MAX_METADATA_STRING);
+  openstack_metadata_initialize();
 
   /***************************************************************************/
   /* Get a curl handle which we'll use for accessing the metadata service.   */
@@ -291,11 +291,11 @@ EVEL_ERR_CODES openstack_metadata(int verbosity)
     {
       EVEL_DEBUG("UUID: %s", vm_uuid);
     }
-    if (json_get_string(rx_chunk.memory,
-                        tokens,
-                        json_token_count,
-                        "name",
-                        vm_name) != EVEL_SUCCESS)
+    if (json_get_top_level_string(rx_chunk.memory,
+                                  tokens,
+                                  json_token_count,
+                                  "name",
+                                  vm_name) != EVEL_SUCCESS)
     {
       rc = EVEL_BAD_METADATA;
       EVEL_ERROR("Failed to extract VM Name from OpenStack metadata");
@@ -320,6 +320,19 @@ exit_label:
 
   EVEL_EXIT();
   return rc;
+}
+
+/**************************************************************************//**
+ * Initialize default values for vm_name and vm_uuid - for testing purposes.
+ *****************************************************************************/
+void openstack_metadata_initialize()
+{
+  strncpy(vm_uuid,
+          "Dummy VM UUID - No Metadata available",
+          MAX_METADATA_STRING);
+  strncpy(vm_name,
+          "Dummy VM name - No Metadata available",
+          MAX_METADATA_STRING);
 }
 
 /**************************************************************************//**
@@ -391,6 +404,137 @@ static EVEL_ERR_CODES json_get_string(const char * json_string,
         EVEL_DEBUG("Extracted key: \"%s\" Value: \"%s\"", key, value);
         rc = EVEL_SUCCESS;
         goto exit_label;
+      }
+      else
+      {
+        EVEL_DEBUG("String key did not match");
+      }
+
+      /***********************************************************************/
+      /* Step over the value, whether we used it or not.                     */
+      /***********************************************************************/
+      token_num++;
+      break;
+
+    case JSMN_PRIMITIVE:
+      EVEL_INFO("Skipping primitive");
+      break;
+
+    case JSMN_UNDEFINED:
+    default:
+      rc = EVEL_BAD_JSON_FORMAT;
+      EVEL_ERROR("Unexpected JSON format at token %d (%d)",
+                  token_num,
+                  tokens[token_num].type);
+      goto exit_label;
+    }
+  }
+
+exit_label:
+  EVEL_EXIT();
+  return rc;
+}
+
+/**************************************************************************//**
+ * Get a top-level string value from supplied JSON by matching the key.
+ *
+ * Unlike json_get_string, this only returns a value that is in the top-level
+ * JSON object.
+ *
+ * @param[in] json_string   The string which contains the JSON and has already
+ *                          been parsed.
+ * @param[in] tokens        The tokens which the JSON parser found in the JSON.
+ * @param[in] json_token_count  How many tokens were found.
+ * @param[in] key           The key we're looking for.
+ * @param[out] value        The string we found at @p key.
+ *
+ * @returns Status code
+ * @retval  EVEL_SUCCESS      On success - contents of @p value updated.
+ * @retval  EVEL_JSON_KEY_NOT_FOUND  Key not found - @p value not updated.
+ * @retval  EVEL_BAD_JSON     Parser hit unexpected data - @p value not
+ *                            updated.
+ *****************************************************************************/
+static EVEL_ERR_CODES json_get_top_level_string(const char * json_string,
+                                                const jsmntok_t * tokens,
+                                                int json_token_count,
+                                                const char * key,
+                                                char * value)
+{
+  EVEL_ERR_CODES rc = EVEL_JSON_KEY_NOT_FOUND;
+  int token_num = 0;
+  int token_len = 0;
+  int bracket_count = 0;
+  int string_index = 0;
+  int increment = 0;
+
+  EVEL_ENTER();
+
+  /***************************************************************************/
+  /* Check assumptions.                                                      */
+  /***************************************************************************/
+  assert(json_string != NULL);
+  assert(tokens != NULL);
+  assert(json_token_count >= 0);
+  assert(key != NULL);
+  assert(value != NULL);
+
+  for (token_num = 0; token_num < json_token_count; token_num++)
+  {
+    switch(tokens[token_num].type)
+    {
+    case JSMN_OBJECT:
+      EVEL_DEBUG("Skipping object");
+      break;
+
+    case JSMN_ARRAY:
+      EVEL_DEBUG("Skipping array");
+      break;
+
+    case JSMN_STRING:
+      /***********************************************************************/
+      /* This is a string, so may be what we want.  Compare keys.            */
+      /***********************************************************************/
+      if (jsoneq(json_string, &tokens[token_num], key) == 0)
+      {
+        /*********************************************************************/
+        /* Count the difference in the number of opening and closing         */
+        /* brackets up to this token.  This needs to be 1 for a top-level    */
+        /* string.  Let's just hope we don't have any strings containing     */
+        /* brackets.                                                         */
+        /*********************************************************************/
+        increment = ((string_index < tokens[token_num].start) ? 1 : -1);
+
+        while (string_index != tokens[token_num].start)
+        {
+          if (json_string[string_index] == '{')
+          {
+            bracket_count += increment;
+          }
+          else if (json_string[string_index] == '}')
+          {
+            bracket_count -= increment;
+          }
+
+          string_index += increment;
+        }
+
+        if (bracket_count == 1)
+        {
+          token_len = tokens[token_num + 1].end - tokens[token_num + 1].start;
+          EVEL_DEBUG("Token %d len %d matches at top level at %d to %d",
+                     token_num,
+                     tokens[token_num + 1].start,
+                     tokens[token_num + 1].end);
+          strncpy(value, json_string + tokens[token_num + 1].start, token_len);
+          value[token_len] = '\0';
+          EVEL_DEBUG("Extracted key: \"%s\" Value: \"%s\"", key, value);
+          rc = EVEL_SUCCESS;
+          goto exit_label;
+        }
+        else
+        {
+          EVEL_DEBUG("String key did match, but not at top level");
+        }
       }
       else
       {

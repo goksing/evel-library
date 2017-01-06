@@ -1,6 +1,6 @@
 \hypertarget{jsmn_8c}{}\section{jsmn.\+c File Reference}
 \label{jsmn_8c}\index{jsmn.\+c@{jsmn.\+c}}
-{\ttfamily \#include \char`\"{}jsmn.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}jsmn.\+h\char`\"{}}\newline
 Include dependency graph for jsmn.\+c\+:
 \nopagebreak
 \begin{figure}[H]
@@ -13,43 +13,37 @@ Include dependency graph for jsmn.\+c\+:
 \begin{DoxyCompactItemize}
 \item 
 int \hyperlink{jsmn_8c_a774f985a9750a10c7e88304e30191e03}{jsmn\+\_\+parse} (\hyperlink{structjsmn__parser}{jsmn\+\_\+parser} $\ast$parser, const char $\ast$js, size\+\_\+t len, \hyperlink{structjsmntok__t}{jsmntok\+\_\+t} $\ast$tokens, unsigned int num\+\_\+tokens)
-\begin{DoxyCompactList}\small\item\em Parse J\+S\+O\+N string and fill tokens. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Parse J\+S\+ON string and fill tokens. \end{DoxyCompactList}\item 
 void \hyperlink{jsmn_8c_a8d4a8b3ce5c3d600feea38615b5f9aa6}{jsmn\+\_\+init} (\hyperlink{structjsmn__parser}{jsmn\+\_\+parser} $\ast$parser)
 \begin{DoxyCompactList}\small\item\em Creates a new parser based over a given buffer with an array of tokens available. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \subsection{Function Documentation}
-\hypertarget{jsmn_8c_a8d4a8b3ce5c3d600feea38615b5f9aa6}{}\index{jsmn.\+c@{jsmn.\+c}!jsmn\+\_\+init@{jsmn\+\_\+init}}
+\hypertarget{jsmn_8c_a8d4a8b3ce5c3d600feea38615b5f9aa6}{}\label{jsmn_8c_a8d4a8b3ce5c3d600feea38615b5f9aa6} 
+\index{jsmn.\+c@{jsmn.\+c}!jsmn\+\_\+init@{jsmn\+\_\+init}}
 \index{jsmn\+\_\+init@{jsmn\+\_\+init}!jsmn.\+c@{jsmn.\+c}}
-\subsubsection[{jsmn\+\_\+init(jsmn\+\_\+parser $\ast$parser)}]{\setlength{\rightskip}{0pt plus 5cm}void jsmn\+\_\+init (
-\begin{DoxyParamCaption}
-\item[{{\bf jsmn\+\_\+parser} $\ast$}]{parser}
-\end{DoxyParamCaption}
-)}\label{jsmn_8c_a8d4a8b3ce5c3d600feea38615b5f9aa6}
+\subsubsection{\texorpdfstring{jsmn\+\_\+init()}{jsmn\_init()}}
+{\footnotesize\ttfamily void jsmn\+\_\+init (\begin{DoxyParamCaption}\item[{\hyperlink{structjsmn__parser}{jsmn\+\_\+parser} $\ast$}]{parser }\end{DoxyParamCaption})}
+
 
 
 Creates a new parser based over a given buffer with an array of tokens available. 
 
-Create J\+S\+O\+N parser over an array of tokens. 
+Create J\+S\+ON parser over an array of tokens. 
 
 Definition at line 306 of file jsmn.\+c.
 
-\hypertarget{jsmn_8c_a774f985a9750a10c7e88304e30191e03}{}\index{jsmn.\+c@{jsmn.\+c}!jsmn\+\_\+parse@{jsmn\+\_\+parse}}
+\hypertarget{jsmn_8c_a774f985a9750a10c7e88304e30191e03}{}\label{jsmn_8c_a774f985a9750a10c7e88304e30191e03} 
+\index{jsmn.\+c@{jsmn.\+c}!jsmn\+\_\+parse@{jsmn\+\_\+parse}}
 \index{jsmn\+\_\+parse@{jsmn\+\_\+parse}!jsmn.\+c@{jsmn.\+c}}
-\subsubsection[{jsmn\+\_\+parse(jsmn\+\_\+parser $\ast$parser, const char $\ast$js, size\+\_\+t len, jsmntok\+\_\+t $\ast$tokens, unsigned int num\+\_\+tokens)}]{\setlength{\rightskip}{0pt plus 5cm}int jsmn\+\_\+parse (
-\begin{DoxyParamCaption}
-\item[{{\bf jsmn\+\_\+parser} $\ast$}]{parser, }
-\item[{const char $\ast$}]{js, }
-\item[{size\+\_\+t}]{len, }
-\item[{{\bf jsmntok\+\_\+t} $\ast$}]{tokens, }
-\item[{unsigned int}]{num\+\_\+tokens}
-\end{DoxyParamCaption}
-)}\label{jsmn_8c_a774f985a9750a10c7e88304e30191e03}
+\subsubsection{\texorpdfstring{jsmn\+\_\+parse()}{jsmn\_parse()}}
+{\footnotesize\ttfamily int jsmn\+\_\+parse (\begin{DoxyParamCaption}\item[{\hyperlink{structjsmn__parser}{jsmn\+\_\+parser} $\ast$}]{parser,  }\item[{const char $\ast$}]{js,  }\item[{size\+\_\+t}]{len,  }\item[{\hyperlink{structjsmntok__t}{jsmntok\+\_\+t} $\ast$}]{tokens,  }\item[{unsigned int}]{num\+\_\+tokens }\end{DoxyParamCaption})}
 
 
-Parse J\+S\+O\+N string and fill tokens. 
 
-Run J\+S\+O\+N parser. 
+Parse J\+S\+ON string and fill tokens. 
+
+Run J\+S\+ON parser. 
 
 Definition at line 151 of file jsmn.\+c.
 

@@ -1,10 +1,22 @@
 <map id="evel_internal.h" name="evel_internal.h">
-<area shape="rect" id="node3" href="$evel_8c.html" title="Source module isolating the ECOMP Vendor Event Listener (EVEL) API. " alt="" coords="5,83,61,112"/>
-<area shape="rect" id="node5" href="$evel__event_8c.html" title="Implementation of EVEL functions relating to Event Headers &#45; since Heartbeats only contain the Event ..." alt="" coords="85,83,181,112"/>
-<area shape="rect" id="node7" href="$evel__event__mgr_8c.html" title="Event Manager. " alt="" coords="205,83,331,112"/>
-<area shape="rect" id="node9" href="$evel__fault_8c.html" title="Implementation of EVEL functions relating to the Fault. " alt="" coords="355,83,443,112"/>
-<area shape="rect" id="node11" href="$evel__internal__event_8c.html" title="Implementation of EVEL functions relating to the internal events. " alt="" coords="467,83,611,112"/>
-<area shape="rect" id="node13" href="$evel__reporting__measurement_8c.html" title="Implementation of EVEL functions relating to the Measurement for VF Reporting event. " alt="" coords="635,83,835,112"/>
-<area shape="rect" id="node15" href="$evel__scaling__measurement_8c.html" title="Implementation of EVEL functions relating to the Measurement. " alt="" coords="859,83,1048,112"/>
-<area shape="rect" id="node17" href="$metadata_8c.html" title="Wrap the OpenStack metadata service. " alt="" coords="1072,83,1157,112"/>
+<area shape="rect" id="node2" href="$evel_8c.html" title="Source module isolating the ECOMP Vendor Event Listener (EVEL) API. " alt="" coords="5,155,61,181"/>
+<area shape="rect" id="node3" href="$evel__throttle_8h.html" title="EVEL throttle definitions. " alt="" coords="553,80,657,107"/>
+<area shape="rect" id="node4" href="$evel__event_8c.html" title="Implementation of EVEL functions relating to Event Headers &#45; since Heartbeats only contain the Event ..." alt="" coords="87,155,183,181"/>
+<area shape="rect" id="node5" href="$evel__event__mgr_8c.html" title="Event Manager. " alt="" coords="207,155,332,181"/>
+<area shape="rect" id="node6" href="$evel__fault_8c.html" title="Implementation of EVEL functions relating to the Fault. " alt="" coords="357,155,445,181"/>
+<area shape="rect" id="node15" href="$evel__internal__event_8c.html" title="Implementation of EVEL functions relating to the internal events. " alt="" coords="682,80,827,107"/>
+<area shape="rect" id="node16" href="$evel__mobile__flow_8c.html" title="Implementation of EVEL functions relating to the Mobile Flow. " alt="" coords="851,80,983,107"/>
+<area shape="rect" id="node17" href="$evel__option_8c.html" title="Source module relating to EVEL_OPTION_ types. " alt="" coords="1008,80,1107,107"/>
+<area shape="rect" id="node18" href="$evel__other_8c.html" title="Implementation of EVEL functions relating to Other. " alt="" coords="1131,80,1224,107"/>
+<area shape="rect" id="node8" href="$evel__reporting__measurement_8c.html" title="Implementation of EVEL functions relating to the Measurement for VF Reporting event. " alt="" coords="1315,155,1515,181"/>
+<area shape="rect" id="node9" href="$evel__scaling__measurement_8c.html" title="Implementation of EVEL functions relating to the Measurement. " alt="" coords="1539,155,1729,181"/>
+<area shape="rect" id="node19" href="$evel__strings_8c.html" title="Implementation of EVEL functions to convert common enum types to strings. " alt="" coords="1350,80,1452,107"/>
+<area shape="rect" id="node20" href="$metadata_8c.html" title="Wrap the OpenStack metadata service. " alt="" coords="1477,80,1563,107"/>
+<area shape="rect" id="node21" href="$evel__test__control_8c.html" title="Utility to post test control commands to the test_collector testControl API. " alt="" coords="1587,80,1719,107"/>
+<area shape="rect" id="node7" href="$evel__json__buffer_8c.html" title="Source module relating to internal EVEL_JSON_BUFFER manipulation functions. " alt="" coords="471,155,599,181"/>
+<area shape="rect" id="node10" href="$evel__service_8c.html" title="Implementation of EVEL functions relating to Service. " alt="" coords="623,155,729,181"/>
+<area shape="rect" id="node11" href="$evel__signaling_8c.html" title="Implementation of EVEL functions relating to Signaling. " alt="" coords="753,155,868,181"/>
+<area shape="rect" id="node12" href="$evel__state__change_8c.html" title="Implementation of EVEL functions relating to the State Change. " alt="" coords="893,155,1035,181"/>
+<area shape="rect" id="node13" href="$evel__syslog_8c.html" title="Implementation of EVEL functions relating to the Syslog. " alt="" coords="1059,155,1161,181"/>
+<area shape="rect" id="node14" href="$evel__throttle_8c.html" title="Event Manager. " alt="" coords="1187,155,1291,181"/>
 </map>

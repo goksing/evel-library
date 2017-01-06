@@ -47,6 +47,7 @@
 #include "evel.h"
 #include "evel_internal.h"
 #include "ring_buffer.h"
+#include "evel_throttle.h"
 
 /**************************************************************************//**
  * How long we're prepared to wait for the API service to respond in
@@ -59,6 +60,16 @@ static const int EVEL_API_TIMEOUT = 5;
 /*****************************************************************************/
 static size_t read_callback(void *ptr, size_t size, size_t nmemb, void *userp);
 static void * event_handler(void *arg);
+static bool evel_handle_response_tokens(const MEMORY_CHUNK * const chunk,
+                                        const jsmntok_t * const json_tokens,
+                                        const int num_tokens,
+                                        MEMORY_CHUNK * const post);
+static bool evel_tokens_match_command_list(const MEMORY_CHUNK * const chunk,
+                                           const jsmntok_t * const json_token,
+                                           const int num_tokens);
+static bool evel_token_equals_string(const MEMORY_CHUNK * const chunk,
+                                     const jsmntok_t * const json_token,
+                                     const char * check_string);
 
 /**************************************************************************//**
  * Buffers for error strings from libcurl.
@@ -73,7 +84,7 @@ static CURL * curl_handle = NULL;
 /**************************************************************************//**
  * Special headers that we send.
  *****************************************************************************/
-static struct curl_slist *hdr_chunk = NULL;
+static struct curl_slist * hdr_chunk = NULL;
 
 /**************************************************************************//**
  * Message queue for sending events to the API.
@@ -81,17 +92,16 @@ static struct curl_slist *hdr_chunk = NULL;
 static ring_buffer event_buffer;
 
 /**************************************************************************//**
- * The thread which is responsible for handling events off of the ring-buffer
- * and posting them to the Event Handler API.
+ * Single pending priority post, which can be generated as a result of a
+ * response to an event.  Currently only used to respond to a commandList.
  *****************************************************************************/
-static pthread_t evt_handler_thread;
+static MEMORY_CHUNK priority_post;
 
 /**************************************************************************//**
  * The thread which is responsible for handling events off of the ring-buffer
  * and posting them to the Event Handler API.
  *****************************************************************************/
 static pthread_t evt_handler_thread;
-
 
 /**************************************************************************//**
  * Variable to convey to the event handler thread what the foreground wants it
@@ -100,31 +110,52 @@ static pthread_t evt_handler_thread;
 static EVT_HANDLER_STATE evt_handler_state = EVT_HANDLER_UNINITIALIZED;
 
 /**************************************************************************//**
+ * The configured API URL for event and throttling.
+ *****************************************************************************/
+static char * evel_event_api_url;
+static char * evel_throt_api_url;
+
+/**************************************************************************//**
  * Initialize the event handler.
  *
  * Primarily responsible for getting CURL ready for use.
  *
- * @param[in] api_url   The URL where the Vendor Event Listener API is expected
+ * @param[in] event_api_url
+ *                      The URL where the Vendor Event Listener API is expected
  *                      to be.
+ * @param[in] throt_api_url
+ *                      The URL where the Throttling API is expected to be.
  * @param[in] username  The username for the Basic Authentication of requests.
  * @param[in] password  The password for the Basic Authentication of requests.
  * @param     verbosity 0 for normal operation, positive values for chattier
  *                        logs.
  *****************************************************************************/
-EVEL_ERR_CODES event_handler_initialize(const char const *api_url,
-                                        const char const * username,
-                                        const char const * password,
+EVEL_ERR_CODES event_handler_initialize(const char * const event_api_url,
+                                        const char * const throt_api_url,
+                                        const char * const username,
+                                        const char * const password,
                                         int verbosity)
 {
   int rc = EVEL_SUCCESS;
   CURLcode curl_rc = CURLE_OK;
 
+  EVEL_ENTER();
+
   /***************************************************************************/
   /* Check assumptions.                                                      */
   /***************************************************************************/
-  assert(api_url != NULL);
+  assert(event_api_url != NULL);
+  assert(throt_api_url != NULL);
   assert(username != NULL);
   assert(password != NULL);
+
+  /***************************************************************************/
+  /* Store the API URLs.                                                     */
+  /***************************************************************************/
+  evel_event_api_url = strdup(event_api_url);
+  assert(evel_event_api_url != NULL);
+  evel_throt_api_url = strdup(throt_api_url);
+  assert(evel_throt_api_url != NULL);
 
   /***************************************************************************/
   /* Start the CURL library. Note that this initialization is not threadsafe */
@@ -182,7 +213,7 @@ EVEL_ERR_CODES event_handler_initialize(const char const *api_url,
   /***************************************************************************/
   /* Set the URL for the API.                                                */
   /***************************************************************************/
-  curl_rc = curl_easy_setopt(curl_handle, CURLOPT_URL, api_url);
+  curl_rc = curl_easy_setopt(curl_handle, CURLOPT_URL, event_api_url);
   if (curl_rc != CURLE_OK)
   {
     rc = EVEL_CURL_LIBRARY_FAIL;
@@ -190,7 +221,7 @@ EVEL_ERR_CODES event_handler_initialize(const char const *api_url,
                     "Error code=%d (%s)", curl_rc, curl_err_string);
     goto exit_label;
   }
-  EVEL_INFO("Initializing CURL to send events to: %s", api_url);
+  EVEL_INFO("Initializing CURL to send events to: %s", event_api_url);
 
   /***************************************************************************/
   /* send all data to this function.                                         */
@@ -316,7 +347,14 @@ EVEL_ERR_CODES event_handler_initialize(const char const *api_url,
   /***************************************************************************/
   ring_buffer_initialize(&event_buffer, EVEL_EVENT_BUFFER_DEPTH);
 
+  /***************************************************************************/
+  /* Initialize the priority post buffer to empty.                           */
+  /***************************************************************************/
+  priority_post.memory = NULL;
+
 exit_label:
+  EVEL_EXIT();
+
   return(rc);
 }
 
@@ -330,7 +368,7 @@ exit_label:
  *  @retval ::EVEL_SUCCESS if everything OK.
  *  @retval One of ::EVEL_ERR_CODES if there was a problem.
  *****************************************************************************/
- EVEL_ERR_CODES event_handler_run()
+EVEL_ERR_CODES event_handler_run()
 {
   EVEL_ERR_CODES rc = EVEL_SUCCESS;
   int pthread_rc = 0;
@@ -425,6 +463,20 @@ EVEL_ERR_CODES event_handler_terminate()
     hdr_chunk = NULL;
   }
 
+  /***************************************************************************/
+  /* Free off the stored API URL strings.                                    */
+  /***************************************************************************/
+  if (evel_event_api_url != NULL)
+  {
+    free(evel_event_api_url);
+    evel_event_api_url = NULL;
+  }
+  if (evel_throt_api_url != NULL)
+  {
+    free(evel_throt_api_url);
+    evel_throt_api_url = NULL;
+  }
+
   EVEL_EXIT();
   return rc;
 }
@@ -458,9 +510,9 @@ EVEL_ERR_CODES evel_post_event(EVENT_HEADER * event)
   /* normally before writing the event into the buffer so that we can        */
   /* guarantee that the ring-buffer empties  properly on exit.               */
   /***************************************************************************/
-  if (evt_handler_state == EVT_HANDLER_ACTIVE ||
-      evt_handler_state == EVT_HANDLER_INACTIVE ||
-      evt_handler_state == EVT_HANDLER_REQUEST_TERMINATE )
+  if ((evt_handler_state == EVT_HANDLER_ACTIVE) ||
+      (evt_handler_state == EVT_HANDLER_INACTIVE) ||
+      (evt_handler_state == EVT_HANDLER_REQUEST_TERMINATE))
   {
     if (ring_buffer_write(&event_buffer, event) == 0)
     {
@@ -518,7 +570,7 @@ static EVEL_ERR_CODES evel_post_api(char * msg, size_t size)
   /***************************************************************************/
   /* Point to the data to be received.                                       */
   /***************************************************************************/
-  curl_rc = curl_easy_setopt(curl_handle, CURLOPT_WRITEDATA, (void *)&rx_chunk);
+  curl_rc = curl_easy_setopt(curl_handle, CURLOPT_WRITEDATA, &rx_chunk);
   if (curl_rc != CURLE_OK)
   {
     rc = EVEL_CURL_LIBRARY_FAIL;
@@ -529,7 +581,7 @@ static EVEL_ERR_CODES evel_post_api(char * msg, size_t size)
   EVEL_DEBUG("Initialized data to receive");
 
   /***************************************************************************/
-  /* pointer to pass to our read function                                    */
+  /* Pointer to pass to our read function                                    */
   /***************************************************************************/
   curl_rc = curl_easy_setopt(curl_handle, CURLOPT_READDATA, &tx_chunk);
   if (curl_rc != CURLE_OK)
@@ -580,11 +632,23 @@ static EVEL_ERR_CODES evel_post_api(char * msg, size_t size)
     /* If the server responded with data it may be interesting but not a     */
     /* problem.                                                              */
     /*************************************************************************/
-    if (rx_chunk.size > 0)
+    if ((rx_chunk.size > 0) && (rx_chunk.memory != NULL))
     {
-      EVEL_DEBUG("Server returned data unexpectedly = %d (%s)",
+      EVEL_DEBUG("Server returned data = %d (%s)",
                  rx_chunk.size,
                  rx_chunk.memory);
+
+      /***********************************************************************/
+      /* If this is a response to priority post, then we're not interested.  */
+      /***********************************************************************/
+      if (priority_post.memory != NULL)
+      {
+        EVEL_ERROR("Ignoring priority post response");
+      }
+      else
+      {
+        evel_handle_event_response(&rx_chunk, &priority_post);
+      }
     }
   }
   else
@@ -651,7 +715,7 @@ size_t evel_write_callback(void *contents,
                              void *userp)
 {
   size_t realsize = size * nmemb;
-  MEMORY_CHUNK *rx_chunk = (MEMORY_CHUNK *)userp;
+  MEMORY_CHUNK * rx_chunk = (MEMORY_CHUNK *)userp;
 
   EVEL_ENTER();
 
@@ -692,7 +756,7 @@ static void * event_handler(void * arg __attribute__ ((unused)))
   int json_size = 0;
   char json_body[EVEL_MAX_JSON_BODY];
   int rc = EVEL_SUCCESS;
-
+  CURLcode curl_rc;
 
   EVEL_INFO("Event handler thread started");
 
@@ -732,14 +796,14 @@ static void * event_handler(void * arg __attribute__ ((unused)))
     {
       EVEL_DEBUG("External event received");
 
-      /*************************************************************************/
-      /* Encode the event in JSON.                                             */
-      /*************************************************************************/
+      /***********************************************************************/
+      /* Encode the event in JSON.                                           */
+      /***********************************************************************/
       json_size = evel_json_encode_event(json_body, EVEL_MAX_JSON_BODY, msg);
 
-      /*************************************************************************/
-      /* Send the JSON across the API.                                         */
-      /*************************************************************************/
+      /***********************************************************************/
+      /* Send the JSON across the API.                                       */
+      /***********************************************************************/
       EVEL_DEBUG("Sending JSON of size %d is: %s", json_size, json_body);
       rc = evel_post_api(json_body, json_size);
       if (rc != EVEL_SUCCESS)
@@ -760,6 +824,54 @@ static void * event_handler(void * arg __attribute__ ((unused)))
     /*************************************************************************/
     evel_free_event(msg);
     msg = NULL;
+
+    /*************************************************************************/
+    /* There may be a single priority post to be sent.                       */
+    /*************************************************************************/
+    if (priority_post.memory != NULL)
+    {
+      EVEL_DEBUG("Priority Post");
+
+      /***********************************************************************/
+      /* Set the URL for the throttling API.                                 */
+      /***********************************************************************/
+      curl_rc = curl_easy_setopt(curl_handle, CURLOPT_URL, evel_throt_api_url);
+      if (curl_rc != CURLE_OK)
+      {
+        /*********************************************************************/
+        /* This is only likely to happen with CURLE_OUT_OF_MEMORY, in which  */
+        /* case we carry on regardless.                                      */
+        /*********************************************************************/
+        EVEL_ERROR("Failed to set throttling URL. Error code=%d", rc);
+      }
+      else
+      {
+        rc = evel_post_api(priority_post.memory, priority_post.size);
+        if (rc != EVEL_SUCCESS)
+        {
+          EVEL_ERROR("Failed to transfer priority post. Error code=%d", rc);
+        }
+      }
+
+      /***********************************************************************/
+      /* Reinstate the URL for the event API.                                */
+      /***********************************************************************/
+      curl_rc = curl_easy_setopt(curl_handle, CURLOPT_URL, evel_event_api_url);
+      if (curl_rc != CURLE_OK)
+      {
+        /*********************************************************************/
+        /* This is only likely to happen with CURLE_OUT_OF_MEMORY, in which  */
+        /* case we carry on regardless.                                      */
+        /*********************************************************************/
+        EVEL_ERROR("Failed to reinstate events URL. Error code=%d", rc);
+      }
+
+      /***********************************************************************/
+      /* We are responsible for freeing the memory.                          */
+      /***********************************************************************/
+      free(priority_post.memory);
+      priority_post.memory = NULL;
+    }
   }
 
   /***************************************************************************/
@@ -779,4 +891,163 @@ static void * event_handler(void * arg __attribute__ ((unused)))
   EVEL_INFO("Event handler thread stopped");
 
   return (NULL);
+}
+
+/**************************************************************************//**
+ * Handle a JSON response from the listener, contained in a ::MEMORY_CHUNK.
+ *
+ * Tokenize the response, and decode any tokens found.
+ *
+ * @param chunk         The memory chunk containing the response.
+ * @param post          The memory chunk in which to place any resulting POST.
+ *****************************************************************************/
+void evel_handle_event_response(const MEMORY_CHUNK * const chunk,
+                                MEMORY_CHUNK * const post)
+{
+  jsmn_parser json_parser;
+  jsmntok_t json_tokens[EVEL_MAX_RESPONSE_TOKENS];
+  int num_tokens = 0;
+
+  EVEL_ENTER();
+
+  /***************************************************************************/
+  /* Check preconditions.                                                    */
+  /***************************************************************************/
+  assert(chunk != NULL);
+  assert(priority_post.memory == NULL);
+
+  EVEL_DEBUG("Response size = %d", chunk->size);
+  EVEL_DEBUG("Response = %s", chunk->memory);
+
+  /***************************************************************************/
+  /* Initialize the parser and tokenize the response.                        */
+  /***************************************************************************/
+  jsmn_init(&json_parser);
+  num_tokens = jsmn_parse(&json_parser,
+                          chunk->memory,
+                          chunk->size,
+                          json_tokens,
+                          EVEL_MAX_RESPONSE_TOKENS);
+
+  if (num_tokens < 0)
+  {
+    EVEL_ERROR("Failed to parse JSON response.  "
+               "Error code=%d", num_tokens);
+  }
+  else if (num_tokens == 0)
+  {
+    EVEL_DEBUG("No tokens found in JSON response");
+  }
+  else
+  {
+    EVEL_DEBUG("Decode JSON response tokens");
+    if (!evel_handle_response_tokens(chunk, json_tokens, num_tokens, post))
+    {
+      EVEL_ERROR("Failed to handle JSON response.");
+    }
+  }
+
+  EVEL_EXIT();
+}
+
+/**************************************************************************//**
+ * Handle a JSON response from the listener, as a list of tokens from JSMN.
+ *
+ * @param chunk         Memory chunk containing the JSON buffer.
+ * @param json_tokens   Array of tokens to handle.
+ * @param num_tokens    The number of tokens to handle.
+ * @param post          The memory chunk in which to place any resulting POST.
+ * @return true if we handled the response, false otherwise.
+ *****************************************************************************/
+bool evel_handle_response_tokens(const MEMORY_CHUNK * const chunk,
+                                 const jsmntok_t * const json_tokens,
+                                 const int num_tokens,
+                                 MEMORY_CHUNK * const post)
+{
+  bool json_ok = false;
+
+  EVEL_ENTER();
+
+  /***************************************************************************/
+  /* Check preconditions.                                                    */
+  /***************************************************************************/
+  assert(chunk != NULL);
+  assert(json_tokens != NULL);
+  assert(num_tokens < EVEL_MAX_RESPONSE_TOKENS);
+
+  /***************************************************************************/
+  /* Peek at the tokens to decide what the response it, then call the        */
+  /* appropriate handler to handle it.  There is only one handler at this    */
+  /* point.                                                                  */
+  /***************************************************************************/
+  if (evel_tokens_match_command_list(chunk, json_tokens, num_tokens))
+  {
+    json_ok = evel_handle_command_list(chunk, json_tokens, num_tokens, post);
+  }
+
+  EVEL_EXIT();
+
+  return json_ok;
+}
+
+/**************************************************************************//**
+ * Determine whether a list of tokens looks like a "commandList" response.
+ *
+ * @param chunk         Memory chunk containing the JSON buffer.
+ * @param json_tokens   Token to check.
+ * @param num_tokens    The number of tokens to handle.
+ * @return true if the tokens look like a "commandList" match, or false.
+ *****************************************************************************/
+bool evel_tokens_match_command_list(const MEMORY_CHUNK * const chunk,
+                                    const jsmntok_t * const json_tokens,
+                                    const int num_tokens)
+{
+  bool result = false;
+
+  EVEL_ENTER();
+
+  /***************************************************************************/
+  /* Make some checks on the basic layout of the commandList.                */
+  /***************************************************************************/
+  if ((num_tokens > 3) &&
+      (json_tokens[0].type == JSMN_OBJECT) &&
+      (json_tokens[1].type == JSMN_STRING) &&
+      (json_tokens[2].type == JSMN_ARRAY) &&
+      (evel_token_equals_string(chunk, &json_tokens[1], "commandList")))
+  {
+    result = true;
+  }
+
+  EVEL_EXIT();
+
+  return result;
+}
+
+/**************************************************************************//**
+ * Check that a string token matches a given input string.
+ *
+ * @param chunk         Memory chunk containing the JSON buffer.
+ * @param json_token    Token to check.
+ * @param check_string  String to check it against.
+ * @return true if the strings match, or false.
+ *****************************************************************************/
+bool evel_token_equals_string(const MEMORY_CHUNK * const chunk,
+                              const jsmntok_t * json_token,
+                              const char * check_string)
+{
+  bool result = false;
+
+  EVEL_ENTER();
+
+  const int token_length = json_token->end - json_token->start;
+  const char * const token_string = chunk->memory + json_token->start;
+
+  if (token_length == (int)strlen(check_string))
+  {
+    result = (strncmp(token_string, check_string, token_length) == 0);
+  }
+
+  EVEL_EXIT();
+
+  return result;
 }

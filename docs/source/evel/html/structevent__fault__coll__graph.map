@@ -1,5 +1,6 @@
 <map id="event_fault" name="event_fault">
-<area shape="rect" id="node2" href="$structevent__header.html" title="Event header. " alt="" coords="5,123,104,152"/>
-<area shape="rect" id="node4" href="$structdlist.html" title="Double&#45;linked list structure. " alt="" coords="128,123,173,152"/>
-<area shape="rect" id="node6" href="$structdlist__item.html" title="dlist_item" alt="" coords="112,8,189,37"/>
+<area shape="rect" id="node2" href="$structevel__option__string.html" title="Optional parameter holder for string. " alt="" coords="7,7,133,33"/>
+<area shape="rect" id="node3" href="$structevent__header.html" title="Event header. " alt="" coords="134,128,233,155"/>
+<area shape="rect" id="node4" href="$structdlist.html" title="Double&#45;linked list structure. " alt="" coords="258,128,304,155"/>
+<area shape="rect" id="node5" href="$structdlist__item.html" title="dlist_item" alt="" coords="242,7,320,33"/>
 </map>

@@ -1,0 +1,282 @@
+\hypertarget{evel__strings_8c}{}\section{evel\+\_\+strings.\+c File Reference}
+\label{evel__strings_8c}\index{evel\+\_\+strings.\+c@{evel\+\_\+strings.\+c}}
+
+
+Implementation of E\+V\+EL functions to convert common enum types to strings.  
+
+
+{\ttfamily \#include $<$string.\+h$>$}\newline
+{\ttfamily \#include $<$assert.\+h$>$}\newline
+{\ttfamily \#include $<$stdlib.\+h$>$}\newline
+{\ttfamily \#include \char`\"{}evel\+\_\+internal.\+h\char`\"{}}\newline
+Include dependency graph for evel\+\_\+strings.\+c\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{evel__strings_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+char $\ast$ \hyperlink{evel__strings_8c_a540edb796118cdc39f0b966bc4a86a8d}{evel\+\_\+criticality} (const \hyperlink{evel_8h_a5f601bc5a0317f8060a8cc6da24472e0}{E\+V\+E\+L\+\_\+\+C\+O\+U\+N\+T\+E\+R\+\_\+\+C\+R\+I\+T\+I\+C\+A\+L\+I\+T\+I\+ES} criticality)
+\begin{DoxyCompactList}\small\item\em Map an \hyperlink{evel_8h_a5f601bc5a0317f8060a8cc6da24472e0}{E\+V\+E\+L\+\_\+\+C\+O\+U\+N\+T\+E\+R\+\_\+\+C\+R\+I\+T\+I\+C\+A\+L\+I\+T\+I\+ES} enum value to the equivalent string. \end{DoxyCompactList}\item 
+char $\ast$ \hyperlink{evel__strings_8c_ae0aec52b83ec16c1cbd363daa41121ce}{evel\+\_\+severity} (const \hyperlink{evel_8h_ad28dcc9cce27ecb7e4c9020107a6db9c}{E\+V\+E\+L\+\_\+\+S\+E\+V\+E\+R\+I\+T\+I\+ES} severity)
+\begin{DoxyCompactList}\small\item\em Map an \hyperlink{evel_8h_ad28dcc9cce27ecb7e4c9020107a6db9c}{E\+V\+E\+L\+\_\+\+S\+E\+V\+E\+R\+I\+T\+I\+ES} enum value to the equivalent string. \end{DoxyCompactList}\item 
+char $\ast$ \hyperlink{evel__strings_8c_a1274e7fb7077c56a7ce9f84ac360dafa}{evel\+\_\+alert\+\_\+action} (const \hyperlink{evel_8h_aa4e9d876e86a335465e524701ff9f3ac}{E\+V\+E\+L\+\_\+\+A\+L\+E\+R\+T\+\_\+\+A\+C\+T\+I\+O\+NS} alert\+\_\+action)
+\begin{DoxyCompactList}\small\item\em Map an \hyperlink{evel_8h_aa4e9d876e86a335465e524701ff9f3ac}{E\+V\+E\+L\+\_\+\+A\+L\+E\+R\+T\+\_\+\+A\+C\+T\+I\+O\+NS} enum value to the equivalent string. \end{DoxyCompactList}\item 
+char $\ast$ \hyperlink{evel__strings_8c_a4be8ab36848d84dc4ec6aae0d2230479}{evel\+\_\+alert\+\_\+type} (const \hyperlink{evel_8h_acb100d75da7162fcc049076c5fba042b}{E\+V\+E\+L\+\_\+\+A\+L\+E\+R\+T\+\_\+\+T\+Y\+P\+ES} alert\+\_\+type)
+\begin{DoxyCompactList}\small\item\em Map an \hyperlink{evel_8h_acb100d75da7162fcc049076c5fba042b}{E\+V\+E\+L\+\_\+\+A\+L\+E\+R\+T\+\_\+\+T\+Y\+P\+ES} enum value to the equivalent string. \end{DoxyCompactList}\item 
+char $\ast$ \hyperlink{evel__strings_8c_aa71d51f951d9f797a50da5ced9025da1}{evel\+\_\+event\+\_\+domain} (const \hyperlink{evel_8h_ac34d44f4f90f2b63828a32ca9c7b0855}{E\+V\+E\+L\+\_\+\+E\+V\+E\+N\+T\+\_\+\+D\+O\+M\+A\+I\+NS} domain)
+\begin{DoxyCompactList}\small\item\em Map an \hyperlink{evel_8h_ac34d44f4f90f2b63828a32ca9c7b0855}{E\+V\+E\+L\+\_\+\+E\+V\+E\+N\+T\+\_\+\+D\+O\+M\+A\+I\+NS} enum value to the equivalent string. \end{DoxyCompactList}\item 
+char $\ast$ \hyperlink{evel__strings_8c_adb3bc1bd870d58d877ea12f099b442d8}{evel\+\_\+event\+\_\+priority} (const \hyperlink{evel_8h_ad1bf6807fa6710332251611207490484}{E\+V\+E\+L\+\_\+\+E\+V\+E\+N\+T\+\_\+\+P\+R\+I\+O\+R\+I\+T\+I\+ES} priority)
+\begin{DoxyCompactList}\small\item\em Map an \hyperlink{evel_8h_ad1bf6807fa6710332251611207490484}{E\+V\+E\+L\+\_\+\+E\+V\+E\+N\+T\+\_\+\+P\+R\+I\+O\+R\+I\+T\+I\+ES} enum value to the equivalent string. \end{DoxyCompactList}\item 
+char $\ast$ \hyperlink{evel__strings_8c_a1972ad4fddcd1d842ddbb819eb2c923c}{evel\+\_\+source\+\_\+type} (const \hyperlink{evel_8h_a304eae0d024005dc4c7031bdd774d64a}{E\+V\+E\+L\+\_\+\+S\+O\+U\+R\+C\+E\+\_\+\+T\+Y\+P\+ES} source\+\_\+type)
+\begin{DoxyCompactList}\small\item\em Map an \hyperlink{evel_8h_a304eae0d024005dc4c7031bdd774d64a}{E\+V\+E\+L\+\_\+\+S\+O\+U\+R\+C\+E\+\_\+\+T\+Y\+P\+ES} enum value to the equivalent string. \end{DoxyCompactList}\item 
+char $\ast$ \hyperlink{evel__strings_8c_a6e70230186eee759ed8e6145a1a85812}{evel\+\_\+vf\+\_\+status} (const \hyperlink{evel_8h_a940888ae37017b9f85d793972994c8f0}{E\+V\+E\+L\+\_\+\+V\+F\+\_\+\+S\+T\+A\+T\+U\+S\+ES} vf\+\_\+status)
+\begin{DoxyCompactList}\small\item\em Map an \hyperlink{evel_8h_a940888ae37017b9f85d793972994c8f0}{E\+V\+E\+L\+\_\+\+V\+F\+\_\+\+S\+T\+A\+T\+U\+S\+ES} enum value to the equivalent string. \end{DoxyCompactList}\item 
+char $\ast$ \hyperlink{evel__strings_8c_a6cd970f265f6d49b84ea1f43607ddf1d}{evel\+\_\+entity\+\_\+state} (const \hyperlink{evel_8h_a98a07355771fa850672520cd1e9b1168}{E\+V\+E\+L\+\_\+\+E\+N\+T\+I\+T\+Y\+\_\+\+S\+T\+A\+TE} state)
+\begin{DoxyCompactList}\small\item\em Convert a \hyperlink{evel_8h_a98a07355771fa850672520cd1e9b1168}{E\+V\+E\+L\+\_\+\+E\+N\+T\+I\+T\+Y\+\_\+\+S\+T\+A\+TE} to it\textquotesingle{}s string form for J\+S\+ON encoding. \end{DoxyCompactList}\item 
+char $\ast$ \hyperlink{evel__strings_8c_aaa7026f8711820c722b9f9b1290f33e8}{evel\+\_\+service\+\_\+endpoint\+\_\+desc} (const \hyperlink{evel_8h_a98a07355771fa850672520cd1e9b1168}{E\+V\+E\+L\+\_\+\+E\+N\+T\+I\+T\+Y\+\_\+\+S\+T\+A\+TE} endpoint\+\_\+desc)
+\begin{DoxyCompactList}\small\item\em Convert a \hyperlink{evel_8h_afeae65c30729877eb7671ece2318ae67}{E\+V\+E\+L\+\_\+\+S\+E\+R\+V\+I\+C\+E\+\_\+\+E\+N\+D\+P\+O\+I\+N\+T\+\_\+\+D\+E\+SC} to string form for J\+S\+ON encoding. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Implementation of E\+V\+EL functions to convert common enum types to strings. 
+
+\subsubsection*{License }
+
+Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met\+:
+
+
+\begin{DoxyEnumerate}
+\item Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
+\item Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.
+\item All advertising materials mentioning features or use of this software must display the following acknowledgement\+: This product includes software developed by the AT\&T.
+\item Neither the name of AT\&T nor the names of its contributors may be used to endorse or promote products derived from this software without specific prior written permission.
+\end{DoxyEnumerate}
+
+T\+H\+IS S\+O\+F\+T\+W\+A\+RE IS P\+R\+O\+V\+I\+D\+ED BY AT\&T I\+N\+T\+E\+L\+L\+E\+C\+T\+U\+AL P\+R\+O\+P\+E\+R\+TY \textquotesingle{}\textquotesingle{}AS IS\textquotesingle{}\textquotesingle{} A\+ND A\+NY E\+X\+P\+R\+E\+SS OR I\+M\+P\+L\+I\+ED W\+A\+R\+R\+A\+N\+T\+I\+ES, I\+N\+C\+L\+U\+D\+I\+NG, B\+UT N\+OT L\+I\+M\+I\+T\+ED TO, T\+HE I\+M\+P\+L\+I\+ED W\+A\+R\+R\+A\+N\+T\+I\+ES OF M\+E\+R\+C\+H\+A\+N\+T\+A\+B\+I\+L\+I\+TY A\+ND F\+I\+T\+N\+E\+SS F\+OR A P\+A\+R\+T\+I\+C\+U\+L\+AR P\+U\+R\+P\+O\+SE A\+RE D\+I\+S\+C\+L\+A\+I\+M\+ED. IN NO E\+V\+E\+NT S\+H\+A\+LL AT\&T I\+N\+T\+E\+L\+L\+E\+C\+T\+U\+AL P\+R\+O\+P\+E\+R\+TY BE L\+I\+A\+B\+LE F\+OR A\+NY D\+I\+R\+E\+CT, I\+N\+D\+I\+R\+E\+CT, I\+N\+C\+I\+D\+E\+N\+T\+AL, S\+P\+E\+C\+I\+AL, E\+X\+E\+M\+P\+L\+A\+RY, OR C\+O\+N\+S\+E\+Q\+U\+E\+N\+T\+I\+AL D\+A\+M\+A\+G\+ES (I\+N\+C\+L\+U\+D\+I\+NG, B\+UT N\+OT L\+I\+M\+I\+T\+ED TO, P\+R\+O\+C\+U\+R\+E\+M\+E\+NT OF S\+U\+B\+S\+T\+I\+T\+U\+TE G\+O\+O\+DS OR S\+E\+R\+V\+I\+C\+ES; L\+O\+SS OF U\+SE, D\+A\+TA, OR P\+R\+O\+F\+I\+TS; OR B\+U\+S\+I\+N\+E\+SS I\+N\+T\+E\+R\+R\+U\+P\+T\+I\+ON) H\+O\+W\+E\+V\+ER C\+A\+U\+S\+ED A\+ND ON A\+NY T\+H\+E\+O\+RY OF L\+I\+A\+B\+I\+L\+I\+TY, W\+H\+E\+T\+H\+ER IN C\+O\+N\+T\+R\+A\+CT, S\+T\+R\+I\+CT L\+I\+A\+B\+I\+L\+I\+TY, OR T\+O\+RT (I\+N\+C\+L\+U\+D\+I\+NG N\+E\+G\+L\+I\+G\+E\+N\+CE OR O\+T\+H\+E\+R\+W\+I\+SE) A\+R\+I\+S\+I\+NG IN A\+NY W\+AY O\+UT OF T\+HE U\+SE OF T\+H\+IS S\+O\+F\+T\+W\+A\+RE, E\+V\+EN IF A\+D\+V\+I\+S\+ED OF T\+HE P\+O\+S\+S\+I\+B\+I\+L\+I\+TY OF S\+U\+CH D\+A\+M\+A\+GE. 
+
+\subsection{Function Documentation}
+\hypertarget{evel__strings_8c_a1274e7fb7077c56a7ce9f84ac360dafa}{}\label{evel__strings_8c_a1274e7fb7077c56a7ce9f84ac360dafa} 
+\index{evel\+\_\+strings.\+c@{evel\+\_\+strings.\+c}!evel\+\_\+alert\+\_\+action@{evel\+\_\+alert\+\_\+action}}
+\index{evel\+\_\+alert\+\_\+action@{evel\+\_\+alert\+\_\+action}!evel\+\_\+strings.\+c@{evel\+\_\+strings.\+c}}
+\subsubsection{\texorpdfstring{evel\+\_\+alert\+\_\+action()}{evel\_alert\_action()}}
+{\footnotesize\ttfamily char$\ast$ evel\+\_\+alert\+\_\+action (\begin{DoxyParamCaption}\item[{const \hyperlink{evel_8h_aa4e9d876e86a335465e524701ff9f3ac}{E\+V\+E\+L\+\_\+\+A\+L\+E\+R\+T\+\_\+\+A\+C\+T\+I\+O\+NS}}]{alert\+\_\+action }\end{DoxyParamCaption})}
+
+
+
+Map an \hyperlink{evel_8h_aa4e9d876e86a335465e524701ff9f3ac}{E\+V\+E\+L\+\_\+\+A\+L\+E\+R\+T\+\_\+\+A\+C\+T\+I\+O\+NS} enum value to the equivalent string. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em alert\+\_\+action} & The alert\+\_\+action to convert. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The equivalent string. 
+\end{DoxyReturn}
+
+
+Definition at line 123 of file evel\+\_\+strings.\+c.
+
+\hypertarget{evel__strings_8c_a4be8ab36848d84dc4ec6aae0d2230479}{}\label{evel__strings_8c_a4be8ab36848d84dc4ec6aae0d2230479} 
+\index{evel\+\_\+strings.\+c@{evel\+\_\+strings.\+c}!evel\+\_\+alert\+\_\+type@{evel\+\_\+alert\+\_\+type}}
+\index{evel\+\_\+alert\+\_\+type@{evel\+\_\+alert\+\_\+type}!evel\+\_\+strings.\+c@{evel\+\_\+strings.\+c}}
+\subsubsection{\texorpdfstring{evel\+\_\+alert\+\_\+type()}{evel\_alert\_type()}}
+{\footnotesize\ttfamily char$\ast$ evel\+\_\+alert\+\_\+type (\begin{DoxyParamCaption}\item[{const \hyperlink{evel_8h_acb100d75da7162fcc049076c5fba042b}{E\+V\+E\+L\+\_\+\+A\+L\+E\+R\+T\+\_\+\+T\+Y\+P\+ES}}]{alert\+\_\+type }\end{DoxyParamCaption})}
+
+
+
+Map an \hyperlink{evel_8h_acb100d75da7162fcc049076c5fba042b}{E\+V\+E\+L\+\_\+\+A\+L\+E\+R\+T\+\_\+\+T\+Y\+P\+ES} enum value to the equivalent string. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em alert\+\_\+type} & The alert\+\_\+type to convert. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The equivalent string. 
+\end{DoxyReturn}
+
+
+Definition at line 159 of file evel\+\_\+strings.\+c.
+
+\hypertarget{evel__strings_8c_a540edb796118cdc39f0b966bc4a86a8d}{}\label{evel__strings_8c_a540edb796118cdc39f0b966bc4a86a8d} 
+\index{evel\+\_\+strings.\+c@{evel\+\_\+strings.\+c}!evel\+\_\+criticality@{evel\+\_\+criticality}}
+\index{evel\+\_\+criticality@{evel\+\_\+criticality}!evel\+\_\+strings.\+c@{evel\+\_\+strings.\+c}}
+\subsubsection{\texorpdfstring{evel\+\_\+criticality()}{evel\_criticality()}}
+{\footnotesize\ttfamily char$\ast$ evel\+\_\+criticality (\begin{DoxyParamCaption}\item[{const \hyperlink{evel_8h_a5f601bc5a0317f8060a8cc6da24472e0}{E\+V\+E\+L\+\_\+\+C\+O\+U\+N\+T\+E\+R\+\_\+\+C\+R\+I\+T\+I\+C\+A\+L\+I\+T\+I\+ES}}]{criticality }\end{DoxyParamCaption})}
+
+
+
+Map an \hyperlink{evel_8h_a5f601bc5a0317f8060a8cc6da24472e0}{E\+V\+E\+L\+\_\+\+C\+O\+U\+N\+T\+E\+R\+\_\+\+C\+R\+I\+T\+I\+C\+A\+L\+I\+T\+I\+ES} enum value to the equivalent string. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em criticality} & The criticality to convert. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The equivalent string. 
+\end{DoxyReturn}
+
+
+Definition at line 47 of file evel\+\_\+strings.\+c.
+
+\hypertarget{evel__strings_8c_a6cd970f265f6d49b84ea1f43607ddf1d}{}\label{evel__strings_8c_a6cd970f265f6d49b84ea1f43607ddf1d} 
+\index{evel\+\_\+strings.\+c@{evel\+\_\+strings.\+c}!evel\+\_\+entity\+\_\+state@{evel\+\_\+entity\+\_\+state}}
+\index{evel\+\_\+entity\+\_\+state@{evel\+\_\+entity\+\_\+state}!evel\+\_\+strings.\+c@{evel\+\_\+strings.\+c}}
+\subsubsection{\texorpdfstring{evel\+\_\+entity\+\_\+state()}{evel\_entity\_state()}}
+{\footnotesize\ttfamily char$\ast$ evel\+\_\+entity\+\_\+state (\begin{DoxyParamCaption}\item[{const \hyperlink{evel_8h_a98a07355771fa850672520cd1e9b1168}{E\+V\+E\+L\+\_\+\+E\+N\+T\+I\+T\+Y\+\_\+\+S\+T\+A\+TE}}]{state }\end{DoxyParamCaption})}
+
+
+
+Convert a \hyperlink{evel_8h_a98a07355771fa850672520cd1e9b1168}{E\+V\+E\+L\+\_\+\+E\+N\+T\+I\+T\+Y\+\_\+\+S\+T\+A\+TE} to it\textquotesingle{}s string form for J\+S\+ON encoding. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em state} & The entity state to encode.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+the corresponding string 
+\end{DoxyReturn}
+
+
+Definition at line 416 of file evel\+\_\+strings.\+c.
+
+\hypertarget{evel__strings_8c_aa71d51f951d9f797a50da5ced9025da1}{}\label{evel__strings_8c_aa71d51f951d9f797a50da5ced9025da1} 
+\index{evel\+\_\+strings.\+c@{evel\+\_\+strings.\+c}!evel\+\_\+event\+\_\+domain@{evel\+\_\+event\+\_\+domain}}
+\index{evel\+\_\+event\+\_\+domain@{evel\+\_\+event\+\_\+domain}!evel\+\_\+strings.\+c@{evel\+\_\+strings.\+c}}
+\subsubsection{\texorpdfstring{evel\+\_\+event\+\_\+domain()}{evel\_event\_domain()}}
+{\footnotesize\ttfamily char$\ast$ evel\+\_\+event\+\_\+domain (\begin{DoxyParamCaption}\item[{const \hyperlink{evel_8h_ac34d44f4f90f2b63828a32ca9c7b0855}{E\+V\+E\+L\+\_\+\+E\+V\+E\+N\+T\+\_\+\+D\+O\+M\+A\+I\+NS}}]{domain }\end{DoxyParamCaption})}
+
+
+
+Map an \hyperlink{evel_8h_ac34d44f4f90f2b63828a32ca9c7b0855}{E\+V\+E\+L\+\_\+\+E\+V\+E\+N\+T\+\_\+\+D\+O\+M\+A\+I\+NS} enum value to the equivalent string. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em domain} & The domain to convert. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The equivalent string. 
+\end{DoxyReturn}
+
+
+Definition at line 199 of file evel\+\_\+strings.\+c.
+
+\hypertarget{evel__strings_8c_adb3bc1bd870d58d877ea12f099b442d8}{}\label{evel__strings_8c_adb3bc1bd870d58d877ea12f099b442d8} 
+\index{evel\+\_\+strings.\+c@{evel\+\_\+strings.\+c}!evel\+\_\+event\+\_\+priority@{evel\+\_\+event\+\_\+priority}}
+\index{evel\+\_\+event\+\_\+priority@{evel\+\_\+event\+\_\+priority}!evel\+\_\+strings.\+c@{evel\+\_\+strings.\+c}}
+\subsubsection{\texorpdfstring{evel\+\_\+event\+\_\+priority()}{evel\_event\_priority()}}
+{\footnotesize\ttfamily char$\ast$ evel\+\_\+event\+\_\+priority (\begin{DoxyParamCaption}\item[{const \hyperlink{evel_8h_ad1bf6807fa6710332251611207490484}{E\+V\+E\+L\+\_\+\+E\+V\+E\+N\+T\+\_\+\+P\+R\+I\+O\+R\+I\+T\+I\+ES}}]{priority }\end{DoxyParamCaption})}
+
+
+
+Map an \hyperlink{evel_8h_ad1bf6807fa6710332251611207490484}{E\+V\+E\+L\+\_\+\+E\+V\+E\+N\+T\+\_\+\+P\+R\+I\+O\+R\+I\+T\+I\+ES} enum value to the equivalent string. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em priority} & The priority to convert. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The equivalent string. 
+\end{DoxyReturn}
+
+
+Definition at line 264 of file evel\+\_\+strings.\+c.
+
+\hypertarget{evel__strings_8c_aaa7026f8711820c722b9f9b1290f33e8}{}\label{evel__strings_8c_aaa7026f8711820c722b9f9b1290f33e8} 
+\index{evel\+\_\+strings.\+c@{evel\+\_\+strings.\+c}!evel\+\_\+service\+\_\+endpoint\+\_\+desc@{evel\+\_\+service\+\_\+endpoint\+\_\+desc}}
+\index{evel\+\_\+service\+\_\+endpoint\+\_\+desc@{evel\+\_\+service\+\_\+endpoint\+\_\+desc}!evel\+\_\+strings.\+c@{evel\+\_\+strings.\+c}}
+\subsubsection{\texorpdfstring{evel\+\_\+service\+\_\+endpoint\+\_\+desc()}{evel\_service\_endpoint\_desc()}}
+{\footnotesize\ttfamily char$\ast$ evel\+\_\+service\+\_\+endpoint\+\_\+desc (\begin{DoxyParamCaption}\item[{const \hyperlink{evel_8h_a98a07355771fa850672520cd1e9b1168}{E\+V\+E\+L\+\_\+\+E\+N\+T\+I\+T\+Y\+\_\+\+S\+T\+A\+TE}}]{endpoint\+\_\+desc }\end{DoxyParamCaption})}
+
+
+
+Convert a \hyperlink{evel_8h_afeae65c30729877eb7671ece2318ae67}{E\+V\+E\+L\+\_\+\+S\+E\+R\+V\+I\+C\+E\+\_\+\+E\+N\+D\+P\+O\+I\+N\+T\+\_\+\+D\+E\+SC} to string form for J\+S\+ON encoding. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em endpoint\+\_\+desc} & endpoint description to encode.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+the corresponding string 
+\end{DoxyReturn}
+
+
+Definition at line 453 of file evel\+\_\+strings.\+c.
+
+\hypertarget{evel__strings_8c_ae0aec52b83ec16c1cbd363daa41121ce}{}\label{evel__strings_8c_ae0aec52b83ec16c1cbd363daa41121ce} 
+\index{evel\+\_\+strings.\+c@{evel\+\_\+strings.\+c}!evel\+\_\+severity@{evel\+\_\+severity}}
+\index{evel\+\_\+severity@{evel\+\_\+severity}!evel\+\_\+strings.\+c@{evel\+\_\+strings.\+c}}
+\subsubsection{\texorpdfstring{evel\+\_\+severity()}{evel\_severity()}}
+{\footnotesize\ttfamily char$\ast$ evel\+\_\+severity (\begin{DoxyParamCaption}\item[{const \hyperlink{evel_8h_ad28dcc9cce27ecb7e4c9020107a6db9c}{E\+V\+E\+L\+\_\+\+S\+E\+V\+E\+R\+I\+T\+I\+ES}}]{severity }\end{DoxyParamCaption})}
+
+
+
+Map an \hyperlink{evel_8h_ad28dcc9cce27ecb7e4c9020107a6db9c}{E\+V\+E\+L\+\_\+\+S\+E\+V\+E\+R\+I\+T\+I\+ES} enum value to the equivalent string. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em severity} & The severity to convert. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The equivalent string. 
+\end{DoxyReturn}
+
+
+Definition at line 79 of file evel\+\_\+strings.\+c.
+
+\hypertarget{evel__strings_8c_a1972ad4fddcd1d842ddbb819eb2c923c}{}\label{evel__strings_8c_a1972ad4fddcd1d842ddbb819eb2c923c} 
+\index{evel\+\_\+strings.\+c@{evel\+\_\+strings.\+c}!evel\+\_\+source\+\_\+type@{evel\+\_\+source\+\_\+type}}
+\index{evel\+\_\+source\+\_\+type@{evel\+\_\+source\+\_\+type}!evel\+\_\+strings.\+c@{evel\+\_\+strings.\+c}}
+\subsubsection{\texorpdfstring{evel\+\_\+source\+\_\+type()}{evel\_source\_type()}}
+{\footnotesize\ttfamily char$\ast$ evel\+\_\+source\+\_\+type (\begin{DoxyParamCaption}\item[{const \hyperlink{evel_8h_a304eae0d024005dc4c7031bdd774d64a}{E\+V\+E\+L\+\_\+\+S\+O\+U\+R\+C\+E\+\_\+\+T\+Y\+P\+ES}}]{source\+\_\+type }\end{DoxyParamCaption})}
+
+
+
+Map an \hyperlink{evel_8h_a304eae0d024005dc4c7031bdd774d64a}{E\+V\+E\+L\+\_\+\+S\+O\+U\+R\+C\+E\+\_\+\+T\+Y\+P\+ES} enum value to the equivalent string. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em source\+\_\+type} & The source type to convert. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The equivalent string. 
+\end{DoxyReturn}
+
+
+Definition at line 305 of file evel\+\_\+strings.\+c.
+
+\hypertarget{evel__strings_8c_a6e70230186eee759ed8e6145a1a85812}{}\label{evel__strings_8c_a6e70230186eee759ed8e6145a1a85812} 
+\index{evel\+\_\+strings.\+c@{evel\+\_\+strings.\+c}!evel\+\_\+vf\+\_\+status@{evel\+\_\+vf\+\_\+status}}
+\index{evel\+\_\+vf\+\_\+status@{evel\+\_\+vf\+\_\+status}!evel\+\_\+strings.\+c@{evel\+\_\+strings.\+c}}
+\subsubsection{\texorpdfstring{evel\+\_\+vf\+\_\+status()}{evel\_vf\_status()}}
+{\footnotesize\ttfamily char$\ast$ evel\+\_\+vf\+\_\+status (\begin{DoxyParamCaption}\item[{const \hyperlink{evel_8h_a940888ae37017b9f85d793972994c8f0}{E\+V\+E\+L\+\_\+\+V\+F\+\_\+\+S\+T\+A\+T\+U\+S\+ES}}]{vf\+\_\+status }\end{DoxyParamCaption})}
+
+
+
+Map an \hyperlink{evel_8h_a940888ae37017b9f85d793972994c8f0}{E\+V\+E\+L\+\_\+\+V\+F\+\_\+\+S\+T\+A\+T\+U\+S\+ES} enum value to the equivalent string. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em vf\+\_\+status} & The vf\+\_\+status to convert. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The equivalent string. 
+\end{DoxyReturn}
+
+
+Definition at line 370 of file evel\+\_\+strings.\+c.
+

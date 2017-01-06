@@ -30,7 +30,7 @@ int main(int argc, char ** argv)
                       "",                           /* Password              */
                       EVEL_SOURCE_VIRTUAL_MACHINE,  /* Source type           */
                       "EVEL training demo",         /* Role                  */
-                      1))                           /* Verbosity             */
+                      0))                           /* Verbosity             */
   {
     fprintf(stderr, "\nFailed to initialize the EVEL library!!!\n");
     exit(-1);
@@ -49,12 +49,12 @@ int main(int argc, char ** argv)
     evel_rc = evel_post_event(heartbeat);
     if (evel_rc != EVEL_SUCCESS)
     {
-      EVEL_ERROR("Post failed %d (%s)", evel_rc, evel_error_string());
+      printf("Post failed %d (%s)", evel_rc, evel_error_string());
     }
   }
   else
   {
-    EVEL_ERROR("New heartbeat failed");
+    printf("New heartbeat failed");
   }
 
   /***************************************************************************/

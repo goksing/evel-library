@@ -1,6 +1,8 @@
 var searchData=
 [
-  ['head',['head',['../structdlist.html#a8b41eb6a98fac7979652003285f65313',1,'dlist']]],
-  ['header',['header',['../structevent__fault.html#a4d189397d39b197f2c6e2527be76b5f9',1,'event_fault::header()'],['../structevent__measurement.html#a08892ef3b557b44dcc5e203a2bbcc2c4',1,'event_measurement::header()'],['../structevent__report.html#a7f9683ffdfa96c3c82913f7f60e95abb',1,'event_report::header()'],['../structevent__internal.html#a9bc97bfd3fc7deffd3df855e7e814645',1,'event_internal::header()']]],
-  ['high_5fend',['high_end',['../structmeasurement__latency__bucket.html#a756a7061a0ef701d06919a42ceca18e0',1,'measurement_latency_bucket']]]
+  ['gtp_5fconnection_5fstatus',['gtp_connection_status',['../structmobile__gtp__per__flow__metrics.html#a89fdf6278e4c7838d40f523a82b7ca23',1,'mobile_gtp_per_flow_metrics']]],
+  ['gtp_5fper_5fflow_5fmetrics',['gtp_per_flow_metrics',['../structevent__mobile__flow.html#ab3248c7c5ccc0a61e2e2156ac096590d',1,'event_mobile_flow']]],
+  ['gtp_5fprotocol_5ftype',['gtp_protocol_type',['../structevent__mobile__flow.html#ab3e65773132fa368adbaccdef4fc1b81',1,'event_mobile_flow']]],
+  ['gtp_5ftunnel_5fstatus',['gtp_tunnel_status',['../structmobile__gtp__per__flow__metrics.html#ac056f28d4a00c59e101c51225aaecb64',1,'mobile_gtp_per_flow_metrics']]],
+  ['gtp_5fversion',['gtp_version',['../structevent__mobile__flow.html#a9c9d6c5ca9f9e85dd73219b1c6172234',1,'event_mobile_flow']]]
 ];

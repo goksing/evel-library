@@ -62,7 +62,7 @@ static char evel_err_string[EVEL_MAX_ERROR_STRING_LEN] = "<NULL>";
 /**************************************************************************//**
  * Initialize logging
  *
- * @param[in] level  The debugging level - one of ::EVEL_LOG_LEVELS
+ * @param[in] level  The debugging level - one of ::EVEL_LOG_LEVELS.
  * @param[in] ident  The identifier for our logs.
  *****************************************************************************/
 void log_initialize(EVEL_LOG_LEVELS level, const char * ident)
@@ -84,7 +84,7 @@ void log_initialize(EVEL_LOG_LEVELS level, const char * ident)
  *
  * @note      Must not be freed!
  *****************************************************************************/
-const char const * evel_error_string(void)
+const char * evel_error_string(void)
 {
   return(evel_err_string);
 }
@@ -142,7 +142,7 @@ void log_debug(EVEL_LOG_LEVELS level, char * format, ...)
     else
     {
       /***********************************************************************/
-      /* Combine the format with a preceding number of indent markers.        */
+      /* Combine the format with a preceding number of indent markers.       */
       /***********************************************************************/
       sprintf(indent_fmt, "%.*s%s",
               debug_indent,
