@@ -1,5 +1,6 @@
 <map id="evel_demo.c" name="evel_demo.c">
-<area shape="rect" id="node17" href="$evel_8h.html" title="Header for EVEL library. " alt="" coords="615,83,671,112"/>
-<area shape="rect" id="node24" href="$evel__demo_8h.html" title="Includes for the ECOMP Vendor Event Listener library demo. " alt="" coords="695,83,791,112"/>
-<area shape="rect" id="node22" href="$double__list_8h.html" title="A simple double&#45;linked list. " alt="" coords="648,160,742,189"/>
+<area shape="rect" id="node10" href="$evel_8h.html" title="Header for EVEL library. " alt="" coords="731,80,787,107"/>
+<area shape="rect" id="node15" href="$evel__demo_8h.html" title="Includes for the ECOMP Vendor Event Listener library demo. " alt="" coords="813,80,909,107"/>
+<area shape="rect" id="node16" href="$evel__test__control_8h.html" title="Utility to post test control commands to the test_collector testControl API. " alt="" coords="933,80,1065,107"/>
+<area shape="rect" id="node14" href="$double__list_8h.html" title="A simple double&#45;linked list. " alt="" coords="857,155,951,181"/>
 </map>

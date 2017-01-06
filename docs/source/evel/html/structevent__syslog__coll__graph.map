@@ -1,0 +1,7 @@
+<map id="event_syslog" name="event_syslog">
+<area shape="rect" id="node2" href="$structevel__option__string.html" title="Optional parameter holder for string. " alt="" coords="31,7,157,33"/>
+<area shape="rect" id="node4" href="$structevent__header.html" title="Event header. " alt="" coords="138,137,237,164"/>
+<area shape="rect" id="node3" href="$structevel__option__int.html" title="Optional parameter holder for int. " alt="" coords="262,137,372,164"/>
+<area shape="rect" id="node5" href="$structdlist.html" title="Double&#45;linked list structure. " alt="" coords="404,137,450,164"/>
+<area shape="rect" id="node6" href="$structdlist__item.html" title="dlist_item" alt="" coords="388,7,466,33"/>
+</map>

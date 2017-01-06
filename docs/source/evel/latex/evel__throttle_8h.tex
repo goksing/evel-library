@@ -1,0 +1,370 @@
+\hypertarget{evel__throttle_8h}{}\section{evel\+\_\+throttle.\+h File Reference}
+\label{evel__throttle_8h}\index{evel\+\_\+throttle.\+h@{evel\+\_\+throttle.\+h}}
+
+
+E\+V\+EL throttle definitions.  
+
+
+{\ttfamily \#include \char`\"{}evel\+\_\+internal.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}jsmn.\+h\char`\"{}}\newline
+Include dependency graph for evel\+\_\+throttle.\+h\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{evel__throttle_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{evel__throttle_8h__dep__incl}
+\end{center}
+\end{figure}
+\subsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structevel__json__stack__entry}{evel\+\_\+json\+\_\+stack\+\_\+entry}
+\begin{DoxyCompactList}\small\item\em An entry in the J\+S\+ON stack. \end{DoxyCompactList}\item 
+struct \hyperlink{structevel__json__stack}{evel\+\_\+json\+\_\+stack}
+\begin{DoxyCompactList}\small\item\em The J\+S\+ON stack. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{evel__throttle_8h_ab296e08c356d8b4c8ab601866127a5f9}{E\+V\+E\+L\+\_\+\+J\+S\+O\+N\+\_\+\+S\+T\+A\+C\+K\+\_\+\+D\+E\+P\+TH}~10
+\item 
+\#define \hyperlink{evel__throttle_8h_a69f3e4b5aeb8a74a49d0e8191078c73f}{E\+V\+E\+L\+\_\+\+M\+A\+X\+\_\+\+R\+E\+S\+P\+O\+N\+S\+E\+\_\+\+T\+O\+K\+E\+NS}~1024
+\begin{DoxyCompactList}\small\item\em Maximum number of tokens that we allow for in a J\+S\+ON response. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef struct \hyperlink{structevel__json__stack__entry}{evel\+\_\+json\+\_\+stack\+\_\+entry} \hyperlink{evel__throttle_8h_a939516501c869cb7bf42624ecedc0d72}{E\+V\+E\+L\+\_\+\+J\+S\+O\+N\+\_\+\+S\+T\+A\+C\+K\+\_\+\+E\+N\+T\+RY}
+\begin{DoxyCompactList}\small\item\em An entry in the J\+S\+ON stack. \end{DoxyCompactList}\item 
+typedef struct \hyperlink{structevel__json__stack}{evel\+\_\+json\+\_\+stack} \hyperlink{evel__throttle_8h_a60f25e11e660f7588021378ca0fe5fc4}{E\+V\+E\+L\+\_\+\+J\+S\+O\+N\+\_\+\+S\+T\+A\+CK}
+\begin{DoxyCompactList}\small\item\em The J\+S\+ON stack. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum \hyperlink{evel__throttle_8h_af2ee805305a97e62d3b9d3e526513b6a}{E\+V\+E\+L\+\_\+\+J\+S\+O\+N\+\_\+\+S\+T\+A\+TE} \{ \hyperlink{evel__throttle_8h_af2ee805305a97e62d3b9d3e526513b6aacec102f100325ac42b1527b2db20dfff}{E\+V\+E\+L\+\_\+\+J\+S\+O\+N\+\_\+\+K\+EY}, 
+\hyperlink{evel__throttle_8h_af2ee805305a97e62d3b9d3e526513b6aa29f41a51bc9e2ff7bd7b94f5e83d597f}{E\+V\+E\+L\+\_\+\+J\+S\+O\+N\+\_\+\+V\+A\+L\+UE}, 
+\hyperlink{evel__throttle_8h_af2ee805305a97e62d3b9d3e526513b6aa675825b19685ef17f5df6f7f94dfb94b}{E\+V\+E\+L\+\_\+\+J\+S\+O\+N\+\_\+\+I\+T\+EM}
+ \}\begin{DoxyCompactList}\small\item\em The nature of the next token that we are iterating through. \end{DoxyCompactList}
+\item 
+enum \hyperlink{evel__throttle_8h_a493e23609c075f93bc6299b11bf56e41}{E\+V\+E\+L\+\_\+\+J\+S\+O\+N\+\_\+\+C\+O\+M\+M\+A\+N\+D\+\_\+\+S\+T\+A\+TE} \{ \newline
+\hyperlink{evel__throttle_8h_a493e23609c075f93bc6299b11bf56e41a8da5918ad94623a3de309a6040151832}{E\+V\+E\+L\+\_\+\+J\+C\+S\+\_\+\+S\+T\+A\+RT}, 
+\hyperlink{evel__throttle_8h_a493e23609c075f93bc6299b11bf56e41a84bcdf03ae63f143a40bcb64aeb13740}{E\+V\+E\+L\+\_\+\+J\+C\+S\+\_\+\+C\+O\+M\+M\+A\+N\+D\+\_\+\+L\+I\+ST}, 
+\hyperlink{evel__throttle_8h_a493e23609c075f93bc6299b11bf56e41a968f70d3a14ba82646692d98c3cb2586}{E\+V\+E\+L\+\_\+\+J\+C\+S\+\_\+\+C\+O\+M\+M\+A\+N\+D\+\_\+\+L\+I\+S\+T\+\_\+\+E\+N\+T\+RY}, 
+\hyperlink{evel__throttle_8h_a493e23609c075f93bc6299b11bf56e41a6ccaea1293bdf0427e3ac7374a018a95}{E\+V\+E\+L\+\_\+\+J\+C\+S\+\_\+\+C\+O\+M\+M\+A\+ND}, 
+\newline
+\hyperlink{evel__throttle_8h_a493e23609c075f93bc6299b11bf56e41aab31221d9adeb79a51f2c3b86b2617d3}{E\+V\+E\+L\+\_\+\+J\+C\+S\+\_\+\+S\+P\+EC}, 
+\hyperlink{evel__throttle_8h_a493e23609c075f93bc6299b11bf56e41adbd9d56c43e95e92ce586d161fc7db42}{E\+V\+E\+L\+\_\+\+J\+C\+S\+\_\+\+F\+I\+E\+L\+D\+\_\+\+N\+A\+M\+ES}, 
+\hyperlink{evel__throttle_8h_a493e23609c075f93bc6299b11bf56e41a5eec8641309d4bb68ceab2bd67761454}{E\+V\+E\+L\+\_\+\+J\+C\+S\+\_\+\+P\+A\+I\+R\+S\+\_\+\+L\+I\+ST}, 
+\hyperlink{evel__throttle_8h_a493e23609c075f93bc6299b11bf56e41a38f22616bb326454268c261625f7ec34}{E\+V\+E\+L\+\_\+\+J\+C\+S\+\_\+\+P\+A\+I\+R\+S\+\_\+\+L\+I\+S\+T\+\_\+\+E\+N\+T\+RY}, 
+\newline
+\hyperlink{evel__throttle_8h_a493e23609c075f93bc6299b11bf56e41a6aba0c05b962e2c938f955293e9f62dc}{E\+V\+E\+L\+\_\+\+J\+C\+S\+\_\+\+N\+V\+\_\+\+P\+A\+I\+R\+\_\+\+N\+A\+M\+ES}, 
+\hyperlink{evel__throttle_8h_a493e23609c075f93bc6299b11bf56e41a8a61a0c7c8d59bad0d78f14e572495ec}{E\+V\+E\+L\+\_\+\+J\+C\+S\+\_\+\+M\+AX}
+ \}\begin{DoxyCompactList}\small\item\em States which we move through during J\+S\+ON processing, tracking our way through the supported J\+S\+ON structure. \end{DoxyCompactList}
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{evel__throttle_8h_ade78302fc8bf0ca43ff9c932bc1afaad}{evel\+\_\+throttle\+\_\+initialize} ()
+\begin{DoxyCompactList}\small\item\em Initialize event throttling to the default state. \end{DoxyCompactList}\item 
+void \hyperlink{evel__throttle_8h_aa2a791a641f98ced7c142f8b73d197fd}{evel\+\_\+throttle\+\_\+terminate} ()
+\begin{DoxyCompactList}\small\item\em Clean up event throttling. \end{DoxyCompactList}\item 
+bool \hyperlink{evel__throttle_8h_a6b8c6cacde890f6685745a01ee05fc9b}{evel\+\_\+handle\+\_\+command\+\_\+list} (const \hyperlink{evel__internal_8h_a552c2b2d2e73d39eb2d79328296f7d5f}{M\+E\+M\+O\+R\+Y\+\_\+\+C\+H\+U\+NK} $\ast$const chunk, const \hyperlink{structjsmntok__t}{jsmntok\+\_\+t} $\ast$const json\+\_\+tokens, const int num\+\_\+tokens, \hyperlink{evel__internal_8h_a552c2b2d2e73d39eb2d79328296f7d5f}{M\+E\+M\+O\+R\+Y\+\_\+\+C\+H\+U\+NK} $\ast$const post)
+\begin{DoxyCompactList}\small\item\em Handle a J\+S\+ON response from the listener, as a list of tokens from J\+S\+MN. \end{DoxyCompactList}\item 
+\hyperlink{evel__internal_8h_a50932473d7d2e8f802d39b4f73e5b64f}{E\+V\+E\+L\+\_\+\+T\+H\+R\+O\+T\+T\+L\+E\+\_\+\+S\+P\+EC} $\ast$ \hyperlink{evel__throttle_8h_ab7e78c9a28d2231b6f104b36826ae3a8}{evel\+\_\+get\+\_\+throttle\+\_\+spec} (\hyperlink{evel_8h_ac34d44f4f90f2b63828a32ca9c7b0855}{E\+V\+E\+L\+\_\+\+E\+V\+E\+N\+T\+\_\+\+D\+O\+M\+A\+I\+NS} domain)
+\begin{DoxyCompactList}\small\item\em Return the \hyperlink{evel__internal_8h_a50932473d7d2e8f802d39b4f73e5b64f}{E\+V\+E\+L\+\_\+\+T\+H\+R\+O\+T\+T\+L\+E\+\_\+\+S\+P\+EC} for a given domain. \end{DoxyCompactList}\item 
+bool \hyperlink{evel__throttle_8h_ac60b1f0224e6ca6a08771152056b965c}{evel\+\_\+throttle\+\_\+suppress\+\_\+field} (\hyperlink{evel__internal_8h_a50932473d7d2e8f802d39b4f73e5b64f}{E\+V\+E\+L\+\_\+\+T\+H\+R\+O\+T\+T\+L\+E\+\_\+\+S\+P\+EC} $\ast$throttle\+\_\+spec, const char $\ast$const field\+\_\+name)
+\begin{DoxyCompactList}\small\item\em Determine whether a field\+\_\+name should be suppressed. \end{DoxyCompactList}\item 
+bool \hyperlink{evel__throttle_8h_a499b67f3406f1ed998598fd3fae79a53}{evel\+\_\+throttle\+\_\+suppress\+\_\+nv\+\_\+pair} (\hyperlink{evel__internal_8h_a50932473d7d2e8f802d39b4f73e5b64f}{E\+V\+E\+L\+\_\+\+T\+H\+R\+O\+T\+T\+L\+E\+\_\+\+S\+P\+EC} $\ast$throttle\+\_\+spec, const char $\ast$const field\+\_\+name, const char $\ast$const name)
+\begin{DoxyCompactList}\small\item\em Determine whether a name-\/value pair should be allowed (not suppressed). \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+E\+V\+EL throttle definitions. 
+
+These are internal definitions related to throttling specicications, which are required within the library but are not intended for external consumption.
+
+\subsubsection*{License }
+
+Copyright(c) $<$2016$>$, AT\&T Intellectual Property. All other rights reserved.
+
+Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met\+:
+
+
+\begin{DoxyEnumerate}
+\item Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
+\item Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.
+\item All advertising materials mentioning features or use of this software must display the following acknowledgement\+: This product includes software developed by the AT\&T.
+\item Neither the name of AT\&T nor the names of its contributors may be used to endorse or promote products derived from this software without specific prior written permission.
+\end{DoxyEnumerate}
+
+T\+H\+IS S\+O\+F\+T\+W\+A\+RE IS P\+R\+O\+V\+I\+D\+ED BY AT\&T I\+N\+T\+E\+L\+L\+E\+C\+T\+U\+AL P\+R\+O\+P\+E\+R\+TY \textquotesingle{}\textquotesingle{}AS IS\textquotesingle{}\textquotesingle{} A\+ND A\+NY E\+X\+P\+R\+E\+SS OR I\+M\+P\+L\+I\+ED W\+A\+R\+R\+A\+N\+T\+I\+ES, I\+N\+C\+L\+U\+D\+I\+NG, B\+UT N\+OT L\+I\+M\+I\+T\+ED TO, T\+HE I\+M\+P\+L\+I\+ED W\+A\+R\+R\+A\+N\+T\+I\+ES OF M\+E\+R\+C\+H\+A\+N\+T\+A\+B\+I\+L\+I\+TY A\+ND F\+I\+T\+N\+E\+SS F\+OR A P\+A\+R\+T\+I\+C\+U\+L\+AR P\+U\+R\+P\+O\+SE A\+RE D\+I\+S\+C\+L\+A\+I\+M\+ED. IN NO E\+V\+E\+NT S\+H\+A\+LL AT\&T I\+N\+T\+E\+L\+L\+E\+C\+T\+U\+AL P\+R\+O\+P\+E\+R\+TY BE L\+I\+A\+B\+LE F\+OR A\+NY D\+I\+R\+E\+CT, I\+N\+D\+I\+R\+E\+CT, I\+N\+C\+I\+D\+E\+N\+T\+AL, S\+P\+E\+C\+I\+AL, E\+X\+E\+M\+P\+L\+A\+RY, OR C\+O\+N\+S\+E\+Q\+U\+E\+N\+T\+I\+AL D\+A\+M\+A\+G\+ES (I\+N\+C\+L\+U\+D\+I\+NG, B\+UT N\+OT L\+I\+M\+I\+T\+ED TO, P\+R\+O\+C\+U\+R\+E\+M\+E\+NT OF S\+U\+B\+S\+T\+I\+T\+U\+TE G\+O\+O\+DS OR S\+E\+R\+V\+I\+C\+ES; L\+O\+SS OF U\+SE, D\+A\+TA, OR P\+R\+O\+F\+I\+TS; OR B\+U\+S\+I\+N\+E\+SS I\+N\+T\+E\+R\+R\+U\+P\+T\+I\+ON) H\+O\+W\+E\+V\+ER C\+A\+U\+S\+ED A\+ND ON A\+NY T\+H\+E\+O\+RY OF L\+I\+A\+B\+I\+L\+I\+TY, W\+H\+E\+T\+H\+ER IN C\+O\+N\+T\+R\+A\+CT, S\+T\+R\+I\+CT L\+I\+A\+B\+I\+L\+I\+TY, OR T\+O\+RT (I\+N\+C\+L\+U\+D\+I\+NG N\+E\+G\+L\+I\+G\+E\+N\+CE OR O\+T\+H\+E\+R\+W\+I\+SE) A\+R\+I\+S\+I\+NG IN A\+NY W\+AY O\+UT OF T\+HE U\+SE OF T\+H\+IS S\+O\+F\+T\+W\+A\+RE, E\+V\+EN IF A\+D\+V\+I\+S\+ED OF T\+HE P\+O\+S\+S\+I\+B\+I\+L\+I\+TY OF S\+U\+CH D\+A\+M\+A\+GE. 
+
+\subsection{Macro Definition Documentation}
+\hypertarget{evel__throttle_8h_ab296e08c356d8b4c8ab601866127a5f9}{}\label{evel__throttle_8h_ab296e08c356d8b4c8ab601866127a5f9} 
+\index{evel\+\_\+throttle.\+h@{evel\+\_\+throttle.\+h}!E\+V\+E\+L\+\_\+\+J\+S\+O\+N\+\_\+\+S\+T\+A\+C\+K\+\_\+\+D\+E\+P\+TH@{E\+V\+E\+L\+\_\+\+J\+S\+O\+N\+\_\+\+S\+T\+A\+C\+K\+\_\+\+D\+E\+P\+TH}}
+\index{E\+V\+E\+L\+\_\+\+J\+S\+O\+N\+\_\+\+S\+T\+A\+C\+K\+\_\+\+D\+E\+P\+TH@{E\+V\+E\+L\+\_\+\+J\+S\+O\+N\+\_\+\+S\+T\+A\+C\+K\+\_\+\+D\+E\+P\+TH}!evel\+\_\+throttle.\+h@{evel\+\_\+throttle.\+h}}
+\subsubsection{\texorpdfstring{E\+V\+E\+L\+\_\+\+J\+S\+O\+N\+\_\+\+S\+T\+A\+C\+K\+\_\+\+D\+E\+P\+TH}{EVEL\_JSON\_STACK\_DEPTH}}
+{\footnotesize\ttfamily \#define E\+V\+E\+L\+\_\+\+J\+S\+O\+N\+\_\+\+S\+T\+A\+C\+K\+\_\+\+D\+E\+P\+TH~10}
+
+
+
+Definition at line 50 of file evel\+\_\+throttle.\+h.
+
+\hypertarget{evel__throttle_8h_a69f3e4b5aeb8a74a49d0e8191078c73f}{}\label{evel__throttle_8h_a69f3e4b5aeb8a74a49d0e8191078c73f} 
+\index{evel\+\_\+throttle.\+h@{evel\+\_\+throttle.\+h}!E\+V\+E\+L\+\_\+\+M\+A\+X\+\_\+\+R\+E\+S\+P\+O\+N\+S\+E\+\_\+\+T\+O\+K\+E\+NS@{E\+V\+E\+L\+\_\+\+M\+A\+X\+\_\+\+R\+E\+S\+P\+O\+N\+S\+E\+\_\+\+T\+O\+K\+E\+NS}}
+\index{E\+V\+E\+L\+\_\+\+M\+A\+X\+\_\+\+R\+E\+S\+P\+O\+N\+S\+E\+\_\+\+T\+O\+K\+E\+NS@{E\+V\+E\+L\+\_\+\+M\+A\+X\+\_\+\+R\+E\+S\+P\+O\+N\+S\+E\+\_\+\+T\+O\+K\+E\+NS}!evel\+\_\+throttle.\+h@{evel\+\_\+throttle.\+h}}
+\subsubsection{\texorpdfstring{E\+V\+E\+L\+\_\+\+M\+A\+X\+\_\+\+R\+E\+S\+P\+O\+N\+S\+E\+\_\+\+T\+O\+K\+E\+NS}{EVEL\_MAX\_RESPONSE\_TOKENS}}
+{\footnotesize\ttfamily \#define E\+V\+E\+L\+\_\+\+M\+A\+X\+\_\+\+R\+E\+S\+P\+O\+N\+S\+E\+\_\+\+T\+O\+K\+E\+NS~1024}
+
+
+
+Maximum number of tokens that we allow for in a J\+S\+ON response. 
+
+
+
+Definition at line 55 of file evel\+\_\+throttle.\+h.
+
+
+
+\subsection{Typedef Documentation}
+\hypertarget{evel__throttle_8h_a60f25e11e660f7588021378ca0fe5fc4}{}\label{evel__throttle_8h_a60f25e11e660f7588021378ca0fe5fc4} 
+\index{evel\+\_\+throttle.\+h@{evel\+\_\+throttle.\+h}!E\+V\+E\+L\+\_\+\+J\+S\+O\+N\+\_\+\+S\+T\+A\+CK@{E\+V\+E\+L\+\_\+\+J\+S\+O\+N\+\_\+\+S\+T\+A\+CK}}
+\index{E\+V\+E\+L\+\_\+\+J\+S\+O\+N\+\_\+\+S\+T\+A\+CK@{E\+V\+E\+L\+\_\+\+J\+S\+O\+N\+\_\+\+S\+T\+A\+CK}!evel\+\_\+throttle.\+h@{evel\+\_\+throttle.\+h}}
+\subsubsection{\texorpdfstring{E\+V\+E\+L\+\_\+\+J\+S\+O\+N\+\_\+\+S\+T\+A\+CK}{EVEL\_JSON\_STACK}}
+{\footnotesize\ttfamily typedef struct \hyperlink{structevel__json__stack}{evel\+\_\+json\+\_\+stack}  \hyperlink{evel__throttle_8h_a60f25e11e660f7588021378ca0fe5fc4}{E\+V\+E\+L\+\_\+\+J\+S\+O\+N\+\_\+\+S\+T\+A\+CK}}
+
+
+
+The J\+S\+ON stack. 
+
+\hypertarget{evel__throttle_8h_a939516501c869cb7bf42624ecedc0d72}{}\label{evel__throttle_8h_a939516501c869cb7bf42624ecedc0d72} 
+\index{evel\+\_\+throttle.\+h@{evel\+\_\+throttle.\+h}!E\+V\+E\+L\+\_\+\+J\+S\+O\+N\+\_\+\+S\+T\+A\+C\+K\+\_\+\+E\+N\+T\+RY@{E\+V\+E\+L\+\_\+\+J\+S\+O\+N\+\_\+\+S\+T\+A\+C\+K\+\_\+\+E\+N\+T\+RY}}
+\index{E\+V\+E\+L\+\_\+\+J\+S\+O\+N\+\_\+\+S\+T\+A\+C\+K\+\_\+\+E\+N\+T\+RY@{E\+V\+E\+L\+\_\+\+J\+S\+O\+N\+\_\+\+S\+T\+A\+C\+K\+\_\+\+E\+N\+T\+RY}!evel\+\_\+throttle.\+h@{evel\+\_\+throttle.\+h}}
+\subsubsection{\texorpdfstring{E\+V\+E\+L\+\_\+\+J\+S\+O\+N\+\_\+\+S\+T\+A\+C\+K\+\_\+\+E\+N\+T\+RY}{EVEL\_JSON\_STACK\_ENTRY}}
+{\footnotesize\ttfamily typedef struct \hyperlink{structevel__json__stack__entry}{evel\+\_\+json\+\_\+stack\+\_\+entry}  \hyperlink{evel__throttle_8h_a939516501c869cb7bf42624ecedc0d72}{E\+V\+E\+L\+\_\+\+J\+S\+O\+N\+\_\+\+S\+T\+A\+C\+K\+\_\+\+E\+N\+T\+RY}}
+
+
+
+An entry in the J\+S\+ON stack. 
+
+
+
+\subsection{Enumeration Type Documentation}
+\hypertarget{evel__throttle_8h_a493e23609c075f93bc6299b11bf56e41}{}\label{evel__throttle_8h_a493e23609c075f93bc6299b11bf56e41} 
+\index{evel\+\_\+throttle.\+h@{evel\+\_\+throttle.\+h}!E\+V\+E\+L\+\_\+\+J\+S\+O\+N\+\_\+\+C\+O\+M\+M\+A\+N\+D\+\_\+\+S\+T\+A\+TE@{E\+V\+E\+L\+\_\+\+J\+S\+O\+N\+\_\+\+C\+O\+M\+M\+A\+N\+D\+\_\+\+S\+T\+A\+TE}}
+\index{E\+V\+E\+L\+\_\+\+J\+S\+O\+N\+\_\+\+C\+O\+M\+M\+A\+N\+D\+\_\+\+S\+T\+A\+TE@{E\+V\+E\+L\+\_\+\+J\+S\+O\+N\+\_\+\+C\+O\+M\+M\+A\+N\+D\+\_\+\+S\+T\+A\+TE}!evel\+\_\+throttle.\+h@{evel\+\_\+throttle.\+h}}
+\subsubsection{\texorpdfstring{E\+V\+E\+L\+\_\+\+J\+S\+O\+N\+\_\+\+C\+O\+M\+M\+A\+N\+D\+\_\+\+S\+T\+A\+TE}{EVEL\_JSON\_COMMAND\_STATE}}
+{\footnotesize\ttfamily enum \hyperlink{evel__throttle_8h_a493e23609c075f93bc6299b11bf56e41}{E\+V\+E\+L\+\_\+\+J\+S\+O\+N\+\_\+\+C\+O\+M\+M\+A\+N\+D\+\_\+\+S\+T\+A\+TE}}
+
+
+
+States which we move through during J\+S\+ON processing, tracking our way through the supported J\+S\+ON structure. 
+
+\begin{DoxyEnumFields}{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{E\+V\+E\+L\+\_\+\+J\+C\+S\+\_\+\+S\+T\+A\+RT@{E\+V\+E\+L\+\_\+\+J\+C\+S\+\_\+\+S\+T\+A\+RT}!evel\+\_\+throttle.\+h@{evel\+\_\+throttle.\+h}}\index{evel\+\_\+throttle.\+h@{evel\+\_\+throttle.\+h}!E\+V\+E\+L\+\_\+\+J\+C\+S\+\_\+\+S\+T\+A\+RT@{E\+V\+E\+L\+\_\+\+J\+C\+S\+\_\+\+S\+T\+A\+RT}}}\hypertarget{evel__throttle_8h_a493e23609c075f93bc6299b11bf56e41a8da5918ad94623a3de309a6040151832}{}\label{evel__throttle_8h_a493e23609c075f93bc6299b11bf56e41a8da5918ad94623a3de309a6040151832} 
+E\+V\+E\+L\+\_\+\+J\+C\+S\+\_\+\+S\+T\+A\+RT&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{E\+V\+E\+L\+\_\+\+J\+C\+S\+\_\+\+C\+O\+M\+M\+A\+N\+D\+\_\+\+L\+I\+ST@{E\+V\+E\+L\+\_\+\+J\+C\+S\+\_\+\+C\+O\+M\+M\+A\+N\+D\+\_\+\+L\+I\+ST}!evel\+\_\+throttle.\+h@{evel\+\_\+throttle.\+h}}\index{evel\+\_\+throttle.\+h@{evel\+\_\+throttle.\+h}!E\+V\+E\+L\+\_\+\+J\+C\+S\+\_\+\+C\+O\+M\+M\+A\+N\+D\+\_\+\+L\+I\+ST@{E\+V\+E\+L\+\_\+\+J\+C\+S\+\_\+\+C\+O\+M\+M\+A\+N\+D\+\_\+\+L\+I\+ST}}}\hypertarget{evel__throttle_8h_a493e23609c075f93bc6299b11bf56e41a84bcdf03ae63f143a40bcb64aeb13740}{}\label{evel__throttle_8h_a493e23609c075f93bc6299b11bf56e41a84bcdf03ae63f143a40bcb64aeb13740} 
+E\+V\+E\+L\+\_\+\+J\+C\+S\+\_\+\+C\+O\+M\+M\+A\+N\+D\+\_\+\+L\+I\+ST&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{E\+V\+E\+L\+\_\+\+J\+C\+S\+\_\+\+C\+O\+M\+M\+A\+N\+D\+\_\+\+L\+I\+S\+T\+\_\+\+E\+N\+T\+RY@{E\+V\+E\+L\+\_\+\+J\+C\+S\+\_\+\+C\+O\+M\+M\+A\+N\+D\+\_\+\+L\+I\+S\+T\+\_\+\+E\+N\+T\+RY}!evel\+\_\+throttle.\+h@{evel\+\_\+throttle.\+h}}\index{evel\+\_\+throttle.\+h@{evel\+\_\+throttle.\+h}!E\+V\+E\+L\+\_\+\+J\+C\+S\+\_\+\+C\+O\+M\+M\+A\+N\+D\+\_\+\+L\+I\+S\+T\+\_\+\+E\+N\+T\+RY@{E\+V\+E\+L\+\_\+\+J\+C\+S\+\_\+\+C\+O\+M\+M\+A\+N\+D\+\_\+\+L\+I\+S\+T\+\_\+\+E\+N\+T\+RY}}}\hypertarget{evel__throttle_8h_a493e23609c075f93bc6299b11bf56e41a968f70d3a14ba82646692d98c3cb2586}{}\label{evel__throttle_8h_a493e23609c075f93bc6299b11bf56e41a968f70d3a14ba82646692d98c3cb2586} 
+E\+V\+E\+L\+\_\+\+J\+C\+S\+\_\+\+C\+O\+M\+M\+A\+N\+D\+\_\+\+L\+I\+S\+T\+\_\+\+E\+N\+T\+RY&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{E\+V\+E\+L\+\_\+\+J\+C\+S\+\_\+\+C\+O\+M\+M\+A\+ND@{E\+V\+E\+L\+\_\+\+J\+C\+S\+\_\+\+C\+O\+M\+M\+A\+ND}!evel\+\_\+throttle.\+h@{evel\+\_\+throttle.\+h}}\index{evel\+\_\+throttle.\+h@{evel\+\_\+throttle.\+h}!E\+V\+E\+L\+\_\+\+J\+C\+S\+\_\+\+C\+O\+M\+M\+A\+ND@{E\+V\+E\+L\+\_\+\+J\+C\+S\+\_\+\+C\+O\+M\+M\+A\+ND}}}\hypertarget{evel__throttle_8h_a493e23609c075f93bc6299b11bf56e41a6ccaea1293bdf0427e3ac7374a018a95}{}\label{evel__throttle_8h_a493e23609c075f93bc6299b11bf56e41a6ccaea1293bdf0427e3ac7374a018a95} 
+E\+V\+E\+L\+\_\+\+J\+C\+S\+\_\+\+C\+O\+M\+M\+A\+ND&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{E\+V\+E\+L\+\_\+\+J\+C\+S\+\_\+\+S\+P\+EC@{E\+V\+E\+L\+\_\+\+J\+C\+S\+\_\+\+S\+P\+EC}!evel\+\_\+throttle.\+h@{evel\+\_\+throttle.\+h}}\index{evel\+\_\+throttle.\+h@{evel\+\_\+throttle.\+h}!E\+V\+E\+L\+\_\+\+J\+C\+S\+\_\+\+S\+P\+EC@{E\+V\+E\+L\+\_\+\+J\+C\+S\+\_\+\+S\+P\+EC}}}\hypertarget{evel__throttle_8h_a493e23609c075f93bc6299b11bf56e41aab31221d9adeb79a51f2c3b86b2617d3}{}\label{evel__throttle_8h_a493e23609c075f93bc6299b11bf56e41aab31221d9adeb79a51f2c3b86b2617d3} 
+E\+V\+E\+L\+\_\+\+J\+C\+S\+\_\+\+S\+P\+EC&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{E\+V\+E\+L\+\_\+\+J\+C\+S\+\_\+\+F\+I\+E\+L\+D\+\_\+\+N\+A\+M\+ES@{E\+V\+E\+L\+\_\+\+J\+C\+S\+\_\+\+F\+I\+E\+L\+D\+\_\+\+N\+A\+M\+ES}!evel\+\_\+throttle.\+h@{evel\+\_\+throttle.\+h}}\index{evel\+\_\+throttle.\+h@{evel\+\_\+throttle.\+h}!E\+V\+E\+L\+\_\+\+J\+C\+S\+\_\+\+F\+I\+E\+L\+D\+\_\+\+N\+A\+M\+ES@{E\+V\+E\+L\+\_\+\+J\+C\+S\+\_\+\+F\+I\+E\+L\+D\+\_\+\+N\+A\+M\+ES}}}\hypertarget{evel__throttle_8h_a493e23609c075f93bc6299b11bf56e41adbd9d56c43e95e92ce586d161fc7db42}{}\label{evel__throttle_8h_a493e23609c075f93bc6299b11bf56e41adbd9d56c43e95e92ce586d161fc7db42} 
+E\+V\+E\+L\+\_\+\+J\+C\+S\+\_\+\+F\+I\+E\+L\+D\+\_\+\+N\+A\+M\+ES&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{E\+V\+E\+L\+\_\+\+J\+C\+S\+\_\+\+P\+A\+I\+R\+S\+\_\+\+L\+I\+ST@{E\+V\+E\+L\+\_\+\+J\+C\+S\+\_\+\+P\+A\+I\+R\+S\+\_\+\+L\+I\+ST}!evel\+\_\+throttle.\+h@{evel\+\_\+throttle.\+h}}\index{evel\+\_\+throttle.\+h@{evel\+\_\+throttle.\+h}!E\+V\+E\+L\+\_\+\+J\+C\+S\+\_\+\+P\+A\+I\+R\+S\+\_\+\+L\+I\+ST@{E\+V\+E\+L\+\_\+\+J\+C\+S\+\_\+\+P\+A\+I\+R\+S\+\_\+\+L\+I\+ST}}}\hypertarget{evel__throttle_8h_a493e23609c075f93bc6299b11bf56e41a5eec8641309d4bb68ceab2bd67761454}{}\label{evel__throttle_8h_a493e23609c075f93bc6299b11bf56e41a5eec8641309d4bb68ceab2bd67761454} 
+E\+V\+E\+L\+\_\+\+J\+C\+S\+\_\+\+P\+A\+I\+R\+S\+\_\+\+L\+I\+ST&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{E\+V\+E\+L\+\_\+\+J\+C\+S\+\_\+\+P\+A\+I\+R\+S\+\_\+\+L\+I\+S\+T\+\_\+\+E\+N\+T\+RY@{E\+V\+E\+L\+\_\+\+J\+C\+S\+\_\+\+P\+A\+I\+R\+S\+\_\+\+L\+I\+S\+T\+\_\+\+E\+N\+T\+RY}!evel\+\_\+throttle.\+h@{evel\+\_\+throttle.\+h}}\index{evel\+\_\+throttle.\+h@{evel\+\_\+throttle.\+h}!E\+V\+E\+L\+\_\+\+J\+C\+S\+\_\+\+P\+A\+I\+R\+S\+\_\+\+L\+I\+S\+T\+\_\+\+E\+N\+T\+RY@{E\+V\+E\+L\+\_\+\+J\+C\+S\+\_\+\+P\+A\+I\+R\+S\+\_\+\+L\+I\+S\+T\+\_\+\+E\+N\+T\+RY}}}\hypertarget{evel__throttle_8h_a493e23609c075f93bc6299b11bf56e41a38f22616bb326454268c261625f7ec34}{}\label{evel__throttle_8h_a493e23609c075f93bc6299b11bf56e41a38f22616bb326454268c261625f7ec34} 
+E\+V\+E\+L\+\_\+\+J\+C\+S\+\_\+\+P\+A\+I\+R\+S\+\_\+\+L\+I\+S\+T\+\_\+\+E\+N\+T\+RY&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{E\+V\+E\+L\+\_\+\+J\+C\+S\+\_\+\+N\+V\+\_\+\+P\+A\+I\+R\+\_\+\+N\+A\+M\+ES@{E\+V\+E\+L\+\_\+\+J\+C\+S\+\_\+\+N\+V\+\_\+\+P\+A\+I\+R\+\_\+\+N\+A\+M\+ES}!evel\+\_\+throttle.\+h@{evel\+\_\+throttle.\+h}}\index{evel\+\_\+throttle.\+h@{evel\+\_\+throttle.\+h}!E\+V\+E\+L\+\_\+\+J\+C\+S\+\_\+\+N\+V\+\_\+\+P\+A\+I\+R\+\_\+\+N\+A\+M\+ES@{E\+V\+E\+L\+\_\+\+J\+C\+S\+\_\+\+N\+V\+\_\+\+P\+A\+I\+R\+\_\+\+N\+A\+M\+ES}}}\hypertarget{evel__throttle_8h_a493e23609c075f93bc6299b11bf56e41a6aba0c05b962e2c938f955293e9f62dc}{}\label{evel__throttle_8h_a493e23609c075f93bc6299b11bf56e41a6aba0c05b962e2c938f955293e9f62dc} 
+E\+V\+E\+L\+\_\+\+J\+C\+S\+\_\+\+N\+V\+\_\+\+P\+A\+I\+R\+\_\+\+N\+A\+M\+ES&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{E\+V\+E\+L\+\_\+\+J\+C\+S\+\_\+\+M\+AX@{E\+V\+E\+L\+\_\+\+J\+C\+S\+\_\+\+M\+AX}!evel\+\_\+throttle.\+h@{evel\+\_\+throttle.\+h}}\index{evel\+\_\+throttle.\+h@{evel\+\_\+throttle.\+h}!E\+V\+E\+L\+\_\+\+J\+C\+S\+\_\+\+M\+AX@{E\+V\+E\+L\+\_\+\+J\+C\+S\+\_\+\+M\+AX}}}\hypertarget{evel__throttle_8h_a493e23609c075f93bc6299b11bf56e41a8a61a0c7c8d59bad0d78f14e572495ec}{}\label{evel__throttle_8h_a493e23609c075f93bc6299b11bf56e41a8a61a0c7c8d59bad0d78f14e572495ec} 
+E\+V\+E\+L\+\_\+\+J\+C\+S\+\_\+\+M\+AX&\\
+\hline
+
+\end{DoxyEnumFields}
+
+
+Definition at line 72 of file evel\+\_\+throttle.\+h.
+
+\hypertarget{evel__throttle_8h_af2ee805305a97e62d3b9d3e526513b6a}{}\label{evel__throttle_8h_af2ee805305a97e62d3b9d3e526513b6a} 
+\index{evel\+\_\+throttle.\+h@{evel\+\_\+throttle.\+h}!E\+V\+E\+L\+\_\+\+J\+S\+O\+N\+\_\+\+S\+T\+A\+TE@{E\+V\+E\+L\+\_\+\+J\+S\+O\+N\+\_\+\+S\+T\+A\+TE}}
+\index{E\+V\+E\+L\+\_\+\+J\+S\+O\+N\+\_\+\+S\+T\+A\+TE@{E\+V\+E\+L\+\_\+\+J\+S\+O\+N\+\_\+\+S\+T\+A\+TE}!evel\+\_\+throttle.\+h@{evel\+\_\+throttle.\+h}}
+\subsubsection{\texorpdfstring{E\+V\+E\+L\+\_\+\+J\+S\+O\+N\+\_\+\+S\+T\+A\+TE}{EVEL\_JSON\_STATE}}
+{\footnotesize\ttfamily enum \hyperlink{evel__throttle_8h_af2ee805305a97e62d3b9d3e526513b6a}{E\+V\+E\+L\+\_\+\+J\+S\+O\+N\+\_\+\+S\+T\+A\+TE}}
+
+
+
+The nature of the next token that we are iterating through. 
+
+Within an object, we alternate between collecting keys and values. Within an array, we only collect items. \begin{DoxyEnumFields}{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{E\+V\+E\+L\+\_\+\+J\+S\+O\+N\+\_\+\+K\+EY@{E\+V\+E\+L\+\_\+\+J\+S\+O\+N\+\_\+\+K\+EY}!evel\+\_\+throttle.\+h@{evel\+\_\+throttle.\+h}}\index{evel\+\_\+throttle.\+h@{evel\+\_\+throttle.\+h}!E\+V\+E\+L\+\_\+\+J\+S\+O\+N\+\_\+\+K\+EY@{E\+V\+E\+L\+\_\+\+J\+S\+O\+N\+\_\+\+K\+EY}}}\hypertarget{evel__throttle_8h_af2ee805305a97e62d3b9d3e526513b6aacec102f100325ac42b1527b2db20dfff}{}\label{evel__throttle_8h_af2ee805305a97e62d3b9d3e526513b6aacec102f100325ac42b1527b2db20dfff} 
+E\+V\+E\+L\+\_\+\+J\+S\+O\+N\+\_\+\+K\+EY&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{E\+V\+E\+L\+\_\+\+J\+S\+O\+N\+\_\+\+V\+A\+L\+UE@{E\+V\+E\+L\+\_\+\+J\+S\+O\+N\+\_\+\+V\+A\+L\+UE}!evel\+\_\+throttle.\+h@{evel\+\_\+throttle.\+h}}\index{evel\+\_\+throttle.\+h@{evel\+\_\+throttle.\+h}!E\+V\+E\+L\+\_\+\+J\+S\+O\+N\+\_\+\+V\+A\+L\+UE@{E\+V\+E\+L\+\_\+\+J\+S\+O\+N\+\_\+\+V\+A\+L\+UE}}}\hypertarget{evel__throttle_8h_af2ee805305a97e62d3b9d3e526513b6aa29f41a51bc9e2ff7bd7b94f5e83d597f}{}\label{evel__throttle_8h_af2ee805305a97e62d3b9d3e526513b6aa29f41a51bc9e2ff7bd7b94f5e83d597f} 
+E\+V\+E\+L\+\_\+\+J\+S\+O\+N\+\_\+\+V\+A\+L\+UE&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{E\+V\+E\+L\+\_\+\+J\+S\+O\+N\+\_\+\+I\+T\+EM@{E\+V\+E\+L\+\_\+\+J\+S\+O\+N\+\_\+\+I\+T\+EM}!evel\+\_\+throttle.\+h@{evel\+\_\+throttle.\+h}}\index{evel\+\_\+throttle.\+h@{evel\+\_\+throttle.\+h}!E\+V\+E\+L\+\_\+\+J\+S\+O\+N\+\_\+\+I\+T\+EM@{E\+V\+E\+L\+\_\+\+J\+S\+O\+N\+\_\+\+I\+T\+EM}}}\hypertarget{evel__throttle_8h_af2ee805305a97e62d3b9d3e526513b6aa675825b19685ef17f5df6f7f94dfb94b}{}\label{evel__throttle_8h_af2ee805305a97e62d3b9d3e526513b6aa675825b19685ef17f5df6f7f94dfb94b} 
+E\+V\+E\+L\+\_\+\+J\+S\+O\+N\+\_\+\+I\+T\+EM&\\
+\hline
+
+\end{DoxyEnumFields}
+
+
+Definition at line 62 of file evel\+\_\+throttle.\+h.
+
+
+
+\subsection{Function Documentation}
+\hypertarget{evel__throttle_8h_ab7e78c9a28d2231b6f104b36826ae3a8}{}\label{evel__throttle_8h_ab7e78c9a28d2231b6f104b36826ae3a8} 
+\index{evel\+\_\+throttle.\+h@{evel\+\_\+throttle.\+h}!evel\+\_\+get\+\_\+throttle\+\_\+spec@{evel\+\_\+get\+\_\+throttle\+\_\+spec}}
+\index{evel\+\_\+get\+\_\+throttle\+\_\+spec@{evel\+\_\+get\+\_\+throttle\+\_\+spec}!evel\+\_\+throttle.\+h@{evel\+\_\+throttle.\+h}}
+\subsubsection{\texorpdfstring{evel\+\_\+get\+\_\+throttle\+\_\+spec()}{evel\_get\_throttle\_spec()}}
+{\footnotesize\ttfamily \hyperlink{evel__internal_8h_a50932473d7d2e8f802d39b4f73e5b64f}{E\+V\+E\+L\+\_\+\+T\+H\+R\+O\+T\+T\+L\+E\+\_\+\+S\+P\+EC}$\ast$ evel\+\_\+get\+\_\+throttle\+\_\+spec (\begin{DoxyParamCaption}\item[{\hyperlink{evel_8h_ac34d44f4f90f2b63828a32ca9c7b0855}{E\+V\+E\+L\+\_\+\+E\+V\+E\+N\+T\+\_\+\+D\+O\+M\+A\+I\+NS}}]{domain }\end{DoxyParamCaption})}
+
+
+
+Return the \hyperlink{evel__internal_8h_a50932473d7d2e8f802d39b4f73e5b64f}{E\+V\+E\+L\+\_\+\+T\+H\+R\+O\+T\+T\+L\+E\+\_\+\+S\+P\+EC} for a given domain. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em domain} & The domain for which to return state. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 229 of file evel\+\_\+throttle.\+c.
+
+\hypertarget{evel__throttle_8h_a6b8c6cacde890f6685745a01ee05fc9b}{}\label{evel__throttle_8h_a6b8c6cacde890f6685745a01ee05fc9b} 
+\index{evel\+\_\+throttle.\+h@{evel\+\_\+throttle.\+h}!evel\+\_\+handle\+\_\+command\+\_\+list@{evel\+\_\+handle\+\_\+command\+\_\+list}}
+\index{evel\+\_\+handle\+\_\+command\+\_\+list@{evel\+\_\+handle\+\_\+command\+\_\+list}!evel\+\_\+throttle.\+h@{evel\+\_\+throttle.\+h}}
+\subsubsection{\texorpdfstring{evel\+\_\+handle\+\_\+command\+\_\+list()}{evel\_handle\_command\_list()}}
+{\footnotesize\ttfamily bool evel\+\_\+handle\+\_\+command\+\_\+list (\begin{DoxyParamCaption}\item[{const \hyperlink{evel__internal_8h_a552c2b2d2e73d39eb2d79328296f7d5f}{M\+E\+M\+O\+R\+Y\+\_\+\+C\+H\+U\+NK} $\ast$const}]{chunk,  }\item[{const \hyperlink{structjsmntok__t}{jsmntok\+\_\+t} $\ast$const}]{json\+\_\+tokens,  }\item[{const int}]{num\+\_\+tokens,  }\item[{\hyperlink{evel__internal_8h_a552c2b2d2e73d39eb2d79328296f7d5f}{M\+E\+M\+O\+R\+Y\+\_\+\+C\+H\+U\+NK} $\ast$const}]{post }\end{DoxyParamCaption})}
+
+
+
+Handle a J\+S\+ON response from the listener, as a list of tokens from J\+S\+MN. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em chunk} & Memory chunk containing the J\+S\+ON buffer. \\
+\hline
+{\em json\+\_\+tokens} & Array of tokens to handle. \\
+\hline
+{\em num\+\_\+tokens} & The number of tokens to handle. \\
+\hline
+{\em post} & The memory chunk in which to place any resulting P\+O\+ST. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if the command was handled, false otherwise. 
+\end{DoxyReturn}
+
+
+Definition at line 648 of file evel\+\_\+throttle.\+c.
+
+\hypertarget{evel__throttle_8h_ade78302fc8bf0ca43ff9c932bc1afaad}{}\label{evel__throttle_8h_ade78302fc8bf0ca43ff9c932bc1afaad} 
+\index{evel\+\_\+throttle.\+h@{evel\+\_\+throttle.\+h}!evel\+\_\+throttle\+\_\+initialize@{evel\+\_\+throttle\+\_\+initialize}}
+\index{evel\+\_\+throttle\+\_\+initialize@{evel\+\_\+throttle\+\_\+initialize}!evel\+\_\+throttle.\+h@{evel\+\_\+throttle.\+h}}
+\subsubsection{\texorpdfstring{evel\+\_\+throttle\+\_\+initialize()}{evel\_throttle\_initialize()}}
+{\footnotesize\ttfamily void evel\+\_\+throttle\+\_\+initialize (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Initialize event throttling to the default state. 
+
+Called from \hyperlink{evel_8h_a059033f948f5bf406fedb4a7ef1966da}{evel\+\_\+initialize}. 
+
+Definition at line 352 of file evel\+\_\+throttle.\+c.
+
+\hypertarget{evel__throttle_8h_ac60b1f0224e6ca6a08771152056b965c}{}\label{evel__throttle_8h_ac60b1f0224e6ca6a08771152056b965c} 
+\index{evel\+\_\+throttle.\+h@{evel\+\_\+throttle.\+h}!evel\+\_\+throttle\+\_\+suppress\+\_\+field@{evel\+\_\+throttle\+\_\+suppress\+\_\+field}}
+\index{evel\+\_\+throttle\+\_\+suppress\+\_\+field@{evel\+\_\+throttle\+\_\+suppress\+\_\+field}!evel\+\_\+throttle.\+h@{evel\+\_\+throttle.\+h}}
+\subsubsection{\texorpdfstring{evel\+\_\+throttle\+\_\+suppress\+\_\+field()}{evel\_throttle\_suppress\_field()}}
+{\footnotesize\ttfamily bool evel\+\_\+throttle\+\_\+suppress\+\_\+field (\begin{DoxyParamCaption}\item[{\hyperlink{evel__internal_8h_a50932473d7d2e8f802d39b4f73e5b64f}{E\+V\+E\+L\+\_\+\+T\+H\+R\+O\+T\+T\+L\+E\+\_\+\+S\+P\+EC} $\ast$}]{throttle\+\_\+spec,  }\item[{const char $\ast$const}]{field\+\_\+name }\end{DoxyParamCaption})}
+
+
+
+Determine whether a field\+\_\+name should be suppressed. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em throttle\+\_\+spec} & Throttle specification for the domain being encoded. \\
+\hline
+{\em field\+\_\+name} & The field name to encoded or suppress. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if the field\+\_\+name should be suppressed, false otherwise. 
+\end{DoxyReturn}
+
+
+Definition at line 254 of file evel\+\_\+throttle.\+c.
+
+\hypertarget{evel__throttle_8h_a499b67f3406f1ed998598fd3fae79a53}{}\label{evel__throttle_8h_a499b67f3406f1ed998598fd3fae79a53} 
+\index{evel\+\_\+throttle.\+h@{evel\+\_\+throttle.\+h}!evel\+\_\+throttle\+\_\+suppress\+\_\+nv\+\_\+pair@{evel\+\_\+throttle\+\_\+suppress\+\_\+nv\+\_\+pair}}
+\index{evel\+\_\+throttle\+\_\+suppress\+\_\+nv\+\_\+pair@{evel\+\_\+throttle\+\_\+suppress\+\_\+nv\+\_\+pair}!evel\+\_\+throttle.\+h@{evel\+\_\+throttle.\+h}}
+\subsubsection{\texorpdfstring{evel\+\_\+throttle\+\_\+suppress\+\_\+nv\+\_\+pair()}{evel\_throttle\_suppress\_nv\_pair()}}
+{\footnotesize\ttfamily bool evel\+\_\+throttle\+\_\+suppress\+\_\+nv\+\_\+pair (\begin{DoxyParamCaption}\item[{\hyperlink{evel__internal_8h_a50932473d7d2e8f802d39b4f73e5b64f}{E\+V\+E\+L\+\_\+\+T\+H\+R\+O\+T\+T\+L\+E\+\_\+\+S\+P\+EC} $\ast$}]{throttle\+\_\+spec,  }\item[{const char $\ast$const}]{field\+\_\+name,  }\item[{const char $\ast$const}]{name }\end{DoxyParamCaption})}
+
+
+
+Determine whether a name-\/value pair should be allowed (not suppressed). 
+
+
+\begin{DoxyParams}{Parameters}
+{\em throttle\+\_\+spec} & Throttle specification for the domain being encoded. \\
+\hline
+{\em field\+\_\+name} & The field name holding the name-\/value pairs. \\
+\hline
+{\em name} & The name of the name-\/value pair to encoded or suppress. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if the name-\/value pair should be suppressed, false otherwise. 
+\end{DoxyReturn}
+
+
+Definition at line 293 of file evel\+\_\+throttle.\+c.
+
+\hypertarget{evel__throttle_8h_aa2a791a641f98ced7c142f8b73d197fd}{}\label{evel__throttle_8h_aa2a791a641f98ced7c142f8b73d197fd} 
+\index{evel\+\_\+throttle.\+h@{evel\+\_\+throttle.\+h}!evel\+\_\+throttle\+\_\+terminate@{evel\+\_\+throttle\+\_\+terminate}}
+\index{evel\+\_\+throttle\+\_\+terminate@{evel\+\_\+throttle\+\_\+terminate}!evel\+\_\+throttle.\+h@{evel\+\_\+throttle.\+h}}
+\subsubsection{\texorpdfstring{evel\+\_\+throttle\+\_\+terminate()}{evel\_throttle\_terminate()}}
+{\footnotesize\ttfamily void evel\+\_\+throttle\+\_\+terminate (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Clean up event throttling. 
+
+Called from \hyperlink{evel_8h_ab3f6225ddb9c5113d74503d4fcd17e5b}{evel\+\_\+terminate}. 
+
+Definition at line 377 of file evel\+\_\+throttle.\+c.
+

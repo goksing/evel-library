@@ -1,0 +1,175 @@
+\hypertarget{evel__state__change_8c}{}\section{evel\+\_\+state\+\_\+change.\+c File Reference}
+\label{evel__state__change_8c}\index{evel\+\_\+state\+\_\+change.\+c@{evel\+\_\+state\+\_\+change.\+c}}
+
+
+Implementation of E\+V\+EL functions relating to the State Change.  
+
+
+{\ttfamily \#include $<$string.\+h$>$}\newline
+{\ttfamily \#include $<$assert.\+h$>$}\newline
+{\ttfamily \#include $<$stdlib.\+h$>$}\newline
+{\ttfamily \#include \char`\"{}evel\+\_\+throttle.\+h\char`\"{}}\newline
+Include dependency graph for evel\+\_\+state\+\_\+change.\+c\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{evel__state__change_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{evel_8h_a72ae3a3b2ebd648d901855dbd81d7261}{E\+V\+E\+N\+T\+\_\+\+S\+T\+A\+T\+E\+\_\+\+C\+H\+A\+N\+GE} $\ast$ \hyperlink{evel__state__change_8c_a4f0a7868b54799f13f282ada5c9dcc2e}{evel\+\_\+new\+\_\+state\+\_\+change} (const \hyperlink{evel_8h_a98a07355771fa850672520cd1e9b1168}{E\+V\+E\+L\+\_\+\+E\+N\+T\+I\+T\+Y\+\_\+\+S\+T\+A\+TE} new\+\_\+state, const \hyperlink{evel_8h_a98a07355771fa850672520cd1e9b1168}{E\+V\+E\+L\+\_\+\+E\+N\+T\+I\+T\+Y\+\_\+\+S\+T\+A\+TE} old\+\_\+state, const char $\ast$const interface)
+\begin{DoxyCompactList}\small\item\em Create a new State Change event. \end{DoxyCompactList}\item 
+void \hyperlink{evel__state__change_8c_a9e768c68d04bc58b80beba2813e3e930}{evel\+\_\+free\+\_\+state\+\_\+change} (\hyperlink{evel_8h_a72ae3a3b2ebd648d901855dbd81d7261}{E\+V\+E\+N\+T\+\_\+\+S\+T\+A\+T\+E\+\_\+\+C\+H\+A\+N\+GE} $\ast$const state\+\_\+change)
+\begin{DoxyCompactList}\small\item\em Free a State Change. \end{DoxyCompactList}\item 
+void \hyperlink{evel__state__change_8c_a424596be26549380a0fe58ba1a65f79e}{evel\+\_\+state\+\_\+change\+\_\+type\+\_\+set} (\hyperlink{evel_8h_a72ae3a3b2ebd648d901855dbd81d7261}{E\+V\+E\+N\+T\+\_\+\+S\+T\+A\+T\+E\+\_\+\+C\+H\+A\+N\+GE} $\ast$const state\+\_\+change, const char $\ast$const type)
+\begin{DoxyCompactList}\small\item\em Set the Event Type property of the State Change. \end{DoxyCompactList}\item 
+void \hyperlink{evel__state__change_8c_a69fa68b111d031d0caedf32a43a523f3}{evel\+\_\+state\+\_\+change\+\_\+addl\+\_\+field\+\_\+add} (\hyperlink{evel_8h_a72ae3a3b2ebd648d901855dbd81d7261}{E\+V\+E\+N\+T\+\_\+\+S\+T\+A\+T\+E\+\_\+\+C\+H\+A\+N\+GE} $\ast$const state\+\_\+change, const char $\ast$const name, const char $\ast$const value)
+\begin{DoxyCompactList}\small\item\em Add an additional field name/value pair to the State Change. \end{DoxyCompactList}\item 
+void \hyperlink{evel__state__change_8c_a3a7f71c0456598400859831405df06e8}{evel\+\_\+json\+\_\+encode\+\_\+state\+\_\+change} (\hyperlink{evel__internal_8h_af9c576f6ffebdf8c5164ccf9827b323a}{E\+V\+E\+L\+\_\+\+J\+S\+O\+N\+\_\+\+B\+U\+F\+F\+ER} $\ast$jbuf, \hyperlink{evel_8h_a72ae3a3b2ebd648d901855dbd81d7261}{E\+V\+E\+N\+T\+\_\+\+S\+T\+A\+T\+E\+\_\+\+C\+H\+A\+N\+GE} $\ast$state\+\_\+change)
+\begin{DoxyCompactList}\small\item\em Encode the state change as a J\+S\+ON state change. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Implementation of E\+V\+EL functions relating to the State Change. 
+
+\subsubsection*{License }
+
+Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met\+:
+
+
+\begin{DoxyEnumerate}
+\item Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
+\item Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.
+\item All advertising materials mentioning features or use of this software must display the following acknowledgement\+: This product includes software developed by the AT\&T.
+\item Neither the name of AT\&T nor the names of its contributors may be used to endorse or promote products derived from this software without specific prior written permission.
+\end{DoxyEnumerate}
+
+T\+H\+IS S\+O\+F\+T\+W\+A\+RE IS P\+R\+O\+V\+I\+D\+ED BY AT\&T I\+N\+T\+E\+L\+L\+E\+C\+T\+U\+AL P\+R\+O\+P\+E\+R\+TY \textquotesingle{}\textquotesingle{}AS IS\textquotesingle{}\textquotesingle{} A\+ND A\+NY E\+X\+P\+R\+E\+SS OR I\+M\+P\+L\+I\+ED W\+A\+R\+R\+A\+N\+T\+I\+ES, I\+N\+C\+L\+U\+D\+I\+NG, B\+UT N\+OT L\+I\+M\+I\+T\+ED TO, T\+HE I\+M\+P\+L\+I\+ED W\+A\+R\+R\+A\+N\+T\+I\+ES OF M\+E\+R\+C\+H\+A\+N\+T\+A\+B\+I\+L\+I\+TY A\+ND F\+I\+T\+N\+E\+SS F\+OR A P\+A\+R\+T\+I\+C\+U\+L\+AR P\+U\+R\+P\+O\+SE A\+RE D\+I\+S\+C\+L\+A\+I\+M\+ED. IN NO E\+V\+E\+NT S\+H\+A\+LL AT\&T I\+N\+T\+E\+L\+L\+E\+C\+T\+U\+AL P\+R\+O\+P\+E\+R\+TY BE L\+I\+A\+B\+LE F\+OR A\+NY D\+I\+R\+E\+CT, I\+N\+D\+I\+R\+E\+CT, I\+N\+C\+I\+D\+E\+N\+T\+AL, S\+P\+E\+C\+I\+AL, E\+X\+E\+M\+P\+L\+A\+RY, OR C\+O\+N\+S\+E\+Q\+U\+E\+N\+T\+I\+AL D\+A\+M\+A\+G\+ES (I\+N\+C\+L\+U\+D\+I\+NG, B\+UT N\+OT L\+I\+M\+I\+T\+ED TO, P\+R\+O\+C\+U\+R\+E\+M\+E\+NT OF S\+U\+B\+S\+T\+I\+T\+U\+TE G\+O\+O\+DS OR S\+E\+R\+V\+I\+C\+ES; L\+O\+SS OF U\+SE, D\+A\+TA, OR P\+R\+O\+F\+I\+TS; OR B\+U\+S\+I\+N\+E\+SS I\+N\+T\+E\+R\+R\+U\+P\+T\+I\+ON) H\+O\+W\+E\+V\+ER C\+A\+U\+S\+ED A\+ND ON A\+NY T\+H\+E\+O\+RY OF L\+I\+A\+B\+I\+L\+I\+TY, W\+H\+E\+T\+H\+ER IN C\+O\+N\+T\+R\+A\+CT, S\+T\+R\+I\+CT L\+I\+A\+B\+I\+L\+I\+TY, OR T\+O\+RT (I\+N\+C\+L\+U\+D\+I\+NG N\+E\+G\+L\+I\+G\+E\+N\+CE OR O\+T\+H\+E\+R\+W\+I\+SE) A\+R\+I\+S\+I\+NG IN A\+NY W\+AY O\+UT OF T\+HE U\+SE OF T\+H\+IS S\+O\+F\+T\+W\+A\+RE, E\+V\+EN IF A\+D\+V\+I\+S\+ED OF T\+HE P\+O\+S\+S\+I\+B\+I\+L\+I\+TY OF S\+U\+CH D\+A\+M\+A\+GE. 
+
+\subsection{Function Documentation}
+\hypertarget{evel__state__change_8c_a9e768c68d04bc58b80beba2813e3e930}{}\label{evel__state__change_8c_a9e768c68d04bc58b80beba2813e3e930} 
+\index{evel\+\_\+state\+\_\+change.\+c@{evel\+\_\+state\+\_\+change.\+c}!evel\+\_\+free\+\_\+state\+\_\+change@{evel\+\_\+free\+\_\+state\+\_\+change}}
+\index{evel\+\_\+free\+\_\+state\+\_\+change@{evel\+\_\+free\+\_\+state\+\_\+change}!evel\+\_\+state\+\_\+change.\+c@{evel\+\_\+state\+\_\+change.\+c}}
+\subsubsection{\texorpdfstring{evel\+\_\+free\+\_\+state\+\_\+change()}{evel\_free\_state\_change()}}
+{\footnotesize\ttfamily void evel\+\_\+free\+\_\+state\+\_\+change (\begin{DoxyParamCaption}\item[{\hyperlink{evel_8h_a72ae3a3b2ebd648d901855dbd81d7261}{E\+V\+E\+N\+T\+\_\+\+S\+T\+A\+T\+E\+\_\+\+C\+H\+A\+N\+GE} $\ast$const}]{state\+\_\+change }\end{DoxyParamCaption})}
+
+
+
+Free a State Change. 
+
+Free off the State Change supplied. Will free all the contained allocated memory.
+
+\begin{DoxyNote}{Note}
+It does not free the State Change itself, since that may be part of a larger structure. 
+\end{DoxyNote}
+
+
+Definition at line 111 of file evel\+\_\+state\+\_\+change.\+c.
+
+\hypertarget{evel__state__change_8c_a3a7f71c0456598400859831405df06e8}{}\label{evel__state__change_8c_a3a7f71c0456598400859831405df06e8} 
+\index{evel\+\_\+state\+\_\+change.\+c@{evel\+\_\+state\+\_\+change.\+c}!evel\+\_\+json\+\_\+encode\+\_\+state\+\_\+change@{evel\+\_\+json\+\_\+encode\+\_\+state\+\_\+change}}
+\index{evel\+\_\+json\+\_\+encode\+\_\+state\+\_\+change@{evel\+\_\+json\+\_\+encode\+\_\+state\+\_\+change}!evel\+\_\+state\+\_\+change.\+c@{evel\+\_\+state\+\_\+change.\+c}}
+\subsubsection{\texorpdfstring{evel\+\_\+json\+\_\+encode\+\_\+state\+\_\+change()}{evel\_json\_encode\_state\_change()}}
+{\footnotesize\ttfamily void evel\+\_\+json\+\_\+encode\+\_\+state\+\_\+change (\begin{DoxyParamCaption}\item[{\hyperlink{evel__internal_8h_af9c576f6ffebdf8c5164ccf9827b323a}{E\+V\+E\+L\+\_\+\+J\+S\+O\+N\+\_\+\+B\+U\+F\+F\+ER} $\ast$}]{jbuf,  }\item[{\hyperlink{evel_8h_a72ae3a3b2ebd648d901855dbd81d7261}{E\+V\+E\+N\+T\+\_\+\+S\+T\+A\+T\+E\+\_\+\+C\+H\+A\+N\+GE} $\ast$}]{state\+\_\+change }\end{DoxyParamCaption})}
+
+
+
+Encode the state change as a J\+S\+ON state change. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em jbuf} & Pointer to the \hyperlink{evel__internal_8h_af9c576f6ffebdf8c5164ccf9827b323a}{E\+V\+E\+L\+\_\+\+J\+S\+O\+N\+\_\+\+B\+U\+F\+F\+ER} to encode into. \\
+\hline
+{\em state\+\_\+change} & Pointer to the \hyperlink{evel_8h_a72ae3a3b2ebd648d901855dbd81d7261}{E\+V\+E\+N\+T\+\_\+\+S\+T\+A\+T\+E\+\_\+\+C\+H\+A\+N\+GE} to encode. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 221 of file evel\+\_\+state\+\_\+change.\+c.
+
+\hypertarget{evel__state__change_8c_a4f0a7868b54799f13f282ada5c9dcc2e}{}\label{evel__state__change_8c_a4f0a7868b54799f13f282ada5c9dcc2e} 
+\index{evel\+\_\+state\+\_\+change.\+c@{evel\+\_\+state\+\_\+change.\+c}!evel\+\_\+new\+\_\+state\+\_\+change@{evel\+\_\+new\+\_\+state\+\_\+change}}
+\index{evel\+\_\+new\+\_\+state\+\_\+change@{evel\+\_\+new\+\_\+state\+\_\+change}!evel\+\_\+state\+\_\+change.\+c@{evel\+\_\+state\+\_\+change.\+c}}
+\subsubsection{\texorpdfstring{evel\+\_\+new\+\_\+state\+\_\+change()}{evel\_new\_state\_change()}}
+{\footnotesize\ttfamily \hyperlink{evel_8h_a72ae3a3b2ebd648d901855dbd81d7261}{E\+V\+E\+N\+T\+\_\+\+S\+T\+A\+T\+E\+\_\+\+C\+H\+A\+N\+GE}$\ast$ evel\+\_\+new\+\_\+state\+\_\+change (\begin{DoxyParamCaption}\item[{const \hyperlink{evel_8h_a98a07355771fa850672520cd1e9b1168}{E\+V\+E\+L\+\_\+\+E\+N\+T\+I\+T\+Y\+\_\+\+S\+T\+A\+TE}}]{new\+\_\+state,  }\item[{const \hyperlink{evel_8h_a98a07355771fa850672520cd1e9b1168}{E\+V\+E\+L\+\_\+\+E\+N\+T\+I\+T\+Y\+\_\+\+S\+T\+A\+TE}}]{old\+\_\+state,  }\item[{const char $\ast$const}]{interface }\end{DoxyParamCaption})}
+
+
+
+Create a new State Change event. 
+
+\begin{DoxyNote}{Note}
+The mandatory fields on the State Change must be supplied to this factory function and are immutable once set. Optional fields have explicit setter functions, but again values may only be set once so that the State Change has immutable properties.
+\end{DoxyNote}
+
+\begin{DoxyParams}{Parameters}
+{\em new\+\_\+state} & The new state of the reporting entity. \\
+\hline
+{\em old\+\_\+state} & The old state of the reporting entity. \\
+\hline
+{\em interface} & The card or port name of the reporting entity.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+pointer to the newly manufactured \hyperlink{evel_8h_a72ae3a3b2ebd648d901855dbd81d7261}{E\+V\+E\+N\+T\+\_\+\+S\+T\+A\+T\+E\+\_\+\+C\+H\+A\+N\+GE}. If the event is not used it must be released using \hyperlink{evel__state__change_8c_a9e768c68d04bc58b80beba2813e3e930}{evel\+\_\+free\+\_\+state\+\_\+change} 
+\end{DoxyReturn}
+
+\begin{DoxyRetVals}{Return values}
+{\em N\+U\+LL} & Failed to create the event. \\
+\hline
+\end{DoxyRetVals}
+
+
+Definition at line 58 of file evel\+\_\+state\+\_\+change.\+c.
+
+\hypertarget{evel__state__change_8c_a69fa68b111d031d0caedf32a43a523f3}{}\label{evel__state__change_8c_a69fa68b111d031d0caedf32a43a523f3} 
+\index{evel\+\_\+state\+\_\+change.\+c@{evel\+\_\+state\+\_\+change.\+c}!evel\+\_\+state\+\_\+change\+\_\+addl\+\_\+field\+\_\+add@{evel\+\_\+state\+\_\+change\+\_\+addl\+\_\+field\+\_\+add}}
+\index{evel\+\_\+state\+\_\+change\+\_\+addl\+\_\+field\+\_\+add@{evel\+\_\+state\+\_\+change\+\_\+addl\+\_\+field\+\_\+add}!evel\+\_\+state\+\_\+change.\+c@{evel\+\_\+state\+\_\+change.\+c}}
+\subsubsection{\texorpdfstring{evel\+\_\+state\+\_\+change\+\_\+addl\+\_\+field\+\_\+add()}{evel\_state\_change\_addl\_field\_add()}}
+{\footnotesize\ttfamily void evel\+\_\+state\+\_\+change\+\_\+addl\+\_\+field\+\_\+add (\begin{DoxyParamCaption}\item[{\hyperlink{evel_8h_a72ae3a3b2ebd648d901855dbd81d7261}{E\+V\+E\+N\+T\+\_\+\+S\+T\+A\+T\+E\+\_\+\+C\+H\+A\+N\+GE} $\ast$const}]{state\+\_\+change,  }\item[{const char $\ast$const}]{name,  }\item[{const char $\ast$const}]{value }\end{DoxyParamCaption})}
+
+
+
+Add an additional field name/value pair to the State Change. 
+
+The name and value are null delimited A\+S\+C\+II strings. The library takes a copy so the caller does not have to preserve values after the function returns.
+
+
+\begin{DoxyParams}{Parameters}
+{\em state\+\_\+change} & Pointer to the \hyperlink{evel_8h_a72ae3a3b2ebd648d901855dbd81d7261}{E\+V\+E\+N\+T\+\_\+\+S\+T\+A\+T\+E\+\_\+\+C\+H\+A\+N\+GE}. \\
+\hline
+{\em name} & A\+S\+C\+I\+IZ string with the attribute\textquotesingle{}s name. The caller does not need to preserve the value once the function returns. \\
+\hline
+{\em value} & A\+S\+C\+I\+IZ string with the attribute\textquotesingle{}s value. The caller does not need to preserve the value once the function returns. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 186 of file evel\+\_\+state\+\_\+change.\+c.
+
+\hypertarget{evel__state__change_8c_a424596be26549380a0fe58ba1a65f79e}{}\label{evel__state__change_8c_a424596be26549380a0fe58ba1a65f79e} 
+\index{evel\+\_\+state\+\_\+change.\+c@{evel\+\_\+state\+\_\+change.\+c}!evel\+\_\+state\+\_\+change\+\_\+type\+\_\+set@{evel\+\_\+state\+\_\+change\+\_\+type\+\_\+set}}
+\index{evel\+\_\+state\+\_\+change\+\_\+type\+\_\+set@{evel\+\_\+state\+\_\+change\+\_\+type\+\_\+set}!evel\+\_\+state\+\_\+change.\+c@{evel\+\_\+state\+\_\+change.\+c}}
+\subsubsection{\texorpdfstring{evel\+\_\+state\+\_\+change\+\_\+type\+\_\+set()}{evel\_state\_change\_type\_set()}}
+{\footnotesize\ttfamily void evel\+\_\+state\+\_\+change\+\_\+type\+\_\+set (\begin{DoxyParamCaption}\item[{\hyperlink{evel_8h_a72ae3a3b2ebd648d901855dbd81d7261}{E\+V\+E\+N\+T\+\_\+\+S\+T\+A\+T\+E\+\_\+\+C\+H\+A\+N\+GE} $\ast$const}]{state\+\_\+change,  }\item[{const char $\ast$const}]{type }\end{DoxyParamCaption})}
+
+
+
+Set the Event Type property of the State Change. 
+
+\begin{DoxyNote}{Note}
+The property is treated as immutable\+: it is only valid to call the setter once. However, we don\textquotesingle{}t assert if the caller tries to overwrite, just ignoring the update instead.
+\end{DoxyNote}
+
+\begin{DoxyParams}{Parameters}
+{\em state\+\_\+change} & Pointer to the \hyperlink{evel_8h_a72ae3a3b2ebd648d901855dbd81d7261}{E\+V\+E\+N\+T\+\_\+\+S\+T\+A\+T\+E\+\_\+\+C\+H\+A\+N\+GE}. \\
+\hline
+{\em type} & The Event Type to be set. A\+S\+C\+I\+IZ string. The caller does not need to preserve the value once the function returns. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 156 of file evel\+\_\+state\+\_\+change.\+c.
+

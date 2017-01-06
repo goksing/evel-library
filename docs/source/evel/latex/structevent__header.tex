@@ -9,128 +9,198 @@ Event header.
 
 {\ttfamily \#include $<$evel.\+h$>$}
 
+
+
+Collaboration diagram for event\+\_\+header\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=210pt]{structevent__header__coll__graph}
+\end{center}
+\end{figure}
 \subsection*{Data Fields}
 \begin{DoxyCompactItemize}
 \item 
-\hyperlink{evel_8h_ac34d44f4f90f2b63828a32ca9c7b0855}{E\+V\+E\+L\+\_\+\+E\+V\+E\+N\+T\+\_\+\+D\+O\+M\+A\+I\+N\+S} \hyperlink{structevent__header_a191eca173d8bd260c598a2b79a026ab1}{event\+\_\+domain}
+int \hyperlink{structevent__header_ae350e9b0c027ad985d6513ee01264bc4}{major\+\_\+version}
+\item 
+int \hyperlink{structevent__header_a390f32dd59f12830f4b88b967a8aee3d}{minor\+\_\+version}
+\item 
+\hyperlink{evel_8h_ac34d44f4f90f2b63828a32ca9c7b0855}{E\+V\+E\+L\+\_\+\+E\+V\+E\+N\+T\+\_\+\+D\+O\+M\+A\+I\+NS} \hyperlink{structevent__header_a191eca173d8bd260c598a2b79a026ab1}{event\+\_\+domain}
 \item 
 char $\ast$ \hyperlink{structevent__header_a8123ea69f23cf078fc39304d6eeb6c26}{event\+\_\+id}
 \item 
-char $\ast$ \hyperlink{structevent__header_a39ed6782a7cfa1bf51d9ba35e92cc803}{event\+\_\+type}
+char $\ast$ \hyperlink{structevent__header_a5619697d328950141c426df951988f94}{source\+\_\+name}
 \item 
 char $\ast$ \hyperlink{structevent__header_a12896af9697cc5e5b678123a381c5086}{functional\+\_\+role}
 \item 
-unsigned long long \hyperlink{structevent__header_a5b7f178cb9755cc1f2b635e6c615133c}{last\+\_\+epoch\+\_\+microsec}
-\item 
-\hyperlink{evel_8h_ad1bf6807fa6710332251611207490484}{E\+V\+E\+L\+\_\+\+E\+V\+E\+N\+T\+\_\+\+P\+R\+I\+O\+R\+I\+T\+I\+E\+S} \hyperlink{structevent__header_a864abe4580ddd9c0b86a2df7fa19fbbe}{priority}
-\item 
-char $\ast$ \hyperlink{structevent__header_a43987af0098095813752ad1ca6d295d6}{reporting\+\_\+entity\+\_\+id}
-\item 
 char $\ast$ \hyperlink{structevent__header_a105ed7207010f12bb7ffccf3cb712536}{reporting\+\_\+entity\+\_\+name}
+\item 
+\hyperlink{evel_8h_ad1bf6807fa6710332251611207490484}{E\+V\+E\+L\+\_\+\+E\+V\+E\+N\+T\+\_\+\+P\+R\+I\+O\+R\+I\+T\+I\+ES} \hyperlink{structevent__header_a864abe4580ddd9c0b86a2df7fa19fbbe}{priority}
+\item 
+unsigned long long \hyperlink{structevent__header_af1abe603869530794daf1f4969c6b50c}{start\+\_\+epoch\+\_\+microsec}
+\item 
+unsigned long long \hyperlink{structevent__header_a5b7f178cb9755cc1f2b635e6c615133c}{last\+\_\+epoch\+\_\+microsec}
 \item 
 int \hyperlink{structevent__header_a3640c2b0a997500273b6db73f050ff10}{sequence}
 \item 
-char $\ast$ \hyperlink{structevent__header_a713d1a737d2b3330c008863fea17797b}{source\+\_\+id}
+\hyperlink{evel_8h_a0de5113a7b72de93c0c7b644f7ea7ec3}{E\+V\+E\+L\+\_\+\+O\+P\+T\+I\+O\+N\+\_\+\+S\+T\+R\+I\+NG} \hyperlink{structevent__header_a2ae85cc7be8606552cfeb4ced0a98c80}{event\+\_\+type}
 \item 
-char $\ast$ \hyperlink{structevent__header_a5619697d328950141c426df951988f94}{source\+\_\+name}
+\hyperlink{evel_8h_a0de5113a7b72de93c0c7b644f7ea7ec3}{E\+V\+E\+L\+\_\+\+O\+P\+T\+I\+O\+N\+\_\+\+S\+T\+R\+I\+NG} \hyperlink{structevent__header_ab35fa935cb5c5850b400fb64f648025b}{source\+\_\+id}
 \item 
-unsigned long long \hyperlink{structevent__header_af1abe603869530794daf1f4969c6b50c}{start\+\_\+epoch\+\_\+microsec}
+\hyperlink{evel_8h_a0de5113a7b72de93c0c7b644f7ea7ec3}{E\+V\+E\+L\+\_\+\+O\+P\+T\+I\+O\+N\+\_\+\+S\+T\+R\+I\+NG} \hyperlink{structevent__header_aa69fa9a102ba1aa45412f94197cd3a10}{reporting\+\_\+entity\+\_\+id}
 \end{DoxyCompactItemize}
 
 
 \subsection{Detailed Description}
 Event header. 
 
-J\+S\+O\+N equivalent field\+: common\+Event\+Header 
+J\+S\+ON equivalent field\+: common\+Event\+Header 
 
-Definition at line 181 of file evel.\+h.
+Definition at line 410 of file evel.\+h.
 
 
 
 \subsection{Field Documentation}
-\hypertarget{structevent__header_a191eca173d8bd260c598a2b79a026ab1}{}\index{event\+\_\+header@{event\+\_\+header}!event\+\_\+domain@{event\+\_\+domain}}
+\hypertarget{structevent__header_a191eca173d8bd260c598a2b79a026ab1}{}\label{structevent__header_a191eca173d8bd260c598a2b79a026ab1} 
+\index{event\+\_\+header@{event\+\_\+header}!event\+\_\+domain@{event\+\_\+domain}}
 \index{event\+\_\+domain@{event\+\_\+domain}!event\+\_\+header@{event\+\_\+header}}
-\subsubsection[{event\+\_\+domain}]{\setlength{\rightskip}{0pt plus 5cm}{\bf E\+V\+E\+L\+\_\+\+E\+V\+E\+N\+T\+\_\+\+D\+O\+M\+A\+I\+N\+S} event\+\_\+header\+::event\+\_\+domain}\label{structevent__header_a191eca173d8bd260c598a2b79a026ab1}
+\subsubsection{\texorpdfstring{event\+\_\+domain}{event\_domain}}
+{\footnotesize\ttfamily \hyperlink{evel_8h_ac34d44f4f90f2b63828a32ca9c7b0855}{E\+V\+E\+L\+\_\+\+E\+V\+E\+N\+T\+\_\+\+D\+O\+M\+A\+I\+NS} event\+\_\+header\+::event\+\_\+domain}
 
 
-Definition at line 182 of file evel.\+h.
 
-\hypertarget{structevent__header_a8123ea69f23cf078fc39304d6eeb6c26}{}\index{event\+\_\+header@{event\+\_\+header}!event\+\_\+id@{event\+\_\+id}}
+Definition at line 420 of file evel.\+h.
+
+\hypertarget{structevent__header_a8123ea69f23cf078fc39304d6eeb6c26}{}\label{structevent__header_a8123ea69f23cf078fc39304d6eeb6c26} 
+\index{event\+\_\+header@{event\+\_\+header}!event\+\_\+id@{event\+\_\+id}}
 \index{event\+\_\+id@{event\+\_\+id}!event\+\_\+header@{event\+\_\+header}}
-\subsubsection[{event\+\_\+id}]{\setlength{\rightskip}{0pt plus 5cm}char$\ast$ event\+\_\+header\+::event\+\_\+id}\label{structevent__header_a8123ea69f23cf078fc39304d6eeb6c26}
+\subsubsection{\texorpdfstring{event\+\_\+id}{event\_id}}
+{\footnotesize\ttfamily char$\ast$ event\+\_\+header\+::event\+\_\+id}
 
 
-Definition at line 183 of file evel.\+h.
 
-\hypertarget{structevent__header_a39ed6782a7cfa1bf51d9ba35e92cc803}{}\index{event\+\_\+header@{event\+\_\+header}!event\+\_\+type@{event\+\_\+type}}
+Definition at line 421 of file evel.\+h.
+
+\hypertarget{structevent__header_a2ae85cc7be8606552cfeb4ced0a98c80}{}\label{structevent__header_a2ae85cc7be8606552cfeb4ced0a98c80} 
+\index{event\+\_\+header@{event\+\_\+header}!event\+\_\+type@{event\+\_\+type}}
 \index{event\+\_\+type@{event\+\_\+type}!event\+\_\+header@{event\+\_\+header}}
-\subsubsection[{event\+\_\+type}]{\setlength{\rightskip}{0pt plus 5cm}char$\ast$ event\+\_\+header\+::event\+\_\+type}\label{structevent__header_a39ed6782a7cfa1bf51d9ba35e92cc803}
+\subsubsection{\texorpdfstring{event\+\_\+type}{event\_type}}
+{\footnotesize\ttfamily \hyperlink{evel_8h_a0de5113a7b72de93c0c7b644f7ea7ec3}{E\+V\+E\+L\+\_\+\+O\+P\+T\+I\+O\+N\+\_\+\+S\+T\+R\+I\+NG} event\+\_\+header\+::event\+\_\+type}
 
 
-Definition at line 184 of file evel.\+h.
 
-\hypertarget{structevent__header_a12896af9697cc5e5b678123a381c5086}{}\index{event\+\_\+header@{event\+\_\+header}!functional\+\_\+role@{functional\+\_\+role}}
+Definition at line 433 of file evel.\+h.
+
+\hypertarget{structevent__header_a12896af9697cc5e5b678123a381c5086}{}\label{structevent__header_a12896af9697cc5e5b678123a381c5086} 
+\index{event\+\_\+header@{event\+\_\+header}!functional\+\_\+role@{functional\+\_\+role}}
 \index{functional\+\_\+role@{functional\+\_\+role}!event\+\_\+header@{event\+\_\+header}}
-\subsubsection[{functional\+\_\+role}]{\setlength{\rightskip}{0pt plus 5cm}char$\ast$ event\+\_\+header\+::functional\+\_\+role}\label{structevent__header_a12896af9697cc5e5b678123a381c5086}
+\subsubsection{\texorpdfstring{functional\+\_\+role}{functional\_role}}
+{\footnotesize\ttfamily char$\ast$ event\+\_\+header\+::functional\+\_\+role}
 
 
-Definition at line 185 of file evel.\+h.
 
-\hypertarget{structevent__header_a5b7f178cb9755cc1f2b635e6c615133c}{}\index{event\+\_\+header@{event\+\_\+header}!last\+\_\+epoch\+\_\+microsec@{last\+\_\+epoch\+\_\+microsec}}
+Definition at line 423 of file evel.\+h.
+
+\hypertarget{structevent__header_a5b7f178cb9755cc1f2b635e6c615133c}{}\label{structevent__header_a5b7f178cb9755cc1f2b635e6c615133c} 
+\index{event\+\_\+header@{event\+\_\+header}!last\+\_\+epoch\+\_\+microsec@{last\+\_\+epoch\+\_\+microsec}}
 \index{last\+\_\+epoch\+\_\+microsec@{last\+\_\+epoch\+\_\+microsec}!event\+\_\+header@{event\+\_\+header}}
-\subsubsection[{last\+\_\+epoch\+\_\+microsec}]{\setlength{\rightskip}{0pt plus 5cm}unsigned long long event\+\_\+header\+::last\+\_\+epoch\+\_\+microsec}\label{structevent__header_a5b7f178cb9755cc1f2b635e6c615133c}
+\subsubsection{\texorpdfstring{last\+\_\+epoch\+\_\+microsec}{last\_epoch\_microsec}}
+{\footnotesize\ttfamily unsigned long long event\+\_\+header\+::last\+\_\+epoch\+\_\+microsec}
 
 
-Definition at line 186 of file evel.\+h.
 
-\hypertarget{structevent__header_a864abe4580ddd9c0b86a2df7fa19fbbe}{}\index{event\+\_\+header@{event\+\_\+header}!priority@{priority}}
+Definition at line 427 of file evel.\+h.
+
+\hypertarget{structevent__header_ae350e9b0c027ad985d6513ee01264bc4}{}\label{structevent__header_ae350e9b0c027ad985d6513ee01264bc4} 
+\index{event\+\_\+header@{event\+\_\+header}!major\+\_\+version@{major\+\_\+version}}
+\index{major\+\_\+version@{major\+\_\+version}!event\+\_\+header@{event\+\_\+header}}
+\subsubsection{\texorpdfstring{major\+\_\+version}{major\_version}}
+{\footnotesize\ttfamily int event\+\_\+header\+::major\+\_\+version}
+
+
+
+Definition at line 414 of file evel.\+h.
+
+\hypertarget{structevent__header_a390f32dd59f12830f4b88b967a8aee3d}{}\label{structevent__header_a390f32dd59f12830f4b88b967a8aee3d} 
+\index{event\+\_\+header@{event\+\_\+header}!minor\+\_\+version@{minor\+\_\+version}}
+\index{minor\+\_\+version@{minor\+\_\+version}!event\+\_\+header@{event\+\_\+header}}
+\subsubsection{\texorpdfstring{minor\+\_\+version}{minor\_version}}
+{\footnotesize\ttfamily int event\+\_\+header\+::minor\+\_\+version}
+
+
+
+Definition at line 415 of file evel.\+h.
+
+\hypertarget{structevent__header_a864abe4580ddd9c0b86a2df7fa19fbbe}{}\label{structevent__header_a864abe4580ddd9c0b86a2df7fa19fbbe} 
+\index{event\+\_\+header@{event\+\_\+header}!priority@{priority}}
 \index{priority@{priority}!event\+\_\+header@{event\+\_\+header}}
-\subsubsection[{priority}]{\setlength{\rightskip}{0pt plus 5cm}{\bf E\+V\+E\+L\+\_\+\+E\+V\+E\+N\+T\+\_\+\+P\+R\+I\+O\+R\+I\+T\+I\+E\+S} event\+\_\+header\+::priority}\label{structevent__header_a864abe4580ddd9c0b86a2df7fa19fbbe}
+\subsubsection{\texorpdfstring{priority}{priority}}
+{\footnotesize\ttfamily \hyperlink{evel_8h_ad1bf6807fa6710332251611207490484}{E\+V\+E\+L\+\_\+\+E\+V\+E\+N\+T\+\_\+\+P\+R\+I\+O\+R\+I\+T\+I\+ES} event\+\_\+header\+::priority}
 
 
-Definition at line 187 of file evel.\+h.
 
-\hypertarget{structevent__header_a43987af0098095813752ad1ca6d295d6}{}\index{event\+\_\+header@{event\+\_\+header}!reporting\+\_\+entity\+\_\+id@{reporting\+\_\+entity\+\_\+id}}
+Definition at line 425 of file evel.\+h.
+
+\hypertarget{structevent__header_aa69fa9a102ba1aa45412f94197cd3a10}{}\label{structevent__header_aa69fa9a102ba1aa45412f94197cd3a10} 
+\index{event\+\_\+header@{event\+\_\+header}!reporting\+\_\+entity\+\_\+id@{reporting\+\_\+entity\+\_\+id}}
 \index{reporting\+\_\+entity\+\_\+id@{reporting\+\_\+entity\+\_\+id}!event\+\_\+header@{event\+\_\+header}}
-\subsubsection[{reporting\+\_\+entity\+\_\+id}]{\setlength{\rightskip}{0pt plus 5cm}char$\ast$ event\+\_\+header\+::reporting\+\_\+entity\+\_\+id}\label{structevent__header_a43987af0098095813752ad1ca6d295d6}
+\subsubsection{\texorpdfstring{reporting\+\_\+entity\+\_\+id}{reporting\_entity\_id}}
+{\footnotesize\ttfamily \hyperlink{evel_8h_a0de5113a7b72de93c0c7b644f7ea7ec3}{E\+V\+E\+L\+\_\+\+O\+P\+T\+I\+O\+N\+\_\+\+S\+T\+R\+I\+NG} event\+\_\+header\+::reporting\+\_\+entity\+\_\+id}
 
 
-Definition at line 188 of file evel.\+h.
 
-\hypertarget{structevent__header_a105ed7207010f12bb7ffccf3cb712536}{}\index{event\+\_\+header@{event\+\_\+header}!reporting\+\_\+entity\+\_\+name@{reporting\+\_\+entity\+\_\+name}}
+Definition at line 435 of file evel.\+h.
+
+\hypertarget{structevent__header_a105ed7207010f12bb7ffccf3cb712536}{}\label{structevent__header_a105ed7207010f12bb7ffccf3cb712536} 
+\index{event\+\_\+header@{event\+\_\+header}!reporting\+\_\+entity\+\_\+name@{reporting\+\_\+entity\+\_\+name}}
 \index{reporting\+\_\+entity\+\_\+name@{reporting\+\_\+entity\+\_\+name}!event\+\_\+header@{event\+\_\+header}}
-\subsubsection[{reporting\+\_\+entity\+\_\+name}]{\setlength{\rightskip}{0pt plus 5cm}char$\ast$ event\+\_\+header\+::reporting\+\_\+entity\+\_\+name}\label{structevent__header_a105ed7207010f12bb7ffccf3cb712536}
+\subsubsection{\texorpdfstring{reporting\+\_\+entity\+\_\+name}{reporting\_entity\_name}}
+{\footnotesize\ttfamily char$\ast$ event\+\_\+header\+::reporting\+\_\+entity\+\_\+name}
 
 
-Definition at line 189 of file evel.\+h.
 
-\hypertarget{structevent__header_a3640c2b0a997500273b6db73f050ff10}{}\index{event\+\_\+header@{event\+\_\+header}!sequence@{sequence}}
+Definition at line 424 of file evel.\+h.
+
+\hypertarget{structevent__header_a3640c2b0a997500273b6db73f050ff10}{}\label{structevent__header_a3640c2b0a997500273b6db73f050ff10} 
+\index{event\+\_\+header@{event\+\_\+header}!sequence@{sequence}}
 \index{sequence@{sequence}!event\+\_\+header@{event\+\_\+header}}
-\subsubsection[{sequence}]{\setlength{\rightskip}{0pt plus 5cm}int event\+\_\+header\+::sequence}\label{structevent__header_a3640c2b0a997500273b6db73f050ff10}
+\subsubsection{\texorpdfstring{sequence}{sequence}}
+{\footnotesize\ttfamily int event\+\_\+header\+::sequence}
 
 
-Definition at line 190 of file evel.\+h.
 
-\hypertarget{structevent__header_a713d1a737d2b3330c008863fea17797b}{}\index{event\+\_\+header@{event\+\_\+header}!source\+\_\+id@{source\+\_\+id}}
+Definition at line 428 of file evel.\+h.
+
+\hypertarget{structevent__header_ab35fa935cb5c5850b400fb64f648025b}{}\label{structevent__header_ab35fa935cb5c5850b400fb64f648025b} 
+\index{event\+\_\+header@{event\+\_\+header}!source\+\_\+id@{source\+\_\+id}}
 \index{source\+\_\+id@{source\+\_\+id}!event\+\_\+header@{event\+\_\+header}}
-\subsubsection[{source\+\_\+id}]{\setlength{\rightskip}{0pt plus 5cm}char$\ast$ event\+\_\+header\+::source\+\_\+id}\label{structevent__header_a713d1a737d2b3330c008863fea17797b}
+\subsubsection{\texorpdfstring{source\+\_\+id}{source\_id}}
+{\footnotesize\ttfamily \hyperlink{evel_8h_a0de5113a7b72de93c0c7b644f7ea7ec3}{E\+V\+E\+L\+\_\+\+O\+P\+T\+I\+O\+N\+\_\+\+S\+T\+R\+I\+NG} event\+\_\+header\+::source\+\_\+id}
 
 
-Definition at line 191 of file evel.\+h.
 
-\hypertarget{structevent__header_a5619697d328950141c426df951988f94}{}\index{event\+\_\+header@{event\+\_\+header}!source\+\_\+name@{source\+\_\+name}}
+Definition at line 434 of file evel.\+h.
+
+\hypertarget{structevent__header_a5619697d328950141c426df951988f94}{}\label{structevent__header_a5619697d328950141c426df951988f94} 
+\index{event\+\_\+header@{event\+\_\+header}!source\+\_\+name@{source\+\_\+name}}
 \index{source\+\_\+name@{source\+\_\+name}!event\+\_\+header@{event\+\_\+header}}
-\subsubsection[{source\+\_\+name}]{\setlength{\rightskip}{0pt plus 5cm}char$\ast$ event\+\_\+header\+::source\+\_\+name}\label{structevent__header_a5619697d328950141c426df951988f94}
+\subsubsection{\texorpdfstring{source\+\_\+name}{source\_name}}
+{\footnotesize\ttfamily char$\ast$ event\+\_\+header\+::source\+\_\+name}
 
 
-Definition at line 192 of file evel.\+h.
 
-\hypertarget{structevent__header_af1abe603869530794daf1f4969c6b50c}{}\index{event\+\_\+header@{event\+\_\+header}!start\+\_\+epoch\+\_\+microsec@{start\+\_\+epoch\+\_\+microsec}}
+Definition at line 422 of file evel.\+h.
+
+\hypertarget{structevent__header_af1abe603869530794daf1f4969c6b50c}{}\label{structevent__header_af1abe603869530794daf1f4969c6b50c} 
+\index{event\+\_\+header@{event\+\_\+header}!start\+\_\+epoch\+\_\+microsec@{start\+\_\+epoch\+\_\+microsec}}
 \index{start\+\_\+epoch\+\_\+microsec@{start\+\_\+epoch\+\_\+microsec}!event\+\_\+header@{event\+\_\+header}}
-\subsubsection[{start\+\_\+epoch\+\_\+microsec}]{\setlength{\rightskip}{0pt plus 5cm}unsigned long long event\+\_\+header\+::start\+\_\+epoch\+\_\+microsec}\label{structevent__header_af1abe603869530794daf1f4969c6b50c}
+\subsubsection{\texorpdfstring{start\+\_\+epoch\+\_\+microsec}{start\_epoch\_microsec}}
+{\footnotesize\ttfamily unsigned long long event\+\_\+header\+::start\+\_\+epoch\+\_\+microsec}
 
 
-Definition at line 193 of file evel.\+h.
+
+Definition at line 426 of file evel.\+h.
 
 
 

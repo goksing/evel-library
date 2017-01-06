@@ -2,8 +2,19 @@ var searchData=
 [
   ['feature_5fid',['feature_id',['../structmeasurement__feature__use.html#aab070c5ff1a041e0cd424f2cee8d354b',1,'measurement_feature_use']]],
   ['feature_5fusage',['feature_usage',['../structevent__measurement.html#a3bdd3e143db79d5ffc5b24cb875d3088',1,'event_measurement::feature_usage()'],['../structevent__report.html#abb6a555e0bf695531258a22286826cc2',1,'event_report::feature_usage()']]],
-  ['feature_5futilization',['feature_utilization',['../structmeasurement__feature__use.html#a67c1772a8a83e0e386a3ce5dc783b8ee',1,'measurement_feature_use']]],
+  ['feature_5futilization',['feature_utilization',['../structmeasurement__feature__use.html#acfc02a6d8e005960701eca4389e5c222',1,'measurement_feature_use']]],
+  ['filesystem_5fname',['filesystem_name',['../structmeasurement__fsys__use.html#aacac02250f665f7b9b6fcf229c842c80',1,'measurement_fsys_use']]],
   ['filesystem_5fusage',['filesystem_usage',['../structevent__measurement.html#a7d01f500029deef0550691678f9a4de2',1,'event_measurement']]],
+  ['flow_5factivated_5fby',['flow_activated_by',['../structmobile__gtp__per__flow__metrics.html#a6035766979a87bc92acf93fd04cf8efb',1,'mobile_gtp_per_flow_metrics']]],
+  ['flow_5factivation_5fepoch',['flow_activation_epoch',['../structmobile__gtp__per__flow__metrics.html#a4d994baf3d4aead12c78820631c7b23e',1,'mobile_gtp_per_flow_metrics']]],
+  ['flow_5factivation_5fmicrosec',['flow_activation_microsec',['../structmobile__gtp__per__flow__metrics.html#a37f4239f32c37591cfb931930370bcb1',1,'mobile_gtp_per_flow_metrics']]],
+  ['flow_5factivation_5ftime',['flow_activation_time',['../structmobile__gtp__per__flow__metrics.html#af54aacdd72dcd6b5d5b33745eadd3e06',1,'mobile_gtp_per_flow_metrics']]],
+  ['flow_5fdeactivated_5fby',['flow_deactivated_by',['../structmobile__gtp__per__flow__metrics.html#ac1bd98d1620e7640bc8c0d51ea7ef869',1,'mobile_gtp_per_flow_metrics']]],
+  ['flow_5fdeactivation_5fepoch',['flow_deactivation_epoch',['../structmobile__gtp__per__flow__metrics.html#a88653ac380668d8bb85da4a06e125e3d',1,'mobile_gtp_per_flow_metrics']]],
+  ['flow_5fdeactivation_5fmicrosec',['flow_deactivation_microsec',['../structmobile__gtp__per__flow__metrics.html#aa44c196dc2d557e6669f85eedda3f43d',1,'mobile_gtp_per_flow_metrics']]],
+  ['flow_5fdeactivation_5ftime',['flow_deactivation_time',['../structmobile__gtp__per__flow__metrics.html#a64780311b54ec5442403f9e0287eb395',1,'mobile_gtp_per_flow_metrics']]],
+  ['flow_5fdirection',['flow_direction',['../structevent__mobile__flow.html#a472089128d0ed271f48da03b12ea1135',1,'event_mobile_flow']]],
+  ['flow_5fstatus',['flow_status',['../structmobile__gtp__per__flow__metrics.html#a4be001fad7fe7eae7b502b52198153b0',1,'mobile_gtp_per_flow_metrics']]],
   ['fout',['fout',['../evel_8h.html#acec19516a59050bb447192fe318e6a9c',1,'evel.h']]],
   ['functional_5frole',['functional_role',['../structevent__header.html#a12896af9697cc5e5b678123a381c5086',1,'event_header::functional_role()'],['../evel_8c.html#a756c78785c456a8b6deeec4849e203d5',1,'functional_role():&#160;evel.c'],['../evel__internal_8h.html#a756c78785c456a8b6deeec4849e203d5',1,'functional_role():&#160;evel.c']]]
 ];

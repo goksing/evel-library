@@ -49,6 +49,7 @@
 
 #include "evel.h"
 #include "evel_internal.h"
+#include "evel_throttle.h"
 #include "metadata.h"
 
 /**************************************************************************//**
@@ -60,7 +61,6 @@ EVEL_SOURCE_TYPES event_source_type = EVEL_SOURCE_OTHER;
  * The Functional Role of the equipment represented by this VNF.
  *****************************************************************************/
 char *functional_role = NULL;
-
 
 /**************************************************************************//**
  * Library initialization.
@@ -90,22 +90,26 @@ char *functional_role = NULL;
  * @retval  EVEL_SUCCESS      On success
  * @retval  ::EVEL_ERR_CODES  On failure.
  *****************************************************************************/
-EVEL_ERR_CODES evel_initialize(const char const * fqdn,
+EVEL_ERR_CODES evel_initialize(const char * const fqdn,
                                int port,
-                               const char const * path,
-                               const char const * topic,
+                               const char * const path,
+                               const char * const topic,
                                int secure,
-                               const char const * username,
-                               const char const * password,
+                               const char * const username,
+                               const char * const password,
                                EVEL_SOURCE_TYPES source_type,
-                               const char const *role,
+                               const char * const role,
                                int verbosity
                                )
 {
   EVEL_ERR_CODES rc = EVEL_SUCCESS;
-  char api_url[EVEL_MAX_URL_LEN + 1] = {0};
+  char base_api_url[EVEL_MAX_URL_LEN + 1] = {0};
+  char event_api_url[EVEL_MAX_URL_LEN + 1] = {0};
+  char throt_api_url[EVEL_MAX_URL_LEN + 1] = {0};
   char path_url[EVEL_MAX_URL_LEN + 1] = {0};
   char topic_url[EVEL_MAX_URL_LEN + 1] = {0};
+  char version_string[10] = {0};
+  int offset;
 
   /***************************************************************************/
   /* Check assumptions.                                                      */
@@ -122,12 +126,34 @@ EVEL_ERR_CODES evel_initialize(const char const * fqdn,
   EVEL_INFO("EVEL started");
   EVEL_INFO("API server is: %s", fqdn);
   EVEL_INFO("API port is: %d", port);
-  EVEL_INFO("API path is: %s", path);
-  EVEL_INFO("API topic is: %s", topic);
+
+  if (path != NULL)
+  {
+    EVEL_INFO("API path is: %s", path);
+  }
+  else
+  {
+    EVEL_INFO("No API path");
+  }
+
+  if (topic != NULL)
+  {
+    EVEL_INFO("API topic is: %s", topic);
+  }
+  else
+  {
+    EVEL_INFO("No API topic");
+  }
+
   EVEL_INFO("API transport is: %s", secure ? "HTTPS" : "HTTP");
   EVEL_INFO("Event Source Type is: %d", source_type);
   EVEL_INFO("Functional Role is: %s", role);
   EVEL_INFO("Log verbosity is: %d", verbosity);
+
+  /***************************************************************************/
+  /* Initialize event throttling to the default state.                       */
+  /***************************************************************************/
+  evel_throttle_initialize();
 
   /***************************************************************************/
   /* Save values we will need during operation.                              */
@@ -136,23 +162,59 @@ EVEL_ERR_CODES evel_initialize(const char const * fqdn,
   functional_role = strdup(role);
 
   /***************************************************************************/
-  /* Build the URL to the API.                                               */
+  /* Ensure there are no trailing zeroes and unnecessary decimal points in   */
+  /* the version.                                                            */
+  /***************************************************************************/
+  offset = sprintf(version_string, "%d", EVEL_API_MAJOR_VERSION);
+
+  if (EVEL_API_MINOR_VERSION != 0)
+  {
+    sprintf(version_string + offset, ".%d", EVEL_API_MINOR_VERSION);
+  }
+
+  /***************************************************************************/
+  /* Build a common base of the API URLs.                                    */
   /***************************************************************************/
   strcpy(path_url, "/");
-  strcpy(topic_url, "/");
-  snprintf(api_url, EVEL_MAX_URL_LEN, "%s://%s:%d%s/eventListener/v%d%s",
+  snprintf(base_api_url,
+           EVEL_MAX_URL_LEN,
+           "%s://%s:%d%s/eventListener/v%s",
            secure ? "https" : "http",
-           fqdn, port,
-           path ? strncat(path_url, path, EVEL_MAX_URL_LEN) : "",
-           EVEL_API_VERSION,
-           topic ? strncat(topic_url, topic, EVEL_MAX_URL_LEN) : "");
-  EVEL_INFO("Vendor Event Listener API is located at: %s", api_url);
+           fqdn,
+           port,
+           (((path != NULL) && (strlen(path) > 0)) ?
+            strncat(path_url, path, EVEL_MAX_URL_LEN) : ""),
+           version_string);
 
+  /***************************************************************************/
+  /* Build the URL to the event API.                                         */
+  /***************************************************************************/
+  strcpy(topic_url, "/");
+  snprintf(event_api_url,
+           EVEL_MAX_URL_LEN,
+           "%s%s",
+           base_api_url,
+           (((topic != NULL) && (strlen(topic) > 0)) ?
+            strncat(topic_url, topic, EVEL_MAX_URL_LEN) : ""));
+  EVEL_INFO("Vendor Event Listener API is located at: %s", event_api_url);
+
+  /***************************************************************************/
+  /* Build the URL to the throttling API.                                    */
+  /***************************************************************************/
+  snprintf(throt_api_url,
+           EVEL_MAX_URL_LEN,
+           "%s/clientThrottlingState",
+           base_api_url);
+  EVEL_INFO("Vendor Event Throttling API is located at: %s", throt_api_url);
 
   /***************************************************************************/
   /* Spin-up the event-handler, which gets cURL readied for use.             */
   /***************************************************************************/
-  rc = event_handler_initialize(api_url, username, password, verbosity);
+  rc = event_handler_initialize(event_api_url,
+                                throt_api_url,
+                                username,
+                                password,
+                                verbosity);
   if (rc != EVEL_SUCCESS)
   {
     log_error_state("Failed to initialize event handler (including cURL)");
@@ -218,6 +280,11 @@ EVEL_ERR_CODES evel_terminate(void)
   /***************************************************************************/
   free(functional_role);
 
+  /***************************************************************************/
+  /* Clean up event throttling.                                              */
+  /***************************************************************************/
+  evel_throttle_terminate();
+
   EVEL_INFO("EVEL stopped");
   return(rc);
 }
@@ -225,8 +292,7 @@ EVEL_ERR_CODES evel_terminate(void)
 /**************************************************************************//**
  * Free an event.
  *
- * Free off the event supplied.  Will recursively free all the contained
- * allocated memory.
+ * Free off the event supplied.  Will free all the contained allocated memory.
  *
  * @note  It is safe to free a NULL pointer.
  *****************************************************************************/
@@ -271,10 +337,52 @@ void evel_free_event(void * event)
       free(evt_ptr);
       break;
 
+    case EVEL_DOMAIN_MOBILE_FLOW:
+      EVEL_DEBUG("Event is a Mobile Flow at %lp", evt_ptr);
+      evel_free_mobile_flow((EVENT_MOBILE_FLOW *)evt_ptr);
+      memset(evt_ptr, 0, sizeof(EVENT_MOBILE_FLOW));
+      free(evt_ptr);
+      break;
+
     case EVEL_DOMAIN_REPORT:
       EVEL_DEBUG("Event is a Report at %lp", evt_ptr);
       evel_free_report((EVENT_REPORT *)evt_ptr);
       memset(evt_ptr, 0, sizeof(EVENT_REPORT));
+      free(evt_ptr);
+      break;
+
+    case EVEL_DOMAIN_SERVICE:
+      EVEL_DEBUG("Event is a Service Event at %lp", evt_ptr);
+      evel_free_service((EVENT_SERVICE *)evt_ptr);
+      memset(evt_ptr, 0, sizeof(EVENT_SERVICE));
+      free(evt_ptr);
+      break;
+
+    case EVEL_DOMAIN_SIGNALING:
+      EVEL_DEBUG("Event is a Signaling at %lp", evt_ptr);
+      evel_free_signaling((EVENT_SIGNALING *)evt_ptr);
+      memset(evt_ptr, 0, sizeof(EVENT_SIGNALING));
+      free(evt_ptr);
+      break;
+
+    case EVEL_DOMAIN_STATE_CHANGE:
+      EVEL_DEBUG("Event is a State Change at %lp", evt_ptr);
+      evel_free_state_change((EVENT_STATE_CHANGE *)evt_ptr);
+      memset(evt_ptr, 0, sizeof(EVENT_STATE_CHANGE));
+      free(evt_ptr);
+      break;
+
+    case EVEL_DOMAIN_SYSLOG:
+      EVEL_DEBUG("Event is a Syslog at %lp", evt_ptr);
+      evel_free_syslog((EVENT_SYSLOG *)evt_ptr);
+      memset(evt_ptr, 0, sizeof(EVENT_SYSLOG));
+      free(evt_ptr);
+      break;
+
+    case EVEL_DOMAIN_OTHER:
+      EVEL_DEBUG("Event is an Other at %lp", evt_ptr);
+      evel_free_other((EVENT_OTHER *)evt_ptr);
+      memset(evt_ptr, 0, sizeof(EVENT_OTHER));
       free(evt_ptr);
       break;
 
@@ -285,4 +393,3 @@ void evel_free_event(void * event)
   }
   EVEL_EXIT();
 }
-

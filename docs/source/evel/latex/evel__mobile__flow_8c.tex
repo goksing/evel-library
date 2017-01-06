@@ -1,0 +1,1340 @@
+\hypertarget{evel__mobile__flow_8c}{}\section{evel\+\_\+mobile\+\_\+flow.\+c File Reference}
+\label{evel__mobile__flow_8c}\index{evel\+\_\+mobile\+\_\+flow.\+c@{evel\+\_\+mobile\+\_\+flow.\+c}}
+
+
+Implementation of E\+V\+EL functions relating to the Mobile Flow.  
+
+
+{\ttfamily \#include $<$string.\+h$>$}\newline
+{\ttfamily \#include $<$assert.\+h$>$}\newline
+{\ttfamily \#include $<$stdlib.\+h$>$}\newline
+{\ttfamily \#include $<$time.\+h$>$}\newline
+{\ttfamily \#include \char`\"{}evel.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}evel\+\_\+internal.\+h\char`\"{}}\newline
+Include dependency graph for evel\+\_\+mobile\+\_\+flow.\+c\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{evel__mobile__flow_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{evel__mobile__flow_8c_a502ec9c0aafa5f98d97eebf452726b38}{evel\+\_\+json\+\_\+encode\+\_\+mobile\+\_\+flow\+\_\+gtp\+\_\+flow\+\_\+metrics} (\hyperlink{evel__internal_8h_af9c576f6ffebdf8c5164ccf9827b323a}{E\+V\+E\+L\+\_\+\+J\+S\+O\+N\+\_\+\+B\+U\+F\+F\+ER} $\ast$jbuf, \hyperlink{evel_8h_aab323a610a0d9f5df6ebb82f7e060494}{M\+O\+B\+I\+L\+E\+\_\+\+G\+T\+P\+\_\+\+P\+E\+R\+\_\+\+F\+L\+O\+W\+\_\+\+M\+E\+T\+R\+I\+CS} $\ast$metrics)
+\begin{DoxyCompactList}\small\item\em Encode the Mobile Flow G\+TP Per Flow Metrics as a J\+S\+ON object. \end{DoxyCompactList}\item 
+\hyperlink{evel_8h_a0003b182bfd34ca6458b04840d05738e}{E\+V\+E\+N\+T\+\_\+\+M\+O\+B\+I\+L\+E\+\_\+\+F\+L\+OW} $\ast$ \hyperlink{evel__mobile__flow_8c_a91056c1aef2f8a33a32920fdfc4fe23a}{evel\+\_\+new\+\_\+mobile\+\_\+flow} (const char $\ast$const flow\+\_\+direction, \hyperlink{evel_8h_aab323a610a0d9f5df6ebb82f7e060494}{M\+O\+B\+I\+L\+E\+\_\+\+G\+T\+P\+\_\+\+P\+E\+R\+\_\+\+F\+L\+O\+W\+\_\+\+M\+E\+T\+R\+I\+CS} $\ast$gtp\+\_\+per\+\_\+flow\+\_\+metrics, const char $\ast$const ip\+\_\+protocol\+\_\+type, const char $\ast$const ip\+\_\+version, const char $\ast$const other\+\_\+endpoint\+\_\+ip\+\_\+address, int other\+\_\+endpoint\+\_\+port, const char $\ast$const reporting\+\_\+endpoint\+\_\+ip\+\_\+addr, int reporting\+\_\+endpoint\+\_\+port)
+\begin{DoxyCompactList}\small\item\em Create a new Mobile Flow event. \end{DoxyCompactList}\item 
+void \hyperlink{evel__mobile__flow_8c_a0f9fa474d3e4cd84e9e2ac83388490bf}{evel\+\_\+mobile\+\_\+flow\+\_\+type\+\_\+set} (\hyperlink{evel_8h_a0003b182bfd34ca6458b04840d05738e}{E\+V\+E\+N\+T\+\_\+\+M\+O\+B\+I\+L\+E\+\_\+\+F\+L\+OW} $\ast$mobile\+\_\+flow, const char $\ast$const type)
+\begin{DoxyCompactList}\small\item\em Set the Event Type property of the Mobile Flow. \end{DoxyCompactList}\item 
+void \hyperlink{evel__mobile__flow_8c_a001f8e4cd91c2d3fdf8e996cb37f31e4}{evel\+\_\+mobile\+\_\+flow\+\_\+app\+\_\+type\+\_\+set} (\hyperlink{evel_8h_a0003b182bfd34ca6458b04840d05738e}{E\+V\+E\+N\+T\+\_\+\+M\+O\+B\+I\+L\+E\+\_\+\+F\+L\+OW} $\ast$mobile\+\_\+flow, const char $\ast$const type)
+\begin{DoxyCompactList}\small\item\em Set the Application Type property of the Mobile Flow. \end{DoxyCompactList}\item 
+void \hyperlink{evel__mobile__flow_8c_acb491383f30007d40d748fcb56c6ec2c}{evel\+\_\+mobile\+\_\+flow\+\_\+app\+\_\+prot\+\_\+type\+\_\+set} (\hyperlink{evel_8h_a0003b182bfd34ca6458b04840d05738e}{E\+V\+E\+N\+T\+\_\+\+M\+O\+B\+I\+L\+E\+\_\+\+F\+L\+OW} $\ast$mobile\+\_\+flow, const char $\ast$const type)
+\begin{DoxyCompactList}\small\item\em Set the Application Protocol Type property of the Mobile Flow. \end{DoxyCompactList}\item 
+void \hyperlink{evel__mobile__flow_8c_a2b1d4defb6b4b04194beece696e0fba8}{evel\+\_\+mobile\+\_\+flow\+\_\+app\+\_\+prot\+\_\+ver\+\_\+set} (\hyperlink{evel_8h_a0003b182bfd34ca6458b04840d05738e}{E\+V\+E\+N\+T\+\_\+\+M\+O\+B\+I\+L\+E\+\_\+\+F\+L\+OW} $\ast$mobile\+\_\+flow, const char $\ast$const version)
+\begin{DoxyCompactList}\small\item\em Set the Application Protocol Version property of the Mobile Flow. \end{DoxyCompactList}\item 
+void \hyperlink{evel__mobile__flow_8c_a7558b5adf6c7efb983017594a3f7f46d}{evel\+\_\+mobile\+\_\+flow\+\_\+cid\+\_\+set} (\hyperlink{evel_8h_a0003b182bfd34ca6458b04840d05738e}{E\+V\+E\+N\+T\+\_\+\+M\+O\+B\+I\+L\+E\+\_\+\+F\+L\+OW} $\ast$mobile\+\_\+flow, const char $\ast$const cid)
+\begin{DoxyCompactList}\small\item\em Set the C\+ID property of the Mobile Flow. \end{DoxyCompactList}\item 
+void \hyperlink{evel__mobile__flow_8c_a6e01c8b5df391c4ee21e6264233ab0c8}{evel\+\_\+mobile\+\_\+flow\+\_\+con\+\_\+type\+\_\+set} (\hyperlink{evel_8h_a0003b182bfd34ca6458b04840d05738e}{E\+V\+E\+N\+T\+\_\+\+M\+O\+B\+I\+L\+E\+\_\+\+F\+L\+OW} $\ast$mobile\+\_\+flow, const char $\ast$const type)
+\begin{DoxyCompactList}\small\item\em Set the Connection Type property of the Mobile Flow. \end{DoxyCompactList}\item 
+void \hyperlink{evel__mobile__flow_8c_ae9c80ef5cdfa7ddc4ff6729ccc65fd95}{evel\+\_\+mobile\+\_\+flow\+\_\+ecgi\+\_\+set} (\hyperlink{evel_8h_a0003b182bfd34ca6458b04840d05738e}{E\+V\+E\+N\+T\+\_\+\+M\+O\+B\+I\+L\+E\+\_\+\+F\+L\+OW} $\ast$mobile\+\_\+flow, const char $\ast$const ecgi)
+\begin{DoxyCompactList}\small\item\em Set the E\+C\+GI property of the Mobile Flow. \end{DoxyCompactList}\item 
+void \hyperlink{evel__mobile__flow_8c_a451e41221894da1df55be86f2993105f}{evel\+\_\+mobile\+\_\+flow\+\_\+gtp\+\_\+prot\+\_\+type\+\_\+set} (\hyperlink{evel_8h_a0003b182bfd34ca6458b04840d05738e}{E\+V\+E\+N\+T\+\_\+\+M\+O\+B\+I\+L\+E\+\_\+\+F\+L\+OW} $\ast$mobile\+\_\+flow, const char $\ast$const type)
+\begin{DoxyCompactList}\small\item\em Set the G\+TP Protocol Type property of the Mobile Flow. \end{DoxyCompactList}\item 
+void \hyperlink{evel__mobile__flow_8c_a0626abfdfeefe994e3e70263af693fa8}{evel\+\_\+mobile\+\_\+flow\+\_\+gtp\+\_\+prot\+\_\+ver\+\_\+set} (\hyperlink{evel_8h_a0003b182bfd34ca6458b04840d05738e}{E\+V\+E\+N\+T\+\_\+\+M\+O\+B\+I\+L\+E\+\_\+\+F\+L\+OW} $\ast$mobile\+\_\+flow, const char $\ast$const version)
+\begin{DoxyCompactList}\small\item\em Set the G\+TP Protocol Version property of the Mobile Flow. \end{DoxyCompactList}\item 
+void \hyperlink{evel__mobile__flow_8c_a213016e81067a67b806da49b02f36de9}{evel\+\_\+mobile\+\_\+flow\+\_\+http\+\_\+header\+\_\+set} (\hyperlink{evel_8h_a0003b182bfd34ca6458b04840d05738e}{E\+V\+E\+N\+T\+\_\+\+M\+O\+B\+I\+L\+E\+\_\+\+F\+L\+OW} $\ast$mobile\+\_\+flow, const char $\ast$const header)
+\begin{DoxyCompactList}\small\item\em Set the H\+T\+TP Header property of the Mobile Flow. \end{DoxyCompactList}\item 
+void \hyperlink{evel__mobile__flow_8c_a040a441fbbf606e30dc9985551fb4773}{evel\+\_\+mobile\+\_\+flow\+\_\+imei\+\_\+set} (\hyperlink{evel_8h_a0003b182bfd34ca6458b04840d05738e}{E\+V\+E\+N\+T\+\_\+\+M\+O\+B\+I\+L\+E\+\_\+\+F\+L\+OW} $\ast$mobile\+\_\+flow, const char $\ast$const imei)
+\begin{DoxyCompactList}\small\item\em Set the I\+M\+EI property of the Mobile Flow. \end{DoxyCompactList}\item 
+void \hyperlink{evel__mobile__flow_8c_a85a42c085ba949980f73113c1bca69d5}{evel\+\_\+mobile\+\_\+flow\+\_\+imsi\+\_\+set} (\hyperlink{evel_8h_a0003b182bfd34ca6458b04840d05738e}{E\+V\+E\+N\+T\+\_\+\+M\+O\+B\+I\+L\+E\+\_\+\+F\+L\+OW} $\ast$mobile\+\_\+flow, const char $\ast$const imsi)
+\begin{DoxyCompactList}\small\item\em Set the I\+M\+SI property of the Mobile Flow. \end{DoxyCompactList}\item 
+void \hyperlink{evel__mobile__flow_8c_a697718117592aa26c9ff44c267691b21}{evel\+\_\+mobile\+\_\+flow\+\_\+lac\+\_\+set} (\hyperlink{evel_8h_a0003b182bfd34ca6458b04840d05738e}{E\+V\+E\+N\+T\+\_\+\+M\+O\+B\+I\+L\+E\+\_\+\+F\+L\+OW} $\ast$mobile\+\_\+flow, const char $\ast$const lac)
+\begin{DoxyCompactList}\small\item\em Set the L\+AC property of the Mobile Flow. \end{DoxyCompactList}\item 
+void \hyperlink{evel__mobile__flow_8c_acdebbbe4616f063b757d0e38b6639c81}{evel\+\_\+mobile\+\_\+flow\+\_\+mcc\+\_\+set} (\hyperlink{evel_8h_a0003b182bfd34ca6458b04840d05738e}{E\+V\+E\+N\+T\+\_\+\+M\+O\+B\+I\+L\+E\+\_\+\+F\+L\+OW} $\ast$mobile\+\_\+flow, const char $\ast$const mcc)
+\begin{DoxyCompactList}\small\item\em Set the M\+CC property of the Mobile Flow. \end{DoxyCompactList}\item 
+void \hyperlink{evel__mobile__flow_8c_ad804bc6e06e781e5f63aafa545f29829}{evel\+\_\+mobile\+\_\+flow\+\_\+mnc\+\_\+set} (\hyperlink{evel_8h_a0003b182bfd34ca6458b04840d05738e}{E\+V\+E\+N\+T\+\_\+\+M\+O\+B\+I\+L\+E\+\_\+\+F\+L\+OW} $\ast$mobile\+\_\+flow, const char $\ast$const mnc)
+\begin{DoxyCompactList}\small\item\em Set the M\+NC property of the Mobile Flow. \end{DoxyCompactList}\item 
+void \hyperlink{evel__mobile__flow_8c_a62ffc93bfbbaff5e1be33094b3719344}{evel\+\_\+mobile\+\_\+flow\+\_\+msisdn\+\_\+set} (\hyperlink{evel_8h_a0003b182bfd34ca6458b04840d05738e}{E\+V\+E\+N\+T\+\_\+\+M\+O\+B\+I\+L\+E\+\_\+\+F\+L\+OW} $\ast$mobile\+\_\+flow, const char $\ast$const msisdn)
+\begin{DoxyCompactList}\small\item\em Set the M\+S\+I\+S\+DN property of the Mobile Flow. \end{DoxyCompactList}\item 
+void \hyperlink{evel__mobile__flow_8c_a7db96e0f7dbc55dd471c33160a802d13}{evel\+\_\+mobile\+\_\+flow\+\_\+other\+\_\+func\+\_\+role\+\_\+set} (\hyperlink{evel_8h_a0003b182bfd34ca6458b04840d05738e}{E\+V\+E\+N\+T\+\_\+\+M\+O\+B\+I\+L\+E\+\_\+\+F\+L\+OW} $\ast$mobile\+\_\+flow, const char $\ast$const role)
+\begin{DoxyCompactList}\small\item\em Set the Other Functional Role property of the Mobile Flow. \end{DoxyCompactList}\item 
+void \hyperlink{evel__mobile__flow_8c_a73067ae5bf8fa0858d06613d8391add0}{evel\+\_\+mobile\+\_\+flow\+\_\+rac\+\_\+set} (\hyperlink{evel_8h_a0003b182bfd34ca6458b04840d05738e}{E\+V\+E\+N\+T\+\_\+\+M\+O\+B\+I\+L\+E\+\_\+\+F\+L\+OW} $\ast$mobile\+\_\+flow, const char $\ast$const rac)
+\begin{DoxyCompactList}\small\item\em Set the R\+AC property of the Mobile Flow. \end{DoxyCompactList}\item 
+void \hyperlink{evel__mobile__flow_8c_a17f12868a745f0b3dcde6edbd75fef4a}{evel\+\_\+mobile\+\_\+flow\+\_\+radio\+\_\+acc\+\_\+tech\+\_\+set} (\hyperlink{evel_8h_a0003b182bfd34ca6458b04840d05738e}{E\+V\+E\+N\+T\+\_\+\+M\+O\+B\+I\+L\+E\+\_\+\+F\+L\+OW} $\ast$mobile\+\_\+flow, const char $\ast$const tech)
+\begin{DoxyCompactList}\small\item\em Set the Radio Access Technology property of the Mobile Flow. \end{DoxyCompactList}\item 
+void \hyperlink{evel__mobile__flow_8c_a8e1f15df21e415a1ad9b21799c087d3a}{evel\+\_\+mobile\+\_\+flow\+\_\+sac\+\_\+set} (\hyperlink{evel_8h_a0003b182bfd34ca6458b04840d05738e}{E\+V\+E\+N\+T\+\_\+\+M\+O\+B\+I\+L\+E\+\_\+\+F\+L\+OW} $\ast$mobile\+\_\+flow, const char $\ast$const sac)
+\begin{DoxyCompactList}\small\item\em Set the S\+AC property of the Mobile Flow. \end{DoxyCompactList}\item 
+void \hyperlink{evel__mobile__flow_8c_a94dc429454c0558519c2a27c0c47097a}{evel\+\_\+mobile\+\_\+flow\+\_\+samp\+\_\+alg\+\_\+set} (\hyperlink{evel_8h_a0003b182bfd34ca6458b04840d05738e}{E\+V\+E\+N\+T\+\_\+\+M\+O\+B\+I\+L\+E\+\_\+\+F\+L\+OW} $\ast$mobile\+\_\+flow, int algorithm)
+\begin{DoxyCompactList}\small\item\em Set the Sampling Algorithm property of the Mobile Flow. \end{DoxyCompactList}\item 
+void \hyperlink{evel__mobile__flow_8c_a5c00dc99a69a25f793dddb18bd49387c}{evel\+\_\+mobile\+\_\+flow\+\_\+tac\+\_\+set} (\hyperlink{evel_8h_a0003b182bfd34ca6458b04840d05738e}{E\+V\+E\+N\+T\+\_\+\+M\+O\+B\+I\+L\+E\+\_\+\+F\+L\+OW} $\ast$mobile\+\_\+flow, const char $\ast$const tac)
+\begin{DoxyCompactList}\small\item\em Set the T\+AC property of the Mobile Flow. \end{DoxyCompactList}\item 
+void \hyperlink{evel__mobile__flow_8c_a0fbd257da68229d94cd9243f2a7459cd}{evel\+\_\+mobile\+\_\+flow\+\_\+tunnel\+\_\+id\+\_\+set} (\hyperlink{evel_8h_a0003b182bfd34ca6458b04840d05738e}{E\+V\+E\+N\+T\+\_\+\+M\+O\+B\+I\+L\+E\+\_\+\+F\+L\+OW} $\ast$mobile\+\_\+flow, const char $\ast$const tunnel\+\_\+id)
+\begin{DoxyCompactList}\small\item\em Set the Tunnel ID property of the Mobile Flow. \end{DoxyCompactList}\item 
+void \hyperlink{evel__mobile__flow_8c_a911d625f947632a74ce74e9b3a4fc75e}{evel\+\_\+mobile\+\_\+flow\+\_\+vlan\+\_\+id\+\_\+set} (\hyperlink{evel_8h_a0003b182bfd34ca6458b04840d05738e}{E\+V\+E\+N\+T\+\_\+\+M\+O\+B\+I\+L\+E\+\_\+\+F\+L\+OW} $\ast$mobile\+\_\+flow, const char $\ast$const vlan\+\_\+id)
+\begin{DoxyCompactList}\small\item\em Set the V\+L\+AN ID property of the Mobile Flow. \end{DoxyCompactList}\item 
+void \hyperlink{evel__mobile__flow_8c_ad80faae691ccc39776e418143ef47ab5}{evel\+\_\+json\+\_\+encode\+\_\+mobile\+\_\+flow} (\hyperlink{evel__internal_8h_af9c576f6ffebdf8c5164ccf9827b323a}{E\+V\+E\+L\+\_\+\+J\+S\+O\+N\+\_\+\+B\+U\+F\+F\+ER} $\ast$jbuf, \hyperlink{evel_8h_a0003b182bfd34ca6458b04840d05738e}{E\+V\+E\+N\+T\+\_\+\+M\+O\+B\+I\+L\+E\+\_\+\+F\+L\+OW} $\ast$event)
+\begin{DoxyCompactList}\small\item\em Encode the Mobile Flow in J\+S\+ON according to AT\&T\textquotesingle{}s schema for the event type. \end{DoxyCompactList}\item 
+void \hyperlink{evel__mobile__flow_8c_a94c4a0dc4d4a3a2bbb4120be3ba39913}{evel\+\_\+free\+\_\+mobile\+\_\+flow} (\hyperlink{evel_8h_a0003b182bfd34ca6458b04840d05738e}{E\+V\+E\+N\+T\+\_\+\+M\+O\+B\+I\+L\+E\+\_\+\+F\+L\+OW} $\ast$event)
+\begin{DoxyCompactList}\small\item\em Free a Mobile Flow. \end{DoxyCompactList}\item 
+\hyperlink{evel_8h_aab323a610a0d9f5df6ebb82f7e060494}{M\+O\+B\+I\+L\+E\+\_\+\+G\+T\+P\+\_\+\+P\+E\+R\+\_\+\+F\+L\+O\+W\+\_\+\+M\+E\+T\+R\+I\+CS} $\ast$ \hyperlink{evel__mobile__flow_8c_a8440103cf9c7ba48182528948d2ebc49}{evel\+\_\+new\+\_\+mobile\+\_\+gtp\+\_\+flow\+\_\+metrics} (double avg\+\_\+bit\+\_\+error\+\_\+rate, double avg\+\_\+packet\+\_\+delay\+\_\+variation, int avg\+\_\+packet\+\_\+latency, int avg\+\_\+receive\+\_\+throughput, int avg\+\_\+transmit\+\_\+throughput, int flow\+\_\+activation\+\_\+epoch, int flow\+\_\+activation\+\_\+microsec, int flow\+\_\+deactivation\+\_\+epoch, int flow\+\_\+deactivation\+\_\+microsec, time\+\_\+t flow\+\_\+deactivation\+\_\+time, const char $\ast$const flow\+\_\+status, int max\+\_\+packet\+\_\+delay\+\_\+variation, int num\+\_\+activation\+\_\+failures, int num\+\_\+bit\+\_\+errors, int num\+\_\+bytes\+\_\+received, int num\+\_\+bytes\+\_\+transmitted, int num\+\_\+dropped\+\_\+packets, int num\+\_\+l7\+\_\+bytes\+\_\+received, int num\+\_\+l7\+\_\+bytes\+\_\+transmitted, int num\+\_\+lost\+\_\+packets, int num\+\_\+out\+\_\+of\+\_\+order\+\_\+packets, int num\+\_\+packet\+\_\+errors, int num\+\_\+packets\+\_\+received\+\_\+excl\+\_\+retrans, int num\+\_\+packets\+\_\+received\+\_\+incl\+\_\+retrans, int num\+\_\+packets\+\_\+transmitted\+\_\+incl\+\_\+retrans, int num\+\_\+retries, int num\+\_\+timeouts, int num\+\_\+tunneled\+\_\+l7\+\_\+bytes\+\_\+received, int round\+\_\+trip\+\_\+time, int time\+\_\+to\+\_\+first\+\_\+byte)
+\begin{DoxyCompactList}\small\item\em Create a new Mobile G\+TP Per Flow Metrics. \end{DoxyCompactList}\item 
+void \hyperlink{evel__mobile__flow_8c_a715f03852cefb1650621f5aab09c88fe}{evel\+\_\+mobile\+\_\+gtp\+\_\+metrics\+\_\+dur\+\_\+con\+\_\+fail\+\_\+set} (\hyperlink{evel_8h_aab323a610a0d9f5df6ebb82f7e060494}{M\+O\+B\+I\+L\+E\+\_\+\+G\+T\+P\+\_\+\+P\+E\+R\+\_\+\+F\+L\+O\+W\+\_\+\+M\+E\+T\+R\+I\+CS} $\ast$metrics, int duration)
+\begin{DoxyCompactList}\small\item\em Set the Duration of Connection Failed Status property of the Mobile G\+TP Per Flow Metrics. \end{DoxyCompactList}\item 
+void \hyperlink{evel__mobile__flow_8c_a3ff8714f0d5a72ea1e7a1e5758c36ef7}{evel\+\_\+mobile\+\_\+gtp\+\_\+metrics\+\_\+dur\+\_\+tun\+\_\+fail\+\_\+set} (\hyperlink{evel_8h_aab323a610a0d9f5df6ebb82f7e060494}{M\+O\+B\+I\+L\+E\+\_\+\+G\+T\+P\+\_\+\+P\+E\+R\+\_\+\+F\+L\+O\+W\+\_\+\+M\+E\+T\+R\+I\+CS} $\ast$metrics, int duration)
+\begin{DoxyCompactList}\small\item\em Set the Duration of Tunnel Failed Status property of the Mobile G\+TP Per Flow Metrics. \end{DoxyCompactList}\item 
+void \hyperlink{evel__mobile__flow_8c_a22b6c1c8aa263fe12fe36c248c855c61}{evel\+\_\+mobile\+\_\+gtp\+\_\+metrics\+\_\+act\+\_\+by\+\_\+set} (\hyperlink{evel_8h_aab323a610a0d9f5df6ebb82f7e060494}{M\+O\+B\+I\+L\+E\+\_\+\+G\+T\+P\+\_\+\+P\+E\+R\+\_\+\+F\+L\+O\+W\+\_\+\+M\+E\+T\+R\+I\+CS} $\ast$metrics, const char $\ast$const act\+\_\+by)
+\begin{DoxyCompactList}\small\item\em Set the Activated By property of the Mobile G\+TP Per Flow metrics. \end{DoxyCompactList}\item 
+void \hyperlink{evel__mobile__flow_8c_a17ab56e53dfc4c9c8f3245026bf1ed60}{evel\+\_\+mobile\+\_\+gtp\+\_\+metrics\+\_\+act\+\_\+time\+\_\+set} (\hyperlink{evel_8h_aab323a610a0d9f5df6ebb82f7e060494}{M\+O\+B\+I\+L\+E\+\_\+\+G\+T\+P\+\_\+\+P\+E\+R\+\_\+\+F\+L\+O\+W\+\_\+\+M\+E\+T\+R\+I\+CS} $\ast$metrics, time\+\_\+t act\+\_\+time)
+\begin{DoxyCompactList}\small\item\em Set the Activation Time property of the Mobile G\+TP Per Flow metrics. \end{DoxyCompactList}\item 
+void \hyperlink{evel__mobile__flow_8c_a9971159ba6283c07964be6a27017bf7f}{evel\+\_\+mobile\+\_\+gtp\+\_\+metrics\+\_\+deact\+\_\+by\+\_\+set} (\hyperlink{evel_8h_aab323a610a0d9f5df6ebb82f7e060494}{M\+O\+B\+I\+L\+E\+\_\+\+G\+T\+P\+\_\+\+P\+E\+R\+\_\+\+F\+L\+O\+W\+\_\+\+M\+E\+T\+R\+I\+CS} $\ast$metrics, const char $\ast$const deact\+\_\+by)
+\begin{DoxyCompactList}\small\item\em Set the Deactivated By property of the Mobile G\+TP Per Flow metrics. \end{DoxyCompactList}\item 
+void \hyperlink{evel__mobile__flow_8c_ab9b8bc25234fcc8ebbf532a9c005af46}{evel\+\_\+mobile\+\_\+gtp\+\_\+metrics\+\_\+con\+\_\+status\+\_\+set} (\hyperlink{evel_8h_aab323a610a0d9f5df6ebb82f7e060494}{M\+O\+B\+I\+L\+E\+\_\+\+G\+T\+P\+\_\+\+P\+E\+R\+\_\+\+F\+L\+O\+W\+\_\+\+M\+E\+T\+R\+I\+CS} $\ast$metrics, const char $\ast$const status)
+\begin{DoxyCompactList}\small\item\em Set the G\+TP Connection Status property of the Mobile G\+TP Per Flow metrics. \end{DoxyCompactList}\item 
+void \hyperlink{evel__mobile__flow_8c_a30c7161b171a93526ccffc408f16b0be}{evel\+\_\+mobile\+\_\+gtp\+\_\+metrics\+\_\+tun\+\_\+status\+\_\+set} (\hyperlink{evel_8h_aab323a610a0d9f5df6ebb82f7e060494}{M\+O\+B\+I\+L\+E\+\_\+\+G\+T\+P\+\_\+\+P\+E\+R\+\_\+\+F\+L\+O\+W\+\_\+\+M\+E\+T\+R\+I\+CS} $\ast$metrics, const char $\ast$const status)
+\begin{DoxyCompactList}\small\item\em Set the G\+TP Tunnel Status property of the Mobile G\+TP Per Flow metrics. \end{DoxyCompactList}\item 
+void \hyperlink{evel__mobile__flow_8c_aeecebde93d7b27c17e008cf42ad17a10}{evel\+\_\+mobile\+\_\+gtp\+\_\+metrics\+\_\+iptos\+\_\+set} (\hyperlink{evel_8h_aab323a610a0d9f5df6ebb82f7e060494}{M\+O\+B\+I\+L\+E\+\_\+\+G\+T\+P\+\_\+\+P\+E\+R\+\_\+\+F\+L\+O\+W\+\_\+\+M\+E\+T\+R\+I\+CS} $\ast$metrics, int index, int count)
+\begin{DoxyCompactList}\small\item\em Set an IP Type-\/of-\/\+Service count property of the Mobile G\+TP Per Flow metrics. \end{DoxyCompactList}\item 
+void \hyperlink{evel__mobile__flow_8c_aa6b9e9ae667993d2a5d46634c2761362}{evel\+\_\+mobile\+\_\+gtp\+\_\+metrics\+\_\+large\+\_\+pkt\+\_\+rtt\+\_\+set} (\hyperlink{evel_8h_aab323a610a0d9f5df6ebb82f7e060494}{M\+O\+B\+I\+L\+E\+\_\+\+G\+T\+P\+\_\+\+P\+E\+R\+\_\+\+F\+L\+O\+W\+\_\+\+M\+E\+T\+R\+I\+CS} $\ast$metrics, int rtt)
+\begin{DoxyCompactList}\small\item\em Set the Large Packet Round-\/\+Trip Time property of the Mobile G\+TP Per Flow Metrics. \end{DoxyCompactList}\item 
+void \hyperlink{evel__mobile__flow_8c_a0b64dc2afcf20c65ac1ad2c33f62afcd}{evel\+\_\+mobile\+\_\+gtp\+\_\+metrics\+\_\+large\+\_\+pkt\+\_\+thresh\+\_\+set} (\hyperlink{evel_8h_aab323a610a0d9f5df6ebb82f7e060494}{M\+O\+B\+I\+L\+E\+\_\+\+G\+T\+P\+\_\+\+P\+E\+R\+\_\+\+F\+L\+O\+W\+\_\+\+M\+E\+T\+R\+I\+CS} $\ast$metrics, double threshold)
+\begin{DoxyCompactList}\small\item\em Set the Large Packet Threshold property of the Mobile G\+TP Per Flow Metrics. \end{DoxyCompactList}\item 
+void \hyperlink{evel__mobile__flow_8c_a89822bddd7414e0950d2bb801e7448e8}{evel\+\_\+mobile\+\_\+gtp\+\_\+metrics\+\_\+max\+\_\+rcv\+\_\+bit\+\_\+rate\+\_\+set} (\hyperlink{evel_8h_aab323a610a0d9f5df6ebb82f7e060494}{M\+O\+B\+I\+L\+E\+\_\+\+G\+T\+P\+\_\+\+P\+E\+R\+\_\+\+F\+L\+O\+W\+\_\+\+M\+E\+T\+R\+I\+CS} $\ast$metrics, int rate)
+\begin{DoxyCompactList}\small\item\em Set the Max Receive Bit Rate property of the Mobile G\+TP Per Flow Metrics. \end{DoxyCompactList}\item 
+void \hyperlink{evel__mobile__flow_8c_a205bf5a39817de9840d039b009a4a9fa}{evel\+\_\+mobile\+\_\+gtp\+\_\+metrics\+\_\+max\+\_\+trx\+\_\+bit\+\_\+rate\+\_\+set} (\hyperlink{evel_8h_aab323a610a0d9f5df6ebb82f7e060494}{M\+O\+B\+I\+L\+E\+\_\+\+G\+T\+P\+\_\+\+P\+E\+R\+\_\+\+F\+L\+O\+W\+\_\+\+M\+E\+T\+R\+I\+CS} $\ast$metrics, int rate)
+\begin{DoxyCompactList}\small\item\em Set the Max Transmit Bit Rate property of the Mobile G\+TP Per Flow Metrics. \end{DoxyCompactList}\item 
+void \hyperlink{evel__mobile__flow_8c_a25f1b7a4a6ac955e223b3dee0419304f}{evel\+\_\+mobile\+\_\+gtp\+\_\+metrics\+\_\+num\+\_\+echo\+\_\+fail\+\_\+set} (\hyperlink{evel_8h_aab323a610a0d9f5df6ebb82f7e060494}{M\+O\+B\+I\+L\+E\+\_\+\+G\+T\+P\+\_\+\+P\+E\+R\+\_\+\+F\+L\+O\+W\+\_\+\+M\+E\+T\+R\+I\+CS} $\ast$metrics, int num)
+\begin{DoxyCompactList}\small\item\em Set the Number of G\+TP Echo Failures property of the Mobile G\+TP Per Flow Metrics. \end{DoxyCompactList}\item 
+void \hyperlink{evel__mobile__flow_8c_a058707b04cb6ef6d59779f717fe7b649}{evel\+\_\+mobile\+\_\+gtp\+\_\+metrics\+\_\+num\+\_\+tun\+\_\+fail\+\_\+set} (\hyperlink{evel_8h_aab323a610a0d9f5df6ebb82f7e060494}{M\+O\+B\+I\+L\+E\+\_\+\+G\+T\+P\+\_\+\+P\+E\+R\+\_\+\+F\+L\+O\+W\+\_\+\+M\+E\+T\+R\+I\+CS} $\ast$metrics, int num)
+\begin{DoxyCompactList}\small\item\em Set the Number of G\+TP Tunnel Errors property of the Mobile G\+TP Per Flow Metrics. \end{DoxyCompactList}\item 
+void \hyperlink{evel__mobile__flow_8c_a2f75af34c70cf9cade81057e7fd5bd8a}{evel\+\_\+mobile\+\_\+gtp\+\_\+metrics\+\_\+num\+\_\+http\+\_\+errors\+\_\+set} (\hyperlink{evel_8h_aab323a610a0d9f5df6ebb82f7e060494}{M\+O\+B\+I\+L\+E\+\_\+\+G\+T\+P\+\_\+\+P\+E\+R\+\_\+\+F\+L\+O\+W\+\_\+\+M\+E\+T\+R\+I\+CS} $\ast$metrics, int num)
+\begin{DoxyCompactList}\small\item\em Set the Number of H\+T\+TP Errors property of the Mobile G\+TP Per Flow Metrics. \end{DoxyCompactList}\item 
+void \hyperlink{evel__mobile__flow_8c_acfd37ed37ac363f782730aef01fc8460}{evel\+\_\+mobile\+\_\+gtp\+\_\+metrics\+\_\+tcp\+\_\+flag\+\_\+count\+\_\+add} (\hyperlink{evel_8h_aab323a610a0d9f5df6ebb82f7e060494}{M\+O\+B\+I\+L\+E\+\_\+\+G\+T\+P\+\_\+\+P\+E\+R\+\_\+\+F\+L\+O\+W\+\_\+\+M\+E\+T\+R\+I\+CS} $\ast$metrics, const \hyperlink{evel_8h_aeabdcbed22ac53495bea50059b06c993}{E\+V\+E\+L\+\_\+\+T\+C\+P\+\_\+\+F\+L\+A\+GS} tcp\+\_\+flag, const int count)
+\begin{DoxyCompactList}\small\item\em Add a T\+CP flag count to the metrics. \end{DoxyCompactList}\item 
+void \hyperlink{evel__mobile__flow_8c_a750eae88b6f983d755d27357e5a708e0}{evel\+\_\+mobile\+\_\+gtp\+\_\+metrics\+\_\+qci\+\_\+cos\+\_\+count\+\_\+add} (\hyperlink{evel_8h_aab323a610a0d9f5df6ebb82f7e060494}{M\+O\+B\+I\+L\+E\+\_\+\+G\+T\+P\+\_\+\+P\+E\+R\+\_\+\+F\+L\+O\+W\+\_\+\+M\+E\+T\+R\+I\+CS} $\ast$metrics, const \hyperlink{evel_8h_a2018881529f1dfb73c8b2689f5193c86}{E\+V\+E\+L\+\_\+\+Q\+C\+I\+\_\+\+C\+O\+S\+\_\+\+T\+Y\+P\+ES} qci\+\_\+cos, const int count)
+\begin{DoxyCompactList}\small\item\em Add a Q\+CI C\+OS count to the metrics. \end{DoxyCompactList}\item 
+void \hyperlink{evel__mobile__flow_8c_a62454f31e469654d4c8b03597c0c059f}{evel\+\_\+free\+\_\+mobile\+\_\+gtp\+\_\+flow\+\_\+metrics} (\hyperlink{evel_8h_aab323a610a0d9f5df6ebb82f7e060494}{M\+O\+B\+I\+L\+E\+\_\+\+G\+T\+P\+\_\+\+P\+E\+R\+\_\+\+F\+L\+O\+W\+\_\+\+M\+E\+T\+R\+I\+CS} $\ast$metrics)
+\begin{DoxyCompactList}\small\item\em Free a Mobile G\+TP Per Flow Metrics. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Implementation of E\+V\+EL functions relating to the Mobile Flow. 
+
+\subsubsection*{License }
+
+Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met\+:
+
+
+\begin{DoxyEnumerate}
+\item Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
+\item Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.
+\item All advertising materials mentioning features or use of this software must display the following acknowledgement\+: This product includes software developed by the AT\&T.
+\item Neither the name of AT\&T nor the names of its contributors may be used to endorse or promote products derived from this software without specific prior written permission.
+\end{DoxyEnumerate}
+
+T\+H\+IS S\+O\+F\+T\+W\+A\+RE IS P\+R\+O\+V\+I\+D\+ED BY AT\&T I\+N\+T\+E\+L\+L\+E\+C\+T\+U\+AL P\+R\+O\+P\+E\+R\+TY \textquotesingle{}\textquotesingle{}AS IS\textquotesingle{}\textquotesingle{} A\+ND A\+NY E\+X\+P\+R\+E\+SS OR I\+M\+P\+L\+I\+ED W\+A\+R\+R\+A\+N\+T\+I\+ES, I\+N\+C\+L\+U\+D\+I\+NG, B\+UT N\+OT L\+I\+M\+I\+T\+ED TO, T\+HE I\+M\+P\+L\+I\+ED W\+A\+R\+R\+A\+N\+T\+I\+ES OF M\+E\+R\+C\+H\+A\+N\+T\+A\+B\+I\+L\+I\+TY A\+ND F\+I\+T\+N\+E\+SS F\+OR A P\+A\+R\+T\+I\+C\+U\+L\+AR P\+U\+R\+P\+O\+SE A\+RE D\+I\+S\+C\+L\+A\+I\+M\+ED. IN NO E\+V\+E\+NT S\+H\+A\+LL AT\&T I\+N\+T\+E\+L\+L\+E\+C\+T\+U\+AL P\+R\+O\+P\+E\+R\+TY BE L\+I\+A\+B\+LE F\+OR A\+NY D\+I\+R\+E\+CT, I\+N\+D\+I\+R\+E\+CT, I\+N\+C\+I\+D\+E\+N\+T\+AL, S\+P\+E\+C\+I\+AL, E\+X\+E\+M\+P\+L\+A\+RY, OR C\+O\+N\+S\+E\+Q\+U\+E\+N\+T\+I\+AL D\+A\+M\+A\+G\+ES (I\+N\+C\+L\+U\+D\+I\+NG, B\+UT N\+OT L\+I\+M\+I\+T\+ED TO, P\+R\+O\+C\+U\+R\+E\+M\+E\+NT OF S\+U\+B\+S\+T\+I\+T\+U\+TE G\+O\+O\+DS OR S\+E\+R\+V\+I\+C\+ES; L\+O\+SS OF U\+SE, D\+A\+TA, OR P\+R\+O\+F\+I\+TS; OR B\+U\+S\+I\+N\+E\+SS I\+N\+T\+E\+R\+R\+U\+P\+T\+I\+ON) H\+O\+W\+E\+V\+ER C\+A\+U\+S\+ED A\+ND ON A\+NY T\+H\+E\+O\+RY OF L\+I\+A\+B\+I\+L\+I\+TY, W\+H\+E\+T\+H\+ER IN C\+O\+N\+T\+R\+A\+CT, S\+T\+R\+I\+CT L\+I\+A\+B\+I\+L\+I\+TY, OR T\+O\+RT (I\+N\+C\+L\+U\+D\+I\+NG N\+E\+G\+L\+I\+G\+E\+N\+CE OR O\+T\+H\+E\+R\+W\+I\+SE) A\+R\+I\+S\+I\+NG IN A\+NY W\+AY O\+UT OF T\+HE U\+SE OF T\+H\+IS S\+O\+F\+T\+W\+A\+RE, E\+V\+EN IF A\+D\+V\+I\+S\+ED OF T\+HE P\+O\+S\+S\+I\+B\+I\+L\+I\+TY OF S\+U\+CH D\+A\+M\+A\+GE. 
+
+\subsection{Function Documentation}
+\hypertarget{evel__mobile__flow_8c_a94c4a0dc4d4a3a2bbb4120be3ba39913}{}\label{evel__mobile__flow_8c_a94c4a0dc4d4a3a2bbb4120be3ba39913} 
+\index{evel\+\_\+mobile\+\_\+flow.\+c@{evel\+\_\+mobile\+\_\+flow.\+c}!evel\+\_\+free\+\_\+mobile\+\_\+flow@{evel\+\_\+free\+\_\+mobile\+\_\+flow}}
+\index{evel\+\_\+free\+\_\+mobile\+\_\+flow@{evel\+\_\+free\+\_\+mobile\+\_\+flow}!evel\+\_\+mobile\+\_\+flow.\+c@{evel\+\_\+mobile\+\_\+flow.\+c}}
+\subsubsection{\texorpdfstring{evel\+\_\+free\+\_\+mobile\+\_\+flow()}{evel\_free\_mobile\_flow()}}
+{\footnotesize\ttfamily void evel\+\_\+free\+\_\+mobile\+\_\+flow (\begin{DoxyParamCaption}\item[{\hyperlink{evel_8h_a0003b182bfd34ca6458b04840d05738e}{E\+V\+E\+N\+T\+\_\+\+M\+O\+B\+I\+L\+E\+\_\+\+F\+L\+OW} $\ast$}]{event }\end{DoxyParamCaption})}
+
+
+
+Free a Mobile Flow. 
+
+Free off the Mobile Flow supplied. Will free all the contained allocated memory.
+
+\begin{DoxyNote}{Note}
+It does not free the Mobile Flow itself, since that may be part of a larger structure. 
+\end{DoxyNote}
+
+
+Definition at line 980 of file evel\+\_\+mobile\+\_\+flow.\+c.
+
+\hypertarget{evel__mobile__flow_8c_a62454f31e469654d4c8b03597c0c059f}{}\label{evel__mobile__flow_8c_a62454f31e469654d4c8b03597c0c059f} 
+\index{evel\+\_\+mobile\+\_\+flow.\+c@{evel\+\_\+mobile\+\_\+flow.\+c}!evel\+\_\+free\+\_\+mobile\+\_\+gtp\+\_\+flow\+\_\+metrics@{evel\+\_\+free\+\_\+mobile\+\_\+gtp\+\_\+flow\+\_\+metrics}}
+\index{evel\+\_\+free\+\_\+mobile\+\_\+gtp\+\_\+flow\+\_\+metrics@{evel\+\_\+free\+\_\+mobile\+\_\+gtp\+\_\+flow\+\_\+metrics}!evel\+\_\+mobile\+\_\+flow.\+c@{evel\+\_\+mobile\+\_\+flow.\+c}}
+\subsubsection{\texorpdfstring{evel\+\_\+free\+\_\+mobile\+\_\+gtp\+\_\+flow\+\_\+metrics()}{evel\_free\_mobile\_gtp\_flow\_metrics()}}
+{\footnotesize\ttfamily void evel\+\_\+free\+\_\+mobile\+\_\+gtp\+\_\+flow\+\_\+metrics (\begin{DoxyParamCaption}\item[{\hyperlink{evel_8h_aab323a610a0d9f5df6ebb82f7e060494}{M\+O\+B\+I\+L\+E\+\_\+\+G\+T\+P\+\_\+\+P\+E\+R\+\_\+\+F\+L\+O\+W\+\_\+\+M\+E\+T\+R\+I\+CS} $\ast$}]{metrics }\end{DoxyParamCaption})}
+
+
+
+Free a Mobile G\+TP Per Flow Metrics. 
+
+Free off the Mobile G\+TP Per Flow Metrics supplied. Will free all the contained allocated memory.
+
+\begin{DoxyNote}{Note}
+It does not free the Mobile G\+TP Per Flow Metrics itself, since that may be part of a larger structure. 
+\end{DoxyNote}
+
+
+Definition at line 2016 of file evel\+\_\+mobile\+\_\+flow.\+c.
+
+\hypertarget{evel__mobile__flow_8c_ad80faae691ccc39776e418143ef47ab5}{}\label{evel__mobile__flow_8c_ad80faae691ccc39776e418143ef47ab5} 
+\index{evel\+\_\+mobile\+\_\+flow.\+c@{evel\+\_\+mobile\+\_\+flow.\+c}!evel\+\_\+json\+\_\+encode\+\_\+mobile\+\_\+flow@{evel\+\_\+json\+\_\+encode\+\_\+mobile\+\_\+flow}}
+\index{evel\+\_\+json\+\_\+encode\+\_\+mobile\+\_\+flow@{evel\+\_\+json\+\_\+encode\+\_\+mobile\+\_\+flow}!evel\+\_\+mobile\+\_\+flow.\+c@{evel\+\_\+mobile\+\_\+flow.\+c}}
+\subsubsection{\texorpdfstring{evel\+\_\+json\+\_\+encode\+\_\+mobile\+\_\+flow()}{evel\_json\_encode\_mobile\_flow()}}
+{\footnotesize\ttfamily void evel\+\_\+json\+\_\+encode\+\_\+mobile\+\_\+flow (\begin{DoxyParamCaption}\item[{\hyperlink{evel__internal_8h_af9c576f6ffebdf8c5164ccf9827b323a}{E\+V\+E\+L\+\_\+\+J\+S\+O\+N\+\_\+\+B\+U\+F\+F\+ER} $\ast$}]{jbuf,  }\item[{\hyperlink{evel_8h_a0003b182bfd34ca6458b04840d05738e}{E\+V\+E\+N\+T\+\_\+\+M\+O\+B\+I\+L\+E\+\_\+\+F\+L\+OW} $\ast$}]{event }\end{DoxyParamCaption})}
+
+
+
+Encode the Mobile Flow in J\+S\+ON according to AT\&T\textquotesingle{}s schema for the event type. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em jbuf} & Pointer to the \hyperlink{evel__internal_8h_af9c576f6ffebdf8c5164ccf9827b323a}{E\+V\+E\+L\+\_\+\+J\+S\+O\+N\+\_\+\+B\+U\+F\+F\+ER} to encode into. \\
+\hline
+{\em event} & Pointer to the \hyperlink{evel_8h_aa0ea94c675729365ea7825c4fc7e06d8}{E\+V\+E\+N\+T\+\_\+\+H\+E\+A\+D\+ER} to encode. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 898 of file evel\+\_\+mobile\+\_\+flow.\+c.
+
+\hypertarget{evel__mobile__flow_8c_a502ec9c0aafa5f98d97eebf452726b38}{}\label{evel__mobile__flow_8c_a502ec9c0aafa5f98d97eebf452726b38} 
+\index{evel\+\_\+mobile\+\_\+flow.\+c@{evel\+\_\+mobile\+\_\+flow.\+c}!evel\+\_\+json\+\_\+encode\+\_\+mobile\+\_\+flow\+\_\+gtp\+\_\+flow\+\_\+metrics@{evel\+\_\+json\+\_\+encode\+\_\+mobile\+\_\+flow\+\_\+gtp\+\_\+flow\+\_\+metrics}}
+\index{evel\+\_\+json\+\_\+encode\+\_\+mobile\+\_\+flow\+\_\+gtp\+\_\+flow\+\_\+metrics@{evel\+\_\+json\+\_\+encode\+\_\+mobile\+\_\+flow\+\_\+gtp\+\_\+flow\+\_\+metrics}!evel\+\_\+mobile\+\_\+flow.\+c@{evel\+\_\+mobile\+\_\+flow.\+c}}
+\subsubsection{\texorpdfstring{evel\+\_\+json\+\_\+encode\+\_\+mobile\+\_\+flow\+\_\+gtp\+\_\+flow\+\_\+metrics()}{evel\_json\_encode\_mobile\_flow\_gtp\_flow\_metrics()}}
+{\footnotesize\ttfamily void evel\+\_\+json\+\_\+encode\+\_\+mobile\+\_\+flow\+\_\+gtp\+\_\+flow\+\_\+metrics (\begin{DoxyParamCaption}\item[{\hyperlink{evel__internal_8h_af9c576f6ffebdf8c5164ccf9827b323a}{E\+V\+E\+L\+\_\+\+J\+S\+O\+N\+\_\+\+B\+U\+F\+F\+ER} $\ast$}]{jbuf,  }\item[{\hyperlink{evel_8h_aab323a610a0d9f5df6ebb82f7e060494}{M\+O\+B\+I\+L\+E\+\_\+\+G\+T\+P\+\_\+\+P\+E\+R\+\_\+\+F\+L\+O\+W\+\_\+\+M\+E\+T\+R\+I\+CS} $\ast$}]{metrics }\end{DoxyParamCaption})}
+
+
+
+Encode the Mobile Flow G\+TP Per Flow Metrics as a J\+S\+ON object. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em jbuf} & Pointer to working \hyperlink{evel__internal_8h_af9c576f6ffebdf8c5164ccf9827b323a}{E\+V\+E\+L\+\_\+\+J\+S\+O\+N\+\_\+\+B\+U\+F\+F\+ER}. \\
+\hline
+{\em metrics} & Pointer to the \hyperlink{evel_8h_a0003b182bfd34ca6458b04840d05738e}{E\+V\+E\+N\+T\+\_\+\+M\+O\+B\+I\+L\+E\+\_\+\+F\+L\+OW} to encode. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Number of bytes actually written. 
+\end{DoxyReturn}
+
+
+Definition at line 1742 of file evel\+\_\+mobile\+\_\+flow.\+c.
+
+\hypertarget{evel__mobile__flow_8c_acb491383f30007d40d748fcb56c6ec2c}{}\label{evel__mobile__flow_8c_acb491383f30007d40d748fcb56c6ec2c} 
+\index{evel\+\_\+mobile\+\_\+flow.\+c@{evel\+\_\+mobile\+\_\+flow.\+c}!evel\+\_\+mobile\+\_\+flow\+\_\+app\+\_\+prot\+\_\+type\+\_\+set@{evel\+\_\+mobile\+\_\+flow\+\_\+app\+\_\+prot\+\_\+type\+\_\+set}}
+\index{evel\+\_\+mobile\+\_\+flow\+\_\+app\+\_\+prot\+\_\+type\+\_\+set@{evel\+\_\+mobile\+\_\+flow\+\_\+app\+\_\+prot\+\_\+type\+\_\+set}!evel\+\_\+mobile\+\_\+flow.\+c@{evel\+\_\+mobile\+\_\+flow.\+c}}
+\subsubsection{\texorpdfstring{evel\+\_\+mobile\+\_\+flow\+\_\+app\+\_\+prot\+\_\+type\+\_\+set()}{evel\_mobile\_flow\_app\_prot\_type\_set()}}
+{\footnotesize\ttfamily void evel\+\_\+mobile\+\_\+flow\+\_\+app\+\_\+prot\+\_\+type\+\_\+set (\begin{DoxyParamCaption}\item[{\hyperlink{evel_8h_a0003b182bfd34ca6458b04840d05738e}{E\+V\+E\+N\+T\+\_\+\+M\+O\+B\+I\+L\+E\+\_\+\+F\+L\+OW} $\ast$}]{mobile\+\_\+flow,  }\item[{const char $\ast$const}]{type }\end{DoxyParamCaption})}
+
+
+
+Set the Application Protocol Type property of the Mobile Flow. 
+
+\begin{DoxyNote}{Note}
+The property is treated as immutable\+: it is only valid to call the setter once. However, we don\textquotesingle{}t assert if the caller tries to overwrite, just ignoring the update instead.
+\end{DoxyNote}
+
+\begin{DoxyParams}{Parameters}
+{\em mobile\+\_\+flow} & Pointer to the Mobile Flow. \\
+\hline
+{\em type} & The Application Protocol Type to be set. A\+S\+C\+I\+IZ string. The caller does not need to preserve the value once the function returns. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 259 of file evel\+\_\+mobile\+\_\+flow.\+c.
+
+\hypertarget{evel__mobile__flow_8c_a2b1d4defb6b4b04194beece696e0fba8}{}\label{evel__mobile__flow_8c_a2b1d4defb6b4b04194beece696e0fba8} 
+\index{evel\+\_\+mobile\+\_\+flow.\+c@{evel\+\_\+mobile\+\_\+flow.\+c}!evel\+\_\+mobile\+\_\+flow\+\_\+app\+\_\+prot\+\_\+ver\+\_\+set@{evel\+\_\+mobile\+\_\+flow\+\_\+app\+\_\+prot\+\_\+ver\+\_\+set}}
+\index{evel\+\_\+mobile\+\_\+flow\+\_\+app\+\_\+prot\+\_\+ver\+\_\+set@{evel\+\_\+mobile\+\_\+flow\+\_\+app\+\_\+prot\+\_\+ver\+\_\+set}!evel\+\_\+mobile\+\_\+flow.\+c@{evel\+\_\+mobile\+\_\+flow.\+c}}
+\subsubsection{\texorpdfstring{evel\+\_\+mobile\+\_\+flow\+\_\+app\+\_\+prot\+\_\+ver\+\_\+set()}{evel\_mobile\_flow\_app\_prot\_ver\_set()}}
+{\footnotesize\ttfamily void evel\+\_\+mobile\+\_\+flow\+\_\+app\+\_\+prot\+\_\+ver\+\_\+set (\begin{DoxyParamCaption}\item[{\hyperlink{evel_8h_a0003b182bfd34ca6458b04840d05738e}{E\+V\+E\+N\+T\+\_\+\+M\+O\+B\+I\+L\+E\+\_\+\+F\+L\+OW} $\ast$}]{mobile\+\_\+flow,  }\item[{const char $\ast$const}]{version }\end{DoxyParamCaption})}
+
+
+
+Set the Application Protocol Version property of the Mobile Flow. 
+
+\begin{DoxyNote}{Note}
+The property is treated as immutable\+: it is only valid to call the setter once. However, we don\textquotesingle{}t assert if the caller tries to overwrite, just ignoring the update instead.
+\end{DoxyNote}
+
+\begin{DoxyParams}{Parameters}
+{\em mobile\+\_\+flow} & Pointer to the Mobile Flow. \\
+\hline
+{\em version} & The Application Protocol Version to be set. A\+S\+C\+I\+IZ string. The caller does not need to preserve the value once the function returns. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 289 of file evel\+\_\+mobile\+\_\+flow.\+c.
+
+\hypertarget{evel__mobile__flow_8c_a001f8e4cd91c2d3fdf8e996cb37f31e4}{}\label{evel__mobile__flow_8c_a001f8e4cd91c2d3fdf8e996cb37f31e4} 
+\index{evel\+\_\+mobile\+\_\+flow.\+c@{evel\+\_\+mobile\+\_\+flow.\+c}!evel\+\_\+mobile\+\_\+flow\+\_\+app\+\_\+type\+\_\+set@{evel\+\_\+mobile\+\_\+flow\+\_\+app\+\_\+type\+\_\+set}}
+\index{evel\+\_\+mobile\+\_\+flow\+\_\+app\+\_\+type\+\_\+set@{evel\+\_\+mobile\+\_\+flow\+\_\+app\+\_\+type\+\_\+set}!evel\+\_\+mobile\+\_\+flow.\+c@{evel\+\_\+mobile\+\_\+flow.\+c}}
+\subsubsection{\texorpdfstring{evel\+\_\+mobile\+\_\+flow\+\_\+app\+\_\+type\+\_\+set()}{evel\_mobile\_flow\_app\_type\_set()}}
+{\footnotesize\ttfamily void evel\+\_\+mobile\+\_\+flow\+\_\+app\+\_\+type\+\_\+set (\begin{DoxyParamCaption}\item[{\hyperlink{evel_8h_a0003b182bfd34ca6458b04840d05738e}{E\+V\+E\+N\+T\+\_\+\+M\+O\+B\+I\+L\+E\+\_\+\+F\+L\+OW} $\ast$}]{mobile\+\_\+flow,  }\item[{const char $\ast$const}]{type }\end{DoxyParamCaption})}
+
+
+
+Set the Application Type property of the Mobile Flow. 
+
+\begin{DoxyNote}{Note}
+The property is treated as immutable\+: it is only valid to call the setter once. However, we don\textquotesingle{}t assert if the caller tries to overwrite, just ignoring the update instead.
+\end{DoxyNote}
+
+\begin{DoxyParams}{Parameters}
+{\em mobile\+\_\+flow} & Pointer to the Mobile Flow. \\
+\hline
+{\em type} & The Application Type to be set. A\+S\+C\+I\+IZ string. The caller does not need to preserve the value once the function returns. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 229 of file evel\+\_\+mobile\+\_\+flow.\+c.
+
+\hypertarget{evel__mobile__flow_8c_a7558b5adf6c7efb983017594a3f7f46d}{}\label{evel__mobile__flow_8c_a7558b5adf6c7efb983017594a3f7f46d} 
+\index{evel\+\_\+mobile\+\_\+flow.\+c@{evel\+\_\+mobile\+\_\+flow.\+c}!evel\+\_\+mobile\+\_\+flow\+\_\+cid\+\_\+set@{evel\+\_\+mobile\+\_\+flow\+\_\+cid\+\_\+set}}
+\index{evel\+\_\+mobile\+\_\+flow\+\_\+cid\+\_\+set@{evel\+\_\+mobile\+\_\+flow\+\_\+cid\+\_\+set}!evel\+\_\+mobile\+\_\+flow.\+c@{evel\+\_\+mobile\+\_\+flow.\+c}}
+\subsubsection{\texorpdfstring{evel\+\_\+mobile\+\_\+flow\+\_\+cid\+\_\+set()}{evel\_mobile\_flow\_cid\_set()}}
+{\footnotesize\ttfamily void evel\+\_\+mobile\+\_\+flow\+\_\+cid\+\_\+set (\begin{DoxyParamCaption}\item[{\hyperlink{evel_8h_a0003b182bfd34ca6458b04840d05738e}{E\+V\+E\+N\+T\+\_\+\+M\+O\+B\+I\+L\+E\+\_\+\+F\+L\+OW} $\ast$}]{mobile\+\_\+flow,  }\item[{const char $\ast$const}]{cid }\end{DoxyParamCaption})}
+
+
+
+Set the C\+ID property of the Mobile Flow. 
+
+\begin{DoxyNote}{Note}
+The property is treated as immutable\+: it is only valid to call the setter once. However, we don\textquotesingle{}t assert if the caller tries to overwrite, just ignoring the update instead.
+\end{DoxyNote}
+
+\begin{DoxyParams}{Parameters}
+{\em mobile\+\_\+flow} & Pointer to the Mobile Flow. \\
+\hline
+{\em cid} & The C\+ID to be set. A\+S\+C\+I\+IZ string. The caller does not need to preserve the value once the function returns. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 318 of file evel\+\_\+mobile\+\_\+flow.\+c.
+
+\hypertarget{evel__mobile__flow_8c_a6e01c8b5df391c4ee21e6264233ab0c8}{}\label{evel__mobile__flow_8c_a6e01c8b5df391c4ee21e6264233ab0c8} 
+\index{evel\+\_\+mobile\+\_\+flow.\+c@{evel\+\_\+mobile\+\_\+flow.\+c}!evel\+\_\+mobile\+\_\+flow\+\_\+con\+\_\+type\+\_\+set@{evel\+\_\+mobile\+\_\+flow\+\_\+con\+\_\+type\+\_\+set}}
+\index{evel\+\_\+mobile\+\_\+flow\+\_\+con\+\_\+type\+\_\+set@{evel\+\_\+mobile\+\_\+flow\+\_\+con\+\_\+type\+\_\+set}!evel\+\_\+mobile\+\_\+flow.\+c@{evel\+\_\+mobile\+\_\+flow.\+c}}
+\subsubsection{\texorpdfstring{evel\+\_\+mobile\+\_\+flow\+\_\+con\+\_\+type\+\_\+set()}{evel\_mobile\_flow\_con\_type\_set()}}
+{\footnotesize\ttfamily void evel\+\_\+mobile\+\_\+flow\+\_\+con\+\_\+type\+\_\+set (\begin{DoxyParamCaption}\item[{\hyperlink{evel_8h_a0003b182bfd34ca6458b04840d05738e}{E\+V\+E\+N\+T\+\_\+\+M\+O\+B\+I\+L\+E\+\_\+\+F\+L\+OW} $\ast$}]{mobile\+\_\+flow,  }\item[{const char $\ast$const}]{type }\end{DoxyParamCaption})}
+
+
+
+Set the Connection Type property of the Mobile Flow. 
+
+\begin{DoxyNote}{Note}
+The property is treated as immutable\+: it is only valid to call the setter once. However, we don\textquotesingle{}t assert if the caller tries to overwrite, just ignoring the update instead.
+\end{DoxyNote}
+
+\begin{DoxyParams}{Parameters}
+{\em mobile\+\_\+flow} & Pointer to the Mobile Flow. \\
+\hline
+{\em type} & The Connection Type to be set. A\+S\+C\+I\+IZ string. The caller does not need to preserve the value once the function returns. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 348 of file evel\+\_\+mobile\+\_\+flow.\+c.
+
+\hypertarget{evel__mobile__flow_8c_ae9c80ef5cdfa7ddc4ff6729ccc65fd95}{}\label{evel__mobile__flow_8c_ae9c80ef5cdfa7ddc4ff6729ccc65fd95} 
+\index{evel\+\_\+mobile\+\_\+flow.\+c@{evel\+\_\+mobile\+\_\+flow.\+c}!evel\+\_\+mobile\+\_\+flow\+\_\+ecgi\+\_\+set@{evel\+\_\+mobile\+\_\+flow\+\_\+ecgi\+\_\+set}}
+\index{evel\+\_\+mobile\+\_\+flow\+\_\+ecgi\+\_\+set@{evel\+\_\+mobile\+\_\+flow\+\_\+ecgi\+\_\+set}!evel\+\_\+mobile\+\_\+flow.\+c@{evel\+\_\+mobile\+\_\+flow.\+c}}
+\subsubsection{\texorpdfstring{evel\+\_\+mobile\+\_\+flow\+\_\+ecgi\+\_\+set()}{evel\_mobile\_flow\_ecgi\_set()}}
+{\footnotesize\ttfamily void evel\+\_\+mobile\+\_\+flow\+\_\+ecgi\+\_\+set (\begin{DoxyParamCaption}\item[{\hyperlink{evel_8h_a0003b182bfd34ca6458b04840d05738e}{E\+V\+E\+N\+T\+\_\+\+M\+O\+B\+I\+L\+E\+\_\+\+F\+L\+OW} $\ast$}]{mobile\+\_\+flow,  }\item[{const char $\ast$const}]{ecgi }\end{DoxyParamCaption})}
+
+
+
+Set the E\+C\+GI property of the Mobile Flow. 
+
+\begin{DoxyNote}{Note}
+The property is treated as immutable\+: it is only valid to call the setter once. However, we don\textquotesingle{}t assert if the caller tries to overwrite, just ignoring the update instead.
+\end{DoxyNote}
+
+\begin{DoxyParams}{Parameters}
+{\em mobile\+\_\+flow} & Pointer to the Mobile Flow. \\
+\hline
+{\em ecgi} & The E\+C\+GI to be set. A\+S\+C\+I\+IZ string. The caller does not need to preserve the value once the function returns. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 377 of file evel\+\_\+mobile\+\_\+flow.\+c.
+
+\hypertarget{evel__mobile__flow_8c_a451e41221894da1df55be86f2993105f}{}\label{evel__mobile__flow_8c_a451e41221894da1df55be86f2993105f} 
+\index{evel\+\_\+mobile\+\_\+flow.\+c@{evel\+\_\+mobile\+\_\+flow.\+c}!evel\+\_\+mobile\+\_\+flow\+\_\+gtp\+\_\+prot\+\_\+type\+\_\+set@{evel\+\_\+mobile\+\_\+flow\+\_\+gtp\+\_\+prot\+\_\+type\+\_\+set}}
+\index{evel\+\_\+mobile\+\_\+flow\+\_\+gtp\+\_\+prot\+\_\+type\+\_\+set@{evel\+\_\+mobile\+\_\+flow\+\_\+gtp\+\_\+prot\+\_\+type\+\_\+set}!evel\+\_\+mobile\+\_\+flow.\+c@{evel\+\_\+mobile\+\_\+flow.\+c}}
+\subsubsection{\texorpdfstring{evel\+\_\+mobile\+\_\+flow\+\_\+gtp\+\_\+prot\+\_\+type\+\_\+set()}{evel\_mobile\_flow\_gtp\_prot\_type\_set()}}
+{\footnotesize\ttfamily void evel\+\_\+mobile\+\_\+flow\+\_\+gtp\+\_\+prot\+\_\+type\+\_\+set (\begin{DoxyParamCaption}\item[{\hyperlink{evel_8h_a0003b182bfd34ca6458b04840d05738e}{E\+V\+E\+N\+T\+\_\+\+M\+O\+B\+I\+L\+E\+\_\+\+F\+L\+OW} $\ast$}]{mobile\+\_\+flow,  }\item[{const char $\ast$const}]{type }\end{DoxyParamCaption})}
+
+
+
+Set the G\+TP Protocol Type property of the Mobile Flow. 
+
+\begin{DoxyNote}{Note}
+The property is treated as immutable\+: it is only valid to call the setter once. However, we don\textquotesingle{}t assert if the caller tries to overwrite, just ignoring the update instead.
+\end{DoxyNote}
+
+\begin{DoxyParams}{Parameters}
+{\em mobile\+\_\+flow} & Pointer to the Mobile Flow. \\
+\hline
+{\em type} & The G\+TP Protocol Type to be set. A\+S\+C\+I\+IZ string. The caller does not need to preserve the value once the function returns. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 407 of file evel\+\_\+mobile\+\_\+flow.\+c.
+
+\hypertarget{evel__mobile__flow_8c_a0626abfdfeefe994e3e70263af693fa8}{}\label{evel__mobile__flow_8c_a0626abfdfeefe994e3e70263af693fa8} 
+\index{evel\+\_\+mobile\+\_\+flow.\+c@{evel\+\_\+mobile\+\_\+flow.\+c}!evel\+\_\+mobile\+\_\+flow\+\_\+gtp\+\_\+prot\+\_\+ver\+\_\+set@{evel\+\_\+mobile\+\_\+flow\+\_\+gtp\+\_\+prot\+\_\+ver\+\_\+set}}
+\index{evel\+\_\+mobile\+\_\+flow\+\_\+gtp\+\_\+prot\+\_\+ver\+\_\+set@{evel\+\_\+mobile\+\_\+flow\+\_\+gtp\+\_\+prot\+\_\+ver\+\_\+set}!evel\+\_\+mobile\+\_\+flow.\+c@{evel\+\_\+mobile\+\_\+flow.\+c}}
+\subsubsection{\texorpdfstring{evel\+\_\+mobile\+\_\+flow\+\_\+gtp\+\_\+prot\+\_\+ver\+\_\+set()}{evel\_mobile\_flow\_gtp\_prot\_ver\_set()}}
+{\footnotesize\ttfamily void evel\+\_\+mobile\+\_\+flow\+\_\+gtp\+\_\+prot\+\_\+ver\+\_\+set (\begin{DoxyParamCaption}\item[{\hyperlink{evel_8h_a0003b182bfd34ca6458b04840d05738e}{E\+V\+E\+N\+T\+\_\+\+M\+O\+B\+I\+L\+E\+\_\+\+F\+L\+OW} $\ast$}]{mobile\+\_\+flow,  }\item[{const char $\ast$const}]{version }\end{DoxyParamCaption})}
+
+
+
+Set the G\+TP Protocol Version property of the Mobile Flow. 
+
+\begin{DoxyNote}{Note}
+The property is treated as immutable\+: it is only valid to call the setter once. However, we don\textquotesingle{}t assert if the caller tries to overwrite, just ignoring the update instead.
+\end{DoxyNote}
+
+\begin{DoxyParams}{Parameters}
+{\em mobile\+\_\+flow} & Pointer to the Mobile Flow. \\
+\hline
+{\em version} & The G\+TP Protocol Version to be set. A\+S\+C\+I\+IZ string. The caller does not need to preserve the value once the function returns. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 437 of file evel\+\_\+mobile\+\_\+flow.\+c.
+
+\hypertarget{evel__mobile__flow_8c_a213016e81067a67b806da49b02f36de9}{}\label{evel__mobile__flow_8c_a213016e81067a67b806da49b02f36de9} 
+\index{evel\+\_\+mobile\+\_\+flow.\+c@{evel\+\_\+mobile\+\_\+flow.\+c}!evel\+\_\+mobile\+\_\+flow\+\_\+http\+\_\+header\+\_\+set@{evel\+\_\+mobile\+\_\+flow\+\_\+http\+\_\+header\+\_\+set}}
+\index{evel\+\_\+mobile\+\_\+flow\+\_\+http\+\_\+header\+\_\+set@{evel\+\_\+mobile\+\_\+flow\+\_\+http\+\_\+header\+\_\+set}!evel\+\_\+mobile\+\_\+flow.\+c@{evel\+\_\+mobile\+\_\+flow.\+c}}
+\subsubsection{\texorpdfstring{evel\+\_\+mobile\+\_\+flow\+\_\+http\+\_\+header\+\_\+set()}{evel\_mobile\_flow\_http\_header\_set()}}
+{\footnotesize\ttfamily void evel\+\_\+mobile\+\_\+flow\+\_\+http\+\_\+header\+\_\+set (\begin{DoxyParamCaption}\item[{\hyperlink{evel_8h_a0003b182bfd34ca6458b04840d05738e}{E\+V\+E\+N\+T\+\_\+\+M\+O\+B\+I\+L\+E\+\_\+\+F\+L\+OW} $\ast$}]{mobile\+\_\+flow,  }\item[{const char $\ast$const}]{header }\end{DoxyParamCaption})}
+
+
+
+Set the H\+T\+TP Header property of the Mobile Flow. 
+
+\begin{DoxyNote}{Note}
+The property is treated as immutable\+: it is only valid to call the setter once. However, we don\textquotesingle{}t assert if the caller tries to overwrite, just ignoring the update instead.
+\end{DoxyNote}
+
+\begin{DoxyParams}{Parameters}
+{\em mobile\+\_\+flow} & Pointer to the Mobile Flow. \\
+\hline
+{\em header} & The H\+T\+TP header to be set. A\+S\+C\+I\+IZ string. The caller does not need to preserve the value once the function returns. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 466 of file evel\+\_\+mobile\+\_\+flow.\+c.
+
+\hypertarget{evel__mobile__flow_8c_a040a441fbbf606e30dc9985551fb4773}{}\label{evel__mobile__flow_8c_a040a441fbbf606e30dc9985551fb4773} 
+\index{evel\+\_\+mobile\+\_\+flow.\+c@{evel\+\_\+mobile\+\_\+flow.\+c}!evel\+\_\+mobile\+\_\+flow\+\_\+imei\+\_\+set@{evel\+\_\+mobile\+\_\+flow\+\_\+imei\+\_\+set}}
+\index{evel\+\_\+mobile\+\_\+flow\+\_\+imei\+\_\+set@{evel\+\_\+mobile\+\_\+flow\+\_\+imei\+\_\+set}!evel\+\_\+mobile\+\_\+flow.\+c@{evel\+\_\+mobile\+\_\+flow.\+c}}
+\subsubsection{\texorpdfstring{evel\+\_\+mobile\+\_\+flow\+\_\+imei\+\_\+set()}{evel\_mobile\_flow\_imei\_set()}}
+{\footnotesize\ttfamily void evel\+\_\+mobile\+\_\+flow\+\_\+imei\+\_\+set (\begin{DoxyParamCaption}\item[{\hyperlink{evel_8h_a0003b182bfd34ca6458b04840d05738e}{E\+V\+E\+N\+T\+\_\+\+M\+O\+B\+I\+L\+E\+\_\+\+F\+L\+OW} $\ast$}]{mobile\+\_\+flow,  }\item[{const char $\ast$const}]{imei }\end{DoxyParamCaption})}
+
+
+
+Set the I\+M\+EI property of the Mobile Flow. 
+
+\begin{DoxyNote}{Note}
+The property is treated as immutable\+: it is only valid to call the setter once. However, we don\textquotesingle{}t assert if the caller tries to overwrite, just ignoring the update instead.
+\end{DoxyNote}
+
+\begin{DoxyParams}{Parameters}
+{\em mobile\+\_\+flow} & Pointer to the Mobile Flow. \\
+\hline
+{\em imei} & The I\+M\+EI to be set. A\+S\+C\+I\+IZ string. The caller does not need to preserve the value once the function returns. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 495 of file evel\+\_\+mobile\+\_\+flow.\+c.
+
+\hypertarget{evel__mobile__flow_8c_a85a42c085ba949980f73113c1bca69d5}{}\label{evel__mobile__flow_8c_a85a42c085ba949980f73113c1bca69d5} 
+\index{evel\+\_\+mobile\+\_\+flow.\+c@{evel\+\_\+mobile\+\_\+flow.\+c}!evel\+\_\+mobile\+\_\+flow\+\_\+imsi\+\_\+set@{evel\+\_\+mobile\+\_\+flow\+\_\+imsi\+\_\+set}}
+\index{evel\+\_\+mobile\+\_\+flow\+\_\+imsi\+\_\+set@{evel\+\_\+mobile\+\_\+flow\+\_\+imsi\+\_\+set}!evel\+\_\+mobile\+\_\+flow.\+c@{evel\+\_\+mobile\+\_\+flow.\+c}}
+\subsubsection{\texorpdfstring{evel\+\_\+mobile\+\_\+flow\+\_\+imsi\+\_\+set()}{evel\_mobile\_flow\_imsi\_set()}}
+{\footnotesize\ttfamily void evel\+\_\+mobile\+\_\+flow\+\_\+imsi\+\_\+set (\begin{DoxyParamCaption}\item[{\hyperlink{evel_8h_a0003b182bfd34ca6458b04840d05738e}{E\+V\+E\+N\+T\+\_\+\+M\+O\+B\+I\+L\+E\+\_\+\+F\+L\+OW} $\ast$}]{mobile\+\_\+flow,  }\item[{const char $\ast$const}]{imsi }\end{DoxyParamCaption})}
+
+
+
+Set the I\+M\+SI property of the Mobile Flow. 
+
+\begin{DoxyNote}{Note}
+The property is treated as immutable\+: it is only valid to call the setter once. However, we don\textquotesingle{}t assert if the caller tries to overwrite, just ignoring the update instead.
+\end{DoxyNote}
+
+\begin{DoxyParams}{Parameters}
+{\em mobile\+\_\+flow} & Pointer to the Mobile Flow. \\
+\hline
+{\em imsi} & The I\+M\+SI to be set. A\+S\+C\+I\+IZ string. The caller does not need to preserve the value once the function returns. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 524 of file evel\+\_\+mobile\+\_\+flow.\+c.
+
+\hypertarget{evel__mobile__flow_8c_a697718117592aa26c9ff44c267691b21}{}\label{evel__mobile__flow_8c_a697718117592aa26c9ff44c267691b21} 
+\index{evel\+\_\+mobile\+\_\+flow.\+c@{evel\+\_\+mobile\+\_\+flow.\+c}!evel\+\_\+mobile\+\_\+flow\+\_\+lac\+\_\+set@{evel\+\_\+mobile\+\_\+flow\+\_\+lac\+\_\+set}}
+\index{evel\+\_\+mobile\+\_\+flow\+\_\+lac\+\_\+set@{evel\+\_\+mobile\+\_\+flow\+\_\+lac\+\_\+set}!evel\+\_\+mobile\+\_\+flow.\+c@{evel\+\_\+mobile\+\_\+flow.\+c}}
+\subsubsection{\texorpdfstring{evel\+\_\+mobile\+\_\+flow\+\_\+lac\+\_\+set()}{evel\_mobile\_flow\_lac\_set()}}
+{\footnotesize\ttfamily void evel\+\_\+mobile\+\_\+flow\+\_\+lac\+\_\+set (\begin{DoxyParamCaption}\item[{\hyperlink{evel_8h_a0003b182bfd34ca6458b04840d05738e}{E\+V\+E\+N\+T\+\_\+\+M\+O\+B\+I\+L\+E\+\_\+\+F\+L\+OW} $\ast$}]{mobile\+\_\+flow,  }\item[{const char $\ast$const}]{lac }\end{DoxyParamCaption})}
+
+
+
+Set the L\+AC property of the Mobile Flow. 
+
+\begin{DoxyNote}{Note}
+The property is treated as immutable\+: it is only valid to call the setter once. However, we don\textquotesingle{}t assert if the caller tries to overwrite, just ignoring the update instead.
+\end{DoxyNote}
+
+\begin{DoxyParams}{Parameters}
+{\em mobile\+\_\+flow} & Pointer to the Mobile Flow. \\
+\hline
+{\em lac} & The L\+AC to be set. A\+S\+C\+I\+IZ string. The caller does not need to preserve the value once the function returns. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 553 of file evel\+\_\+mobile\+\_\+flow.\+c.
+
+\hypertarget{evel__mobile__flow_8c_acdebbbe4616f063b757d0e38b6639c81}{}\label{evel__mobile__flow_8c_acdebbbe4616f063b757d0e38b6639c81} 
+\index{evel\+\_\+mobile\+\_\+flow.\+c@{evel\+\_\+mobile\+\_\+flow.\+c}!evel\+\_\+mobile\+\_\+flow\+\_\+mcc\+\_\+set@{evel\+\_\+mobile\+\_\+flow\+\_\+mcc\+\_\+set}}
+\index{evel\+\_\+mobile\+\_\+flow\+\_\+mcc\+\_\+set@{evel\+\_\+mobile\+\_\+flow\+\_\+mcc\+\_\+set}!evel\+\_\+mobile\+\_\+flow.\+c@{evel\+\_\+mobile\+\_\+flow.\+c}}
+\subsubsection{\texorpdfstring{evel\+\_\+mobile\+\_\+flow\+\_\+mcc\+\_\+set()}{evel\_mobile\_flow\_mcc\_set()}}
+{\footnotesize\ttfamily void evel\+\_\+mobile\+\_\+flow\+\_\+mcc\+\_\+set (\begin{DoxyParamCaption}\item[{\hyperlink{evel_8h_a0003b182bfd34ca6458b04840d05738e}{E\+V\+E\+N\+T\+\_\+\+M\+O\+B\+I\+L\+E\+\_\+\+F\+L\+OW} $\ast$}]{mobile\+\_\+flow,  }\item[{const char $\ast$const}]{mcc }\end{DoxyParamCaption})}
+
+
+
+Set the M\+CC property of the Mobile Flow. 
+
+\begin{DoxyNote}{Note}
+The property is treated as immutable\+: it is only valid to call the setter once. However, we don\textquotesingle{}t assert if the caller tries to overwrite, just ignoring the update instead.
+\end{DoxyNote}
+
+\begin{DoxyParams}{Parameters}
+{\em mobile\+\_\+flow} & Pointer to the Mobile Flow. \\
+\hline
+{\em mcc} & The M\+CC to be set. A\+S\+C\+I\+IZ string. The caller does not need to preserve the value once the function returns. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 582 of file evel\+\_\+mobile\+\_\+flow.\+c.
+
+\hypertarget{evel__mobile__flow_8c_ad804bc6e06e781e5f63aafa545f29829}{}\label{evel__mobile__flow_8c_ad804bc6e06e781e5f63aafa545f29829} 
+\index{evel\+\_\+mobile\+\_\+flow.\+c@{evel\+\_\+mobile\+\_\+flow.\+c}!evel\+\_\+mobile\+\_\+flow\+\_\+mnc\+\_\+set@{evel\+\_\+mobile\+\_\+flow\+\_\+mnc\+\_\+set}}
+\index{evel\+\_\+mobile\+\_\+flow\+\_\+mnc\+\_\+set@{evel\+\_\+mobile\+\_\+flow\+\_\+mnc\+\_\+set}!evel\+\_\+mobile\+\_\+flow.\+c@{evel\+\_\+mobile\+\_\+flow.\+c}}
+\subsubsection{\texorpdfstring{evel\+\_\+mobile\+\_\+flow\+\_\+mnc\+\_\+set()}{evel\_mobile\_flow\_mnc\_set()}}
+{\footnotesize\ttfamily void evel\+\_\+mobile\+\_\+flow\+\_\+mnc\+\_\+set (\begin{DoxyParamCaption}\item[{\hyperlink{evel_8h_a0003b182bfd34ca6458b04840d05738e}{E\+V\+E\+N\+T\+\_\+\+M\+O\+B\+I\+L\+E\+\_\+\+F\+L\+OW} $\ast$}]{mobile\+\_\+flow,  }\item[{const char $\ast$const}]{mnc }\end{DoxyParamCaption})}
+
+
+
+Set the M\+NC property of the Mobile Flow. 
+
+\begin{DoxyNote}{Note}
+The property is treated as immutable\+: it is only valid to call the setter once. However, we don\textquotesingle{}t assert if the caller tries to overwrite, just ignoring the update instead.
+\end{DoxyNote}
+
+\begin{DoxyParams}{Parameters}
+{\em mobile\+\_\+flow} & Pointer to the Mobile Flow. \\
+\hline
+{\em mnc} & The M\+NC to be set. A\+S\+C\+I\+IZ string. The caller does not need to preserve the value once the function returns. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 611 of file evel\+\_\+mobile\+\_\+flow.\+c.
+
+\hypertarget{evel__mobile__flow_8c_a62ffc93bfbbaff5e1be33094b3719344}{}\label{evel__mobile__flow_8c_a62ffc93bfbbaff5e1be33094b3719344} 
+\index{evel\+\_\+mobile\+\_\+flow.\+c@{evel\+\_\+mobile\+\_\+flow.\+c}!evel\+\_\+mobile\+\_\+flow\+\_\+msisdn\+\_\+set@{evel\+\_\+mobile\+\_\+flow\+\_\+msisdn\+\_\+set}}
+\index{evel\+\_\+mobile\+\_\+flow\+\_\+msisdn\+\_\+set@{evel\+\_\+mobile\+\_\+flow\+\_\+msisdn\+\_\+set}!evel\+\_\+mobile\+\_\+flow.\+c@{evel\+\_\+mobile\+\_\+flow.\+c}}
+\subsubsection{\texorpdfstring{evel\+\_\+mobile\+\_\+flow\+\_\+msisdn\+\_\+set()}{evel\_mobile\_flow\_msisdn\_set()}}
+{\footnotesize\ttfamily void evel\+\_\+mobile\+\_\+flow\+\_\+msisdn\+\_\+set (\begin{DoxyParamCaption}\item[{\hyperlink{evel_8h_a0003b182bfd34ca6458b04840d05738e}{E\+V\+E\+N\+T\+\_\+\+M\+O\+B\+I\+L\+E\+\_\+\+F\+L\+OW} $\ast$}]{mobile\+\_\+flow,  }\item[{const char $\ast$const}]{msisdn }\end{DoxyParamCaption})}
+
+
+
+Set the M\+S\+I\+S\+DN property of the Mobile Flow. 
+
+\begin{DoxyNote}{Note}
+The property is treated as immutable\+: it is only valid to call the setter once. However, we don\textquotesingle{}t assert if the caller tries to overwrite, just ignoring the update instead.
+\end{DoxyNote}
+
+\begin{DoxyParams}{Parameters}
+{\em mobile\+\_\+flow} & Pointer to the Mobile Flow. \\
+\hline
+{\em msisdn} & The M\+S\+I\+S\+DN to be set. A\+S\+C\+I\+IZ string. The caller does not need to preserve the value once the function returns. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 640 of file evel\+\_\+mobile\+\_\+flow.\+c.
+
+\hypertarget{evel__mobile__flow_8c_a7db96e0f7dbc55dd471c33160a802d13}{}\label{evel__mobile__flow_8c_a7db96e0f7dbc55dd471c33160a802d13} 
+\index{evel\+\_\+mobile\+\_\+flow.\+c@{evel\+\_\+mobile\+\_\+flow.\+c}!evel\+\_\+mobile\+\_\+flow\+\_\+other\+\_\+func\+\_\+role\+\_\+set@{evel\+\_\+mobile\+\_\+flow\+\_\+other\+\_\+func\+\_\+role\+\_\+set}}
+\index{evel\+\_\+mobile\+\_\+flow\+\_\+other\+\_\+func\+\_\+role\+\_\+set@{evel\+\_\+mobile\+\_\+flow\+\_\+other\+\_\+func\+\_\+role\+\_\+set}!evel\+\_\+mobile\+\_\+flow.\+c@{evel\+\_\+mobile\+\_\+flow.\+c}}
+\subsubsection{\texorpdfstring{evel\+\_\+mobile\+\_\+flow\+\_\+other\+\_\+func\+\_\+role\+\_\+set()}{evel\_mobile\_flow\_other\_func\_role\_set()}}
+{\footnotesize\ttfamily void evel\+\_\+mobile\+\_\+flow\+\_\+other\+\_\+func\+\_\+role\+\_\+set (\begin{DoxyParamCaption}\item[{\hyperlink{evel_8h_a0003b182bfd34ca6458b04840d05738e}{E\+V\+E\+N\+T\+\_\+\+M\+O\+B\+I\+L\+E\+\_\+\+F\+L\+OW} $\ast$}]{mobile\+\_\+flow,  }\item[{const char $\ast$const}]{role }\end{DoxyParamCaption})}
+
+
+
+Set the Other Functional Role property of the Mobile Flow. 
+
+\begin{DoxyNote}{Note}
+The property is treated as immutable\+: it is only valid to call the setter once. However, we don\textquotesingle{}t assert if the caller tries to overwrite, just ignoring the update instead.
+\end{DoxyNote}
+
+\begin{DoxyParams}{Parameters}
+{\em mobile\+\_\+flow} & Pointer to the Mobile Flow. \\
+\hline
+{\em role} & The Other Functional Role to be set. A\+S\+C\+I\+IZ string. The caller does not need to preserve the value once the function returns. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 670 of file evel\+\_\+mobile\+\_\+flow.\+c.
+
+\hypertarget{evel__mobile__flow_8c_a73067ae5bf8fa0858d06613d8391add0}{}\label{evel__mobile__flow_8c_a73067ae5bf8fa0858d06613d8391add0} 
+\index{evel\+\_\+mobile\+\_\+flow.\+c@{evel\+\_\+mobile\+\_\+flow.\+c}!evel\+\_\+mobile\+\_\+flow\+\_\+rac\+\_\+set@{evel\+\_\+mobile\+\_\+flow\+\_\+rac\+\_\+set}}
+\index{evel\+\_\+mobile\+\_\+flow\+\_\+rac\+\_\+set@{evel\+\_\+mobile\+\_\+flow\+\_\+rac\+\_\+set}!evel\+\_\+mobile\+\_\+flow.\+c@{evel\+\_\+mobile\+\_\+flow.\+c}}
+\subsubsection{\texorpdfstring{evel\+\_\+mobile\+\_\+flow\+\_\+rac\+\_\+set()}{evel\_mobile\_flow\_rac\_set()}}
+{\footnotesize\ttfamily void evel\+\_\+mobile\+\_\+flow\+\_\+rac\+\_\+set (\begin{DoxyParamCaption}\item[{\hyperlink{evel_8h_a0003b182bfd34ca6458b04840d05738e}{E\+V\+E\+N\+T\+\_\+\+M\+O\+B\+I\+L\+E\+\_\+\+F\+L\+OW} $\ast$}]{mobile\+\_\+flow,  }\item[{const char $\ast$const}]{rac }\end{DoxyParamCaption})}
+
+
+
+Set the R\+AC property of the Mobile Flow. 
+
+\begin{DoxyNote}{Note}
+The property is treated as immutable\+: it is only valid to call the setter once. However, we don\textquotesingle{}t assert if the caller tries to overwrite, just ignoring the update instead.
+\end{DoxyNote}
+
+\begin{DoxyParams}{Parameters}
+{\em mobile\+\_\+flow} & Pointer to the Mobile Flow. \\
+\hline
+{\em rac} & The R\+AC to be set. A\+S\+C\+I\+IZ string. The caller does not need to preserve the value once the function returns. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 699 of file evel\+\_\+mobile\+\_\+flow.\+c.
+
+\hypertarget{evel__mobile__flow_8c_a17f12868a745f0b3dcde6edbd75fef4a}{}\label{evel__mobile__flow_8c_a17f12868a745f0b3dcde6edbd75fef4a} 
+\index{evel\+\_\+mobile\+\_\+flow.\+c@{evel\+\_\+mobile\+\_\+flow.\+c}!evel\+\_\+mobile\+\_\+flow\+\_\+radio\+\_\+acc\+\_\+tech\+\_\+set@{evel\+\_\+mobile\+\_\+flow\+\_\+radio\+\_\+acc\+\_\+tech\+\_\+set}}
+\index{evel\+\_\+mobile\+\_\+flow\+\_\+radio\+\_\+acc\+\_\+tech\+\_\+set@{evel\+\_\+mobile\+\_\+flow\+\_\+radio\+\_\+acc\+\_\+tech\+\_\+set}!evel\+\_\+mobile\+\_\+flow.\+c@{evel\+\_\+mobile\+\_\+flow.\+c}}
+\subsubsection{\texorpdfstring{evel\+\_\+mobile\+\_\+flow\+\_\+radio\+\_\+acc\+\_\+tech\+\_\+set()}{evel\_mobile\_flow\_radio\_acc\_tech\_set()}}
+{\footnotesize\ttfamily void evel\+\_\+mobile\+\_\+flow\+\_\+radio\+\_\+acc\+\_\+tech\+\_\+set (\begin{DoxyParamCaption}\item[{\hyperlink{evel_8h_a0003b182bfd34ca6458b04840d05738e}{E\+V\+E\+N\+T\+\_\+\+M\+O\+B\+I\+L\+E\+\_\+\+F\+L\+OW} $\ast$}]{mobile\+\_\+flow,  }\item[{const char $\ast$const}]{tech }\end{DoxyParamCaption})}
+
+
+
+Set the Radio Access Technology property of the Mobile Flow. 
+
+\begin{DoxyNote}{Note}
+The property is treated as immutable\+: it is only valid to call the setter once. However, we don\textquotesingle{}t assert if the caller tries to overwrite, just ignoring the update instead.
+\end{DoxyNote}
+
+\begin{DoxyParams}{Parameters}
+{\em mobile\+\_\+flow} & Pointer to the Mobile Flow. \\
+\hline
+{\em tech} & The Radio Access Technology to be set. A\+S\+C\+I\+IZ string. The caller does not need to preserve the value once the function returns. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 729 of file evel\+\_\+mobile\+\_\+flow.\+c.
+
+\hypertarget{evel__mobile__flow_8c_a8e1f15df21e415a1ad9b21799c087d3a}{}\label{evel__mobile__flow_8c_a8e1f15df21e415a1ad9b21799c087d3a} 
+\index{evel\+\_\+mobile\+\_\+flow.\+c@{evel\+\_\+mobile\+\_\+flow.\+c}!evel\+\_\+mobile\+\_\+flow\+\_\+sac\+\_\+set@{evel\+\_\+mobile\+\_\+flow\+\_\+sac\+\_\+set}}
+\index{evel\+\_\+mobile\+\_\+flow\+\_\+sac\+\_\+set@{evel\+\_\+mobile\+\_\+flow\+\_\+sac\+\_\+set}!evel\+\_\+mobile\+\_\+flow.\+c@{evel\+\_\+mobile\+\_\+flow.\+c}}
+\subsubsection{\texorpdfstring{evel\+\_\+mobile\+\_\+flow\+\_\+sac\+\_\+set()}{evel\_mobile\_flow\_sac\_set()}}
+{\footnotesize\ttfamily void evel\+\_\+mobile\+\_\+flow\+\_\+sac\+\_\+set (\begin{DoxyParamCaption}\item[{\hyperlink{evel_8h_a0003b182bfd34ca6458b04840d05738e}{E\+V\+E\+N\+T\+\_\+\+M\+O\+B\+I\+L\+E\+\_\+\+F\+L\+OW} $\ast$}]{mobile\+\_\+flow,  }\item[{const char $\ast$const}]{sac }\end{DoxyParamCaption})}
+
+
+
+Set the S\+AC property of the Mobile Flow. 
+
+\begin{DoxyNote}{Note}
+The property is treated as immutable\+: it is only valid to call the setter once. However, we don\textquotesingle{}t assert if the caller tries to overwrite, just ignoring the update instead.
+\end{DoxyNote}
+
+\begin{DoxyParams}{Parameters}
+{\em mobile\+\_\+flow} & Pointer to the Mobile Flow. \\
+\hline
+{\em sac} & The S\+AC to be set. A\+S\+C\+I\+IZ string. The caller does not need to preserve the value once the function returns. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 758 of file evel\+\_\+mobile\+\_\+flow.\+c.
+
+\hypertarget{evel__mobile__flow_8c_a94dc429454c0558519c2a27c0c47097a}{}\label{evel__mobile__flow_8c_a94dc429454c0558519c2a27c0c47097a} 
+\index{evel\+\_\+mobile\+\_\+flow.\+c@{evel\+\_\+mobile\+\_\+flow.\+c}!evel\+\_\+mobile\+\_\+flow\+\_\+samp\+\_\+alg\+\_\+set@{evel\+\_\+mobile\+\_\+flow\+\_\+samp\+\_\+alg\+\_\+set}}
+\index{evel\+\_\+mobile\+\_\+flow\+\_\+samp\+\_\+alg\+\_\+set@{evel\+\_\+mobile\+\_\+flow\+\_\+samp\+\_\+alg\+\_\+set}!evel\+\_\+mobile\+\_\+flow.\+c@{evel\+\_\+mobile\+\_\+flow.\+c}}
+\subsubsection{\texorpdfstring{evel\+\_\+mobile\+\_\+flow\+\_\+samp\+\_\+alg\+\_\+set()}{evel\_mobile\_flow\_samp\_alg\_set()}}
+{\footnotesize\ttfamily void evel\+\_\+mobile\+\_\+flow\+\_\+samp\+\_\+alg\+\_\+set (\begin{DoxyParamCaption}\item[{\hyperlink{evel_8h_a0003b182bfd34ca6458b04840d05738e}{E\+V\+E\+N\+T\+\_\+\+M\+O\+B\+I\+L\+E\+\_\+\+F\+L\+OW} $\ast$}]{mobile\+\_\+flow,  }\item[{int}]{algorithm }\end{DoxyParamCaption})}
+
+
+
+Set the Sampling Algorithm property of the Mobile Flow. 
+
+\begin{DoxyNote}{Note}
+The property is treated as immutable\+: it is only valid to call the setter once. However, we don\textquotesingle{}t assert if the caller tries to overwrite, just ignoring the update instead.
+\end{DoxyNote}
+
+\begin{DoxyParams}{Parameters}
+{\em mobile\+\_\+flow} & Pointer to the Mobile Flow. \\
+\hline
+{\em algorithm} & The Sampling Algorithm to be set. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 786 of file evel\+\_\+mobile\+\_\+flow.\+c.
+
+\hypertarget{evel__mobile__flow_8c_a5c00dc99a69a25f793dddb18bd49387c}{}\label{evel__mobile__flow_8c_a5c00dc99a69a25f793dddb18bd49387c} 
+\index{evel\+\_\+mobile\+\_\+flow.\+c@{evel\+\_\+mobile\+\_\+flow.\+c}!evel\+\_\+mobile\+\_\+flow\+\_\+tac\+\_\+set@{evel\+\_\+mobile\+\_\+flow\+\_\+tac\+\_\+set}}
+\index{evel\+\_\+mobile\+\_\+flow\+\_\+tac\+\_\+set@{evel\+\_\+mobile\+\_\+flow\+\_\+tac\+\_\+set}!evel\+\_\+mobile\+\_\+flow.\+c@{evel\+\_\+mobile\+\_\+flow.\+c}}
+\subsubsection{\texorpdfstring{evel\+\_\+mobile\+\_\+flow\+\_\+tac\+\_\+set()}{evel\_mobile\_flow\_tac\_set()}}
+{\footnotesize\ttfamily void evel\+\_\+mobile\+\_\+flow\+\_\+tac\+\_\+set (\begin{DoxyParamCaption}\item[{\hyperlink{evel_8h_a0003b182bfd34ca6458b04840d05738e}{E\+V\+E\+N\+T\+\_\+\+M\+O\+B\+I\+L\+E\+\_\+\+F\+L\+OW} $\ast$}]{mobile\+\_\+flow,  }\item[{const char $\ast$const}]{tac }\end{DoxyParamCaption})}
+
+
+
+Set the T\+AC property of the Mobile Flow. 
+
+\begin{DoxyNote}{Note}
+The property is treated as immutable\+: it is only valid to call the setter once. However, we don\textquotesingle{}t assert if the caller tries to overwrite, just ignoring the update instead.
+\end{DoxyNote}
+
+\begin{DoxyParams}{Parameters}
+{\em mobile\+\_\+flow} & Pointer to the Mobile Flow. \\
+\hline
+{\em tac} & The T\+AC to be set. A\+S\+C\+I\+IZ string. The caller does not need to preserve the value once the function returns. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 815 of file evel\+\_\+mobile\+\_\+flow.\+c.
+
+\hypertarget{evel__mobile__flow_8c_a0fbd257da68229d94cd9243f2a7459cd}{}\label{evel__mobile__flow_8c_a0fbd257da68229d94cd9243f2a7459cd} 
+\index{evel\+\_\+mobile\+\_\+flow.\+c@{evel\+\_\+mobile\+\_\+flow.\+c}!evel\+\_\+mobile\+\_\+flow\+\_\+tunnel\+\_\+id\+\_\+set@{evel\+\_\+mobile\+\_\+flow\+\_\+tunnel\+\_\+id\+\_\+set}}
+\index{evel\+\_\+mobile\+\_\+flow\+\_\+tunnel\+\_\+id\+\_\+set@{evel\+\_\+mobile\+\_\+flow\+\_\+tunnel\+\_\+id\+\_\+set}!evel\+\_\+mobile\+\_\+flow.\+c@{evel\+\_\+mobile\+\_\+flow.\+c}}
+\subsubsection{\texorpdfstring{evel\+\_\+mobile\+\_\+flow\+\_\+tunnel\+\_\+id\+\_\+set()}{evel\_mobile\_flow\_tunnel\_id\_set()}}
+{\footnotesize\ttfamily void evel\+\_\+mobile\+\_\+flow\+\_\+tunnel\+\_\+id\+\_\+set (\begin{DoxyParamCaption}\item[{\hyperlink{evel_8h_a0003b182bfd34ca6458b04840d05738e}{E\+V\+E\+N\+T\+\_\+\+M\+O\+B\+I\+L\+E\+\_\+\+F\+L\+OW} $\ast$}]{mobile\+\_\+flow,  }\item[{const char $\ast$const}]{tunnel\+\_\+id }\end{DoxyParamCaption})}
+
+
+
+Set the Tunnel ID property of the Mobile Flow. 
+
+\begin{DoxyNote}{Note}
+The property is treated as immutable\+: it is only valid to call the setter once. However, we don\textquotesingle{}t assert if the caller tries to overwrite, just ignoring the update instead.
+\end{DoxyNote}
+
+\begin{DoxyParams}{Parameters}
+{\em mobile\+\_\+flow} & Pointer to the Mobile Flow. \\
+\hline
+{\em tunnel\+\_\+id} & The Tunnel ID to be set. A\+S\+C\+I\+IZ string. The caller does not need to preserve the value once the function returns. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 844 of file evel\+\_\+mobile\+\_\+flow.\+c.
+
+\hypertarget{evel__mobile__flow_8c_a0f9fa474d3e4cd84e9e2ac83388490bf}{}\label{evel__mobile__flow_8c_a0f9fa474d3e4cd84e9e2ac83388490bf} 
+\index{evel\+\_\+mobile\+\_\+flow.\+c@{evel\+\_\+mobile\+\_\+flow.\+c}!evel\+\_\+mobile\+\_\+flow\+\_\+type\+\_\+set@{evel\+\_\+mobile\+\_\+flow\+\_\+type\+\_\+set}}
+\index{evel\+\_\+mobile\+\_\+flow\+\_\+type\+\_\+set@{evel\+\_\+mobile\+\_\+flow\+\_\+type\+\_\+set}!evel\+\_\+mobile\+\_\+flow.\+c@{evel\+\_\+mobile\+\_\+flow.\+c}}
+\subsubsection{\texorpdfstring{evel\+\_\+mobile\+\_\+flow\+\_\+type\+\_\+set()}{evel\_mobile\_flow\_type\_set()}}
+{\footnotesize\ttfamily void evel\+\_\+mobile\+\_\+flow\+\_\+type\+\_\+set (\begin{DoxyParamCaption}\item[{\hyperlink{evel_8h_a0003b182bfd34ca6458b04840d05738e}{E\+V\+E\+N\+T\+\_\+\+M\+O\+B\+I\+L\+E\+\_\+\+F\+L\+OW} $\ast$}]{mobile\+\_\+flow,  }\item[{const char $\ast$const}]{type }\end{DoxyParamCaption})}
+
+
+
+Set the Event Type property of the Mobile Flow. 
+
+\begin{DoxyNote}{Note}
+The property is treated as immutable\+: it is only valid to call the setter once. However, we don\textquotesingle{}t assert if the caller tries to overwrite, just ignoring the update instead.
+\end{DoxyNote}
+
+\begin{DoxyParams}{Parameters}
+{\em mobile\+\_\+flow} & Pointer to the Mobile Flow. \\
+\hline
+{\em type} & The Event Type to be set. A\+S\+C\+I\+IZ string. The caller does not need to preserve the value once the function returns. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 202 of file evel\+\_\+mobile\+\_\+flow.\+c.
+
+\hypertarget{evel__mobile__flow_8c_a911d625f947632a74ce74e9b3a4fc75e}{}\label{evel__mobile__flow_8c_a911d625f947632a74ce74e9b3a4fc75e} 
+\index{evel\+\_\+mobile\+\_\+flow.\+c@{evel\+\_\+mobile\+\_\+flow.\+c}!evel\+\_\+mobile\+\_\+flow\+\_\+vlan\+\_\+id\+\_\+set@{evel\+\_\+mobile\+\_\+flow\+\_\+vlan\+\_\+id\+\_\+set}}
+\index{evel\+\_\+mobile\+\_\+flow\+\_\+vlan\+\_\+id\+\_\+set@{evel\+\_\+mobile\+\_\+flow\+\_\+vlan\+\_\+id\+\_\+set}!evel\+\_\+mobile\+\_\+flow.\+c@{evel\+\_\+mobile\+\_\+flow.\+c}}
+\subsubsection{\texorpdfstring{evel\+\_\+mobile\+\_\+flow\+\_\+vlan\+\_\+id\+\_\+set()}{evel\_mobile\_flow\_vlan\_id\_set()}}
+{\footnotesize\ttfamily void evel\+\_\+mobile\+\_\+flow\+\_\+vlan\+\_\+id\+\_\+set (\begin{DoxyParamCaption}\item[{\hyperlink{evel_8h_a0003b182bfd34ca6458b04840d05738e}{E\+V\+E\+N\+T\+\_\+\+M\+O\+B\+I\+L\+E\+\_\+\+F\+L\+OW} $\ast$}]{mobile\+\_\+flow,  }\item[{const char $\ast$const}]{vlan\+\_\+id }\end{DoxyParamCaption})}
+
+
+
+Set the V\+L\+AN ID property of the Mobile Flow. 
+
+\begin{DoxyNote}{Note}
+The property is treated as immutable\+: it is only valid to call the setter once. However, we don\textquotesingle{}t assert if the caller tries to overwrite, just ignoring the update instead.
+\end{DoxyNote}
+
+\begin{DoxyParams}{Parameters}
+{\em mobile\+\_\+flow} & Pointer to the Mobile Flow. \\
+\hline
+{\em vlan\+\_\+id} & The V\+L\+AN ID to be set. A\+S\+C\+I\+IZ string. The caller does not need to preserve the value once the function returns. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 873 of file evel\+\_\+mobile\+\_\+flow.\+c.
+
+\hypertarget{evel__mobile__flow_8c_a22b6c1c8aa263fe12fe36c248c855c61}{}\label{evel__mobile__flow_8c_a22b6c1c8aa263fe12fe36c248c855c61} 
+\index{evel\+\_\+mobile\+\_\+flow.\+c@{evel\+\_\+mobile\+\_\+flow.\+c}!evel\+\_\+mobile\+\_\+gtp\+\_\+metrics\+\_\+act\+\_\+by\+\_\+set@{evel\+\_\+mobile\+\_\+gtp\+\_\+metrics\+\_\+act\+\_\+by\+\_\+set}}
+\index{evel\+\_\+mobile\+\_\+gtp\+\_\+metrics\+\_\+act\+\_\+by\+\_\+set@{evel\+\_\+mobile\+\_\+gtp\+\_\+metrics\+\_\+act\+\_\+by\+\_\+set}!evel\+\_\+mobile\+\_\+flow.\+c@{evel\+\_\+mobile\+\_\+flow.\+c}}
+\subsubsection{\texorpdfstring{evel\+\_\+mobile\+\_\+gtp\+\_\+metrics\+\_\+act\+\_\+by\+\_\+set()}{evel\_mobile\_gtp\_metrics\_act\_by\_set()}}
+{\footnotesize\ttfamily void evel\+\_\+mobile\+\_\+gtp\+\_\+metrics\+\_\+act\+\_\+by\+\_\+set (\begin{DoxyParamCaption}\item[{\hyperlink{evel_8h_aab323a610a0d9f5df6ebb82f7e060494}{M\+O\+B\+I\+L\+E\+\_\+\+G\+T\+P\+\_\+\+P\+E\+R\+\_\+\+F\+L\+O\+W\+\_\+\+M\+E\+T\+R\+I\+CS} $\ast$}]{metrics,  }\item[{const char $\ast$const}]{act\+\_\+by }\end{DoxyParamCaption})}
+
+
+
+Set the Activated By property of the Mobile G\+TP Per Flow metrics. 
+
+\begin{DoxyNote}{Note}
+The property is treated as immutable\+: it is only valid to call the setter once. However, we don\textquotesingle{}t assert if the caller tries to overwrite, just ignoring the update instead.
+\end{DoxyNote}
+
+\begin{DoxyParams}{Parameters}
+{\em metrics} & Pointer to the Mobile G\+TP Per Flow Metrics. \\
+\hline
+{\em act\+\_\+by} & The Activated By to be set. A\+S\+C\+I\+IZ string. The caller does not need to preserve the value once the function returns. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 1304 of file evel\+\_\+mobile\+\_\+flow.\+c.
+
+\hypertarget{evel__mobile__flow_8c_a17ab56e53dfc4c9c8f3245026bf1ed60}{}\label{evel__mobile__flow_8c_a17ab56e53dfc4c9c8f3245026bf1ed60} 
+\index{evel\+\_\+mobile\+\_\+flow.\+c@{evel\+\_\+mobile\+\_\+flow.\+c}!evel\+\_\+mobile\+\_\+gtp\+\_\+metrics\+\_\+act\+\_\+time\+\_\+set@{evel\+\_\+mobile\+\_\+gtp\+\_\+metrics\+\_\+act\+\_\+time\+\_\+set}}
+\index{evel\+\_\+mobile\+\_\+gtp\+\_\+metrics\+\_\+act\+\_\+time\+\_\+set@{evel\+\_\+mobile\+\_\+gtp\+\_\+metrics\+\_\+act\+\_\+time\+\_\+set}!evel\+\_\+mobile\+\_\+flow.\+c@{evel\+\_\+mobile\+\_\+flow.\+c}}
+\subsubsection{\texorpdfstring{evel\+\_\+mobile\+\_\+gtp\+\_\+metrics\+\_\+act\+\_\+time\+\_\+set()}{evel\_mobile\_gtp\_metrics\_act\_time\_set()}}
+{\footnotesize\ttfamily void evel\+\_\+mobile\+\_\+gtp\+\_\+metrics\+\_\+act\+\_\+time\+\_\+set (\begin{DoxyParamCaption}\item[{\hyperlink{evel_8h_aab323a610a0d9f5df6ebb82f7e060494}{M\+O\+B\+I\+L\+E\+\_\+\+G\+T\+P\+\_\+\+P\+E\+R\+\_\+\+F\+L\+O\+W\+\_\+\+M\+E\+T\+R\+I\+CS} $\ast$}]{metrics,  }\item[{time\+\_\+t}]{act\+\_\+time }\end{DoxyParamCaption})}
+
+
+
+Set the Activation Time property of the Mobile G\+TP Per Flow metrics. 
+
+\begin{DoxyNote}{Note}
+The property is treated as immutable\+: it is only valid to call the setter once. However, we don\textquotesingle{}t assert if the caller tries to overwrite, just ignoring the update instead.
+\end{DoxyNote}
+
+\begin{DoxyParams}{Parameters}
+{\em metrics} & Pointer to the Mobile G\+TP Per Flow Metrics. \\
+\hline
+{\em act\+\_\+time} & The Activation Time to be set. A\+S\+C\+I\+IZ string. The caller does not need to preserve the value once the function returns. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 1333 of file evel\+\_\+mobile\+\_\+flow.\+c.
+
+\hypertarget{evel__mobile__flow_8c_ab9b8bc25234fcc8ebbf532a9c005af46}{}\label{evel__mobile__flow_8c_ab9b8bc25234fcc8ebbf532a9c005af46} 
+\index{evel\+\_\+mobile\+\_\+flow.\+c@{evel\+\_\+mobile\+\_\+flow.\+c}!evel\+\_\+mobile\+\_\+gtp\+\_\+metrics\+\_\+con\+\_\+status\+\_\+set@{evel\+\_\+mobile\+\_\+gtp\+\_\+metrics\+\_\+con\+\_\+status\+\_\+set}}
+\index{evel\+\_\+mobile\+\_\+gtp\+\_\+metrics\+\_\+con\+\_\+status\+\_\+set@{evel\+\_\+mobile\+\_\+gtp\+\_\+metrics\+\_\+con\+\_\+status\+\_\+set}!evel\+\_\+mobile\+\_\+flow.\+c@{evel\+\_\+mobile\+\_\+flow.\+c}}
+\subsubsection{\texorpdfstring{evel\+\_\+mobile\+\_\+gtp\+\_\+metrics\+\_\+con\+\_\+status\+\_\+set()}{evel\_mobile\_gtp\_metrics\_con\_status\_set()}}
+{\footnotesize\ttfamily void evel\+\_\+mobile\+\_\+gtp\+\_\+metrics\+\_\+con\+\_\+status\+\_\+set (\begin{DoxyParamCaption}\item[{\hyperlink{evel_8h_aab323a610a0d9f5df6ebb82f7e060494}{M\+O\+B\+I\+L\+E\+\_\+\+G\+T\+P\+\_\+\+P\+E\+R\+\_\+\+F\+L\+O\+W\+\_\+\+M\+E\+T\+R\+I\+CS} $\ast$}]{metrics,  }\item[{const char $\ast$const}]{status }\end{DoxyParamCaption})}
+
+
+
+Set the G\+TP Connection Status property of the Mobile G\+TP Per Flow metrics. 
+
+\begin{DoxyNote}{Note}
+The property is treated as immutable\+: it is only valid to call the setter once. However, we don\textquotesingle{}t assert if the caller tries to overwrite, just ignoring the update instead.
+\end{DoxyNote}
+
+\begin{DoxyParams}{Parameters}
+{\em metrics} & Pointer to the Mobile G\+TP Per Flow Metrics. \\
+\hline
+{\em status} & The G\+TP Connection Status to be set. A\+S\+C\+I\+IZ string. The caller does not need to preserve the value once the function returns. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 1393 of file evel\+\_\+mobile\+\_\+flow.\+c.
+
+\hypertarget{evel__mobile__flow_8c_a9971159ba6283c07964be6a27017bf7f}{}\label{evel__mobile__flow_8c_a9971159ba6283c07964be6a27017bf7f} 
+\index{evel\+\_\+mobile\+\_\+flow.\+c@{evel\+\_\+mobile\+\_\+flow.\+c}!evel\+\_\+mobile\+\_\+gtp\+\_\+metrics\+\_\+deact\+\_\+by\+\_\+set@{evel\+\_\+mobile\+\_\+gtp\+\_\+metrics\+\_\+deact\+\_\+by\+\_\+set}}
+\index{evel\+\_\+mobile\+\_\+gtp\+\_\+metrics\+\_\+deact\+\_\+by\+\_\+set@{evel\+\_\+mobile\+\_\+gtp\+\_\+metrics\+\_\+deact\+\_\+by\+\_\+set}!evel\+\_\+mobile\+\_\+flow.\+c@{evel\+\_\+mobile\+\_\+flow.\+c}}
+\subsubsection{\texorpdfstring{evel\+\_\+mobile\+\_\+gtp\+\_\+metrics\+\_\+deact\+\_\+by\+\_\+set()}{evel\_mobile\_gtp\_metrics\_deact\_by\_set()}}
+{\footnotesize\ttfamily void evel\+\_\+mobile\+\_\+gtp\+\_\+metrics\+\_\+deact\+\_\+by\+\_\+set (\begin{DoxyParamCaption}\item[{\hyperlink{evel_8h_aab323a610a0d9f5df6ebb82f7e060494}{M\+O\+B\+I\+L\+E\+\_\+\+G\+T\+P\+\_\+\+P\+E\+R\+\_\+\+F\+L\+O\+W\+\_\+\+M\+E\+T\+R\+I\+CS} $\ast$}]{metrics,  }\item[{const char $\ast$const}]{deact\+\_\+by }\end{DoxyParamCaption})}
+
+
+
+Set the Deactivated By property of the Mobile G\+TP Per Flow metrics. 
+
+\begin{DoxyNote}{Note}
+The property is treated as immutable\+: it is only valid to call the setter once. However, we don\textquotesingle{}t assert if the caller tries to overwrite, just ignoring the update instead.
+\end{DoxyNote}
+
+\begin{DoxyParams}{Parameters}
+{\em metrics} & Pointer to the Mobile G\+TP Per Flow Metrics. \\
+\hline
+{\em deact\+\_\+by} & The Deactivated By to be set. A\+S\+C\+I\+IZ string. The caller does not need to preserve the value once the function returns. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 1363 of file evel\+\_\+mobile\+\_\+flow.\+c.
+
+\hypertarget{evel__mobile__flow_8c_a715f03852cefb1650621f5aab09c88fe}{}\label{evel__mobile__flow_8c_a715f03852cefb1650621f5aab09c88fe} 
+\index{evel\+\_\+mobile\+\_\+flow.\+c@{evel\+\_\+mobile\+\_\+flow.\+c}!evel\+\_\+mobile\+\_\+gtp\+\_\+metrics\+\_\+dur\+\_\+con\+\_\+fail\+\_\+set@{evel\+\_\+mobile\+\_\+gtp\+\_\+metrics\+\_\+dur\+\_\+con\+\_\+fail\+\_\+set}}
+\index{evel\+\_\+mobile\+\_\+gtp\+\_\+metrics\+\_\+dur\+\_\+con\+\_\+fail\+\_\+set@{evel\+\_\+mobile\+\_\+gtp\+\_\+metrics\+\_\+dur\+\_\+con\+\_\+fail\+\_\+set}!evel\+\_\+mobile\+\_\+flow.\+c@{evel\+\_\+mobile\+\_\+flow.\+c}}
+\subsubsection{\texorpdfstring{evel\+\_\+mobile\+\_\+gtp\+\_\+metrics\+\_\+dur\+\_\+con\+\_\+fail\+\_\+set()}{evel\_mobile\_gtp\_metrics\_dur\_con\_fail\_set()}}
+{\footnotesize\ttfamily void evel\+\_\+mobile\+\_\+gtp\+\_\+metrics\+\_\+dur\+\_\+con\+\_\+fail\+\_\+set (\begin{DoxyParamCaption}\item[{\hyperlink{evel_8h_aab323a610a0d9f5df6ebb82f7e060494}{M\+O\+B\+I\+L\+E\+\_\+\+G\+T\+P\+\_\+\+P\+E\+R\+\_\+\+F\+L\+O\+W\+\_\+\+M\+E\+T\+R\+I\+CS} $\ast$}]{metrics,  }\item[{int}]{duration }\end{DoxyParamCaption})}
+
+
+
+Set the Duration of Connection Failed Status property of the Mobile G\+TP Per Flow Metrics. 
+
+\begin{DoxyNote}{Note}
+The property is treated as immutable\+: it is only valid to call the setter once. However, we don\textquotesingle{}t assert if the caller tries to overwrite, just ignoring the update instead.
+\end{DoxyNote}
+
+\begin{DoxyParams}{Parameters}
+{\em metrics} & Pointer to the Mobile G\+TP Per Flow Metrics. \\
+\hline
+{\em duration} & The Duration of Connection Failed Status to be set. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 1245 of file evel\+\_\+mobile\+\_\+flow.\+c.
+
+\hypertarget{evel__mobile__flow_8c_a3ff8714f0d5a72ea1e7a1e5758c36ef7}{}\label{evel__mobile__flow_8c_a3ff8714f0d5a72ea1e7a1e5758c36ef7} 
+\index{evel\+\_\+mobile\+\_\+flow.\+c@{evel\+\_\+mobile\+\_\+flow.\+c}!evel\+\_\+mobile\+\_\+gtp\+\_\+metrics\+\_\+dur\+\_\+tun\+\_\+fail\+\_\+set@{evel\+\_\+mobile\+\_\+gtp\+\_\+metrics\+\_\+dur\+\_\+tun\+\_\+fail\+\_\+set}}
+\index{evel\+\_\+mobile\+\_\+gtp\+\_\+metrics\+\_\+dur\+\_\+tun\+\_\+fail\+\_\+set@{evel\+\_\+mobile\+\_\+gtp\+\_\+metrics\+\_\+dur\+\_\+tun\+\_\+fail\+\_\+set}!evel\+\_\+mobile\+\_\+flow.\+c@{evel\+\_\+mobile\+\_\+flow.\+c}}
+\subsubsection{\texorpdfstring{evel\+\_\+mobile\+\_\+gtp\+\_\+metrics\+\_\+dur\+\_\+tun\+\_\+fail\+\_\+set()}{evel\_mobile\_gtp\_metrics\_dur\_tun\_fail\_set()}}
+{\footnotesize\ttfamily void evel\+\_\+mobile\+\_\+gtp\+\_\+metrics\+\_\+dur\+\_\+tun\+\_\+fail\+\_\+set (\begin{DoxyParamCaption}\item[{\hyperlink{evel_8h_aab323a610a0d9f5df6ebb82f7e060494}{M\+O\+B\+I\+L\+E\+\_\+\+G\+T\+P\+\_\+\+P\+E\+R\+\_\+\+F\+L\+O\+W\+\_\+\+M\+E\+T\+R\+I\+CS} $\ast$}]{metrics,  }\item[{int}]{duration }\end{DoxyParamCaption})}
+
+
+
+Set the Duration of Tunnel Failed Status property of the Mobile G\+TP Per Flow Metrics. 
+
+\begin{DoxyNote}{Note}
+The property is treated as immutable\+: it is only valid to call the setter once. However, we don\textquotesingle{}t assert if the caller tries to overwrite, just ignoring the update instead.
+\end{DoxyNote}
+
+\begin{DoxyParams}{Parameters}
+{\em metrics} & Pointer to the Mobile G\+TP Per Flow Metrics. \\
+\hline
+{\em duration} & The Duration of Tunnel Failed Status to be set. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 1274 of file evel\+\_\+mobile\+\_\+flow.\+c.
+
+\hypertarget{evel__mobile__flow_8c_aeecebde93d7b27c17e008cf42ad17a10}{}\label{evel__mobile__flow_8c_aeecebde93d7b27c17e008cf42ad17a10} 
+\index{evel\+\_\+mobile\+\_\+flow.\+c@{evel\+\_\+mobile\+\_\+flow.\+c}!evel\+\_\+mobile\+\_\+gtp\+\_\+metrics\+\_\+iptos\+\_\+set@{evel\+\_\+mobile\+\_\+gtp\+\_\+metrics\+\_\+iptos\+\_\+set}}
+\index{evel\+\_\+mobile\+\_\+gtp\+\_\+metrics\+\_\+iptos\+\_\+set@{evel\+\_\+mobile\+\_\+gtp\+\_\+metrics\+\_\+iptos\+\_\+set}!evel\+\_\+mobile\+\_\+flow.\+c@{evel\+\_\+mobile\+\_\+flow.\+c}}
+\subsubsection{\texorpdfstring{evel\+\_\+mobile\+\_\+gtp\+\_\+metrics\+\_\+iptos\+\_\+set()}{evel\_mobile\_gtp\_metrics\_iptos\_set()}}
+{\footnotesize\ttfamily void evel\+\_\+mobile\+\_\+gtp\+\_\+metrics\+\_\+iptos\+\_\+set (\begin{DoxyParamCaption}\item[{\hyperlink{evel_8h_aab323a610a0d9f5df6ebb82f7e060494}{M\+O\+B\+I\+L\+E\+\_\+\+G\+T\+P\+\_\+\+P\+E\+R\+\_\+\+F\+L\+O\+W\+\_\+\+M\+E\+T\+R\+I\+CS} $\ast$}]{metrics,  }\item[{int}]{index,  }\item[{int}]{count }\end{DoxyParamCaption})}
+
+
+
+Set an IP Type-\/of-\/\+Service count property of the Mobile G\+TP Per Flow metrics. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em metrics} & Pointer to the Mobile G\+TP Per Flow Metrics. \\
+\hline
+{\em index} & The index of the IP Type-\/of-\/\+Service. \\
+\hline
+{\em count} & The count. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 1448 of file evel\+\_\+mobile\+\_\+flow.\+c.
+
+\hypertarget{evel__mobile__flow_8c_aa6b9e9ae667993d2a5d46634c2761362}{}\label{evel__mobile__flow_8c_aa6b9e9ae667993d2a5d46634c2761362} 
+\index{evel\+\_\+mobile\+\_\+flow.\+c@{evel\+\_\+mobile\+\_\+flow.\+c}!evel\+\_\+mobile\+\_\+gtp\+\_\+metrics\+\_\+large\+\_\+pkt\+\_\+rtt\+\_\+set@{evel\+\_\+mobile\+\_\+gtp\+\_\+metrics\+\_\+large\+\_\+pkt\+\_\+rtt\+\_\+set}}
+\index{evel\+\_\+mobile\+\_\+gtp\+\_\+metrics\+\_\+large\+\_\+pkt\+\_\+rtt\+\_\+set@{evel\+\_\+mobile\+\_\+gtp\+\_\+metrics\+\_\+large\+\_\+pkt\+\_\+rtt\+\_\+set}!evel\+\_\+mobile\+\_\+flow.\+c@{evel\+\_\+mobile\+\_\+flow.\+c}}
+\subsubsection{\texorpdfstring{evel\+\_\+mobile\+\_\+gtp\+\_\+metrics\+\_\+large\+\_\+pkt\+\_\+rtt\+\_\+set()}{evel\_mobile\_gtp\_metrics\_large\_pkt\_rtt\_set()}}
+{\footnotesize\ttfamily void evel\+\_\+mobile\+\_\+gtp\+\_\+metrics\+\_\+large\+\_\+pkt\+\_\+rtt\+\_\+set (\begin{DoxyParamCaption}\item[{\hyperlink{evel_8h_aab323a610a0d9f5df6ebb82f7e060494}{M\+O\+B\+I\+L\+E\+\_\+\+G\+T\+P\+\_\+\+P\+E\+R\+\_\+\+F\+L\+O\+W\+\_\+\+M\+E\+T\+R\+I\+CS} $\ast$}]{metrics,  }\item[{int}]{rtt }\end{DoxyParamCaption})}
+
+
+
+Set the Large Packet Round-\/\+Trip Time property of the Mobile G\+TP Per Flow Metrics. 
+
+\begin{DoxyNote}{Note}
+The property is treated as immutable\+: it is only valid to call the setter once. However, we don\textquotesingle{}t assert if the caller tries to overwrite, just ignoring the update instead.
+\end{DoxyNote}
+
+\begin{DoxyParams}{Parameters}
+{\em metrics} & Pointer to the Mobile G\+TP Per Flow Metrics. \\
+\hline
+{\em rtt} & The Large Packet Round-\/\+Trip Time to be set. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 1481 of file evel\+\_\+mobile\+\_\+flow.\+c.
+
+\hypertarget{evel__mobile__flow_8c_a0b64dc2afcf20c65ac1ad2c33f62afcd}{}\label{evel__mobile__flow_8c_a0b64dc2afcf20c65ac1ad2c33f62afcd} 
+\index{evel\+\_\+mobile\+\_\+flow.\+c@{evel\+\_\+mobile\+\_\+flow.\+c}!evel\+\_\+mobile\+\_\+gtp\+\_\+metrics\+\_\+large\+\_\+pkt\+\_\+thresh\+\_\+set@{evel\+\_\+mobile\+\_\+gtp\+\_\+metrics\+\_\+large\+\_\+pkt\+\_\+thresh\+\_\+set}}
+\index{evel\+\_\+mobile\+\_\+gtp\+\_\+metrics\+\_\+large\+\_\+pkt\+\_\+thresh\+\_\+set@{evel\+\_\+mobile\+\_\+gtp\+\_\+metrics\+\_\+large\+\_\+pkt\+\_\+thresh\+\_\+set}!evel\+\_\+mobile\+\_\+flow.\+c@{evel\+\_\+mobile\+\_\+flow.\+c}}
+\subsubsection{\texorpdfstring{evel\+\_\+mobile\+\_\+gtp\+\_\+metrics\+\_\+large\+\_\+pkt\+\_\+thresh\+\_\+set()}{evel\_mobile\_gtp\_metrics\_large\_pkt\_thresh\_set()}}
+{\footnotesize\ttfamily void evel\+\_\+mobile\+\_\+gtp\+\_\+metrics\+\_\+large\+\_\+pkt\+\_\+thresh\+\_\+set (\begin{DoxyParamCaption}\item[{\hyperlink{evel_8h_aab323a610a0d9f5df6ebb82f7e060494}{M\+O\+B\+I\+L\+E\+\_\+\+G\+T\+P\+\_\+\+P\+E\+R\+\_\+\+F\+L\+O\+W\+\_\+\+M\+E\+T\+R\+I\+CS} $\ast$}]{metrics,  }\item[{double}]{threshold }\end{DoxyParamCaption})}
+
+
+
+Set the Large Packet Threshold property of the Mobile G\+TP Per Flow Metrics. 
+
+\begin{DoxyNote}{Note}
+The property is treated as immutable\+: it is only valid to call the setter once. However, we don\textquotesingle{}t assert if the caller tries to overwrite, just ignoring the update instead.
+\end{DoxyNote}
+
+\begin{DoxyParams}{Parameters}
+{\em metrics} & Pointer to the Mobile G\+TP Per Flow Metrics. \\
+\hline
+{\em threshold} & The Large Packet Threshold to be set. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 1509 of file evel\+\_\+mobile\+\_\+flow.\+c.
+
+\hypertarget{evel__mobile__flow_8c_a89822bddd7414e0950d2bb801e7448e8}{}\label{evel__mobile__flow_8c_a89822bddd7414e0950d2bb801e7448e8} 
+\index{evel\+\_\+mobile\+\_\+flow.\+c@{evel\+\_\+mobile\+\_\+flow.\+c}!evel\+\_\+mobile\+\_\+gtp\+\_\+metrics\+\_\+max\+\_\+rcv\+\_\+bit\+\_\+rate\+\_\+set@{evel\+\_\+mobile\+\_\+gtp\+\_\+metrics\+\_\+max\+\_\+rcv\+\_\+bit\+\_\+rate\+\_\+set}}
+\index{evel\+\_\+mobile\+\_\+gtp\+\_\+metrics\+\_\+max\+\_\+rcv\+\_\+bit\+\_\+rate\+\_\+set@{evel\+\_\+mobile\+\_\+gtp\+\_\+metrics\+\_\+max\+\_\+rcv\+\_\+bit\+\_\+rate\+\_\+set}!evel\+\_\+mobile\+\_\+flow.\+c@{evel\+\_\+mobile\+\_\+flow.\+c}}
+\subsubsection{\texorpdfstring{evel\+\_\+mobile\+\_\+gtp\+\_\+metrics\+\_\+max\+\_\+rcv\+\_\+bit\+\_\+rate\+\_\+set()}{evel\_mobile\_gtp\_metrics\_max\_rcv\_bit\_rate\_set()}}
+{\footnotesize\ttfamily void evel\+\_\+mobile\+\_\+gtp\+\_\+metrics\+\_\+max\+\_\+rcv\+\_\+bit\+\_\+rate\+\_\+set (\begin{DoxyParamCaption}\item[{\hyperlink{evel_8h_aab323a610a0d9f5df6ebb82f7e060494}{M\+O\+B\+I\+L\+E\+\_\+\+G\+T\+P\+\_\+\+P\+E\+R\+\_\+\+F\+L\+O\+W\+\_\+\+M\+E\+T\+R\+I\+CS} $\ast$}]{metrics,  }\item[{int}]{rate }\end{DoxyParamCaption})}
+
+
+
+Set the Max Receive Bit Rate property of the Mobile G\+TP Per Flow Metrics. 
+
+\begin{DoxyNote}{Note}
+The property is treated as immutable\+: it is only valid to call the setter once. However, we don\textquotesingle{}t assert if the caller tries to overwrite, just ignoring the update instead.
+\end{DoxyNote}
+
+\begin{DoxyParams}{Parameters}
+{\em metrics} & Pointer to the Mobile G\+TP Per Flow Metrics. \\
+\hline
+{\em rate} & The Max Receive Bit Rate to be set. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 1537 of file evel\+\_\+mobile\+\_\+flow.\+c.
+
+\hypertarget{evel__mobile__flow_8c_a205bf5a39817de9840d039b009a4a9fa}{}\label{evel__mobile__flow_8c_a205bf5a39817de9840d039b009a4a9fa} 
+\index{evel\+\_\+mobile\+\_\+flow.\+c@{evel\+\_\+mobile\+\_\+flow.\+c}!evel\+\_\+mobile\+\_\+gtp\+\_\+metrics\+\_\+max\+\_\+trx\+\_\+bit\+\_\+rate\+\_\+set@{evel\+\_\+mobile\+\_\+gtp\+\_\+metrics\+\_\+max\+\_\+trx\+\_\+bit\+\_\+rate\+\_\+set}}
+\index{evel\+\_\+mobile\+\_\+gtp\+\_\+metrics\+\_\+max\+\_\+trx\+\_\+bit\+\_\+rate\+\_\+set@{evel\+\_\+mobile\+\_\+gtp\+\_\+metrics\+\_\+max\+\_\+trx\+\_\+bit\+\_\+rate\+\_\+set}!evel\+\_\+mobile\+\_\+flow.\+c@{evel\+\_\+mobile\+\_\+flow.\+c}}
+\subsubsection{\texorpdfstring{evel\+\_\+mobile\+\_\+gtp\+\_\+metrics\+\_\+max\+\_\+trx\+\_\+bit\+\_\+rate\+\_\+set()}{evel\_mobile\_gtp\_metrics\_max\_trx\_bit\_rate\_set()}}
+{\footnotesize\ttfamily void evel\+\_\+mobile\+\_\+gtp\+\_\+metrics\+\_\+max\+\_\+trx\+\_\+bit\+\_\+rate\+\_\+set (\begin{DoxyParamCaption}\item[{\hyperlink{evel_8h_aab323a610a0d9f5df6ebb82f7e060494}{M\+O\+B\+I\+L\+E\+\_\+\+G\+T\+P\+\_\+\+P\+E\+R\+\_\+\+F\+L\+O\+W\+\_\+\+M\+E\+T\+R\+I\+CS} $\ast$}]{metrics,  }\item[{int}]{rate }\end{DoxyParamCaption})}
+
+
+
+Set the Max Transmit Bit Rate property of the Mobile G\+TP Per Flow Metrics. 
+
+\begin{DoxyNote}{Note}
+The property is treated as immutable\+: it is only valid to call the setter once. However, we don\textquotesingle{}t assert if the caller tries to overwrite, just ignoring the update instead.
+\end{DoxyNote}
+
+\begin{DoxyParams}{Parameters}
+{\em metrics} & Pointer to the Mobile G\+TP Per Flow Metrics. \\
+\hline
+{\em rate} & The Max Transmit Bit Rate to be set. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 1565 of file evel\+\_\+mobile\+\_\+flow.\+c.
+
+\hypertarget{evel__mobile__flow_8c_a25f1b7a4a6ac955e223b3dee0419304f}{}\label{evel__mobile__flow_8c_a25f1b7a4a6ac955e223b3dee0419304f} 
+\index{evel\+\_\+mobile\+\_\+flow.\+c@{evel\+\_\+mobile\+\_\+flow.\+c}!evel\+\_\+mobile\+\_\+gtp\+\_\+metrics\+\_\+num\+\_\+echo\+\_\+fail\+\_\+set@{evel\+\_\+mobile\+\_\+gtp\+\_\+metrics\+\_\+num\+\_\+echo\+\_\+fail\+\_\+set}}
+\index{evel\+\_\+mobile\+\_\+gtp\+\_\+metrics\+\_\+num\+\_\+echo\+\_\+fail\+\_\+set@{evel\+\_\+mobile\+\_\+gtp\+\_\+metrics\+\_\+num\+\_\+echo\+\_\+fail\+\_\+set}!evel\+\_\+mobile\+\_\+flow.\+c@{evel\+\_\+mobile\+\_\+flow.\+c}}
+\subsubsection{\texorpdfstring{evel\+\_\+mobile\+\_\+gtp\+\_\+metrics\+\_\+num\+\_\+echo\+\_\+fail\+\_\+set()}{evel\_mobile\_gtp\_metrics\_num\_echo\_fail\_set()}}
+{\footnotesize\ttfamily void evel\+\_\+mobile\+\_\+gtp\+\_\+metrics\+\_\+num\+\_\+echo\+\_\+fail\+\_\+set (\begin{DoxyParamCaption}\item[{\hyperlink{evel_8h_aab323a610a0d9f5df6ebb82f7e060494}{M\+O\+B\+I\+L\+E\+\_\+\+G\+T\+P\+\_\+\+P\+E\+R\+\_\+\+F\+L\+O\+W\+\_\+\+M\+E\+T\+R\+I\+CS} $\ast$}]{metrics,  }\item[{int}]{num }\end{DoxyParamCaption})}
+
+
+
+Set the Number of G\+TP Echo Failures property of the Mobile G\+TP Per Flow Metrics. 
+
+\begin{DoxyNote}{Note}
+The property is treated as immutable\+: it is only valid to call the setter once. However, we don\textquotesingle{}t assert if the caller tries to overwrite, just ignoring the update instead.
+\end{DoxyNote}
+
+\begin{DoxyParams}{Parameters}
+{\em metrics} & Pointer to the Mobile G\+TP Per Flow Metrics. \\
+\hline
+{\em num} & The Number of G\+TP Echo Failures to be set. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 1594 of file evel\+\_\+mobile\+\_\+flow.\+c.
+
+\hypertarget{evel__mobile__flow_8c_a2f75af34c70cf9cade81057e7fd5bd8a}{}\label{evel__mobile__flow_8c_a2f75af34c70cf9cade81057e7fd5bd8a} 
+\index{evel\+\_\+mobile\+\_\+flow.\+c@{evel\+\_\+mobile\+\_\+flow.\+c}!evel\+\_\+mobile\+\_\+gtp\+\_\+metrics\+\_\+num\+\_\+http\+\_\+errors\+\_\+set@{evel\+\_\+mobile\+\_\+gtp\+\_\+metrics\+\_\+num\+\_\+http\+\_\+errors\+\_\+set}}
+\index{evel\+\_\+mobile\+\_\+gtp\+\_\+metrics\+\_\+num\+\_\+http\+\_\+errors\+\_\+set@{evel\+\_\+mobile\+\_\+gtp\+\_\+metrics\+\_\+num\+\_\+http\+\_\+errors\+\_\+set}!evel\+\_\+mobile\+\_\+flow.\+c@{evel\+\_\+mobile\+\_\+flow.\+c}}
+\subsubsection{\texorpdfstring{evel\+\_\+mobile\+\_\+gtp\+\_\+metrics\+\_\+num\+\_\+http\+\_\+errors\+\_\+set()}{evel\_mobile\_gtp\_metrics\_num\_http\_errors\_set()}}
+{\footnotesize\ttfamily void evel\+\_\+mobile\+\_\+gtp\+\_\+metrics\+\_\+num\+\_\+http\+\_\+errors\+\_\+set (\begin{DoxyParamCaption}\item[{\hyperlink{evel_8h_aab323a610a0d9f5df6ebb82f7e060494}{M\+O\+B\+I\+L\+E\+\_\+\+G\+T\+P\+\_\+\+P\+E\+R\+\_\+\+F\+L\+O\+W\+\_\+\+M\+E\+T\+R\+I\+CS} $\ast$}]{metrics,  }\item[{int}]{num }\end{DoxyParamCaption})}
+
+
+
+Set the Number of H\+T\+TP Errors property of the Mobile G\+TP Per Flow Metrics. 
+
+\begin{DoxyNote}{Note}
+The property is treated as immutable\+: it is only valid to call the setter once. However, we don\textquotesingle{}t assert if the caller tries to overwrite, just ignoring the update instead.
+\end{DoxyNote}
+
+\begin{DoxyParams}{Parameters}
+{\em metrics} & Pointer to the Mobile G\+TP Per Flow Metrics. \\
+\hline
+{\em num} & The Number of H\+T\+TP Errors to be set. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 1651 of file evel\+\_\+mobile\+\_\+flow.\+c.
+
+\hypertarget{evel__mobile__flow_8c_a058707b04cb6ef6d59779f717fe7b649}{}\label{evel__mobile__flow_8c_a058707b04cb6ef6d59779f717fe7b649} 
+\index{evel\+\_\+mobile\+\_\+flow.\+c@{evel\+\_\+mobile\+\_\+flow.\+c}!evel\+\_\+mobile\+\_\+gtp\+\_\+metrics\+\_\+num\+\_\+tun\+\_\+fail\+\_\+set@{evel\+\_\+mobile\+\_\+gtp\+\_\+metrics\+\_\+num\+\_\+tun\+\_\+fail\+\_\+set}}
+\index{evel\+\_\+mobile\+\_\+gtp\+\_\+metrics\+\_\+num\+\_\+tun\+\_\+fail\+\_\+set@{evel\+\_\+mobile\+\_\+gtp\+\_\+metrics\+\_\+num\+\_\+tun\+\_\+fail\+\_\+set}!evel\+\_\+mobile\+\_\+flow.\+c@{evel\+\_\+mobile\+\_\+flow.\+c}}
+\subsubsection{\texorpdfstring{evel\+\_\+mobile\+\_\+gtp\+\_\+metrics\+\_\+num\+\_\+tun\+\_\+fail\+\_\+set()}{evel\_mobile\_gtp\_metrics\_num\_tun\_fail\_set()}}
+{\footnotesize\ttfamily void evel\+\_\+mobile\+\_\+gtp\+\_\+metrics\+\_\+num\+\_\+tun\+\_\+fail\+\_\+set (\begin{DoxyParamCaption}\item[{\hyperlink{evel_8h_aab323a610a0d9f5df6ebb82f7e060494}{M\+O\+B\+I\+L\+E\+\_\+\+G\+T\+P\+\_\+\+P\+E\+R\+\_\+\+F\+L\+O\+W\+\_\+\+M\+E\+T\+R\+I\+CS} $\ast$}]{metrics,  }\item[{int}]{num }\end{DoxyParamCaption})}
+
+
+
+Set the Number of G\+TP Tunnel Errors property of the Mobile G\+TP Per Flow Metrics. 
+
+\begin{DoxyNote}{Note}
+The property is treated as immutable\+: it is only valid to call the setter once. However, we don\textquotesingle{}t assert if the caller tries to overwrite, just ignoring the update instead.
+\end{DoxyNote}
+
+\begin{DoxyParams}{Parameters}
+{\em metrics} & Pointer to the Mobile G\+TP Per Flow Metrics. \\
+\hline
+{\em num} & The Number of G\+TP Tunnel Errors to be set. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 1623 of file evel\+\_\+mobile\+\_\+flow.\+c.
+
+\hypertarget{evel__mobile__flow_8c_a750eae88b6f983d755d27357e5a708e0}{}\label{evel__mobile__flow_8c_a750eae88b6f983d755d27357e5a708e0} 
+\index{evel\+\_\+mobile\+\_\+flow.\+c@{evel\+\_\+mobile\+\_\+flow.\+c}!evel\+\_\+mobile\+\_\+gtp\+\_\+metrics\+\_\+qci\+\_\+cos\+\_\+count\+\_\+add@{evel\+\_\+mobile\+\_\+gtp\+\_\+metrics\+\_\+qci\+\_\+cos\+\_\+count\+\_\+add}}
+\index{evel\+\_\+mobile\+\_\+gtp\+\_\+metrics\+\_\+qci\+\_\+cos\+\_\+count\+\_\+add@{evel\+\_\+mobile\+\_\+gtp\+\_\+metrics\+\_\+qci\+\_\+cos\+\_\+count\+\_\+add}!evel\+\_\+mobile\+\_\+flow.\+c@{evel\+\_\+mobile\+\_\+flow.\+c}}
+\subsubsection{\texorpdfstring{evel\+\_\+mobile\+\_\+gtp\+\_\+metrics\+\_\+qci\+\_\+cos\+\_\+count\+\_\+add()}{evel\_mobile\_gtp\_metrics\_qci\_cos\_count\_add()}}
+{\footnotesize\ttfamily void evel\+\_\+mobile\+\_\+gtp\+\_\+metrics\+\_\+qci\+\_\+cos\+\_\+count\+\_\+add (\begin{DoxyParamCaption}\item[{\hyperlink{evel_8h_aab323a610a0d9f5df6ebb82f7e060494}{M\+O\+B\+I\+L\+E\+\_\+\+G\+T\+P\+\_\+\+P\+E\+R\+\_\+\+F\+L\+O\+W\+\_\+\+M\+E\+T\+R\+I\+CS} $\ast$}]{metrics,  }\item[{const \hyperlink{evel_8h_a2018881529f1dfb73c8b2689f5193c86}{E\+V\+E\+L\+\_\+\+Q\+C\+I\+\_\+\+C\+O\+S\+\_\+\+T\+Y\+P\+ES}}]{qci\+\_\+cos,  }\item[{const int}]{count }\end{DoxyParamCaption})}
+
+
+
+Add a Q\+CI C\+OS count to the metrics. 
+
+\begin{DoxyNote}{Note}
+The property is treated as immutable\+: it is only valid to call the setter once. However, we don\textquotesingle{}t assert if the caller tries to overwrite, just ignoring the update instead.
+\end{DoxyNote}
+
+\begin{DoxyParams}{Parameters}
+{\em metrics} & Pointer to the Mobile G\+TP Per Flow Metrics. \\
+\hline
+{\em qci\+\_\+cos} & The Q\+CI C\+OS count to be updated. \\
+\hline
+{\em count} & The associated Q\+CI C\+OS count. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 1713 of file evel\+\_\+mobile\+\_\+flow.\+c.
+
+\hypertarget{evel__mobile__flow_8c_acfd37ed37ac363f782730aef01fc8460}{}\label{evel__mobile__flow_8c_acfd37ed37ac363f782730aef01fc8460} 
+\index{evel\+\_\+mobile\+\_\+flow.\+c@{evel\+\_\+mobile\+\_\+flow.\+c}!evel\+\_\+mobile\+\_\+gtp\+\_\+metrics\+\_\+tcp\+\_\+flag\+\_\+count\+\_\+add@{evel\+\_\+mobile\+\_\+gtp\+\_\+metrics\+\_\+tcp\+\_\+flag\+\_\+count\+\_\+add}}
+\index{evel\+\_\+mobile\+\_\+gtp\+\_\+metrics\+\_\+tcp\+\_\+flag\+\_\+count\+\_\+add@{evel\+\_\+mobile\+\_\+gtp\+\_\+metrics\+\_\+tcp\+\_\+flag\+\_\+count\+\_\+add}!evel\+\_\+mobile\+\_\+flow.\+c@{evel\+\_\+mobile\+\_\+flow.\+c}}
+\subsubsection{\texorpdfstring{evel\+\_\+mobile\+\_\+gtp\+\_\+metrics\+\_\+tcp\+\_\+flag\+\_\+count\+\_\+add()}{evel\_mobile\_gtp\_metrics\_tcp\_flag\_count\_add()}}
+{\footnotesize\ttfamily void evel\+\_\+mobile\+\_\+gtp\+\_\+metrics\+\_\+tcp\+\_\+flag\+\_\+count\+\_\+add (\begin{DoxyParamCaption}\item[{\hyperlink{evel_8h_aab323a610a0d9f5df6ebb82f7e060494}{M\+O\+B\+I\+L\+E\+\_\+\+G\+T\+P\+\_\+\+P\+E\+R\+\_\+\+F\+L\+O\+W\+\_\+\+M\+E\+T\+R\+I\+CS} $\ast$}]{metrics,  }\item[{const \hyperlink{evel_8h_aeabdcbed22ac53495bea50059b06c993}{E\+V\+E\+L\+\_\+\+T\+C\+P\+\_\+\+F\+L\+A\+GS}}]{tcp\+\_\+flag,  }\item[{const int}]{count }\end{DoxyParamCaption})}
+
+
+
+Add a T\+CP flag count to the metrics. 
+
+\begin{DoxyNote}{Note}
+The property is treated as immutable\+: it is only valid to call the setter once. However, we don\textquotesingle{}t assert if the caller tries to overwrite, just ignoring the update instead.
+\end{DoxyNote}
+
+\begin{DoxyParams}{Parameters}
+{\em metrics} & Pointer to the Mobile G\+TP Per Flow Metrics. \\
+\hline
+{\em tcp\+\_\+flag} & The T\+CP flag to be updated. \\
+\hline
+{\em count} & The associated flag count, which must be nonzero. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 1680 of file evel\+\_\+mobile\+\_\+flow.\+c.
+
+\hypertarget{evel__mobile__flow_8c_a30c7161b171a93526ccffc408f16b0be}{}\label{evel__mobile__flow_8c_a30c7161b171a93526ccffc408f16b0be} 
+\index{evel\+\_\+mobile\+\_\+flow.\+c@{evel\+\_\+mobile\+\_\+flow.\+c}!evel\+\_\+mobile\+\_\+gtp\+\_\+metrics\+\_\+tun\+\_\+status\+\_\+set@{evel\+\_\+mobile\+\_\+gtp\+\_\+metrics\+\_\+tun\+\_\+status\+\_\+set}}
+\index{evel\+\_\+mobile\+\_\+gtp\+\_\+metrics\+\_\+tun\+\_\+status\+\_\+set@{evel\+\_\+mobile\+\_\+gtp\+\_\+metrics\+\_\+tun\+\_\+status\+\_\+set}!evel\+\_\+mobile\+\_\+flow.\+c@{evel\+\_\+mobile\+\_\+flow.\+c}}
+\subsubsection{\texorpdfstring{evel\+\_\+mobile\+\_\+gtp\+\_\+metrics\+\_\+tun\+\_\+status\+\_\+set()}{evel\_mobile\_gtp\_metrics\_tun\_status\_set()}}
+{\footnotesize\ttfamily void evel\+\_\+mobile\+\_\+gtp\+\_\+metrics\+\_\+tun\+\_\+status\+\_\+set (\begin{DoxyParamCaption}\item[{\hyperlink{evel_8h_aab323a610a0d9f5df6ebb82f7e060494}{M\+O\+B\+I\+L\+E\+\_\+\+G\+T\+P\+\_\+\+P\+E\+R\+\_\+\+F\+L\+O\+W\+\_\+\+M\+E\+T\+R\+I\+CS} $\ast$}]{metrics,  }\item[{const char $\ast$const}]{status }\end{DoxyParamCaption})}
+
+
+
+Set the G\+TP Tunnel Status property of the Mobile G\+TP Per Flow metrics. 
+
+\begin{DoxyNote}{Note}
+The property is treated as immutable\+: it is only valid to call the setter once. However, we don\textquotesingle{}t assert if the caller tries to overwrite, just ignoring the update instead.
+\end{DoxyNote}
+
+\begin{DoxyParams}{Parameters}
+{\em metrics} & Pointer to the Mobile G\+TP Per Flow Metrics. \\
+\hline
+{\em status} & The G\+TP Tunnel Status to be set. A\+S\+C\+I\+IZ string. The caller does not need to preserve the value once the function returns. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 1423 of file evel\+\_\+mobile\+\_\+flow.\+c.
+
+\hypertarget{evel__mobile__flow_8c_a91056c1aef2f8a33a32920fdfc4fe23a}{}\label{evel__mobile__flow_8c_a91056c1aef2f8a33a32920fdfc4fe23a} 
+\index{evel\+\_\+mobile\+\_\+flow.\+c@{evel\+\_\+mobile\+\_\+flow.\+c}!evel\+\_\+new\+\_\+mobile\+\_\+flow@{evel\+\_\+new\+\_\+mobile\+\_\+flow}}
+\index{evel\+\_\+new\+\_\+mobile\+\_\+flow@{evel\+\_\+new\+\_\+mobile\+\_\+flow}!evel\+\_\+mobile\+\_\+flow.\+c@{evel\+\_\+mobile\+\_\+flow.\+c}}
+\subsubsection{\texorpdfstring{evel\+\_\+new\+\_\+mobile\+\_\+flow()}{evel\_new\_mobile\_flow()}}
+{\footnotesize\ttfamily \hyperlink{evel_8h_a0003b182bfd34ca6458b04840d05738e}{E\+V\+E\+N\+T\+\_\+\+M\+O\+B\+I\+L\+E\+\_\+\+F\+L\+OW}$\ast$ evel\+\_\+new\+\_\+mobile\+\_\+flow (\begin{DoxyParamCaption}\item[{const char $\ast$const}]{flow\+\_\+direction,  }\item[{\hyperlink{evel_8h_aab323a610a0d9f5df6ebb82f7e060494}{M\+O\+B\+I\+L\+E\+\_\+\+G\+T\+P\+\_\+\+P\+E\+R\+\_\+\+F\+L\+O\+W\+\_\+\+M\+E\+T\+R\+I\+CS} $\ast$}]{gtp\+\_\+per\+\_\+flow\+\_\+metrics,  }\item[{const char $\ast$const}]{ip\+\_\+protocol\+\_\+type,  }\item[{const char $\ast$const}]{ip\+\_\+version,  }\item[{const char $\ast$const}]{other\+\_\+endpoint\+\_\+ip\+\_\+address,  }\item[{int}]{other\+\_\+endpoint\+\_\+port,  }\item[{const char $\ast$const}]{reporting\+\_\+endpoint\+\_\+ip\+\_\+addr,  }\item[{int}]{reporting\+\_\+endpoint\+\_\+port }\end{DoxyParamCaption})}
+
+
+
+Create a new Mobile Flow event. 
+
+\begin{DoxyNote}{Note}
+The mandatory fields on the Mobile Flow must be supplied to this factory function and are immutable once set. Optional fields have explicit setter functions, but again values may only be set once so that the Mobile Flow has immutable properties. 
+\end{DoxyNote}
+
+\begin{DoxyParams}{Parameters}
+{\em flow\+\_\+direction} & Flow direction. \\
+\hline
+{\em gtp\+\_\+per\+\_\+flow\+\_\+metrics} & G\+TP per-\/flow metrics. \\
+\hline
+{\em ip\+\_\+protocol\+\_\+type} & IP protocol type. \\
+\hline
+{\em ip\+\_\+version} & IP protocol version. \\
+\hline
+{\em other\+\_\+endpoint\+\_\+ip\+\_\+address} & IP address of the other endpoint. \\
+\hline
+{\em other\+\_\+endpoint\+\_\+port} & IP port of the other endpoint. \\
+\hline
+{\em reporting\+\_\+endpoint\+\_\+ip\+\_\+addr} & IP address of the reporting endpoint. \\
+\hline
+{\em reporting\+\_\+endpoint\+\_\+port} & IP port of the reporting endpoint. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+pointer to the newly manufactured \hyperlink{evel_8h_a0003b182bfd34ca6458b04840d05738e}{E\+V\+E\+N\+T\+\_\+\+M\+O\+B\+I\+L\+E\+\_\+\+F\+L\+OW}. If the event is not used (i.\+e. posted) it must be released using \hyperlink{evel__mobile__flow_8c_a94c4a0dc4d4a3a2bbb4120be3ba39913}{evel\+\_\+free\+\_\+mobile\+\_\+flow}. 
+\end{DoxyReturn}
+
+\begin{DoxyRetVals}{Return values}
+{\em N\+U\+LL} & Failed to create the event. \\
+\hline
+\end{DoxyRetVals}
+
+
+Definition at line 108 of file evel\+\_\+mobile\+\_\+flow.\+c.
+
+\hypertarget{evel__mobile__flow_8c_a8440103cf9c7ba48182528948d2ebc49}{}\label{evel__mobile__flow_8c_a8440103cf9c7ba48182528948d2ebc49} 
+\index{evel\+\_\+mobile\+\_\+flow.\+c@{evel\+\_\+mobile\+\_\+flow.\+c}!evel\+\_\+new\+\_\+mobile\+\_\+gtp\+\_\+flow\+\_\+metrics@{evel\+\_\+new\+\_\+mobile\+\_\+gtp\+\_\+flow\+\_\+metrics}}
+\index{evel\+\_\+new\+\_\+mobile\+\_\+gtp\+\_\+flow\+\_\+metrics@{evel\+\_\+new\+\_\+mobile\+\_\+gtp\+\_\+flow\+\_\+metrics}!evel\+\_\+mobile\+\_\+flow.\+c@{evel\+\_\+mobile\+\_\+flow.\+c}}
+\subsubsection{\texorpdfstring{evel\+\_\+new\+\_\+mobile\+\_\+gtp\+\_\+flow\+\_\+metrics()}{evel\_new\_mobile\_gtp\_flow\_metrics()}}
+{\footnotesize\ttfamily \hyperlink{evel_8h_aab323a610a0d9f5df6ebb82f7e060494}{M\+O\+B\+I\+L\+E\+\_\+\+G\+T\+P\+\_\+\+P\+E\+R\+\_\+\+F\+L\+O\+W\+\_\+\+M\+E\+T\+R\+I\+CS}$\ast$ evel\+\_\+new\+\_\+mobile\+\_\+gtp\+\_\+flow\+\_\+metrics (\begin{DoxyParamCaption}\item[{double}]{avg\+\_\+bit\+\_\+error\+\_\+rate,  }\item[{double}]{avg\+\_\+packet\+\_\+delay\+\_\+variation,  }\item[{int}]{avg\+\_\+packet\+\_\+latency,  }\item[{int}]{avg\+\_\+receive\+\_\+throughput,  }\item[{int}]{avg\+\_\+transmit\+\_\+throughput,  }\item[{int}]{flow\+\_\+activation\+\_\+epoch,  }\item[{int}]{flow\+\_\+activation\+\_\+microsec,  }\item[{int}]{flow\+\_\+deactivation\+\_\+epoch,  }\item[{int}]{flow\+\_\+deactivation\+\_\+microsec,  }\item[{time\+\_\+t}]{flow\+\_\+deactivation\+\_\+time,  }\item[{const char $\ast$const}]{flow\+\_\+status,  }\item[{int}]{max\+\_\+packet\+\_\+delay\+\_\+variation,  }\item[{int}]{num\+\_\+activation\+\_\+failures,  }\item[{int}]{num\+\_\+bit\+\_\+errors,  }\item[{int}]{num\+\_\+bytes\+\_\+received,  }\item[{int}]{num\+\_\+bytes\+\_\+transmitted,  }\item[{int}]{num\+\_\+dropped\+\_\+packets,  }\item[{int}]{num\+\_\+l7\+\_\+bytes\+\_\+received,  }\item[{int}]{num\+\_\+l7\+\_\+bytes\+\_\+transmitted,  }\item[{int}]{num\+\_\+lost\+\_\+packets,  }\item[{int}]{num\+\_\+out\+\_\+of\+\_\+order\+\_\+packets,  }\item[{int}]{num\+\_\+packet\+\_\+errors,  }\item[{int}]{num\+\_\+packets\+\_\+received\+\_\+excl\+\_\+retrans,  }\item[{int}]{num\+\_\+packets\+\_\+received\+\_\+incl\+\_\+retrans,  }\item[{int}]{num\+\_\+packets\+\_\+transmitted\+\_\+incl\+\_\+retrans,  }\item[{int}]{num\+\_\+retries,  }\item[{int}]{num\+\_\+timeouts,  }\item[{int}]{num\+\_\+tunneled\+\_\+l7\+\_\+bytes\+\_\+received,  }\item[{int}]{round\+\_\+trip\+\_\+time,  }\item[{int}]{time\+\_\+to\+\_\+first\+\_\+byte }\end{DoxyParamCaption})}
+
+
+
+Create a new Mobile G\+TP Per Flow Metrics. 
+
+\begin{DoxyNote}{Note}
+The mandatory fields on the Mobile G\+TP Per Flow Metrics must be supplied to this factory function and are immutable once set. Optional fields have explicit setter functions, but again values may only be set once so that the Mobile G\+TP Per Flow Metrics has immutable properties.
+\end{DoxyNote}
+
+\begin{DoxyParams}{Parameters}
+{\em avg\+\_\+bit\+\_\+error\+\_\+rate} & Average bit error rate. \\
+\hline
+{\em avg\+\_\+packet\+\_\+delay\+\_\+variation} & Average delay or jitter in ms. \\
+\hline
+{\em avg\+\_\+packet\+\_\+latency} & Average delivery latency. \\
+\hline
+{\em avg\+\_\+receive\+\_\+throughput} & Average receive throughput. \\
+\hline
+{\em avg\+\_\+transmit\+\_\+throughput} & Average transmit throughput. \\
+\hline
+{\em flow\+\_\+activation\+\_\+epoch} & Time the connection is activated. \\
+\hline
+{\em flow\+\_\+activation\+\_\+microsec} & Microseconds for the start of the flow connection. \\
+\hline
+{\em flow\+\_\+deactivation\+\_\+epoch} & Time for the end of the connection. \\
+\hline
+{\em flow\+\_\+deactivation\+\_\+microsec} & Microseconds for the end of the flow connection. \\
+\hline
+{\em flow\+\_\+deactivation\+\_\+time} & Transmission time of the first packet. \\
+\hline
+{\em flow\+\_\+status} & Connection status. \\
+\hline
+{\em max\+\_\+packet\+\_\+delay\+\_\+variation} & Maximum packet delay or jitter in ms. \\
+\hline
+{\em num\+\_\+activation\+\_\+failures} & Number of failed activation requests. \\
+\hline
+{\em num\+\_\+bit\+\_\+errors} & Number of errored bits. \\
+\hline
+{\em num\+\_\+bytes\+\_\+received} & Number of bytes received. \\
+\hline
+{\em num\+\_\+bytes\+\_\+transmitted} & Number of bytes transmitted. \\
+\hline
+{\em num\+\_\+dropped\+\_\+packets} & Number of received packets dropped. \\
+\hline
+{\em num\+\_\+l7\+\_\+bytes\+\_\+received} & Number of tunneled Layer 7 bytes received. \\
+\hline
+{\em num\+\_\+l7\+\_\+bytes\+\_\+transmitted} & Number of tunneled Layer 7 bytes transmitted. \\
+\hline
+{\em num\+\_\+lost\+\_\+packets} & Number of lost packets. \\
+\hline
+{\em num\+\_\+out\+\_\+of\+\_\+order\+\_\+packets} & Number of out-\/of-\/order packets. \\
+\hline
+{\em num\+\_\+packet\+\_\+errors} & Number of errored packets. \\
+\hline
+{\em num\+\_\+packets\+\_\+received\+\_\+excl\+\_\+retrans} & Number of packets received, excluding retransmits. \\
+\hline
+{\em num\+\_\+packets\+\_\+received\+\_\+incl\+\_\+retrans} & Number of packets received. \\
+\hline
+{\em num\+\_\+packets\+\_\+transmitted\+\_\+incl\+\_\+retrans} & Number of packets transmitted. \\
+\hline
+{\em num\+\_\+retries} & Number of packet retries. \\
+\hline
+{\em num\+\_\+timeouts} & Number of packet timeouts. \\
+\hline
+{\em num\+\_\+tunneled\+\_\+l7\+\_\+bytes\+\_\+received} & Number of tunneled Layer 7 bytes received, excluding retransmits. \\
+\hline
+{\em round\+\_\+trip\+\_\+time} & Round trip time. \\
+\hline
+{\em time\+\_\+to\+\_\+first\+\_\+byte} & Time in ms between connection activation and first byte received.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+pointer to the newly manufactured \hyperlink{evel_8h_aab323a610a0d9f5df6ebb82f7e060494}{M\+O\+B\+I\+L\+E\+\_\+\+G\+T\+P\+\_\+\+P\+E\+R\+\_\+\+F\+L\+O\+W\+\_\+\+M\+E\+T\+R\+I\+CS}. If the structure is not used it must be released using \hyperlink{evel__mobile__flow_8c_a62454f31e469654d4c8b03597c0c059f}{evel\+\_\+free\+\_\+mobile\+\_\+gtp\+\_\+flow\+\_\+metrics}. 
+\end{DoxyReturn}
+
+\begin{DoxyRetVals}{Return values}
+{\em N\+U\+LL} & Failed to create the event. \\
+\hline
+\end{DoxyRetVals}
+
+
+Definition at line 1083 of file evel\+\_\+mobile\+\_\+flow.\+c.
+

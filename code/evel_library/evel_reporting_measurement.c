@@ -47,7 +47,7 @@
 
 #include "evel.h"
 #include "evel_internal.h"
-
+#include "evel_throttle.h"
 
 /**************************************************************************//**
  * Create a new Report event.
@@ -75,7 +75,7 @@ EVENT_REPORT * evel_new_report(double measurement_interval)
   assert(measurement_interval >= 0.0);
 
   /***************************************************************************/
-  /* Allocate the report.                                                     */
+  /* Allocate the report.                                                    */
   /***************************************************************************/
   report = malloc(sizeof(EVENT_REPORT));
   if (report == NULL)
@@ -87,15 +87,16 @@ EVENT_REPORT * evel_new_report(double measurement_interval)
   EVEL_DEBUG("New report is at %lp", report);
 
   /***************************************************************************/
-  /* Initialize the header & the report fields.                         */
+  /* Initialize the header & the report fields.                              */
   /***************************************************************************/
   evel_init_header(&report->header);
   report->header.event_domain = EVEL_DOMAIN_REPORT;
-  report->header.priority = EVEL_PRIORITY_NORMAL;
   report->measurement_interval = measurement_interval;
 
   dlist_initialize(&report->feature_usage);
-  report->measurement_fields_version = EVEL_API_VERSION;
+  dlist_initialize(&report->measurement_groups);
+  report->major_version = EVEL_REPORT_MAJOR_VERSION;
+  report->minor_version = EVEL_REPORT_MINOR_VERSION;
 
 exit_label:
   EVEL_EXIT();
@@ -112,31 +113,20 @@ exit_label:
  * @param report Pointer to the Report.
  * @param type        The Event Type to be set. ASCIIZ string. The caller
  *                    does not need to preserve the value once the function
- *                    returns
+ *                    returns.
  *****************************************************************************/
 void evel_report_type_set(EVENT_REPORT * report,
-                               const char const * type)
+                          const char * const type)
 {
   EVEL_ENTER();
 
   /***************************************************************************/
-  /* Check preconditions.                                                    */
+  /* Check preconditions and call evel_header_type_set.                      */
   /***************************************************************************/
   assert(report != NULL);
   assert(report->header.event_domain == EVEL_DOMAIN_REPORT);
-  assert(type != NULL);
+  evel_header_type_set(&report->header, type);
 
-  if (report->header.event_type == NULL)
-  {
-    EVEL_DEBUG("Setting Event Type to %s", type);
-    report->header.event_type = strdup(type);
-  }
-  else
-  {
-    EVEL_ERROR("Ignoring attempt to update Event Type to %s. "
-               "Event Type already set to %s",
-               type, report->header.event_type);
-  }
   EVEL_EXIT();
 }
 
@@ -153,7 +143,7 @@ void evel_report_type_set(EVENT_REPORT * report,
  *****************************************************************************/
 void evel_report_feature_use_add(EVENT_REPORT * report,
                                  char * feature,
-                                 double utilization)
+                                 int utilization)
 {
   MEASUREMENT_FEATURE_USE * feature_use = NULL;
   EVEL_ENTER();
@@ -164,19 +154,20 @@ void evel_report_feature_use_add(EVENT_REPORT * report,
   assert(report != NULL);
   assert(report->header.event_domain == EVEL_DOMAIN_REPORT);
   assert(feature != NULL);
-  assert(utilization >= 0.0);
+  assert(utilization >= 0);
 
   /***************************************************************************/
   /* Allocate a container for the value and push onto the list.              */
   /***************************************************************************/
-  EVEL_DEBUG("Adding Feature=%s Use=%lf", feature, utilization);
+  EVEL_DEBUG("Adding Feature=%s Use=%d", feature, utilization);
   feature_use = malloc(sizeof(MEASUREMENT_FEATURE_USE));
   assert(feature_use != NULL);
+  memset(feature_use, 0, sizeof(MEASUREMENT_FEATURE_USE));
   feature_use->feature_id = strdup(feature);
   assert(feature_use->feature_id != NULL);
   feature_use->feature_utilization = utilization;
 
-  dlist_push_first(&report->feature_usage, feature_use);
+  dlist_push_last(&report->feature_usage, feature_use);
 
   EVEL_EXIT();
 }
@@ -194,9 +185,9 @@ void evel_report_feature_use_add(EVENT_REPORT * report,
  * @param value    ASCIIZ string containing the measurement's value.
  *****************************************************************************/
 void evel_report_custom_measurement_add(EVENT_REPORT * report,
-                                        const char const * group,
-                                        const char const * name,
-                                        const char const * value)
+                                        const char * const group,
+                                        const char * const name,
+                                        const char * const value)
 {
   MEASUREMENT_GROUP * measurement_group = NULL;
   CUSTOM_MEASUREMENT * measurement = NULL;
@@ -219,6 +210,7 @@ void evel_report_custom_measurement_add(EVENT_REPORT * report,
               group, name, value);
   measurement = malloc(sizeof(CUSTOM_MEASUREMENT));
   assert(measurement != NULL);
+  memset(measurement, 0, sizeof(CUSTOM_MEASUREMENT));
   measurement->name = strdup(name);
   assert(measurement->name != NULL);
   measurement->value = strdup(value);
@@ -231,6 +223,8 @@ void evel_report_custom_measurement_add(EVENT_REPORT * report,
   while (item != NULL)
   {
     measurement_group = (MEASUREMENT_GROUP *) item->item;
+    assert(measurement_group != NULL);
+
     EVEL_DEBUG("Got measurement group %s", measurement_group->name);
     if (strcmp(group, measurement_group->name) == 0)
     {
@@ -248,16 +242,17 @@ void evel_report_custom_measurement_add(EVENT_REPORT * report,
     EVEL_DEBUG("Creating new Measurement Group");
     measurement_group = malloc(sizeof(MEASUREMENT_GROUP));
     assert(measurement_group != NULL);
+    memset(measurement_group, 0, sizeof(MEASUREMENT_GROUP));
     measurement_group->name = strdup(group);
     assert(measurement_group->name != NULL);
     dlist_initialize(&measurement_group->measurements);
-    dlist_push_first(&report->measurement_groups, measurement_group);
+    dlist_push_last(&report->measurement_groups, measurement_group);
   }
 
   /***************************************************************************/
   /* If we didn't have the group already, create it.                         */
   /***************************************************************************/
-  dlist_push_first(&measurement_group->measurements, measurement);
+  dlist_push_last(&measurement_group->measurements, measurement);
 
   EVEL_EXIT();
 }
@@ -265,128 +260,139 @@ void evel_report_custom_measurement_add(EVENT_REPORT * report,
 /**************************************************************************//**
  * Encode the report as a JSON report.
  *
- * @param json      Pointer to where to store the JSON encoded data.
- * @param max_size  Size of storage available in evel_json_encode_report::json.
- * @param event     Pointer to the ::EVENT_REPORT to encode.
- * @returns Number of bytes actually written.
+ * @param jbuf          Pointer to the ::EVEL_JSON_BUFFER to encode into.
+ * @param event         Pointer to the ::EVENT_HEADER to encode.
  *****************************************************************************/
-int evel_json_encode_report(char * json, int max_size, EVENT_REPORT * event)
+void evel_json_encode_report(EVEL_JSON_BUFFER * jbuf,
+                             EVENT_REPORT * event)
 {
-  int offset = 0;
   MEASUREMENT_FEATURE_USE * feature_use = NULL;
   MEASUREMENT_GROUP * measurement_group = NULL;
   CUSTOM_MEASUREMENT * custom_measurement = NULL;
   DLIST_ITEM * item = NULL;
   DLIST_ITEM * nested_item = NULL;
 
+  EVEL_ENTER();
+
   /***************************************************************************/
   /* Check preconditions.                                                    */
   /***************************************************************************/
-  assert(json != NULL);
-  assert(max_size > 0);
   assert(event != NULL);
   assert(event->header.event_domain == EVEL_DOMAIN_REPORT);
 
-  offset += evel_json_encode_header(json + offset,
-                                    max_size - offset,
-                                    &event->header);
-
-  offset += snprintf(json + offset, max_size - offset,
-                     ", \"measurementsForVfReporting\":{");
-
-  offset += snprintf(json + offset, max_size - offset,
-                     "\"measurementInterval\": %lf, ",
-                     event->measurement_interval);
+  evel_json_encode_header(jbuf, &event->header);
+  evel_json_open_named_object(jbuf, "measurementsForVfReportingFields");
+  evel_enc_kv_double(jbuf, "measurementInterval", event->measurement_interval);
 
   /***************************************************************************/
   /* Feature Utilization list.                                               */
   /***************************************************************************/
-  item = dlist_get_first(&event->feature_usage);
-  if (item != NULL)
+  evel_json_checkpoint(jbuf);
+  if (evel_json_open_opt_named_list(jbuf, "featureUsageArray"))
   {
-    offset += snprintf(json + offset, max_size - offset,
-                       "\"featureUsageArray\": [");
+    bool item_added = false;
+
+    item = dlist_get_first(&event->feature_usage);
     while (item != NULL)
     {
       feature_use = (MEASUREMENT_FEATURE_USE*) item->item;
-      offset += snprintf(json + offset, max_size - offset,
-                          "{\"featureIdentifier\": \"%s\", ",
-                          feature_use->feature_id);
-      offset += snprintf(json + offset, max_size - offset,
-                          "\"featureUtilization\": %lf}",
-                          feature_use->feature_utilization);
-      item = dlist_get_next(item);
-      if (item != NULL)
+      assert(feature_use != NULL);
+
+      if (!evel_throttle_suppress_nv_pair(jbuf->throttle_spec,
+                                          "featureUsageArray",
+                                          feature_use->feature_id))
       {
-        offset += snprintf(json + offset, max_size - offset, ", ");
+        evel_json_open_object(jbuf);
+        evel_enc_kv_string(jbuf, "featureIdentifier", feature_use->feature_id);
+        evel_enc_kv_int(
+          jbuf, "featureUtilization", feature_use->feature_utilization);
+        evel_json_close_object(jbuf);
+        item_added = true;
       }
+      item = dlist_get_next(item);
     }
-    offset += snprintf(json + offset, max_size - offset, "], ");
+    evel_json_close_list(jbuf);
+
+    /*************************************************************************/
+    /* If we've not written anything, rewind to before we opened the list.   */
+    /*************************************************************************/
+    if (!item_added)
+    {
+      evel_json_rewind(jbuf);
+    }
   }
 
   /***************************************************************************/
   /* Additional Measurement Groups list.                                     */
   /***************************************************************************/
-  item = dlist_get_first(&event->measurement_groups);
-  if (item != NULL)
+  evel_json_checkpoint(jbuf);
+  if (evel_json_open_opt_named_list(jbuf, "additionalMeasurements"))
   {
-    offset += snprintf(json + offset, max_size - offset,
-                       "\"additionalMeasurements\": [");
+    bool item_added = false;
+
+    item = dlist_get_first(&event->measurement_groups);
     while (item != NULL)
     {
       measurement_group = (MEASUREMENT_GROUP *) item->item;
-      offset += snprintf(json + offset, max_size - offset,
-                          "{\"name\": \"%s\", ",
-                          measurement_group->name);
-      offset += snprintf(json + offset, max_size - offset,
-                         "\"measurements\": [");
+      assert(measurement_group != NULL);
 
-      /***********************************************************************/
-      /* Measurements list.                                                  */
-      /***********************************************************************/
-      nested_item = dlist_get_first(&measurement_group->measurements);
-      while (nested_item != NULL)
+      if (!evel_throttle_suppress_nv_pair(jbuf->throttle_spec,
+                                          "additionalMeasurements",
+                                          measurement_group->name))
       {
-        custom_measurement = (CUSTOM_MEASUREMENT *) nested_item->item;
-        offset += snprintf(json + offset, max_size - offset,
-                           "{\"name\": \"%s\", ",
-                           custom_measurement->name);
-        offset += snprintf(json + offset, max_size - offset,
-                           "\"value\": \"%s\"}",
-                           custom_measurement->value);
+        evel_json_open_object(jbuf);
+        evel_enc_kv_string(jbuf, "name", measurement_group->name);
+        evel_json_open_named_list(jbuf, "measurements");
 
-        nested_item = dlist_get_next(nested_item);
-        if (nested_item != NULL)
+        /*********************************************************************/
+        /* Measurements list.                                                */
+        /*********************************************************************/
+        nested_item = dlist_get_first(&measurement_group->measurements);
+        while (nested_item != NULL)
         {
-          offset += snprintf(json + offset, max_size - offset, ", ");
-        }
-      }
-      offset += snprintf(json + offset, max_size - offset, "]}");
+          custom_measurement = (CUSTOM_MEASUREMENT *) nested_item->item;
+          assert(custom_measurement != NULL);
 
-      item = dlist_get_next(item);
-      if (item != NULL)
-      {
-        offset += snprintf(json + offset, max_size - offset, ", ");
+          evel_json_open_object(jbuf);
+          evel_enc_kv_string(jbuf, "name", custom_measurement->name);
+          evel_enc_kv_string(jbuf, "value", custom_measurement->value);
+          evel_json_close_object(jbuf);
+          nested_item = dlist_get_next(nested_item);
+        }
+        evel_json_close_list(jbuf);
+        evel_json_close_object(jbuf);
+        item_added = true;
       }
+      item = dlist_get_next(item);
     }
-    offset += snprintf(json + offset, max_size - offset, "], ");
+    evel_json_close_list(jbuf);
+
+    /*************************************************************************/
+    /* If we've not written anything, rewind to before we opened the list.   */
+    /*************************************************************************/
+    if (!item_added)
+    {
+      evel_json_rewind(jbuf);
+    }
   }
 
   /***************************************************************************/
   /* Although optional, we always generate the version.  Note that this      */
   /* closes the object, too.                                                 */
   /***************************************************************************/
-  offset += snprintf(json + offset, max_size - offset,
-                     "\"measurementFieldsVersion\": %d}",
-                     EVEL_API_VERSION);
-  return offset;
+  evel_enc_version(jbuf,
+                   "measurementFieldsVersion",
+                   event->major_version,
+                   event->major_version);
+  evel_json_close_object(jbuf);
+
+  EVEL_EXIT();
 }
 
 /**************************************************************************//**
  * Free a Report.
  *
- * Free off the Report supplied.  Will recursively free all the contained
- * allocated memory.
+ * Free off the Report supplied.  Will free all the contained allocated memory.
  *
  * @note It does not free the Report itself, since that may be part of a
  * larger structure.
@@ -442,4 +448,3 @@ void evel_free_report(EVENT_REPORT * event)
 
   EVEL_EXIT();
 }
-

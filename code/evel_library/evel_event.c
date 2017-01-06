@@ -43,13 +43,28 @@
 
 #include "evel.h"
 #include "evel_internal.h"
+#include "evel_throttle.h"
 #include "metadata.h"
 
 /**************************************************************************//**
  * Unique sequence number for events from this VNF.
  *****************************************************************************/
-static int event_sequence = 0;
+static int event_sequence = 1;
 
+/**************************************************************************//**
+ * Set the next event_sequence to use.
+ *
+ * @param sequence      The next sequence number to use.
+ *****************************************************************************/
+void evel_set_next_event_sequence(const int sequence)
+{
+  EVEL_ENTER();
+
+  EVEL_INFO("Setting event sequence to %d, was %d ", sequence, event_sequence);
+  event_sequence = sequence;
+
+  EVEL_EXIT();
+}
 
 /**************************************************************************//**
  * Create a new heartbeat event.
@@ -82,7 +97,7 @@ EVENT_HEADER * evel_new_heartbeat()
   /* everything downstream can cope with NULLs.                              */
   /***************************************************************************/
   evel_init_header(heartbeat);
-  heartbeat->event_type = strdup("Autonomous heartbeat");
+  evel_force_option_string(&heartbeat->event_type, "Autonomous heartbeat");
 
 exit_label:
   EVEL_EXIT();
@@ -94,7 +109,7 @@ exit_label:
  *
  * @param header  Pointer to the header being initialized.
  *****************************************************************************/
-void evel_init_header(EVENT_HEADER * header)
+void evel_init_header(EVENT_HEADER * const header)
 {
   char scratchpad[EVEL_MAX_STRING_LEN + 1] = {0};
   struct timeval tv;
@@ -110,142 +125,228 @@ void evel_init_header(EVENT_HEADER * header)
   /* any memory allocation fails in here we will fail gracefully because     */
   /* everything downstream can cope with NULLs.                              */
   /***************************************************************************/
-  event_sequence++;
   header->event_domain = EVEL_DOMAIN_HEARTBEAT;
   snprintf(scratchpad, EVEL_MAX_STRING_LEN, "%d", event_sequence);
   header->event_id = strdup(scratchpad);
   header->functional_role = strdup(functional_role);
   header->last_epoch_microsec = tv.tv_usec + 1000000 * tv.tv_sec;
   header->priority = EVEL_PRIORITY_NORMAL;
-  header->reporting_entity_id = strdup(openstack_vm_uuid());
   header->reporting_entity_name = strdup(openstack_vm_name());
+  header->source_name = strdup(openstack_vm_name());
   header->sequence = event_sequence;
-  header->source_id = strdup(header->reporting_entity_id);
-  header->source_name = strdup(header->reporting_entity_name);
   header->start_epoch_microsec = header->last_epoch_microsec;
+  header->major_version = EVEL_HEADER_MAJOR_VERSION;
+  header->minor_version = EVEL_HEADER_MINOR_VERSION;
+  event_sequence++;
+
+  /***************************************************************************/
+  /* Optional parameters.                                                    */
+  /***************************************************************************/
+  evel_init_option_string(&header->event_type);
+  evel_force_option_string(&header->reporting_entity_id, openstack_vm_uuid());
+  evel_force_option_string(&header->source_id, openstack_vm_uuid());
 
   EVEL_EXIT();
 }
 
 /**************************************************************************//**
- * Encode the header as a JSON commonEventHeader.
+ * Set the Event Type property of the event header.
  *
- * @param json      Pointer to where to staore the JSON encoded data.
- * @param max_size  Size of storage available in evel_json_encode_header::json.
- * @param event     Pointer to the ::EVENT_HEADER to encode.
- * @returns Number of bytes actually written.
+ * @note  The property is treated as immutable: it is only valid to call
+ *        the setter once.  However, we don't assert if the caller tries to
+ *        overwrite, just ignoring the update instead.
+ *
+ * @param header        Pointer to the ::EVENT_HEADER.
+ * @param type          The Event Type to be set. ASCIIZ string. The caller
+ *                      does not need to preserve the value once the function
+ *                      returns.
  *****************************************************************************/
-int evel_json_encode_header(char * json,
-                                   int max_size,
-                                   EVENT_HEADER * event)
+void evel_header_type_set(EVENT_HEADER * const header,
+                          const char * const type)
 {
-  int offset = 0;
+  EVEL_ENTER();
 
-  assert(json != NULL);
-  assert(max_size > 0);
-  assert(event != NULL);
+  /***************************************************************************/
+  /* Check preconditions.                                                    */
+  /***************************************************************************/
+  assert(header != NULL);
+  assert(type != NULL);
 
-  offset += snprintf(json + offset, max_size - offset,
-                     "\"commonEventHeader\":{");
+  evel_set_option_string(&header->event_type, type, "Event Type");
 
-  switch (event->event_domain)
-  {
-  case EVEL_DOMAIN_HEARTBEAT:
-    offset += snprintf(json + offset, max_size - offset,
-                       "\"domain\": \"heartbeat\", ");
-    break;
-
-  case EVEL_DOMAIN_FAULT:
-    offset += snprintf(json + offset, max_size - offset,
-                       "\"domain\": \"fault\", ");
-    break;
-
-  case EVEL_DOMAIN_MEASUREMENT:
-    offset += snprintf(json + offset, max_size - offset,
-                       "\"domain\": \"measurementsForVfScaling\", ");
-    break;
-
-  case EVEL_DOMAIN_REPORT:
-    offset += snprintf(json + offset, max_size - offset,
-                       "\"domain\": \"measurementsForVfReporting\", ");
-    break;
-
-  default:
-    EVEL_ERROR("Unexpected domain %d", event->event_domain);
-    assert(0);
-  }
-  offset += snprintf(json + offset, max_size - offset,
-                     "\"eventId\": \"%s\", ", event->event_id);
-  if (event->event_type != NULL)
-  {
-    offset += snprintf(json + offset, max_size - offset,
-                       "\"eventType\": \"%s\", ", event->event_type);
-  }
-  offset += snprintf(json + offset, max_size - offset,
-                     "\"functionalRole\": \"%s\", ", event->functional_role);
-  offset += snprintf(json + offset, max_size - offset,
-                     "\"lastEpochMicrosec\": %llu, ",
-                     event->last_epoch_microsec);
-  offset += snprintf(json + offset, max_size - offset,
-                     "\"reportingEntityId\": \"%s\", ",
-                     event->reporting_entity_id);
-  offset += snprintf(json + offset, max_size - offset,
-                     "\"reportingEntityName\": \"%s\", ",
-                     event->reporting_entity_name);
-  offset += snprintf(json + offset, max_size - offset,
-                     "\"sequence\": %d, ", event->sequence);
-  offset += snprintf(json + offset, max_size - offset,
-                     "\"sourceId\": \"%s\", ", event->source_id);
-  offset += snprintf(json + offset, max_size - offset,
-                     "\"sourceName\": \"%s\", ", event->source_name);
-  offset += snprintf(json + offset, max_size - offset,
-                     "\"startEpochMicrosec\": %llu, ",
-                     event->start_epoch_microsec);
-  switch (event->priority)
-  {
-  case EVEL_PRIORITY_HIGH:
-    offset += snprintf(json + offset, max_size - offset,
-                       "\"priority\": \"High\", ");
-    break;
-
-  case EVEL_PRIORITY_MEDIUM:
-    offset += snprintf(json + offset, max_size - offset,
-                       "\"priority\": \"Medium\", ");
-    break;
-
-  case EVEL_PRIORITY_NORMAL:
-    offset += snprintf(json + offset, max_size - offset,
-                       "\"priority\": \"Normal\", ");
-    break;
-
-  case EVEL_PRIORITY_LOW:
-    offset += snprintf(json + offset, max_size - offset,
-                       "\"priority\": \"Low\", ");
-    break;
-
-  default:
-    EVEL_ERROR("Unexpected priority %d", event->priority);
-    assert(0);
-  }
-  offset += snprintf(json + offset, max_size - offset,
-                     "\"version\": %d", EVEL_API_VERSION);
-
-  offset += snprintf(json + offset, max_size - offset,
-                     "}");
-  return offset;
+  EVEL_EXIT();
 }
 
+/**************************************************************************//**
+ * Set the Start Epoch property of the event header.
+ *
+ * @note The Start Epoch defaults to the time of event creation.
+ *
+ * @param header        Pointer to the ::EVENT_HEADER.
+ * @param start_epoch_microsec
+ *                      The start epoch to set, in microseconds.
+ *****************************************************************************/
+void evel_start_epoch_set(EVENT_HEADER * const header,
+                          const unsigned long long start_epoch_microsec)
+{
+  EVEL_ENTER();
+
+  /***************************************************************************/
+  /* Check preconditions and assign the new value.                           */
+  /***************************************************************************/
+  assert(header != NULL);
+  header->start_epoch_microsec = start_epoch_microsec;
+
+  EVEL_EXIT();
+}
+
+/**************************************************************************//**
+ * Set the Last Epoch property of the event header.
+ *
+ * @note The Last Epoch defaults to the time of event creation.
+ *
+ * @param header        Pointer to the ::EVENT_HEADER.
+ * @param last_epoch_microsec
+ *                      The last epoch to set, in microseconds.
+ *****************************************************************************/
+void evel_last_epoch_set(EVENT_HEADER * const header,
+                         const unsigned long long last_epoch_microsec)
+{
+  EVEL_ENTER();
+
+  /***************************************************************************/
+  /* Check preconditions and assign the new value.                           */
+  /***************************************************************************/
+  assert(header != NULL);
+  header->last_epoch_microsec = last_epoch_microsec;
+
+  EVEL_EXIT();
+}
+
+/**************************************************************************//**
+ * Set the Reporting Entity Name property of the event header.
+ *
+ * @note The Reporting Entity Name defaults to the OpenStack VM Name.
+ *
+ * @param header        Pointer to the ::EVENT_HEADER.
+ * @param entity_name   The entity name to set.
+ *****************************************************************************/
+void evel_reporting_entity_name_set(EVENT_HEADER * const header,
+                                    const char * const entity_name)
+{
+  EVEL_ENTER();
+
+  /***************************************************************************/
+  /* Check preconditions and assign the new value.                           */
+  /***************************************************************************/
+  assert(header != NULL);
+  assert(entity_name != NULL);
+  assert(header->reporting_entity_name != NULL);
+
+  /***************************************************************************/
+  /* Free the previously allocated memory and replace it with a copy of the  */
+  /* provided one.                                                           */
+  /***************************************************************************/
+  free(header->reporting_entity_name);
+  header->reporting_entity_name = strdup(entity_name);
+
+  EVEL_EXIT();
+}
+
+/**************************************************************************//**
+ * Set the Reporting Entity Id property of the event header.
+ *
+ * @note The Reporting Entity Id defaults to the OpenStack VM UUID.
+ *
+ * @param header        Pointer to the ::EVENT_HEADER.
+ * @param entity_id     The entity id to set.
+ *****************************************************************************/
+void evel_reporting_entity_id_set(EVENT_HEADER * const header,
+                                  const char * const entity_id)
+{
+  EVEL_ENTER();
+
+  /***************************************************************************/
+  /* Check preconditions and assign the new value.                           */
+  /***************************************************************************/
+  assert(header != NULL);
+  assert(entity_id != NULL);
+
+  /***************************************************************************/
+  /* Free the previously allocated memory and replace it with a copy of the  */
+  /* provided one.  Note that evel_force_option_string strdups entity_id.    */
+  /***************************************************************************/
+  evel_free_option_string(&header->reporting_entity_id);
+  evel_force_option_string(&header->reporting_entity_id, entity_id);
+
+  EVEL_EXIT();
+}
+
+/**************************************************************************//**
+ * Encode the event as a JSON event object according to AT&T's schema.
+ *
+ * @param jbuf          Pointer to the ::EVEL_JSON_BUFFER to encode into.
+ * @param event         Pointer to the ::EVENT_HEADER to encode.
+ *****************************************************************************/
+void evel_json_encode_header(EVEL_JSON_BUFFER * jbuf,
+                             EVENT_HEADER * event)
+{
+  char * domain;
+  char * priority;
+
+  EVEL_ENTER();
+
+  /***************************************************************************/
+  /* Check preconditions.                                                    */
+  /***************************************************************************/
+  assert(jbuf != NULL);
+  assert(jbuf->json != NULL);
+  assert(jbuf->max_size > 0);
+  assert(event != NULL);
+
+  domain = evel_event_domain(event->event_domain);
+  priority = evel_event_priority(event->priority);
+  evel_json_open_named_object(jbuf, "commonEventHeader");
+
+  /***************************************************************************/
+  /* Mandatory fields.                                                       */
+  /***************************************************************************/
+  evel_enc_kv_string(jbuf, "domain", domain);
+  evel_enc_kv_string(jbuf, "eventId", event->event_id);
+  evel_enc_kv_string(jbuf, "functionalRole", event->functional_role);
+  evel_enc_kv_ull(jbuf, "lastEpochMicrosec", event->last_epoch_microsec);
+  evel_enc_kv_string(jbuf, "priority", priority);
+  evel_enc_kv_string(
+    jbuf, "reportingEntityName", event->reporting_entity_name);
+  evel_enc_kv_int(jbuf, "sequence", event->sequence);
+  evel_enc_kv_string(jbuf, "sourceName", event->source_name);
+  evel_enc_kv_ull(jbuf, "startEpochMicrosec", event->start_epoch_microsec);
+  evel_enc_version(
+    jbuf, "version", event->major_version, event->minor_version);
+
+  /***************************************************************************/
+  /* Optional fields.                                                        */
+  /***************************************************************************/
+  evel_enc_kv_opt_string(jbuf, "eventType", &event->event_type);
+  evel_enc_kv_opt_string(
+    jbuf, "reportingEntityId", &event->reporting_entity_id);
+  evel_enc_kv_opt_string(jbuf, "sourceId", &event->source_id);
+
+  evel_json_close_object(jbuf);
+
+  EVEL_EXIT();
+}
 
 /**************************************************************************//**
  * Free an event header.
  *
- * Free off the event header supplied.  Will recursively free all the contained
- * allocated memory.
+ * Free off the event header supplied.  Will free all the contained allocated
+ * memory.
  *
  * @note It does not free the header itself, since that may be part of a
  * larger structure.
  *****************************************************************************/
-void evel_free_header(EVENT_HEADER * event)
+void evel_free_header(EVENT_HEADER * const event)
 {
   EVEL_ENTER();
 
@@ -259,11 +360,11 @@ void evel_free_header(EVENT_HEADER * event)
   /* Free all internal strings.                                              */
   /***************************************************************************/
   free(event->event_id);
-  free(event->event_type);
+  evel_free_option_string(&event->event_type);
   free(event->functional_role);
-  free(event->reporting_entity_id);
+  evel_free_option_string(&event->reporting_entity_id);
   free(event->reporting_entity_name);
-  free(event->source_id);
+  evel_free_option_string(&event->source_id);
   free(event->source_name);
 
   EVEL_EXIT();
@@ -278,45 +379,190 @@ void evel_free_header(EVENT_HEADER * event)
  * @returns Number of bytes actually written.
  *****************************************************************************/
 int evel_json_encode_event(char * json,
-                                  int max_size,
-                                  EVENT_HEADER * event)
+                           int max_size,
+                           EVENT_HEADER * event)
 {
-  int offset = 0;
+  EVEL_JSON_BUFFER json_buffer;
+  EVEL_JSON_BUFFER * jbuf = &json_buffer;
+  EVEL_THROTTLE_SPEC * throttle_spec;
 
-  offset += snprintf(json + offset, max_size - offset,
-                     "{\"event\":{");
+  EVEL_ENTER();
+
+  /***************************************************************************/
+  /* Get the latest throttle specification for the domain.                   */
+  /***************************************************************************/
+  throttle_spec = evel_get_throttle_spec(event->event_domain);
+
+  /***************************************************************************/
+  /* Initialize the JSON_BUFFER and open the top-level objects.              */
+  /***************************************************************************/
+  evel_json_buffer_init(jbuf, json, max_size, throttle_spec);
+  evel_json_open_object(jbuf);
+  evel_json_open_named_object(jbuf, "event");
 
   switch (event->event_domain)
   {
-  case EVEL_DOMAIN_HEARTBEAT:
-    offset += evel_json_encode_header(json + offset, max_size - offset, event);
-    break;
+    case EVEL_DOMAIN_HEARTBEAT:
+      evel_json_encode_header(jbuf, event);
+      break;
 
-  case EVEL_DOMAIN_FAULT:
-    offset += evel_json_encode_fault(json + offset,
-                                     max_size - offset,
-                                     (EVENT_FAULT *)event);
-    break;
+    case EVEL_DOMAIN_FAULT:
+      evel_json_encode_fault(jbuf, (EVENT_FAULT *)event);
+      break;
 
-  case EVEL_DOMAIN_MEASUREMENT:
-    offset += evel_json_encode_measurement(json + offset,
-                                           max_size - offset,
-                                           (EVENT_MEASUREMENT *)event);
-     break;
+    case EVEL_DOMAIN_MEASUREMENT:
+      evel_json_encode_measurement(jbuf, (EVENT_MEASUREMENT *)event);
+      break;
 
-  case EVEL_DOMAIN_REPORT:
-    offset += evel_json_encode_report(json + offset,
-                                      max_size - offset,
-                                      (EVENT_REPORT *)event);
-     break;
+    case EVEL_DOMAIN_MOBILE_FLOW:
+      evel_json_encode_mobile_flow(jbuf, (EVENT_MOBILE_FLOW *)event);
+      break;
 
-  default:
-    EVEL_ERROR("Unexpected domain %d", event->event_domain);
-    assert(0);
+    case EVEL_DOMAIN_REPORT:
+      evel_json_encode_report(jbuf, (EVENT_REPORT *)event);
+      break;
+
+    case EVEL_DOMAIN_SERVICE:
+      evel_json_encode_service(jbuf, (EVENT_SERVICE *)event);
+      break;
+
+    case EVEL_DOMAIN_SIGNALING:
+      evel_json_encode_signaling(jbuf, (EVENT_SIGNALING *)event);
+      break;
+
+    case EVEL_DOMAIN_STATE_CHANGE:
+      evel_json_encode_state_change(jbuf, (EVENT_STATE_CHANGE *)event);
+      break;
+
+    case EVEL_DOMAIN_SYSLOG:
+      evel_json_encode_syslog(jbuf, (EVENT_SYSLOG *)event);
+      break;
+
+    case EVEL_DOMAIN_OTHER:
+      evel_json_encode_other(jbuf, (EVENT_OTHER *)event);
+      break;
+
+    case EVEL_DOMAIN_INTERNAL:
+    default:
+      EVEL_ERROR("Unexpected domain %d", event->event_domain);
+      assert(0);
   }
 
-  offset += snprintf(json + offset, max_size - offset, "}}");
+  evel_json_close_object(jbuf);
+  evel_json_close_object(jbuf);
 
-  return offset;
+  /***************************************************************************/
+  /* Sanity check.                                                           */
+  /***************************************************************************/
+  assert(jbuf->depth == 0);
+
+  EVEL_EXIT();
+
+  return jbuf->offset;
 }
 
+/**************************************************************************//**
+ * Initialize an event instance id.
+ *
+ * @param instance_id   Pointer to the event instance id being initialized.
+ * @param vendor_id     The vendor id to encode in the event instance id.
+ * @param event_id      The event id to encode in the event instance id.
+ *****************************************************************************/
+void evel_init_event_instance_id(EVEL_EVENT_INSTANCE_ID * const instance_id,
+                                 const char * const vendor_id,
+                                 const char * const event_id)
+{
+  EVEL_ENTER();
+
+  /***************************************************************************/
+  /* Check preconditions.                                                    */
+  /***************************************************************************/
+  assert(instance_id != NULL);
+  assert(vendor_id != NULL);
+  assert(event_id != NULL);
+
+  /***************************************************************************/
+  /* Store the mandatory parts.                                              */
+  /***************************************************************************/
+  instance_id->vendor_id = strdup(vendor_id);
+  instance_id->event_id = strdup(event_id);
+
+  /***************************************************************************/
+  /* Initialize the optional parts.                                          */
+  /***************************************************************************/
+  evel_init_option_string(&instance_id->product_id);
+  evel_init_option_string(&instance_id->subsystem_id);
+  evel_init_option_string(&instance_id->event_friendly_name);
+
+  EVEL_EXIT();
+}
+
+/**************************************************************************//**
+ * Free an event instance id.
+ *
+ * @param instance_id   Pointer to the event instance id being initialized.
+ *****************************************************************************/
+void evel_free_event_instance_id(EVEL_EVENT_INSTANCE_ID * const instance_id)
+{
+  EVEL_ENTER();
+
+  /***************************************************************************/
+  /* Check preconditions.                                                    */
+  /***************************************************************************/
+  assert(instance_id != NULL);
+  assert(instance_id->vendor_id != NULL);
+  assert(instance_id->event_id != NULL);
+
+  /***************************************************************************/
+  /* Free everything.                                                        */
+  /***************************************************************************/
+  free(instance_id->vendor_id);
+  free(instance_id->event_id);
+  evel_free_option_string(&instance_id->product_id);
+  evel_free_option_string(&instance_id->subsystem_id);
+  evel_free_option_string(&instance_id->event_friendly_name);
+
+  EVEL_EXIT();
+}
+
+/**************************************************************************//**
+ * Encode the instance id as a JSON object according to AT&T's schema.
+ *
+ * @param jbuf          Pointer to the ::EVEL_JSON_BUFFER to encode into.
+ * @param instance_id   Pointer to the ::EVEL_EVENT_INSTANCE_ID to encode.
+ *****************************************************************************/
+void evel_json_encode_instance_id(EVEL_JSON_BUFFER * jbuf,
+                                  EVEL_EVENT_INSTANCE_ID * instance_id)
+{
+  EVEL_ENTER();
+
+  /***************************************************************************/
+  /* Check preconditions.                                                    */
+  /***************************************************************************/
+  assert(jbuf != NULL);
+  assert(jbuf->json != NULL);
+  assert(jbuf->max_size > 0);
+  assert(instance_id != NULL);
+  assert(instance_id->vendor_id != NULL);
+  assert(instance_id->event_id != NULL);
+
+  evel_json_open_named_object(jbuf, "eventInstanceIdentifier");
+
+  /***************************************************************************/
+  /* Mandatory fields.                                                       */
+  /***************************************************************************/
+  evel_enc_kv_string(jbuf, "vendorId", instance_id->vendor_id);
+  evel_enc_kv_string(jbuf, "eventId", instance_id->event_id);
+
+  /***************************************************************************/
+  /* Optional fields.                                                        */
+  /***************************************************************************/
+  evel_enc_kv_opt_string(jbuf, "productId", &instance_id->product_id);
+  evel_enc_kv_opt_string(jbuf, "subsystemId", &instance_id->subsystem_id);
+  evel_enc_kv_opt_string(
+    jbuf, "eventFriendlyName", &instance_id->event_friendly_name);
+
+  evel_json_close_object(jbuf);
+
+  EVEL_EXIT();
+}

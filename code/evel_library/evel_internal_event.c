@@ -88,7 +88,6 @@ EVENT_INTERNAL * evel_new_internal_event(EVT_HANDLER_COMMAND command)
   /***************************************************************************/
   evel_init_header(&event->header);
   event->header.event_domain = EVEL_DOMAIN_INTERNAL;
-  event->header.priority = EVEL_PRIORITY_NORMAL;
   event->command = command;
 
 exit_label:
@@ -99,8 +98,7 @@ exit_label:
 /**************************************************************************//**
  * Free an internal event.
  *
- * Free off the event supplied.  Will recursively free all the contained
- * allocated memory.
+ * Free off the event supplied.  Will free all the contained allocated memory.
  *
  * @note It does not free the internal event itself, since that may be part of
  * a larger structure.

@@ -44,11 +44,22 @@ details of where the API is located.  Management of configuration is the
 responsibility of the client.
 
 Once initialized, and now MT-safe, there are factory functions to produce
-new Faults (::evel_new_fault) and new Measurements (::evel_new_measurement).
+new events:
+- Faults  - ::evel_new_fault
+- Measurements - ::evel_new_measurement
+- Report - ::evel_new_report
+- State Change - ::evel_new_state_change
+- Syslog - ::evel_new_syslog
+- Other - ::evel_new_other
+- Mobile Flow - ::evel_new_mobile_flow
 
-The Fault and Measurement structures are initialized with mandatory fields
-at the point of creation and optional fields may be added thereafter.  Once
-set, values in the structures are immutable.
+There is also a factory function ::evel_new_mobile_gtp_flow_metrics to create
+the parameter gtp_per_flow_metrics, which is then configured and passed to the
+::evel_new_mobile_flow factory function.
+
+The event structures are initialized with mandatory fields at the point of
+creation and optional fields may be added thereafter.  Once set, values in
+the structures are immutable.
 
 Once the event is prepared, it may be posted, using ::evel_post_event,  at
 which point the calling thread relinquishes all responsibility for the

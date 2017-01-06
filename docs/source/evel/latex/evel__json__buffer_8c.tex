@@ -1,0 +1,613 @@
+\hypertarget{evel__json__buffer_8c}{}\section{evel\+\_\+json\+\_\+buffer.\+c File Reference}
+\label{evel__json__buffer_8c}\index{evel\+\_\+json\+\_\+buffer.\+c@{evel\+\_\+json\+\_\+buffer.\+c}}
+
+
+Source module relating to internal E\+V\+E\+L\+\_\+\+J\+S\+O\+N\+\_\+\+B\+U\+F\+F\+ER manipulation functions.  
+
+
+{\ttfamily \#include $<$assert.\+h$>$}\newline
+{\ttfamily \#include $<$string.\+h$>$}\newline
+{\ttfamily \#include \char`\"{}evel\+\_\+throttle.\+h\char`\"{}}\newline
+Include dependency graph for evel\+\_\+json\+\_\+buffer.\+c\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{evel__json__buffer_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{evel__json__buffer_8c_a569ab2f35696aede173f680cd578c7a8}{evel\+\_\+json\+\_\+buffer\+\_\+init} (\hyperlink{evel__internal_8h_af9c576f6ffebdf8c5164ccf9827b323a}{E\+V\+E\+L\+\_\+\+J\+S\+O\+N\+\_\+\+B\+U\+F\+F\+ER} $\ast$jbuf, char $\ast$const json, const int max\+\_\+size, \hyperlink{evel__internal_8h_a50932473d7d2e8f802d39b4f73e5b64f}{E\+V\+E\+L\+\_\+\+T\+H\+R\+O\+T\+T\+L\+E\+\_\+\+S\+P\+EC} $\ast$throttle\+\_\+spec)
+\begin{DoxyCompactList}\small\item\em Initialize a \hyperlink{evel__internal_8h_af9c576f6ffebdf8c5164ccf9827b323a}{E\+V\+E\+L\+\_\+\+J\+S\+O\+N\+\_\+\+B\+U\+F\+F\+ER}. \end{DoxyCompactList}\item 
+void \hyperlink{evel__json__buffer_8c_a4572a29a8b5779d8927a4d13fc3081df}{evel\+\_\+enc\+\_\+int} (\hyperlink{evel__internal_8h_af9c576f6ffebdf8c5164ccf9827b323a}{E\+V\+E\+L\+\_\+\+J\+S\+O\+N\+\_\+\+B\+U\+F\+F\+ER} $\ast$jbuf, const int value)
+\begin{DoxyCompactList}\small\item\em Encode an integer value to a J\+S\+ON buffer. \end{DoxyCompactList}\item 
+bool \hyperlink{evel__json__buffer_8c_a083cd6753ae9e7831effb2d181ca3622}{evel\+\_\+enc\+\_\+kv\+\_\+opt\+\_\+string} (\hyperlink{evel__internal_8h_af9c576f6ffebdf8c5164ccf9827b323a}{E\+V\+E\+L\+\_\+\+J\+S\+O\+N\+\_\+\+B\+U\+F\+F\+ER} $\ast$jbuf, const char $\ast$const key, const \hyperlink{evel_8h_a0de5113a7b72de93c0c7b644f7ea7ec3}{E\+V\+E\+L\+\_\+\+O\+P\+T\+I\+O\+N\+\_\+\+S\+T\+R\+I\+NG} $\ast$const option)
+\begin{DoxyCompactList}\small\item\em Encode a string key and string value to a \hyperlink{evel__internal_8h_af9c576f6ffebdf8c5164ccf9827b323a}{E\+V\+E\+L\+\_\+\+J\+S\+O\+N\+\_\+\+B\+U\+F\+F\+ER}. \end{DoxyCompactList}\item 
+void \hyperlink{evel__json__buffer_8c_a3da4a210b309d04b6e3f28ea817b6f3b}{evel\+\_\+enc\+\_\+kv\+\_\+string} (\hyperlink{evel__internal_8h_af9c576f6ffebdf8c5164ccf9827b323a}{E\+V\+E\+L\+\_\+\+J\+S\+O\+N\+\_\+\+B\+U\+F\+F\+ER} $\ast$jbuf, const char $\ast$const key, const char $\ast$const value)
+\begin{DoxyCompactList}\small\item\em Encode a string key and string value to a \hyperlink{evel__internal_8h_af9c576f6ffebdf8c5164ccf9827b323a}{E\+V\+E\+L\+\_\+\+J\+S\+O\+N\+\_\+\+B\+U\+F\+F\+ER}. \end{DoxyCompactList}\item 
+bool \hyperlink{evel__json__buffer_8c_a0d137507802effa3603d98a6b2e60057}{evel\+\_\+enc\+\_\+kv\+\_\+opt\+\_\+int} (\hyperlink{evel__internal_8h_af9c576f6ffebdf8c5164ccf9827b323a}{E\+V\+E\+L\+\_\+\+J\+S\+O\+N\+\_\+\+B\+U\+F\+F\+ER} $\ast$jbuf, const char $\ast$const key, const \hyperlink{evel_8h_a452d825778d1c2368a54b8f689a25ba7}{E\+V\+E\+L\+\_\+\+O\+P\+T\+I\+O\+N\+\_\+\+I\+NT} $\ast$const option)
+\begin{DoxyCompactList}\small\item\em Encode a string key and integer value to a \hyperlink{evel__internal_8h_af9c576f6ffebdf8c5164ccf9827b323a}{E\+V\+E\+L\+\_\+\+J\+S\+O\+N\+\_\+\+B\+U\+F\+F\+ER}. \end{DoxyCompactList}\item 
+void \hyperlink{evel__json__buffer_8c_ac88e2e6608c1db5c12d0711f9867279c}{evel\+\_\+enc\+\_\+kv\+\_\+int} (\hyperlink{evel__internal_8h_af9c576f6ffebdf8c5164ccf9827b323a}{E\+V\+E\+L\+\_\+\+J\+S\+O\+N\+\_\+\+B\+U\+F\+F\+ER} $\ast$jbuf, const char $\ast$const key, const int value)
+\begin{DoxyCompactList}\small\item\em Encode a string key and integer value to a \hyperlink{evel__internal_8h_af9c576f6ffebdf8c5164ccf9827b323a}{E\+V\+E\+L\+\_\+\+J\+S\+O\+N\+\_\+\+B\+U\+F\+F\+ER}. \end{DoxyCompactList}\item 
+bool \hyperlink{evel__json__buffer_8c_a9d54749532c6c8331376e1700c7e4387}{evel\+\_\+enc\+\_\+kv\+\_\+opt\+\_\+double} (\hyperlink{evel__internal_8h_af9c576f6ffebdf8c5164ccf9827b323a}{E\+V\+E\+L\+\_\+\+J\+S\+O\+N\+\_\+\+B\+U\+F\+F\+ER} $\ast$jbuf, const char $\ast$const key, const \hyperlink{evel_8h_aafc42b3cd9aca88804c3d413e4ccec06}{E\+V\+E\+L\+\_\+\+O\+P\+T\+I\+O\+N\+\_\+\+D\+O\+U\+B\+LE} $\ast$const option)
+\begin{DoxyCompactList}\small\item\em Encode a string key and double value to a \hyperlink{evel__internal_8h_af9c576f6ffebdf8c5164ccf9827b323a}{E\+V\+E\+L\+\_\+\+J\+S\+O\+N\+\_\+\+B\+U\+F\+F\+ER}. \end{DoxyCompactList}\item 
+void \hyperlink{evel__json__buffer_8c_a6751c76b6b67a91d2d8de6de950e0aa7}{evel\+\_\+enc\+\_\+kv\+\_\+double} (\hyperlink{evel__internal_8h_af9c576f6ffebdf8c5164ccf9827b323a}{E\+V\+E\+L\+\_\+\+J\+S\+O\+N\+\_\+\+B\+U\+F\+F\+ER} $\ast$jbuf, const char $\ast$const key, const double value)
+\begin{DoxyCompactList}\small\item\em Encode a string key and double value to a \hyperlink{evel__internal_8h_af9c576f6ffebdf8c5164ccf9827b323a}{E\+V\+E\+L\+\_\+\+J\+S\+O\+N\+\_\+\+B\+U\+F\+F\+ER}. \end{DoxyCompactList}\item 
+bool \hyperlink{evel__json__buffer_8c_a3530c997011db079565d0ec5a34cfcff}{evel\+\_\+enc\+\_\+kv\+\_\+opt\+\_\+ull} (\hyperlink{evel__internal_8h_af9c576f6ffebdf8c5164ccf9827b323a}{E\+V\+E\+L\+\_\+\+J\+S\+O\+N\+\_\+\+B\+U\+F\+F\+ER} $\ast$jbuf, const char $\ast$const key, const \hyperlink{evel_8h_a0cc7ed39accb60a1fee6861907a47c8d}{E\+V\+E\+L\+\_\+\+O\+P\+T\+I\+O\+N\+\_\+\+U\+LL} $\ast$const option)
+\begin{DoxyCompactList}\small\item\em Encode a string key and unsigned long long value to a \hyperlink{evel__internal_8h_af9c576f6ffebdf8c5164ccf9827b323a}{E\+V\+E\+L\+\_\+\+J\+S\+O\+N\+\_\+\+B\+U\+F\+F\+ER}. \end{DoxyCompactList}\item 
+void \hyperlink{evel__json__buffer_8c_a60d198701e5cffd5211f5dd73f39ebe1}{evel\+\_\+enc\+\_\+kv\+\_\+ull} (\hyperlink{evel__internal_8h_af9c576f6ffebdf8c5164ccf9827b323a}{E\+V\+E\+L\+\_\+\+J\+S\+O\+N\+\_\+\+B\+U\+F\+F\+ER} $\ast$jbuf, const char $\ast$const key, const unsigned long long value)
+\begin{DoxyCompactList}\small\item\em Encode a string key and unsigned long long value to a \hyperlink{evel__internal_8h_af9c576f6ffebdf8c5164ccf9827b323a}{E\+V\+E\+L\+\_\+\+J\+S\+O\+N\+\_\+\+B\+U\+F\+F\+ER}. \end{DoxyCompactList}\item 
+bool \hyperlink{evel__json__buffer_8c_ac274830fa06341ce31bce92eaf58f383}{evel\+\_\+enc\+\_\+kv\+\_\+opt\+\_\+time} (\hyperlink{evel__internal_8h_af9c576f6ffebdf8c5164ccf9827b323a}{E\+V\+E\+L\+\_\+\+J\+S\+O\+N\+\_\+\+B\+U\+F\+F\+ER} $\ast$jbuf, const char $\ast$const key, const \hyperlink{evel_8h_ae0ea81cde70a2a1b685aae7ae8e9d19b}{E\+V\+E\+L\+\_\+\+O\+P\+T\+I\+O\+N\+\_\+\+T\+I\+ME} $\ast$const option)
+\begin{DoxyCompactList}\small\item\em Encode a string key and time value to a \hyperlink{evel__internal_8h_af9c576f6ffebdf8c5164ccf9827b323a}{E\+V\+E\+L\+\_\+\+J\+S\+O\+N\+\_\+\+B\+U\+F\+F\+ER}. \end{DoxyCompactList}\item 
+void \hyperlink{evel__json__buffer_8c_ad6ebd10b49ac1407a08f76bef0ca173e}{evel\+\_\+enc\+\_\+kv\+\_\+time} (\hyperlink{evel__internal_8h_af9c576f6ffebdf8c5164ccf9827b323a}{E\+V\+E\+L\+\_\+\+J\+S\+O\+N\+\_\+\+B\+U\+F\+F\+ER} $\ast$jbuf, const char $\ast$const key, const time\+\_\+t $\ast$time)
+\begin{DoxyCompactList}\small\item\em Encode a string key and time value to a \hyperlink{evel__internal_8h_af9c576f6ffebdf8c5164ccf9827b323a}{E\+V\+E\+L\+\_\+\+J\+S\+O\+N\+\_\+\+B\+U\+F\+F\+ER}. \end{DoxyCompactList}\item 
+void \hyperlink{evel__json__buffer_8c_aa1a23c038a77d80a6d8279d0809f8492}{evel\+\_\+enc\+\_\+version} (\hyperlink{evel__internal_8h_af9c576f6ffebdf8c5164ccf9827b323a}{E\+V\+E\+L\+\_\+\+J\+S\+O\+N\+\_\+\+B\+U\+F\+F\+ER} $\ast$jbuf, const char $\ast$const key, const int major\+\_\+version, const int minor\+\_\+version)
+\begin{DoxyCompactList}\small\item\em Encode a key and version. \end{DoxyCompactList}\item 
+bool \hyperlink{evel__json__buffer_8c_a9d9e915aefa7309aea6b13ed0d19bb2b}{evel\+\_\+json\+\_\+open\+\_\+opt\+\_\+named\+\_\+list} (\hyperlink{evel__internal_8h_af9c576f6ffebdf8c5164ccf9827b323a}{E\+V\+E\+L\+\_\+\+J\+S\+O\+N\+\_\+\+B\+U\+F\+F\+ER} $\ast$jbuf, const char $\ast$const key)
+\begin{DoxyCompactList}\small\item\em Add the key and opening bracket of an optional named list to a J\+S\+ON buffer. \end{DoxyCompactList}\item 
+void \hyperlink{evel__json__buffer_8c_abf72f7c475da06d738b6187f0d37ca81}{evel\+\_\+json\+\_\+open\+\_\+named\+\_\+list} (\hyperlink{evel__internal_8h_af9c576f6ffebdf8c5164ccf9827b323a}{E\+V\+E\+L\+\_\+\+J\+S\+O\+N\+\_\+\+B\+U\+F\+F\+ER} $\ast$jbuf, const char $\ast$const key)
+\begin{DoxyCompactList}\small\item\em Add the key and opening bracket of a named list to a J\+S\+ON buffer. \end{DoxyCompactList}\item 
+void \hyperlink{evel__json__buffer_8c_af452cebf94cf6234b78fed0035e5c2b3}{evel\+\_\+json\+\_\+close\+\_\+list} (\hyperlink{evel__internal_8h_af9c576f6ffebdf8c5164ccf9827b323a}{E\+V\+E\+L\+\_\+\+J\+S\+O\+N\+\_\+\+B\+U\+F\+F\+ER} $\ast$jbuf)
+\begin{DoxyCompactList}\small\item\em Add the closing bracket of a list to a J\+S\+ON buffer. \end{DoxyCompactList}\item 
+void \hyperlink{evel__json__buffer_8c_a5865e2363875f25ecb34015d2703ad48}{evel\+\_\+enc\+\_\+list\+\_\+item} (\hyperlink{evel__internal_8h_af9c576f6ffebdf8c5164ccf9827b323a}{E\+V\+E\+L\+\_\+\+J\+S\+O\+N\+\_\+\+B\+U\+F\+F\+ER} $\ast$jbuf, const char $\ast$const format,...)
+\begin{DoxyCompactList}\small\item\em Encode a list item with format and param list to a \hyperlink{evel__internal_8h_af9c576f6ffebdf8c5164ccf9827b323a}{E\+V\+E\+L\+\_\+\+J\+S\+O\+N\+\_\+\+B\+U\+F\+F\+ER}. \end{DoxyCompactList}\item 
+bool \hyperlink{evel__json__buffer_8c_a9b4750f078ba726011926ea97f857c55}{evel\+\_\+json\+\_\+open\+\_\+opt\+\_\+named\+\_\+object} (\hyperlink{evel__internal_8h_af9c576f6ffebdf8c5164ccf9827b323a}{E\+V\+E\+L\+\_\+\+J\+S\+O\+N\+\_\+\+B\+U\+F\+F\+ER} $\ast$jbuf, const char $\ast$const key)
+\begin{DoxyCompactList}\small\item\em Add the opening bracket of an optional named object to a J\+S\+ON buffer. \end{DoxyCompactList}\item 
+void \hyperlink{evel__json__buffer_8c_a39a1a898a826564ab0f52cbdeb2285df}{evel\+\_\+json\+\_\+open\+\_\+named\+\_\+object} (\hyperlink{evel__internal_8h_af9c576f6ffebdf8c5164ccf9827b323a}{E\+V\+E\+L\+\_\+\+J\+S\+O\+N\+\_\+\+B\+U\+F\+F\+ER} $\ast$jbuf, const char $\ast$const key)
+\begin{DoxyCompactList}\small\item\em Add the opening bracket of an object to a J\+S\+ON buffer. \end{DoxyCompactList}\item 
+void \hyperlink{evel__json__buffer_8c_aa6d606c2571856f38a50e20da1120c1f}{evel\+\_\+json\+\_\+open\+\_\+object} (\hyperlink{evel__internal_8h_af9c576f6ffebdf8c5164ccf9827b323a}{E\+V\+E\+L\+\_\+\+J\+S\+O\+N\+\_\+\+B\+U\+F\+F\+ER} $\ast$jbuf)
+\begin{DoxyCompactList}\small\item\em Add the opening bracket of an object to a J\+S\+ON buffer. \end{DoxyCompactList}\item 
+void \hyperlink{evel__json__buffer_8c_a0de38c99fe7b8f363bd7f36f9738ebfd}{evel\+\_\+json\+\_\+close\+\_\+object} (\hyperlink{evel__internal_8h_af9c576f6ffebdf8c5164ccf9827b323a}{E\+V\+E\+L\+\_\+\+J\+S\+O\+N\+\_\+\+B\+U\+F\+F\+ER} $\ast$jbuf)
+\begin{DoxyCompactList}\small\item\em Add the closing bracket of an object to a J\+S\+ON buffer. \end{DoxyCompactList}\item 
+void \hyperlink{evel__json__buffer_8c_ac45597a0b0e0800c23020f2703640b80}{evel\+\_\+json\+\_\+checkpoint} (\hyperlink{evel__internal_8h_af9c576f6ffebdf8c5164ccf9827b323a}{E\+V\+E\+L\+\_\+\+J\+S\+O\+N\+\_\+\+B\+U\+F\+F\+ER} $\ast$jbuf)
+\begin{DoxyCompactList}\small\item\em Add a checkpoint -\/ a stake in the ground to which we can rewind. \end{DoxyCompactList}\item 
+void \hyperlink{evel__json__buffer_8c_af91449dfd90e2c45fd90ffa54fdb65a4}{evel\+\_\+json\+\_\+rewind} (\hyperlink{evel__internal_8h_af9c576f6ffebdf8c5164ccf9827b323a}{E\+V\+E\+L\+\_\+\+J\+S\+O\+N\+\_\+\+B\+U\+F\+F\+ER} $\ast$jbuf)
+\begin{DoxyCompactList}\small\item\em Rewind to the latest checkoint. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Source module relating to internal E\+V\+E\+L\+\_\+\+J\+S\+O\+N\+\_\+\+B\+U\+F\+F\+ER manipulation functions. 
+
+\subsubsection*{License }
+
+Copyright(c) $<$2016$>$, AT\&T Intellectual Property. All other rights reserved.
+
+Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met\+:
+
+
+\begin{DoxyEnumerate}
+\item Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
+\item Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.
+\item All advertising materials mentioning features or use of this software must display the following acknowledgement\+: This product includes software developed by the AT\&T.
+\item Neither the name of AT\&T nor the names of its contributors may be used to endorse or promote products derived from this software without specific prior written permission.
+\end{DoxyEnumerate}
+
+T\+H\+IS S\+O\+F\+T\+W\+A\+RE IS P\+R\+O\+V\+I\+D\+ED BY AT\&T I\+N\+T\+E\+L\+L\+E\+C\+T\+U\+AL P\+R\+O\+P\+E\+R\+TY \textquotesingle{}\textquotesingle{}AS IS\textquotesingle{}\textquotesingle{} A\+ND A\+NY E\+X\+P\+R\+E\+SS OR I\+M\+P\+L\+I\+ED W\+A\+R\+R\+A\+N\+T\+I\+ES, I\+N\+C\+L\+U\+D\+I\+NG, B\+UT N\+OT L\+I\+M\+I\+T\+ED TO, T\+HE I\+M\+P\+L\+I\+ED W\+A\+R\+R\+A\+N\+T\+I\+ES OF M\+E\+R\+C\+H\+A\+N\+T\+A\+B\+I\+L\+I\+TY A\+ND F\+I\+T\+N\+E\+SS F\+OR A P\+A\+R\+T\+I\+C\+U\+L\+AR P\+U\+R\+P\+O\+SE A\+RE D\+I\+S\+C\+L\+A\+I\+M\+ED. IN NO E\+V\+E\+NT S\+H\+A\+LL AT\&T I\+N\+T\+E\+L\+L\+E\+C\+T\+U\+AL P\+R\+O\+P\+E\+R\+TY BE L\+I\+A\+B\+LE F\+OR A\+NY D\+I\+R\+E\+CT, I\+N\+D\+I\+R\+E\+CT, I\+N\+C\+I\+D\+E\+N\+T\+AL, S\+P\+E\+C\+I\+AL, E\+X\+E\+M\+P\+L\+A\+RY, OR C\+O\+N\+S\+E\+Q\+U\+E\+N\+T\+I\+AL D\+A\+M\+A\+G\+ES (I\+N\+C\+L\+U\+D\+I\+NG, B\+UT N\+OT L\+I\+M\+I\+T\+ED TO, P\+R\+O\+C\+U\+R\+E\+M\+E\+NT OF S\+U\+B\+S\+T\+I\+T\+U\+TE G\+O\+O\+DS OR S\+E\+R\+V\+I\+C\+ES; L\+O\+SS OF U\+SE, D\+A\+TA, OR P\+R\+O\+F\+I\+TS; OR B\+U\+S\+I\+N\+E\+SS I\+N\+T\+E\+R\+R\+U\+P\+T\+I\+ON) H\+O\+W\+E\+V\+ER C\+A\+U\+S\+ED A\+ND ON A\+NY T\+H\+E\+O\+RY OF L\+I\+A\+B\+I\+L\+I\+TY, W\+H\+E\+T\+H\+ER IN C\+O\+N\+T\+R\+A\+CT, S\+T\+R\+I\+CT L\+I\+A\+B\+I\+L\+I\+TY, OR T\+O\+RT (I\+N\+C\+L\+U\+D\+I\+NG N\+E\+G\+L\+I\+G\+E\+N\+CE OR O\+T\+H\+E\+R\+W\+I\+SE) A\+R\+I\+S\+I\+NG IN A\+NY W\+AY O\+UT OF T\+HE U\+SE OF T\+H\+IS S\+O\+F\+T\+W\+A\+RE, E\+V\+EN IF A\+D\+V\+I\+S\+ED OF T\+HE P\+O\+S\+S\+I\+B\+I\+L\+I\+TY OF S\+U\+CH D\+A\+M\+A\+GE. 
+
+\subsection{Function Documentation}
+\hypertarget{evel__json__buffer_8c_a4572a29a8b5779d8927a4d13fc3081df}{}\label{evel__json__buffer_8c_a4572a29a8b5779d8927a4d13fc3081df} 
+\index{evel\+\_\+json\+\_\+buffer.\+c@{evel\+\_\+json\+\_\+buffer.\+c}!evel\+\_\+enc\+\_\+int@{evel\+\_\+enc\+\_\+int}}
+\index{evel\+\_\+enc\+\_\+int@{evel\+\_\+enc\+\_\+int}!evel\+\_\+json\+\_\+buffer.\+c@{evel\+\_\+json\+\_\+buffer.\+c}}
+\subsubsection{\texorpdfstring{evel\+\_\+enc\+\_\+int()}{evel\_enc\_int()}}
+{\footnotesize\ttfamily void evel\+\_\+enc\+\_\+int (\begin{DoxyParamCaption}\item[{\hyperlink{evel__internal_8h_af9c576f6ffebdf8c5164ccf9827b323a}{E\+V\+E\+L\+\_\+\+J\+S\+O\+N\+\_\+\+B\+U\+F\+F\+ER} $\ast$}]{jbuf,  }\item[{const int}]{value }\end{DoxyParamCaption})}
+
+
+
+Encode an integer value to a J\+S\+ON buffer. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em jbuf} & Pointer to working \hyperlink{evel__internal_8h_af9c576f6ffebdf8c5164ccf9827b323a}{E\+V\+E\+L\+\_\+\+J\+S\+O\+N\+\_\+\+B\+U\+F\+F\+ER}. \\
+\hline
+{\em value} & The integer to add to it. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 80 of file evel\+\_\+json\+\_\+buffer.\+c.
+
+\hypertarget{evel__json__buffer_8c_a6751c76b6b67a91d2d8de6de950e0aa7}{}\label{evel__json__buffer_8c_a6751c76b6b67a91d2d8de6de950e0aa7} 
+\index{evel\+\_\+json\+\_\+buffer.\+c@{evel\+\_\+json\+\_\+buffer.\+c}!evel\+\_\+enc\+\_\+kv\+\_\+double@{evel\+\_\+enc\+\_\+kv\+\_\+double}}
+\index{evel\+\_\+enc\+\_\+kv\+\_\+double@{evel\+\_\+enc\+\_\+kv\+\_\+double}!evel\+\_\+json\+\_\+buffer.\+c@{evel\+\_\+json\+\_\+buffer.\+c}}
+\subsubsection{\texorpdfstring{evel\+\_\+enc\+\_\+kv\+\_\+double()}{evel\_enc\_kv\_double()}}
+{\footnotesize\ttfamily void evel\+\_\+enc\+\_\+kv\+\_\+double (\begin{DoxyParamCaption}\item[{\hyperlink{evel__internal_8h_af9c576f6ffebdf8c5164ccf9827b323a}{E\+V\+E\+L\+\_\+\+J\+S\+O\+N\+\_\+\+B\+U\+F\+F\+ER} $\ast$}]{jbuf,  }\item[{const char $\ast$const}]{key,  }\item[{const double}]{value }\end{DoxyParamCaption})}
+
+
+
+Encode a string key and double value to a \hyperlink{evel__internal_8h_af9c576f6ffebdf8c5164ccf9827b323a}{E\+V\+E\+L\+\_\+\+J\+S\+O\+N\+\_\+\+B\+U\+F\+F\+ER}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em jbuf} & Pointer to working \hyperlink{evel__internal_8h_af9c576f6ffebdf8c5164ccf9827b323a}{E\+V\+E\+L\+\_\+\+J\+S\+O\+N\+\_\+\+B\+U\+F\+F\+ER}. \\
+\hline
+{\em key} & Pointer to the key to encode. \\
+\hline
+{\em value} & The corresponding value to encode. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 323 of file evel\+\_\+json\+\_\+buffer.\+c.
+
+\hypertarget{evel__json__buffer_8c_ac88e2e6608c1db5c12d0711f9867279c}{}\label{evel__json__buffer_8c_ac88e2e6608c1db5c12d0711f9867279c} 
+\index{evel\+\_\+json\+\_\+buffer.\+c@{evel\+\_\+json\+\_\+buffer.\+c}!evel\+\_\+enc\+\_\+kv\+\_\+int@{evel\+\_\+enc\+\_\+kv\+\_\+int}}
+\index{evel\+\_\+enc\+\_\+kv\+\_\+int@{evel\+\_\+enc\+\_\+kv\+\_\+int}!evel\+\_\+json\+\_\+buffer.\+c@{evel\+\_\+json\+\_\+buffer.\+c}}
+\subsubsection{\texorpdfstring{evel\+\_\+enc\+\_\+kv\+\_\+int()}{evel\_enc\_kv\_int()}}
+{\footnotesize\ttfamily void evel\+\_\+enc\+\_\+kv\+\_\+int (\begin{DoxyParamCaption}\item[{\hyperlink{evel__internal_8h_af9c576f6ffebdf8c5164ccf9827b323a}{E\+V\+E\+L\+\_\+\+J\+S\+O\+N\+\_\+\+B\+U\+F\+F\+ER} $\ast$}]{jbuf,  }\item[{const char $\ast$const}]{key,  }\item[{const int}]{value }\end{DoxyParamCaption})}
+
+
+
+Encode a string key and integer value to a \hyperlink{evel__internal_8h_af9c576f6ffebdf8c5164ccf9827b323a}{E\+V\+E\+L\+\_\+\+J\+S\+O\+N\+\_\+\+B\+U\+F\+F\+ER}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em jbuf} & Pointer to working \hyperlink{evel__internal_8h_af9c576f6ffebdf8c5164ccf9827b323a}{E\+V\+E\+L\+\_\+\+J\+S\+O\+N\+\_\+\+B\+U\+F\+F\+ER}. \\
+\hline
+{\em key} & Pointer to the key to encode. \\
+\hline
+{\em value} & The corresponding value to encode. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 252 of file evel\+\_\+json\+\_\+buffer.\+c.
+
+\hypertarget{evel__json__buffer_8c_a9d54749532c6c8331376e1700c7e4387}{}\label{evel__json__buffer_8c_a9d54749532c6c8331376e1700c7e4387} 
+\index{evel\+\_\+json\+\_\+buffer.\+c@{evel\+\_\+json\+\_\+buffer.\+c}!evel\+\_\+enc\+\_\+kv\+\_\+opt\+\_\+double@{evel\+\_\+enc\+\_\+kv\+\_\+opt\+\_\+double}}
+\index{evel\+\_\+enc\+\_\+kv\+\_\+opt\+\_\+double@{evel\+\_\+enc\+\_\+kv\+\_\+opt\+\_\+double}!evel\+\_\+json\+\_\+buffer.\+c@{evel\+\_\+json\+\_\+buffer.\+c}}
+\subsubsection{\texorpdfstring{evel\+\_\+enc\+\_\+kv\+\_\+opt\+\_\+double()}{evel\_enc\_kv\_opt\_double()}}
+{\footnotesize\ttfamily bool evel\+\_\+enc\+\_\+kv\+\_\+opt\+\_\+double (\begin{DoxyParamCaption}\item[{\hyperlink{evel__internal_8h_af9c576f6ffebdf8c5164ccf9827b323a}{E\+V\+E\+L\+\_\+\+J\+S\+O\+N\+\_\+\+B\+U\+F\+F\+ER} $\ast$}]{jbuf,  }\item[{const char $\ast$const}]{key,  }\item[{const \hyperlink{evel_8h_aafc42b3cd9aca88804c3d413e4ccec06}{E\+V\+E\+L\+\_\+\+O\+P\+T\+I\+O\+N\+\_\+\+D\+O\+U\+B\+LE} $\ast$const}]{option }\end{DoxyParamCaption})}
+
+
+
+Encode a string key and double value to a \hyperlink{evel__internal_8h_af9c576f6ffebdf8c5164ccf9827b323a}{E\+V\+E\+L\+\_\+\+J\+S\+O\+N\+\_\+\+B\+U\+F\+F\+ER}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em jbuf} & Pointer to working \hyperlink{evel__internal_8h_af9c576f6ffebdf8c5164ccf9827b323a}{E\+V\+E\+L\+\_\+\+J\+S\+O\+N\+\_\+\+B\+U\+F\+F\+ER}. \\
+\hline
+{\em key} & Pointer to the key to encode. \\
+\hline
+{\em option} & Pointer to holder of the corresponding value to encode. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if the key, value was added, false if it was suppressed. 
+\end{DoxyReturn}
+
+
+Definition at line 282 of file evel\+\_\+json\+\_\+buffer.\+c.
+
+\hypertarget{evel__json__buffer_8c_a0d137507802effa3603d98a6b2e60057}{}\label{evel__json__buffer_8c_a0d137507802effa3603d98a6b2e60057} 
+\index{evel\+\_\+json\+\_\+buffer.\+c@{evel\+\_\+json\+\_\+buffer.\+c}!evel\+\_\+enc\+\_\+kv\+\_\+opt\+\_\+int@{evel\+\_\+enc\+\_\+kv\+\_\+opt\+\_\+int}}
+\index{evel\+\_\+enc\+\_\+kv\+\_\+opt\+\_\+int@{evel\+\_\+enc\+\_\+kv\+\_\+opt\+\_\+int}!evel\+\_\+json\+\_\+buffer.\+c@{evel\+\_\+json\+\_\+buffer.\+c}}
+\subsubsection{\texorpdfstring{evel\+\_\+enc\+\_\+kv\+\_\+opt\+\_\+int()}{evel\_enc\_kv\_opt\_int()}}
+{\footnotesize\ttfamily bool evel\+\_\+enc\+\_\+kv\+\_\+opt\+\_\+int (\begin{DoxyParamCaption}\item[{\hyperlink{evel__internal_8h_af9c576f6ffebdf8c5164ccf9827b323a}{E\+V\+E\+L\+\_\+\+J\+S\+O\+N\+\_\+\+B\+U\+F\+F\+ER} $\ast$}]{jbuf,  }\item[{const char $\ast$const}]{key,  }\item[{const \hyperlink{evel_8h_a452d825778d1c2368a54b8f689a25ba7}{E\+V\+E\+L\+\_\+\+O\+P\+T\+I\+O\+N\+\_\+\+I\+NT} $\ast$const}]{option }\end{DoxyParamCaption})}
+
+
+
+Encode a string key and integer value to a \hyperlink{evel__internal_8h_af9c576f6ffebdf8c5164ccf9827b323a}{E\+V\+E\+L\+\_\+\+J\+S\+O\+N\+\_\+\+B\+U\+F\+F\+ER}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em jbuf} & Pointer to working \hyperlink{evel__internal_8h_af9c576f6ffebdf8c5164ccf9827b323a}{E\+V\+E\+L\+\_\+\+J\+S\+O\+N\+\_\+\+B\+U\+F\+F\+ER}. \\
+\hline
+{\em key} & Pointer to the key to encode. \\
+\hline
+{\em option} & Pointer to holder of the corresponding value to encode. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if the key, value was added, false if it was suppressed. 
+\end{DoxyReturn}
+
+
+Definition at line 211 of file evel\+\_\+json\+\_\+buffer.\+c.
+
+\hypertarget{evel__json__buffer_8c_a083cd6753ae9e7831effb2d181ca3622}{}\label{evel__json__buffer_8c_a083cd6753ae9e7831effb2d181ca3622} 
+\index{evel\+\_\+json\+\_\+buffer.\+c@{evel\+\_\+json\+\_\+buffer.\+c}!evel\+\_\+enc\+\_\+kv\+\_\+opt\+\_\+string@{evel\+\_\+enc\+\_\+kv\+\_\+opt\+\_\+string}}
+\index{evel\+\_\+enc\+\_\+kv\+\_\+opt\+\_\+string@{evel\+\_\+enc\+\_\+kv\+\_\+opt\+\_\+string}!evel\+\_\+json\+\_\+buffer.\+c@{evel\+\_\+json\+\_\+buffer.\+c}}
+\subsubsection{\texorpdfstring{evel\+\_\+enc\+\_\+kv\+\_\+opt\+\_\+string()}{evel\_enc\_kv\_opt\_string()}}
+{\footnotesize\ttfamily bool evel\+\_\+enc\+\_\+kv\+\_\+opt\+\_\+string (\begin{DoxyParamCaption}\item[{\hyperlink{evel__internal_8h_af9c576f6ffebdf8c5164ccf9827b323a}{E\+V\+E\+L\+\_\+\+J\+S\+O\+N\+\_\+\+B\+U\+F\+F\+ER} $\ast$}]{jbuf,  }\item[{const char $\ast$const}]{key,  }\item[{const \hyperlink{evel_8h_a0de5113a7b72de93c0c7b644f7ea7ec3}{E\+V\+E\+L\+\_\+\+O\+P\+T\+I\+O\+N\+\_\+\+S\+T\+R\+I\+NG} $\ast$const}]{option }\end{DoxyParamCaption})}
+
+
+
+Encode a string key and string value to a \hyperlink{evel__internal_8h_af9c576f6ffebdf8c5164ccf9827b323a}{E\+V\+E\+L\+\_\+\+J\+S\+O\+N\+\_\+\+B\+U\+F\+F\+ER}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em jbuf} & Pointer to working \hyperlink{evel__internal_8h_af9c576f6ffebdf8c5164ccf9827b323a}{E\+V\+E\+L\+\_\+\+J\+S\+O\+N\+\_\+\+B\+U\+F\+F\+ER}. \\
+\hline
+{\em key} & Pointer to the key to encode. \\
+\hline
+{\em option} & Pointer to holder of the corresponding value to encode. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if the key, value was added, false if it was suppressed. 
+\end{DoxyReturn}
+
+
+Definition at line 105 of file evel\+\_\+json\+\_\+buffer.\+c.
+
+\hypertarget{evel__json__buffer_8c_ac274830fa06341ce31bce92eaf58f383}{}\label{evel__json__buffer_8c_ac274830fa06341ce31bce92eaf58f383} 
+\index{evel\+\_\+json\+\_\+buffer.\+c@{evel\+\_\+json\+\_\+buffer.\+c}!evel\+\_\+enc\+\_\+kv\+\_\+opt\+\_\+time@{evel\+\_\+enc\+\_\+kv\+\_\+opt\+\_\+time}}
+\index{evel\+\_\+enc\+\_\+kv\+\_\+opt\+\_\+time@{evel\+\_\+enc\+\_\+kv\+\_\+opt\+\_\+time}!evel\+\_\+json\+\_\+buffer.\+c@{evel\+\_\+json\+\_\+buffer.\+c}}
+\subsubsection{\texorpdfstring{evel\+\_\+enc\+\_\+kv\+\_\+opt\+\_\+time()}{evel\_enc\_kv\_opt\_time()}}
+{\footnotesize\ttfamily bool evel\+\_\+enc\+\_\+kv\+\_\+opt\+\_\+time (\begin{DoxyParamCaption}\item[{\hyperlink{evel__internal_8h_af9c576f6ffebdf8c5164ccf9827b323a}{E\+V\+E\+L\+\_\+\+J\+S\+O\+N\+\_\+\+B\+U\+F\+F\+ER} $\ast$}]{jbuf,  }\item[{const char $\ast$const}]{key,  }\item[{const \hyperlink{evel_8h_ae0ea81cde70a2a1b685aae7ae8e9d19b}{E\+V\+E\+L\+\_\+\+O\+P\+T\+I\+O\+N\+\_\+\+T\+I\+ME} $\ast$const}]{option }\end{DoxyParamCaption})}
+
+
+
+Encode a string key and time value to a \hyperlink{evel__internal_8h_af9c576f6ffebdf8c5164ccf9827b323a}{E\+V\+E\+L\+\_\+\+J\+S\+O\+N\+\_\+\+B\+U\+F\+F\+ER}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em jbuf} & Pointer to working \hyperlink{evel__internal_8h_af9c576f6ffebdf8c5164ccf9827b323a}{E\+V\+E\+L\+\_\+\+J\+S\+O\+N\+\_\+\+B\+U\+F\+F\+ER}. \\
+\hline
+{\em key} & Pointer to the key to encode. \\
+\hline
+{\em option} & Pointer to holder of the corresponding value to encode. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if the key, value was added, false if it was suppressed. 
+\end{DoxyReturn}
+
+
+Definition at line 424 of file evel\+\_\+json\+\_\+buffer.\+c.
+
+\hypertarget{evel__json__buffer_8c_a3530c997011db079565d0ec5a34cfcff}{}\label{evel__json__buffer_8c_a3530c997011db079565d0ec5a34cfcff} 
+\index{evel\+\_\+json\+\_\+buffer.\+c@{evel\+\_\+json\+\_\+buffer.\+c}!evel\+\_\+enc\+\_\+kv\+\_\+opt\+\_\+ull@{evel\+\_\+enc\+\_\+kv\+\_\+opt\+\_\+ull}}
+\index{evel\+\_\+enc\+\_\+kv\+\_\+opt\+\_\+ull@{evel\+\_\+enc\+\_\+kv\+\_\+opt\+\_\+ull}!evel\+\_\+json\+\_\+buffer.\+c@{evel\+\_\+json\+\_\+buffer.\+c}}
+\subsubsection{\texorpdfstring{evel\+\_\+enc\+\_\+kv\+\_\+opt\+\_\+ull()}{evel\_enc\_kv\_opt\_ull()}}
+{\footnotesize\ttfamily bool evel\+\_\+enc\+\_\+kv\+\_\+opt\+\_\+ull (\begin{DoxyParamCaption}\item[{\hyperlink{evel__internal_8h_af9c576f6ffebdf8c5164ccf9827b323a}{E\+V\+E\+L\+\_\+\+J\+S\+O\+N\+\_\+\+B\+U\+F\+F\+ER} $\ast$}]{jbuf,  }\item[{const char $\ast$const}]{key,  }\item[{const \hyperlink{evel_8h_a0cc7ed39accb60a1fee6861907a47c8d}{E\+V\+E\+L\+\_\+\+O\+P\+T\+I\+O\+N\+\_\+\+U\+LL} $\ast$const}]{option }\end{DoxyParamCaption})}
+
+
+
+Encode a string key and unsigned long long value to a \hyperlink{evel__internal_8h_af9c576f6ffebdf8c5164ccf9827b323a}{E\+V\+E\+L\+\_\+\+J\+S\+O\+N\+\_\+\+B\+U\+F\+F\+ER}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em jbuf} & Pointer to working \hyperlink{evel__internal_8h_af9c576f6ffebdf8c5164ccf9827b323a}{E\+V\+E\+L\+\_\+\+J\+S\+O\+N\+\_\+\+B\+U\+F\+F\+ER}. \\
+\hline
+{\em key} & Pointer to the key to encode. \\
+\hline
+{\em option} & Pointer to holder of the corresponding value to encode. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if the key, value was added, false if it was suppressed. 
+\end{DoxyReturn}
+
+
+Definition at line 353 of file evel\+\_\+json\+\_\+buffer.\+c.
+
+\hypertarget{evel__json__buffer_8c_a3da4a210b309d04b6e3f28ea817b6f3b}{}\label{evel__json__buffer_8c_a3da4a210b309d04b6e3f28ea817b6f3b} 
+\index{evel\+\_\+json\+\_\+buffer.\+c@{evel\+\_\+json\+\_\+buffer.\+c}!evel\+\_\+enc\+\_\+kv\+\_\+string@{evel\+\_\+enc\+\_\+kv\+\_\+string}}
+\index{evel\+\_\+enc\+\_\+kv\+\_\+string@{evel\+\_\+enc\+\_\+kv\+\_\+string}!evel\+\_\+json\+\_\+buffer.\+c@{evel\+\_\+json\+\_\+buffer.\+c}}
+\subsubsection{\texorpdfstring{evel\+\_\+enc\+\_\+kv\+\_\+string()}{evel\_enc\_kv\_string()}}
+{\footnotesize\ttfamily void evel\+\_\+enc\+\_\+kv\+\_\+string (\begin{DoxyParamCaption}\item[{\hyperlink{evel__internal_8h_af9c576f6ffebdf8c5164ccf9827b323a}{E\+V\+E\+L\+\_\+\+J\+S\+O\+N\+\_\+\+B\+U\+F\+F\+ER} $\ast$}]{jbuf,  }\item[{const char $\ast$const}]{key,  }\item[{const char $\ast$const}]{value }\end{DoxyParamCaption})}
+
+
+
+Encode a string key and string value to a \hyperlink{evel__internal_8h_af9c576f6ffebdf8c5164ccf9827b323a}{E\+V\+E\+L\+\_\+\+J\+S\+O\+N\+\_\+\+B\+U\+F\+F\+ER}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em jbuf} & Pointer to working \hyperlink{evel__internal_8h_af9c576f6ffebdf8c5164ccf9827b323a}{E\+V\+E\+L\+\_\+\+J\+S\+O\+N\+\_\+\+B\+U\+F\+F\+ER}. \\
+\hline
+{\em key} & Pointer to the key to encode. \\
+\hline
+{\em value} & Pointer to the corresponding value to encode. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 146 of file evel\+\_\+json\+\_\+buffer.\+c.
+
+\hypertarget{evel__json__buffer_8c_ad6ebd10b49ac1407a08f76bef0ca173e}{}\label{evel__json__buffer_8c_ad6ebd10b49ac1407a08f76bef0ca173e} 
+\index{evel\+\_\+json\+\_\+buffer.\+c@{evel\+\_\+json\+\_\+buffer.\+c}!evel\+\_\+enc\+\_\+kv\+\_\+time@{evel\+\_\+enc\+\_\+kv\+\_\+time}}
+\index{evel\+\_\+enc\+\_\+kv\+\_\+time@{evel\+\_\+enc\+\_\+kv\+\_\+time}!evel\+\_\+json\+\_\+buffer.\+c@{evel\+\_\+json\+\_\+buffer.\+c}}
+\subsubsection{\texorpdfstring{evel\+\_\+enc\+\_\+kv\+\_\+time()}{evel\_enc\_kv\_time()}}
+{\footnotesize\ttfamily void evel\+\_\+enc\+\_\+kv\+\_\+time (\begin{DoxyParamCaption}\item[{\hyperlink{evel__internal_8h_af9c576f6ffebdf8c5164ccf9827b323a}{E\+V\+E\+L\+\_\+\+J\+S\+O\+N\+\_\+\+B\+U\+F\+F\+ER} $\ast$}]{jbuf,  }\item[{const char $\ast$const}]{key,  }\item[{const time\+\_\+t $\ast$}]{time }\end{DoxyParamCaption})}
+
+
+
+Encode a string key and time value to a \hyperlink{evel__internal_8h_af9c576f6ffebdf8c5164ccf9827b323a}{E\+V\+E\+L\+\_\+\+J\+S\+O\+N\+\_\+\+B\+U\+F\+F\+ER}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em jbuf} & Pointer to working \hyperlink{evel__internal_8h_af9c576f6ffebdf8c5164ccf9827b323a}{E\+V\+E\+L\+\_\+\+J\+S\+O\+N\+\_\+\+B\+U\+F\+F\+ER}. \\
+\hline
+{\em key} & Pointer to the key to encode. \\
+\hline
+{\em time} & Pointer to the time to encode. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 465 of file evel\+\_\+json\+\_\+buffer.\+c.
+
+\hypertarget{evel__json__buffer_8c_a60d198701e5cffd5211f5dd73f39ebe1}{}\label{evel__json__buffer_8c_a60d198701e5cffd5211f5dd73f39ebe1} 
+\index{evel\+\_\+json\+\_\+buffer.\+c@{evel\+\_\+json\+\_\+buffer.\+c}!evel\+\_\+enc\+\_\+kv\+\_\+ull@{evel\+\_\+enc\+\_\+kv\+\_\+ull}}
+\index{evel\+\_\+enc\+\_\+kv\+\_\+ull@{evel\+\_\+enc\+\_\+kv\+\_\+ull}!evel\+\_\+json\+\_\+buffer.\+c@{evel\+\_\+json\+\_\+buffer.\+c}}
+\subsubsection{\texorpdfstring{evel\+\_\+enc\+\_\+kv\+\_\+ull()}{evel\_enc\_kv\_ull()}}
+{\footnotesize\ttfamily void evel\+\_\+enc\+\_\+kv\+\_\+ull (\begin{DoxyParamCaption}\item[{\hyperlink{evel__internal_8h_af9c576f6ffebdf8c5164ccf9827b323a}{E\+V\+E\+L\+\_\+\+J\+S\+O\+N\+\_\+\+B\+U\+F\+F\+ER} $\ast$}]{jbuf,  }\item[{const char $\ast$const}]{key,  }\item[{const unsigned long long}]{value }\end{DoxyParamCaption})}
+
+
+
+Encode a string key and unsigned long long value to a \hyperlink{evel__internal_8h_af9c576f6ffebdf8c5164ccf9827b323a}{E\+V\+E\+L\+\_\+\+J\+S\+O\+N\+\_\+\+B\+U\+F\+F\+ER}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em jbuf} & Pointer to working \hyperlink{evel__internal_8h_af9c576f6ffebdf8c5164ccf9827b323a}{E\+V\+E\+L\+\_\+\+J\+S\+O\+N\+\_\+\+B\+U\+F\+F\+ER}. \\
+\hline
+{\em key} & Pointer to the key to encode. \\
+\hline
+{\em value} & The corresponding value to encode. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 394 of file evel\+\_\+json\+\_\+buffer.\+c.
+
+\hypertarget{evel__json__buffer_8c_a5865e2363875f25ecb34015d2703ad48}{}\label{evel__json__buffer_8c_a5865e2363875f25ecb34015d2703ad48} 
+\index{evel\+\_\+json\+\_\+buffer.\+c@{evel\+\_\+json\+\_\+buffer.\+c}!evel\+\_\+enc\+\_\+list\+\_\+item@{evel\+\_\+enc\+\_\+list\+\_\+item}}
+\index{evel\+\_\+enc\+\_\+list\+\_\+item@{evel\+\_\+enc\+\_\+list\+\_\+item}!evel\+\_\+json\+\_\+buffer.\+c@{evel\+\_\+json\+\_\+buffer.\+c}}
+\subsubsection{\texorpdfstring{evel\+\_\+enc\+\_\+list\+\_\+item()}{evel\_enc\_list\_item()}}
+{\footnotesize\ttfamily void evel\+\_\+enc\+\_\+list\+\_\+item (\begin{DoxyParamCaption}\item[{\hyperlink{evel__internal_8h_af9c576f6ffebdf8c5164ccf9827b323a}{E\+V\+E\+L\+\_\+\+J\+S\+O\+N\+\_\+\+B\+U\+F\+F\+ER} $\ast$}]{jbuf,  }\item[{const char $\ast$const}]{format,  }\item[{}]{... }\end{DoxyParamCaption})}
+
+
+
+Encode a list item with format and param list to a \hyperlink{evel__internal_8h_af9c576f6ffebdf8c5164ccf9827b323a}{E\+V\+E\+L\+\_\+\+J\+S\+O\+N\+\_\+\+B\+U\+F\+F\+ER}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em jbuf} & Pointer to working \hyperlink{evel__internal_8h_af9c576f6ffebdf8c5164ccf9827b323a}{E\+V\+E\+L\+\_\+\+J\+S\+O\+N\+\_\+\+B\+U\+F\+F\+ER}. \\
+\hline
+{\em format} & Format string in standard printf format. \\
+\hline
+{\em ...} & Variable parameters for format string. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 620 of file evel\+\_\+json\+\_\+buffer.\+c.
+
+\hypertarget{evel__json__buffer_8c_aa1a23c038a77d80a6d8279d0809f8492}{}\label{evel__json__buffer_8c_aa1a23c038a77d80a6d8279d0809f8492} 
+\index{evel\+\_\+json\+\_\+buffer.\+c@{evel\+\_\+json\+\_\+buffer.\+c}!evel\+\_\+enc\+\_\+version@{evel\+\_\+enc\+\_\+version}}
+\index{evel\+\_\+enc\+\_\+version@{evel\+\_\+enc\+\_\+version}!evel\+\_\+json\+\_\+buffer.\+c@{evel\+\_\+json\+\_\+buffer.\+c}}
+\subsubsection{\texorpdfstring{evel\+\_\+enc\+\_\+version()}{evel\_enc\_version()}}
+{\footnotesize\ttfamily void evel\+\_\+enc\+\_\+version (\begin{DoxyParamCaption}\item[{\hyperlink{evel__internal_8h_af9c576f6ffebdf8c5164ccf9827b323a}{E\+V\+E\+L\+\_\+\+J\+S\+O\+N\+\_\+\+B\+U\+F\+F\+ER} $\ast$}]{jbuf,  }\item[{const char $\ast$const}]{key,  }\item[{const int}]{major\+\_\+version,  }\item[{const int}]{minor\+\_\+version }\end{DoxyParamCaption})}
+
+
+
+Encode a key and version. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em jbuf} & Pointer to working \hyperlink{evel__internal_8h_af9c576f6ffebdf8c5164ccf9827b323a}{E\+V\+E\+L\+\_\+\+J\+S\+O\+N\+\_\+\+B\+U\+F\+F\+ER}. \\
+\hline
+{\em key} & Pointer to the key to encode. \\
+\hline
+{\em major\+\_\+version} & The major version to encode. \\
+\hline
+{\em minor\+\_\+version} & The minor version to encode. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 501 of file evel\+\_\+json\+\_\+buffer.\+c.
+
+\hypertarget{evel__json__buffer_8c_a569ab2f35696aede173f680cd578c7a8}{}\label{evel__json__buffer_8c_a569ab2f35696aede173f680cd578c7a8} 
+\index{evel\+\_\+json\+\_\+buffer.\+c@{evel\+\_\+json\+\_\+buffer.\+c}!evel\+\_\+json\+\_\+buffer\+\_\+init@{evel\+\_\+json\+\_\+buffer\+\_\+init}}
+\index{evel\+\_\+json\+\_\+buffer\+\_\+init@{evel\+\_\+json\+\_\+buffer\+\_\+init}!evel\+\_\+json\+\_\+buffer.\+c@{evel\+\_\+json\+\_\+buffer.\+c}}
+\subsubsection{\texorpdfstring{evel\+\_\+json\+\_\+buffer\+\_\+init()}{evel\_json\_buffer\_init()}}
+{\footnotesize\ttfamily void evel\+\_\+json\+\_\+buffer\+\_\+init (\begin{DoxyParamCaption}\item[{\hyperlink{evel__internal_8h_af9c576f6ffebdf8c5164ccf9827b323a}{E\+V\+E\+L\+\_\+\+J\+S\+O\+N\+\_\+\+B\+U\+F\+F\+ER} $\ast$}]{jbuf,  }\item[{char $\ast$const}]{json,  }\item[{const int}]{max\+\_\+size,  }\item[{\hyperlink{evel__internal_8h_a50932473d7d2e8f802d39b4f73e5b64f}{E\+V\+E\+L\+\_\+\+T\+H\+R\+O\+T\+T\+L\+E\+\_\+\+S\+P\+EC} $\ast$}]{throttle\+\_\+spec }\end{DoxyParamCaption})}
+
+
+
+Initialize a \hyperlink{evel__internal_8h_af9c576f6ffebdf8c5164ccf9827b323a}{E\+V\+E\+L\+\_\+\+J\+S\+O\+N\+\_\+\+B\+U\+F\+F\+ER}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em jbuf} & Pointer to the \hyperlink{evel__internal_8h_af9c576f6ffebdf8c5164ccf9827b323a}{E\+V\+E\+L\+\_\+\+J\+S\+O\+N\+\_\+\+B\+U\+F\+F\+ER} to initialise. \\
+\hline
+{\em json} & Pointer to the underlying working buffer to use. \\
+\hline
+{\em max\+\_\+size} & Size of storage available in the J\+S\+ON buffer. \\
+\hline
+{\em throttle\+\_\+spec} & Pointer to throttle specification. Can be N\+U\+LL. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 55 of file evel\+\_\+json\+\_\+buffer.\+c.
+
+\hypertarget{evel__json__buffer_8c_ac45597a0b0e0800c23020f2703640b80}{}\label{evel__json__buffer_8c_ac45597a0b0e0800c23020f2703640b80} 
+\index{evel\+\_\+json\+\_\+buffer.\+c@{evel\+\_\+json\+\_\+buffer.\+c}!evel\+\_\+json\+\_\+checkpoint@{evel\+\_\+json\+\_\+checkpoint}}
+\index{evel\+\_\+json\+\_\+checkpoint@{evel\+\_\+json\+\_\+checkpoint}!evel\+\_\+json\+\_\+buffer.\+c@{evel\+\_\+json\+\_\+buffer.\+c}}
+\subsubsection{\texorpdfstring{evel\+\_\+json\+\_\+checkpoint()}{evel\_json\_checkpoint()}}
+{\footnotesize\ttfamily void evel\+\_\+json\+\_\+checkpoint (\begin{DoxyParamCaption}\item[{\hyperlink{evel__internal_8h_af9c576f6ffebdf8c5164ccf9827b323a}{E\+V\+E\+L\+\_\+\+J\+S\+O\+N\+\_\+\+B\+U\+F\+F\+ER} $\ast$}]{jbuf }\end{DoxyParamCaption})}
+
+
+
+Add a checkpoint -\/ a stake in the ground to which we can rewind. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em jbuf} & Pointer to working \hyperlink{evel__internal_8h_af9c576f6ffebdf8c5164ccf9827b323a}{E\+V\+E\+L\+\_\+\+J\+S\+O\+N\+\_\+\+B\+U\+F\+F\+ER}. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 813 of file evel\+\_\+json\+\_\+buffer.\+c.
+
+\hypertarget{evel__json__buffer_8c_af452cebf94cf6234b78fed0035e5c2b3}{}\label{evel__json__buffer_8c_af452cebf94cf6234b78fed0035e5c2b3} 
+\index{evel\+\_\+json\+\_\+buffer.\+c@{evel\+\_\+json\+\_\+buffer.\+c}!evel\+\_\+json\+\_\+close\+\_\+list@{evel\+\_\+json\+\_\+close\+\_\+list}}
+\index{evel\+\_\+json\+\_\+close\+\_\+list@{evel\+\_\+json\+\_\+close\+\_\+list}!evel\+\_\+json\+\_\+buffer.\+c@{evel\+\_\+json\+\_\+buffer.\+c}}
+\subsubsection{\texorpdfstring{evel\+\_\+json\+\_\+close\+\_\+list()}{evel\_json\_close\_list()}}
+{\footnotesize\ttfamily void evel\+\_\+json\+\_\+close\+\_\+list (\begin{DoxyParamCaption}\item[{\hyperlink{evel__internal_8h_af9c576f6ffebdf8c5164ccf9827b323a}{E\+V\+E\+L\+\_\+\+J\+S\+O\+N\+\_\+\+B\+U\+F\+F\+ER} $\ast$}]{jbuf }\end{DoxyParamCaption})}
+
+
+
+Add the closing bracket of a list to a J\+S\+ON buffer. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em jbuf} & Pointer to working \hyperlink{evel__internal_8h_af9c576f6ffebdf8c5164ccf9827b323a}{E\+V\+E\+L\+\_\+\+J\+S\+O\+N\+\_\+\+B\+U\+F\+F\+ER}. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 596 of file evel\+\_\+json\+\_\+buffer.\+c.
+
+\hypertarget{evel__json__buffer_8c_a0de38c99fe7b8f363bd7f36f9738ebfd}{}\label{evel__json__buffer_8c_a0de38c99fe7b8f363bd7f36f9738ebfd} 
+\index{evel\+\_\+json\+\_\+buffer.\+c@{evel\+\_\+json\+\_\+buffer.\+c}!evel\+\_\+json\+\_\+close\+\_\+object@{evel\+\_\+json\+\_\+close\+\_\+object}}
+\index{evel\+\_\+json\+\_\+close\+\_\+object@{evel\+\_\+json\+\_\+close\+\_\+object}!evel\+\_\+json\+\_\+buffer.\+c@{evel\+\_\+json\+\_\+buffer.\+c}}
+\subsubsection{\texorpdfstring{evel\+\_\+json\+\_\+close\+\_\+object()}{evel\_json\_close\_object()}}
+{\footnotesize\ttfamily void evel\+\_\+json\+\_\+close\+\_\+object (\begin{DoxyParamCaption}\item[{\hyperlink{evel__internal_8h_af9c576f6ffebdf8c5164ccf9827b323a}{E\+V\+E\+L\+\_\+\+J\+S\+O\+N\+\_\+\+B\+U\+F\+F\+ER} $\ast$}]{jbuf }\end{DoxyParamCaption})}
+
+
+
+Add the closing bracket of an object to a J\+S\+ON buffer. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em jbuf} & Pointer to working \hyperlink{evel__internal_8h_af9c576f6ffebdf8c5164ccf9827b323a}{E\+V\+E\+L\+\_\+\+J\+S\+O\+N\+\_\+\+B\+U\+F\+F\+ER}. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 758 of file evel\+\_\+json\+\_\+buffer.\+c.
+
+\hypertarget{evel__json__buffer_8c_abf72f7c475da06d738b6187f0d37ca81}{}\label{evel__json__buffer_8c_abf72f7c475da06d738b6187f0d37ca81} 
+\index{evel\+\_\+json\+\_\+buffer.\+c@{evel\+\_\+json\+\_\+buffer.\+c}!evel\+\_\+json\+\_\+open\+\_\+named\+\_\+list@{evel\+\_\+json\+\_\+open\+\_\+named\+\_\+list}}
+\index{evel\+\_\+json\+\_\+open\+\_\+named\+\_\+list@{evel\+\_\+json\+\_\+open\+\_\+named\+\_\+list}!evel\+\_\+json\+\_\+buffer.\+c@{evel\+\_\+json\+\_\+buffer.\+c}}
+\subsubsection{\texorpdfstring{evel\+\_\+json\+\_\+open\+\_\+named\+\_\+list()}{evel\_json\_open\_named\_list()}}
+{\footnotesize\ttfamily void evel\+\_\+json\+\_\+open\+\_\+named\+\_\+list (\begin{DoxyParamCaption}\item[{\hyperlink{evel__internal_8h_af9c576f6ffebdf8c5164ccf9827b323a}{E\+V\+E\+L\+\_\+\+J\+S\+O\+N\+\_\+\+B\+U\+F\+F\+ER} $\ast$}]{jbuf,  }\item[{const char $\ast$const}]{key }\end{DoxyParamCaption})}
+
+
+
+Add the key and opening bracket of a named list to a J\+S\+ON buffer. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em jbuf} & Pointer to working \hyperlink{evel__internal_8h_af9c576f6ffebdf8c5164ccf9827b323a}{E\+V\+E\+L\+\_\+\+J\+S\+O\+N\+\_\+\+B\+U\+F\+F\+ER}. \\
+\hline
+{\em key} & Pointer to the key to encode. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 570 of file evel\+\_\+json\+\_\+buffer.\+c.
+
+\hypertarget{evel__json__buffer_8c_a39a1a898a826564ab0f52cbdeb2285df}{}\label{evel__json__buffer_8c_a39a1a898a826564ab0f52cbdeb2285df} 
+\index{evel\+\_\+json\+\_\+buffer.\+c@{evel\+\_\+json\+\_\+buffer.\+c}!evel\+\_\+json\+\_\+open\+\_\+named\+\_\+object@{evel\+\_\+json\+\_\+open\+\_\+named\+\_\+object}}
+\index{evel\+\_\+json\+\_\+open\+\_\+named\+\_\+object@{evel\+\_\+json\+\_\+open\+\_\+named\+\_\+object}!evel\+\_\+json\+\_\+buffer.\+c@{evel\+\_\+json\+\_\+buffer.\+c}}
+\subsubsection{\texorpdfstring{evel\+\_\+json\+\_\+open\+\_\+named\+\_\+object()}{evel\_json\_open\_named\_object()}}
+{\footnotesize\ttfamily void evel\+\_\+json\+\_\+open\+\_\+named\+\_\+object (\begin{DoxyParamCaption}\item[{\hyperlink{evel__internal_8h_af9c576f6ffebdf8c5164ccf9827b323a}{E\+V\+E\+L\+\_\+\+J\+S\+O\+N\+\_\+\+B\+U\+F\+F\+ER} $\ast$}]{jbuf,  }\item[{const char $\ast$const}]{key }\end{DoxyParamCaption})}
+
+
+
+Add the opening bracket of an object to a J\+S\+ON buffer. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em jbuf} & Pointer to working \hyperlink{evel__internal_8h_af9c576f6ffebdf8c5164ccf9827b323a}{E\+V\+E\+L\+\_\+\+J\+S\+O\+N\+\_\+\+B\+U\+F\+F\+ER}. \\
+\hline
+{\em key} & Pointer to the key to encode. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if the object was opened, false if it was suppressed. 
+\end{DoxyReturn}
+
+
+Definition at line 698 of file evel\+\_\+json\+\_\+buffer.\+c.
+
+\hypertarget{evel__json__buffer_8c_aa6d606c2571856f38a50e20da1120c1f}{}\label{evel__json__buffer_8c_aa6d606c2571856f38a50e20da1120c1f} 
+\index{evel\+\_\+json\+\_\+buffer.\+c@{evel\+\_\+json\+\_\+buffer.\+c}!evel\+\_\+json\+\_\+open\+\_\+object@{evel\+\_\+json\+\_\+open\+\_\+object}}
+\index{evel\+\_\+json\+\_\+open\+\_\+object@{evel\+\_\+json\+\_\+open\+\_\+object}!evel\+\_\+json\+\_\+buffer.\+c@{evel\+\_\+json\+\_\+buffer.\+c}}
+\subsubsection{\texorpdfstring{evel\+\_\+json\+\_\+open\+\_\+object()}{evel\_json\_open\_object()}}
+{\footnotesize\ttfamily void evel\+\_\+json\+\_\+open\+\_\+object (\begin{DoxyParamCaption}\item[{\hyperlink{evel__internal_8h_af9c576f6ffebdf8c5164ccf9827b323a}{E\+V\+E\+L\+\_\+\+J\+S\+O\+N\+\_\+\+B\+U\+F\+F\+ER} $\ast$}]{jbuf }\end{DoxyParamCaption})}
+
+
+
+Add the opening bracket of an object to a J\+S\+ON buffer. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em jbuf} & Pointer to working \hyperlink{evel__internal_8h_af9c576f6ffebdf8c5164ccf9827b323a}{E\+V\+E\+L\+\_\+\+J\+S\+O\+N\+\_\+\+B\+U\+F\+F\+ER}. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 724 of file evel\+\_\+json\+\_\+buffer.\+c.
+
+\hypertarget{evel__json__buffer_8c_a9d9e915aefa7309aea6b13ed0d19bb2b}{}\label{evel__json__buffer_8c_a9d9e915aefa7309aea6b13ed0d19bb2b} 
+\index{evel\+\_\+json\+\_\+buffer.\+c@{evel\+\_\+json\+\_\+buffer.\+c}!evel\+\_\+json\+\_\+open\+\_\+opt\+\_\+named\+\_\+list@{evel\+\_\+json\+\_\+open\+\_\+opt\+\_\+named\+\_\+list}}
+\index{evel\+\_\+json\+\_\+open\+\_\+opt\+\_\+named\+\_\+list@{evel\+\_\+json\+\_\+open\+\_\+opt\+\_\+named\+\_\+list}!evel\+\_\+json\+\_\+buffer.\+c@{evel\+\_\+json\+\_\+buffer.\+c}}
+\subsubsection{\texorpdfstring{evel\+\_\+json\+\_\+open\+\_\+opt\+\_\+named\+\_\+list()}{evel\_json\_open\_opt\_named\_list()}}
+{\footnotesize\ttfamily bool evel\+\_\+json\+\_\+open\+\_\+opt\+\_\+named\+\_\+list (\begin{DoxyParamCaption}\item[{\hyperlink{evel__internal_8h_af9c576f6ffebdf8c5164ccf9827b323a}{E\+V\+E\+L\+\_\+\+J\+S\+O\+N\+\_\+\+B\+U\+F\+F\+ER} $\ast$}]{jbuf,  }\item[{const char $\ast$const}]{key }\end{DoxyParamCaption})}
+
+
+
+Add the key and opening bracket of an optional named list to a J\+S\+ON buffer. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em jbuf} & Pointer to working \hyperlink{evel__internal_8h_af9c576f6ffebdf8c5164ccf9827b323a}{E\+V\+E\+L\+\_\+\+J\+S\+O\+N\+\_\+\+B\+U\+F\+F\+ER}. \\
+\hline
+{\em key} & Pointer to the key to encode. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if the list was opened, false if it was suppressed. 
+\end{DoxyReturn}
+
+
+Definition at line 533 of file evel\+\_\+json\+\_\+buffer.\+c.
+
+\hypertarget{evel__json__buffer_8c_a9b4750f078ba726011926ea97f857c55}{}\label{evel__json__buffer_8c_a9b4750f078ba726011926ea97f857c55} 
+\index{evel\+\_\+json\+\_\+buffer.\+c@{evel\+\_\+json\+\_\+buffer.\+c}!evel\+\_\+json\+\_\+open\+\_\+opt\+\_\+named\+\_\+object@{evel\+\_\+json\+\_\+open\+\_\+opt\+\_\+named\+\_\+object}}
+\index{evel\+\_\+json\+\_\+open\+\_\+opt\+\_\+named\+\_\+object@{evel\+\_\+json\+\_\+open\+\_\+opt\+\_\+named\+\_\+object}!evel\+\_\+json\+\_\+buffer.\+c@{evel\+\_\+json\+\_\+buffer.\+c}}
+\subsubsection{\texorpdfstring{evel\+\_\+json\+\_\+open\+\_\+opt\+\_\+named\+\_\+object()}{evel\_json\_open\_opt\_named\_object()}}
+{\footnotesize\ttfamily bool evel\+\_\+json\+\_\+open\+\_\+opt\+\_\+named\+\_\+object (\begin{DoxyParamCaption}\item[{\hyperlink{evel__internal_8h_af9c576f6ffebdf8c5164ccf9827b323a}{E\+V\+E\+L\+\_\+\+J\+S\+O\+N\+\_\+\+B\+U\+F\+F\+ER} $\ast$}]{jbuf,  }\item[{const char $\ast$const}]{key }\end{DoxyParamCaption})}
+
+
+
+Add the opening bracket of an optional named object to a J\+S\+ON buffer. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em jbuf} & Pointer to working \hyperlink{evel__internal_8h_af9c576f6ffebdf8c5164ccf9827b323a}{E\+V\+E\+L\+\_\+\+J\+S\+O\+N\+\_\+\+B\+U\+F\+F\+ER}. \\
+\hline
+{\em key} & Pointer to the key to encode. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 660 of file evel\+\_\+json\+\_\+buffer.\+c.
+
+\hypertarget{evel__json__buffer_8c_af91449dfd90e2c45fd90ffa54fdb65a4}{}\label{evel__json__buffer_8c_af91449dfd90e2c45fd90ffa54fdb65a4} 
+\index{evel\+\_\+json\+\_\+buffer.\+c@{evel\+\_\+json\+\_\+buffer.\+c}!evel\+\_\+json\+\_\+rewind@{evel\+\_\+json\+\_\+rewind}}
+\index{evel\+\_\+json\+\_\+rewind@{evel\+\_\+json\+\_\+rewind}!evel\+\_\+json\+\_\+buffer.\+c@{evel\+\_\+json\+\_\+buffer.\+c}}
+\subsubsection{\texorpdfstring{evel\+\_\+json\+\_\+rewind()}{evel\_json\_rewind()}}
+{\footnotesize\ttfamily void evel\+\_\+json\+\_\+rewind (\begin{DoxyParamCaption}\item[{\hyperlink{evel__internal_8h_af9c576f6ffebdf8c5164ccf9827b323a}{E\+V\+E\+L\+\_\+\+J\+S\+O\+N\+\_\+\+B\+U\+F\+F\+ER} $\ast$}]{jbuf }\end{DoxyParamCaption})}
+
+
+
+Rewind to the latest checkoint. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em jbuf} & Pointer to working \hyperlink{evel__internal_8h_af9c576f6ffebdf8c5164ccf9827b323a}{E\+V\+E\+L\+\_\+\+J\+S\+O\+N\+\_\+\+B\+U\+F\+F\+ER}. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 835 of file evel\+\_\+json\+\_\+buffer.\+c.
+

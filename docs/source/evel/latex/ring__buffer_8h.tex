@@ -5,7 +5,7 @@
 A ring buffer.  
 
 
-{\ttfamily \#include $<$pthread.\+h$>$}\\*
+{\ttfamily \#include $<$pthread.\+h$>$}\newline
 Include dependency graph for ring\+\_\+buffer.\+h\+:
 \nopagebreak
 \begin{figure}[H]
@@ -19,7 +19,7 @@ This graph shows which files directly or indirectly include this file\+:
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=262pt]{ring__buffer_8h__dep__incl}
+\includegraphics[width=263pt]{ring__buffer_8h__dep__incl}
 \end{center}
 \end{figure}
 \subsection*{Data Structures}
@@ -50,7 +50,7 @@ A ring buffer.
 
 \subsubsection*{License }
 
-Copyright(c) $<$2016$>$, A\+T\&T Intellectual Property. All other rights reserved.
+Copyright(c) $<$2016$>$, AT\&T Intellectual Property. All other rights reserved.
 
 Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met\+:
 
@@ -58,16 +58,19 @@ Redistribution and use in source and binary forms, with or without modification,
 \begin{DoxyEnumerate}
 \item Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
 \item Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.
-\item All advertising materials mentioning features or use of this software must display the following acknowledgement\+: This product includes software developed by the A\+T\&T.
-\item Neither the name of A\+T\&T nor the names of its contributors may be used to endorse or promote products derived from this software without specific prior written permission.
+\item All advertising materials mentioning features or use of this software must display the following acknowledgement\+: This product includes software developed by the AT\&T.
+\item Neither the name of AT\&T nor the names of its contributors may be used to endorse or promote products derived from this software without specific prior written permission.
 \end{DoxyEnumerate}
 
-T\+H\+I\+S S\+O\+F\+T\+W\+A\+R\+E I\+S P\+R\+O\+V\+I\+D\+E\+D B\+Y A\+T\&T I\+N\+T\+E\+L\+L\+E\+C\+T\+U\+A\+L P\+R\+O\+P\+E\+R\+T\+Y \textquotesingle{}\textquotesingle{}A\+S I\+S\textquotesingle{}\textquotesingle{} A\+N\+D A\+N\+Y E\+X\+P\+R\+E\+S\+S O\+R I\+M\+P\+L\+I\+E\+D W\+A\+R\+R\+A\+N\+T\+I\+E\+S, I\+N\+C\+L\+U\+D\+I\+N\+G, B\+U\+T N\+O\+T L\+I\+M\+I\+T\+E\+D T\+O, T\+H\+E I\+M\+P\+L\+I\+E\+D W\+A\+R\+R\+A\+N\+T\+I\+E\+S O\+F M\+E\+R\+C\+H\+A\+N\+T\+A\+B\+I\+L\+I\+T\+Y A\+N\+D F\+I\+T\+N\+E\+S\+S F\+O\+R A P\+A\+R\+T\+I\+C\+U\+L\+A\+R P\+U\+R\+P\+O\+S\+E A\+R\+E D\+I\+S\+C\+L\+A\+I\+M\+E\+D. I\+N N\+O E\+V\+E\+N\+T S\+H\+A\+L\+L A\+T\&T I\+N\+T\+E\+L\+L\+E\+C\+T\+U\+A\+L P\+R\+O\+P\+E\+R\+T\+Y B\+E L\+I\+A\+B\+L\+E F\+O\+R A\+N\+Y D\+I\+R\+E\+C\+T, I\+N\+D\+I\+R\+E\+C\+T, I\+N\+C\+I\+D\+E\+N\+T\+A\+L, S\+P\+E\+C\+I\+A\+L, E\+X\+E\+M\+P\+L\+A\+R\+Y, O\+R C\+O\+N\+S\+E\+Q\+U\+E\+N\+T\+I\+A\+L D\+A\+M\+A\+G\+E\+S (I\+N\+C\+L\+U\+D\+I\+N\+G, B\+U\+T N\+O\+T L\+I\+M\+I\+T\+E\+D T\+O, P\+R\+O\+C\+U\+R\+E\+M\+E\+N\+T O\+F S\+U\+B\+S\+T\+I\+T\+U\+T\+E G\+O\+O\+D\+S O\+R S\+E\+R\+V\+I\+C\+E\+S; L\+O\+S\+S O\+F U\+S\+E, D\+A\+T\+A, O\+R P\+R\+O\+F\+I\+T\+S; O\+R B\+U\+S\+I\+N\+E\+S\+S I\+N\+T\+E\+R\+R\+U\+P\+T\+I\+O\+N) H\+O\+W\+E\+V\+E\+R C\+A\+U\+S\+E\+D A\+N\+D O\+N A\+N\+Y T\+H\+E\+O\+R\+Y O\+F L\+I\+A\+B\+I\+L\+I\+T\+Y, W\+H\+E\+T\+H\+E\+R I\+N C\+O\+N\+T\+R\+A\+C\+T, S\+T\+R\+I\+C\+T L\+I\+A\+B\+I\+L\+I\+T\+Y, O\+R T\+O\+R\+T (I\+N\+C\+L\+U\+D\+I\+N\+G N\+E\+G\+L\+I\+G\+E\+N\+C\+E O\+R O\+T\+H\+E\+R\+W\+I\+S\+E) A\+R\+I\+S\+I\+N\+G I\+N A\+N\+Y W\+A\+Y O\+U\+T O\+F T\+H\+E U\+S\+E O\+F T\+H\+I\+S S\+O\+F\+T\+W\+A\+R\+E, E\+V\+E\+N I\+F A\+D\+V\+I\+S\+E\+D O\+F T\+H\+E P\+O\+S\+S\+I\+B\+I\+L\+I\+T\+Y O\+F S\+U\+C\+H D\+A\+M\+A\+G\+E. 
+T\+H\+IS S\+O\+F\+T\+W\+A\+RE IS P\+R\+O\+V\+I\+D\+ED BY AT\&T I\+N\+T\+E\+L\+L\+E\+C\+T\+U\+AL P\+R\+O\+P\+E\+R\+TY \textquotesingle{}\textquotesingle{}AS IS\textquotesingle{}\textquotesingle{} A\+ND A\+NY E\+X\+P\+R\+E\+SS OR I\+M\+P\+L\+I\+ED W\+A\+R\+R\+A\+N\+T\+I\+ES, I\+N\+C\+L\+U\+D\+I\+NG, B\+UT N\+OT L\+I\+M\+I\+T\+ED TO, T\+HE I\+M\+P\+L\+I\+ED W\+A\+R\+R\+A\+N\+T\+I\+ES OF M\+E\+R\+C\+H\+A\+N\+T\+A\+B\+I\+L\+I\+TY A\+ND F\+I\+T\+N\+E\+SS F\+OR A P\+A\+R\+T\+I\+C\+U\+L\+AR P\+U\+R\+P\+O\+SE A\+RE D\+I\+S\+C\+L\+A\+I\+M\+ED. IN NO E\+V\+E\+NT S\+H\+A\+LL AT\&T I\+N\+T\+E\+L\+L\+E\+C\+T\+U\+AL P\+R\+O\+P\+E\+R\+TY BE L\+I\+A\+B\+LE F\+OR A\+NY D\+I\+R\+E\+CT, I\+N\+D\+I\+R\+E\+CT, I\+N\+C\+I\+D\+E\+N\+T\+AL, S\+P\+E\+C\+I\+AL, E\+X\+E\+M\+P\+L\+A\+RY, OR C\+O\+N\+S\+E\+Q\+U\+E\+N\+T\+I\+AL D\+A\+M\+A\+G\+ES (I\+N\+C\+L\+U\+D\+I\+NG, B\+UT N\+OT L\+I\+M\+I\+T\+ED TO, P\+R\+O\+C\+U\+R\+E\+M\+E\+NT OF S\+U\+B\+S\+T\+I\+T\+U\+TE G\+O\+O\+DS OR S\+E\+R\+V\+I\+C\+ES; L\+O\+SS OF U\+SE, D\+A\+TA, OR P\+R\+O\+F\+I\+TS; OR B\+U\+S\+I\+N\+E\+SS I\+N\+T\+E\+R\+R\+U\+P\+T\+I\+ON) H\+O\+W\+E\+V\+ER C\+A\+U\+S\+ED A\+ND ON A\+NY T\+H\+E\+O\+RY OF L\+I\+A\+B\+I\+L\+I\+TY, W\+H\+E\+T\+H\+ER IN C\+O\+N\+T\+R\+A\+CT, S\+T\+R\+I\+CT L\+I\+A\+B\+I\+L\+I\+TY, OR T\+O\+RT (I\+N\+C\+L\+U\+D\+I\+NG N\+E\+G\+L\+I\+G\+E\+N\+CE OR O\+T\+H\+E\+R\+W\+I\+SE) A\+R\+I\+S\+I\+NG IN A\+NY W\+AY O\+UT OF T\+HE U\+SE OF T\+H\+IS S\+O\+F\+T\+W\+A\+RE, E\+V\+EN IF A\+D\+V\+I\+S\+ED OF T\+HE P\+O\+S\+S\+I\+B\+I\+L\+I\+TY OF S\+U\+CH D\+A\+M\+A\+GE. 
 
 \subsection{Typedef Documentation}
-\hypertarget{ring__buffer_8h_a384e381bb36973cdea789a8816ececb8}{}\index{ring\+\_\+buffer.\+h@{ring\+\_\+buffer.\+h}!ring\+\_\+buffer@{ring\+\_\+buffer}}
+\hypertarget{ring__buffer_8h_a384e381bb36973cdea789a8816ececb8}{}\label{ring__buffer_8h_a384e381bb36973cdea789a8816ececb8} 
+\index{ring\+\_\+buffer.\+h@{ring\+\_\+buffer.\+h}!ring\+\_\+buffer@{ring\+\_\+buffer}}
 \index{ring\+\_\+buffer@{ring\+\_\+buffer}!ring\+\_\+buffer.\+h@{ring\+\_\+buffer.\+h}}
-\subsubsection[{ring\+\_\+buffer}]{\setlength{\rightskip}{0pt plus 5cm}typedef struct {\bf ring\+\_\+buffer}  {\bf ring\+\_\+buffer}}\label{ring__buffer_8h_a384e381bb36973cdea789a8816ececb8}
+\subsubsection{\texorpdfstring{ring\+\_\+buffer}{ring\_buffer}}
+{\footnotesize\ttfamily typedef struct \hyperlink{structring__buffer}{ring\+\_\+buffer}  \hyperlink{structring__buffer}{ring\+\_\+buffer}}
+
 
 
 Ring buffer structure. 
@@ -75,14 +78,12 @@ Ring buffer structure.
 
 
 \subsection{Function Documentation}
-\hypertarget{ring__buffer_8h_aad299ba5a30d50f913e3f66420ca53e9}{}\index{ring\+\_\+buffer.\+h@{ring\+\_\+buffer.\+h}!ring\+\_\+buffer\+\_\+initialize@{ring\+\_\+buffer\+\_\+initialize}}
+\hypertarget{ring__buffer_8h_aad299ba5a30d50f913e3f66420ca53e9}{}\label{ring__buffer_8h_aad299ba5a30d50f913e3f66420ca53e9} 
+\index{ring\+\_\+buffer.\+h@{ring\+\_\+buffer.\+h}!ring\+\_\+buffer\+\_\+initialize@{ring\+\_\+buffer\+\_\+initialize}}
 \index{ring\+\_\+buffer\+\_\+initialize@{ring\+\_\+buffer\+\_\+initialize}!ring\+\_\+buffer.\+h@{ring\+\_\+buffer.\+h}}
-\subsubsection[{ring\+\_\+buffer\+\_\+initialize(ring\+\_\+buffer $\ast$buffer, int size)}]{\setlength{\rightskip}{0pt plus 5cm}void ring\+\_\+buffer\+\_\+initialize (
-\begin{DoxyParamCaption}
-\item[{{\bf ring\+\_\+buffer} $\ast$}]{buffer, }
-\item[{int}]{size}
-\end{DoxyParamCaption}
-)}\label{ring__buffer_8h_aad299ba5a30d50f913e3f66420ca53e9}
+\subsubsection{\texorpdfstring{ring\+\_\+buffer\+\_\+initialize()}{ring\_buffer\_initialize()}}
+{\footnotesize\ttfamily void ring\+\_\+buffer\+\_\+initialize (\begin{DoxyParamCaption}\item[{\hyperlink{structring__buffer}{ring\+\_\+buffer} $\ast$}]{buffer,  }\item[{int}]{size }\end{DoxyParamCaption})}
+
 
 
 Ring buffer initialization. 
@@ -103,13 +104,12 @@ Nothing
 
 Definition at line 53 of file ring\+\_\+buffer.\+c.
 
-\hypertarget{ring__buffer_8h_abb2a31807167d3ab86be320c7892d83f}{}\index{ring\+\_\+buffer.\+h@{ring\+\_\+buffer.\+h}!ring\+\_\+buffer\+\_\+is\+\_\+empty@{ring\+\_\+buffer\+\_\+is\+\_\+empty}}
+\hypertarget{ring__buffer_8h_abb2a31807167d3ab86be320c7892d83f}{}\label{ring__buffer_8h_abb2a31807167d3ab86be320c7892d83f} 
+\index{ring\+\_\+buffer.\+h@{ring\+\_\+buffer.\+h}!ring\+\_\+buffer\+\_\+is\+\_\+empty@{ring\+\_\+buffer\+\_\+is\+\_\+empty}}
 \index{ring\+\_\+buffer\+\_\+is\+\_\+empty@{ring\+\_\+buffer\+\_\+is\+\_\+empty}!ring\+\_\+buffer.\+h@{ring\+\_\+buffer.\+h}}
-\subsubsection[{ring\+\_\+buffer\+\_\+is\+\_\+empty(ring\+\_\+buffer $\ast$buffer)}]{\setlength{\rightskip}{0pt plus 5cm}int ring\+\_\+buffer\+\_\+is\+\_\+empty (
-\begin{DoxyParamCaption}
-\item[{{\bf ring\+\_\+buffer} $\ast$}]{buffer}
-\end{DoxyParamCaption}
-)}\label{ring__buffer_8h_abb2a31807167d3ab86be320c7892d83f}
+\subsubsection{\texorpdfstring{ring\+\_\+buffer\+\_\+is\+\_\+empty()}{ring\_buffer\_is\_empty()}}
+{\footnotesize\ttfamily int ring\+\_\+buffer\+\_\+is\+\_\+empty (\begin{DoxyParamCaption}\item[{\hyperlink{structring__buffer}{ring\+\_\+buffer} $\ast$}]{buffer }\end{DoxyParamCaption})}
+
 
 
 Tests whether there is data in the \hyperlink{structring__buffer}{ring\+\_\+buffer}. 
@@ -135,13 +135,12 @@ Whether there is data in the \hyperlink{structring__buffer}{ring\+\_\+buffer}.
 
 Definition at line 194 of file ring\+\_\+buffer.\+c.
 
-\hypertarget{ring__buffer_8h_af60de094053d42add3cd38ee82d1d061}{}\index{ring\+\_\+buffer.\+h@{ring\+\_\+buffer.\+h}!ring\+\_\+buffer\+\_\+read@{ring\+\_\+buffer\+\_\+read}}
+\hypertarget{ring__buffer_8h_af60de094053d42add3cd38ee82d1d061}{}\label{ring__buffer_8h_af60de094053d42add3cd38ee82d1d061} 
+\index{ring\+\_\+buffer.\+h@{ring\+\_\+buffer.\+h}!ring\+\_\+buffer\+\_\+read@{ring\+\_\+buffer\+\_\+read}}
 \index{ring\+\_\+buffer\+\_\+read@{ring\+\_\+buffer\+\_\+read}!ring\+\_\+buffer.\+h@{ring\+\_\+buffer.\+h}}
-\subsubsection[{ring\+\_\+buffer\+\_\+read(ring\+\_\+buffer $\ast$buffer)}]{\setlength{\rightskip}{0pt plus 5cm}void$\ast$ ring\+\_\+buffer\+\_\+read (
-\begin{DoxyParamCaption}
-\item[{{\bf ring\+\_\+buffer} $\ast$}]{buffer}
-\end{DoxyParamCaption}
-)}\label{ring__buffer_8h_af60de094053d42add3cd38ee82d1d061}
+\subsubsection{\texorpdfstring{ring\+\_\+buffer\+\_\+read()}{ring\_buffer\_read()}}
+{\footnotesize\ttfamily void$\ast$ ring\+\_\+buffer\+\_\+read (\begin{DoxyParamCaption}\item[{\hyperlink{structring__buffer}{ring\+\_\+buffer} $\ast$}]{buffer }\end{DoxyParamCaption})}
+
 
 
 Read an element from a \hyperlink{structring__buffer}{ring\+\_\+buffer}. 
@@ -160,14 +159,12 @@ Pointer to the element read from the buffer.
 
 Definition at line 100 of file ring\+\_\+buffer.\+c.
 
-\hypertarget{ring__buffer_8h_acac2cd4dea2d5b1d0c77ed57113d80a3}{}\index{ring\+\_\+buffer.\+h@{ring\+\_\+buffer.\+h}!ring\+\_\+buffer\+\_\+write@{ring\+\_\+buffer\+\_\+write}}
+\hypertarget{ring__buffer_8h_acac2cd4dea2d5b1d0c77ed57113d80a3}{}\label{ring__buffer_8h_acac2cd4dea2d5b1d0c77ed57113d80a3} 
+\index{ring\+\_\+buffer.\+h@{ring\+\_\+buffer.\+h}!ring\+\_\+buffer\+\_\+write@{ring\+\_\+buffer\+\_\+write}}
 \index{ring\+\_\+buffer\+\_\+write@{ring\+\_\+buffer\+\_\+write}!ring\+\_\+buffer.\+h@{ring\+\_\+buffer.\+h}}
-\subsubsection[{ring\+\_\+buffer\+\_\+write(ring\+\_\+buffer $\ast$buffer, void $\ast$msg)}]{\setlength{\rightskip}{0pt plus 5cm}int ring\+\_\+buffer\+\_\+write (
-\begin{DoxyParamCaption}
-\item[{{\bf ring\+\_\+buffer} $\ast$}]{buffer, }
-\item[{void $\ast$}]{msg}
-\end{DoxyParamCaption}
-)}\label{ring__buffer_8h_acac2cd4dea2d5b1d0c77ed57113d80a3}
+\subsubsection{\texorpdfstring{ring\+\_\+buffer\+\_\+write()}{ring\_buffer\_write()}}
+{\footnotesize\ttfamily int ring\+\_\+buffer\+\_\+write (\begin{DoxyParamCaption}\item[{\hyperlink{structring__buffer}{ring\+\_\+buffer} $\ast$}]{buffer,  }\item[{void $\ast$}]{msg }\end{DoxyParamCaption})}
+
 
 
 Write an element into a \hyperlink{structring__buffer}{ring\+\_\+buffer}. 

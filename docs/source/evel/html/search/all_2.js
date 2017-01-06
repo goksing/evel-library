@@ -1,12 +1,10 @@
 var searchData=
 [
-  ['codec_5fid',['codec_id',['../structmeasurement__codec__use.html#aa84452b4ffcae1ccec4e40f8570f63a9',1,'measurement_codec_use']]],
-  ['codec_5fusage',['codec_usage',['../structevent__measurement.html#a9ef619061bb0185c063ede94a114a73c',1,'event_measurement']]],
-  ['codec_5futilization',['codec_utilization',['../structmeasurement__codec__use.html#aedcede04d123d6cdb450ac8faf35bf35',1,'measurement_codec_use']]],
-  ['command',['command',['../structevent__internal.html#a7aabad85d349fa4a2d8cefe380fca9de',1,'event_internal']]],
-  ['concurrent_5fsessions',['concurrent_sessions',['../structevent__measurement.html#a96afa2ac61d0fade72e1645a284cfae6',1,'event_measurement']]],
-  ['configured_5fentities',['configured_entities',['../structevent__measurement.html#a4cb58272b32e5ec4e49d339f3f7b3677',1,'event_measurement']]],
-  ['count',['count',['../structmeasurement__latency__bucket.html#a5957e2d644bce4e4403ce381aca6bc93',1,'measurement_latency_bucket']]],
-  ['cpu_5fusage',['cpu_usage',['../structevent__measurement.html#a1a727089e82e56bdd7d4a3aa6a55fa16',1,'event_measurement']]],
-  ['custom_5fmeasurement',['custom_measurement',['../structcustom__measurement.html',1,'custom_measurement'],['../evel_8h.html#ac5bab2b0b0c93c762ba2ebbfa66d6ab2',1,'CUSTOM_MEASUREMENT():&#160;evel.h']]]
+  ['block_5fconfigured',['block_configured',['../structmeasurement__fsys__use.html#af56164f34467ba0112a396955042fa1c',1,'measurement_fsys_use']]],
+  ['block_5fiops',['block_iops',['../structmeasurement__fsys__use.html#ab41ba374abdbd41b71a029e4be061a24',1,'measurement_fsys_use']]],
+  ['block_5fused',['block_used',['../structmeasurement__fsys__use.html#ad156e14eb4f7f3ab929e4b709aa1ebea',1,'measurement_fsys_use']]],
+  ['broadcast_5fpackets_5fin',['broadcast_packets_in',['../structmeasurement__vnic__use.html#ad389902a9393b27a6feca5025543687b',1,'measurement_vnic_use']]],
+  ['broadcast_5fpackets_5fout',['broadcast_packets_out',['../structmeasurement__vnic__use.html#ac6b9e16ed9578dcd78997f30a486c23d',1,'measurement_vnic_use']]],
+  ['bytes_5fin',['bytes_in',['../structmeasurement__vnic__use.html#ad6289ea98d480dfc89aff65304ac665c',1,'measurement_vnic_use']]],
+  ['bytes_5fout',['bytes_out',['../structmeasurement__vnic__use.html#a3531ca46c61940621cea0f4d34f58855',1,'measurement_vnic_use']]]
 ];

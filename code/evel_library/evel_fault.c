@@ -40,7 +40,7 @@
 
 #include "evel.h"
 #include "evel_internal.h"
-
+#include "evel_throttle.h"
 
 /**************************************************************************//**
  * Create a new fault event.
@@ -54,13 +54,13 @@
  * @param   priority    The priority of the event.
  * @param   severity    The severity of the Fault.
  * @returns pointer to the newly manufactured ::EVENT_FAULT.  If the event is
- *          not used (i.e. posted) it must be released using ::evel_free_event.
+ *          not used (i.e. posted) it must be released using ::evel_free_fault.
  * @retval  NULL  Failed to create the event.
  *****************************************************************************/
-EVENT_FAULT * evel_new_fault(const char const * condition,
-                             const char const * specific_problem,
+EVENT_FAULT * evel_new_fault(const char * const condition,
+                             const char * const specific_problem,
                              EVEL_EVENT_PRIORITIES priority,
-                             EVEL_FAULT_SEVERITIES severity)
+                             EVEL_SEVERITIES severity)
 {
   EVENT_FAULT * fault = NULL;
   EVEL_ENTER();
@@ -92,12 +92,15 @@ EVENT_FAULT * evel_new_fault(const char const * condition,
   evel_init_header(&fault->header);
   fault->header.event_domain = EVEL_DOMAIN_FAULT;
   fault->header.priority = priority;
-  dlist_initialize(&fault->additional_info);
+  fault->major_version = EVEL_FAULT_MAJOR_VERSION;
+  fault->minor_version = EVEL_FAULT_MINOR_VERSION;
   fault->event_severity = severity;
   fault->event_source_type = event_source_type;
   fault->vf_status = EVEL_VF_STATUS_ACTIVE;
   fault->alarm_condition = strdup(condition);
   fault->specific_problem = strdup(specific_problem);
+  evel_init_option_string(&fault->alarm_interface_a);
+  dlist_initialize(&fault->additional_info);
 
 exit_label:
   EVEL_EXIT();
@@ -135,12 +138,13 @@ void evel_fault_addl_info_add(EVENT_FAULT * fault, char * name, char * value)
   EVEL_DEBUG("Adding name=%s value=%s", name, value);
   addl_info = malloc(sizeof(FAULT_ADDL_INFO));
   assert(addl_info != NULL);
+  memset(addl_info, 0, sizeof(FAULT_ADDL_INFO));
   addl_info->name = strdup(name);
   addl_info->value = strdup(value);
   assert(addl_info->name != NULL);
   assert(addl_info->value != NULL);
 
-  dlist_push_first(&fault->additional_info, addl_info);
+  dlist_push_last(&fault->additional_info, addl_info);
 
   EVEL_EXIT();
 }
@@ -158,7 +162,7 @@ void evel_fault_addl_info_add(EVENT_FAULT * fault, char * name, char * value)
  *                   returns.
  *****************************************************************************/
 void evel_fault_interface_set(EVENT_FAULT * fault,
-                              const char const * interface)
+                              const char * const interface)
 {
   EVEL_ENTER();
 
@@ -169,17 +173,9 @@ void evel_fault_interface_set(EVENT_FAULT * fault,
   assert(fault->header.event_domain == EVEL_DOMAIN_FAULT);
   assert(interface != NULL);
 
-  if (fault->alarm_interface_a == NULL)
-  {
-    EVEL_DEBUG("Setting Alarm Interface A to %s", interface);
-    fault->alarm_interface_a = strdup(interface);
-  }
-  else
-  {
-    EVEL_ERROR("Ignoring attempt to update Alarm Interface A to %s. "
-               "Alarm Interface A already set to %s",
-               interface, fault->alarm_interface_a);
-  }
+  evel_set_option_string(&fault->alarm_interface_a,
+                         interface,
+                         "Alarm Interface A");
   EVEL_EXIT();
 }
 
@@ -193,224 +189,114 @@ void evel_fault_interface_set(EVENT_FAULT * fault,
  * @param fault      Pointer to the fault.
  * @param type       The Event Type to be set. ASCIIZ string. The caller
  *                   does not need to preserve the value once the function
- *                   returns
+ *                   returns.
  *****************************************************************************/
-void evel_fault_type_set(EVENT_FAULT * fault, const char const * type)
+void evel_fault_type_set(EVENT_FAULT * fault, const char * const type)
 {
   EVEL_ENTER();
 
   /***************************************************************************/
-  /* Check preconditions.                                                    */
+  /* Check preconditions and call evel_header_type_set.                      */
   /***************************************************************************/
   assert(fault != NULL);
   assert(fault->header.event_domain == EVEL_DOMAIN_FAULT);
-  assert(type != NULL);
+  evel_header_type_set(&fault->header, type);
 
-  if (fault->header.event_type == NULL)
-  {
-    EVEL_DEBUG("Setting Event Type to %s", type);
-    fault->header.event_type = strdup(type);
-  }
-  else
-  {
-    EVEL_ERROR("Ignoring attempt to update Event Type to %s. "
-               "Event Type already set to %s",
-               type, fault->header.event_type);
-  }
   EVEL_EXIT();
 }
 
 /**************************************************************************//**
  * Encode the fault in JSON according to AT&T's schema for the fault type.
  *
- * @param json      Pointer to where to store the JSON encoded data.
- * @param max_size  Size of storage available in evel_json_encode_fault::json.
- * @param event     Pointer to the ::EVENT_FAULT to encode.
- * @returns Number of bytes actually written.
+ * @param jbuf          Pointer to the ::EVEL_JSON_BUFFER to encode into.
+ * @param event         Pointer to the ::EVENT_HEADER to encode.
  *****************************************************************************/
-int evel_json_encode_fault(char * json, int max_size, EVENT_FAULT * event)
+void evel_json_encode_fault(EVEL_JSON_BUFFER * jbuf,
+                            EVENT_FAULT * event)
 {
-  int offset = 0;
   FAULT_ADDL_INFO * addl_info = NULL;
   DLIST_ITEM * addl_info_item = NULL;
+  char * fault_severity;
+  char * fault_source_type;
+  char * fault_vf_status;
+
+  EVEL_ENTER();
 
   /***************************************************************************/
   /* Check preconditions.                                                    */
   /***************************************************************************/
-  assert(json != NULL);
-  assert(max_size > 0);
   assert(event != NULL);
   assert(event->header.event_domain == EVEL_DOMAIN_FAULT);
 
-  offset += evel_json_encode_header(json + offset,
-                                    max_size - offset,
-                                    &event->header);
+  fault_severity = evel_severity(event->event_severity);
+  fault_source_type = evel_source_type(event->event_source_type);
+  fault_vf_status = evel_vf_status(event->vf_status);
 
-  offset += snprintf(json + offset, max_size - offset,
-                     ", \"faultFields\":{");
+  evel_json_encode_header(jbuf, &event->header);
+  evel_json_open_named_object(jbuf, "faultFields");
 
+  /***************************************************************************/
+  /* Mandatory fields.                                                       */
+  /***************************************************************************/
+  evel_enc_kv_string(jbuf, "alarmCondition", event->alarm_condition);
+  evel_enc_kv_string(jbuf, "eventSeverity", fault_severity);
+  evel_enc_kv_string(jbuf, "eventSourceType", fault_source_type);
+  evel_enc_kv_string(jbuf, "specificProblem", event->specific_problem);
+  evel_enc_kv_string(jbuf, "vfStatus", fault_vf_status);
+  evel_enc_version(
+    jbuf, "faultFieldsVersion", event->major_version, event->minor_version);
 
-  addl_info_item = dlist_get_first(&event->additional_info);
-  if (addl_info_item != NULL)
+  /***************************************************************************/
+  /* Optional fields.                                                        */
+  /***************************************************************************/
+
+  /***************************************************************************/
+  /* Checkpoint, so that we can wind back if all fields are suppressed.      */
+  /***************************************************************************/
+  evel_json_checkpoint(jbuf);
+  if (evel_json_open_opt_named_list(jbuf, "alarmAdditionalInformation"))
   {
-    offset += snprintf(json + offset, max_size - offset,
-                       "\"alarmAdditionalInformation\": [");
+    bool item_added = false;
+
+    addl_info_item = dlist_get_first(&event->additional_info);
     while (addl_info_item != NULL)
     {
       addl_info = (FAULT_ADDL_INFO*) addl_info_item->item;
-      offset += snprintf(json + offset, max_size - offset,
-                          "{\"name\": \"%s\", ", addl_info->name);
-      offset += snprintf(json + offset, max_size - offset,
-                          "\"value\": \"%s\"}", addl_info->value);
-      addl_info_item = dlist_get_next(addl_info_item);
-      if (addl_info_item != NULL)
+      assert(addl_info != NULL);
+
+      if (!evel_throttle_suppress_nv_pair(jbuf->throttle_spec,
+                                          "alarmAdditionalInformation",
+                                          addl_info->name))
       {
-        offset += snprintf(json + offset, max_size - offset, ", ");
+        evel_json_open_object(jbuf);
+        evel_enc_kv_string(jbuf, "name", addl_info->name);
+        evel_enc_kv_string(jbuf, "value", addl_info->value);
+        evel_json_close_object(jbuf);
+        item_added = true;
       }
+      addl_info_item = dlist_get_next(addl_info_item);
     }
-    offset += snprintf(json + offset, max_size - offset, "], ");
+    evel_json_close_list(jbuf);
+
+    /*************************************************************************/
+    /* If we've not written anything, rewind to before we opened the list.   */
+    /*************************************************************************/
+    if (!item_added)
+    {
+      evel_json_rewind(jbuf);
+    }
   }
+  evel_enc_kv_opt_string(jbuf, "alarmInterfaceA", &event->alarm_interface_a);
 
-  offset += snprintf(json + offset, max_size - offset,
-                     "\"alarmCondition\": \"%s\", ", event->alarm_condition);
-  if (event->alarm_interface_a != NULL)
-  {
-    offset += snprintf(json + offset, max_size - offset,
-                       "\"alarmInterfaceA\": \"%s\", ",
-                       event->alarm_interface_a);
-  }
+  evel_json_close_object(jbuf);
 
-  switch (event->event_severity)
-  {
-  case EVEL_SEVERITY_CRITICAL:
-    offset += snprintf(json + offset, max_size - offset,
-                       "\"eventSeverity\": \"CRITICAL\", ");
-    break;
-
-  case EVEL_SEVERITY_MAJOR:
-    offset += snprintf(json + offset, max_size - offset,
-                       "\"eventSeverity\": \"MAJOR\", ");
-    break;
-
-  case EVEL_SEVERITY_MINOR:
-    offset += snprintf(json + offset, max_size - offset,
-                       "\"eventSeverity\": \"MINOR\", ");
-    break;
-
-  case EVEL_SEVERITY_WARNING:
-    offset += snprintf(json + offset, max_size - offset,
-                       "\"eventSeverity\": \"WARNING\", ");
-    break;
-
-  case EVEL_SEVERITY_NORMAL:
-    offset += snprintf(json + offset, max_size - offset,
-                       "\"eventSeverity\": \"NORMAL\", ");
-    break;
-
-  default:
-    EVEL_ERROR("Unexpected event severity %d", event->event_severity);
-    assert(0);
-  }
-
-  switch (event->event_source_type)
-  {
-  case EVEL_SOURCE_OTHER:
-    offset += snprintf(json + offset, max_size - offset,
-                       "\"eventSourceType\": \"other(0)\", ");
-    break;
-
-  case EVEL_SOURCE_ROUTER:
-    offset += snprintf(json + offset, max_size - offset,
-                       "\"eventSourceType\": \"router(1)\", ");
-    break;
-
-  case EVEL_SOURCE_SWITCH:
-    offset += snprintf(json + offset, max_size - offset,
-                       "\"eventSourceType\": \"switch(2)\", ");
-    break;
-
-  case EVEL_SOURCE_HOST:
-    offset += snprintf(json + offset, max_size - offset,
-                       "\"eventSourceType\": \"host(3)\", ");
-    break;
-
-  case EVEL_SOURCE_CARD:
-    offset += snprintf(json + offset, max_size - offset,
-                       "\"eventSourceType\": \"card(4)\", ");
-    break;
-
-  case EVEL_SOURCE_PORT:
-    offset += snprintf(json + offset, max_size - offset,
-                       "\"eventSourceType\": \"port(5)\", ");
-    break;
-
-  case EVEL_SOURCE_SLOT_THRESHOLD:
-    offset += snprintf(json + offset, max_size - offset,
-                       "\"eventSourceType\": \"slotThreshold(6)\", ");
-    break;
-
-  case EVEL_SOURCE_PORT_THRESHOLD:
-    offset += snprintf(json + offset, max_size - offset,
-                       "\"eventSourceType\": \"portThreshold(7)\", ");
-    break;
-
-  case EVEL_SOURCE_VIRTUAL_MACHINE:
-    offset += snprintf(json + offset, max_size - offset,
-                       "\"eventSourceType\": \"virtualMachine(8)\", ");
-    break;
-
-  default:
-    EVEL_ERROR("Unexpected event source type %d", event->event_source_type);
-    assert(0);
-  }
-
-  offset += snprintf(json + offset, max_size - offset,
-                     "\"faultFieldsVersion\": %d, ", EVEL_API_VERSION);
-  offset += snprintf(json + offset, max_size - offset,
-                     "\"specificProblem\": \"%s\", ",
-                     event->specific_problem);
-
-  switch (event->vf_status)
-  {
-  case EVEL_VF_STATUS_ACTIVE:
-    offset += snprintf(json + offset, max_size - offset,
-                       "\"vfStatus\": \"Active\"");
-    break;
-
-  case EVEL_VF_STATUS_IDLE:
-    offset += snprintf(json + offset, max_size - offset,
-                       "\"vfStatus\": \"Idle\"");
-    break;
-
-  case EVEL_VF_STATUS_PREP_TERMINATE:
-    offset += snprintf(json + offset, max_size - offset,
-                       "\"vfStatus\": \"Preparing to terminate\"");
-    break;
-
-  case EVEL_VF_STATUS_READY_TERMINATE:
-    offset += snprintf(json + offset, max_size - offset,
-                       "\"vfStatus\": \"Ready to terminate\"");
-    break;
-
-  case EVEL_VF_STATUS_REQ_TERMINATE:
-    offset += snprintf(json + offset, max_size - offset,
-                       "\"vfStatus\": \"Requesting termination\"");
-    break;
-
-  default:
-    EVEL_ERROR("Unexpected VF Status %d", event->vf_status);
-    assert(0);
-  }
-
-  offset += snprintf(json + offset, max_size - offset, "}");
-  return offset;
+  EVEL_EXIT();
 }
 
 /**************************************************************************//**
  * Free a Fault.
  *
- * Free off the Fault supplied.  Will recursively free all the contained
- * allocated memory.
+ * Free off the Fault supplied.  Will free all the contained allocated memory.
  *
  * @note It does not free the Fault itself, since that may be part of a
  * larger structure.
@@ -443,10 +329,9 @@ void evel_free_fault(EVENT_FAULT * event)
     addl_info = dlist_pop_last(&event->additional_info);
   }
   free(event->alarm_condition);
-  free(event->alarm_interface_a);
+  evel_free_option_string(&event->alarm_interface_a);
   free(event->specific_problem);
   evel_free_header(&event->header);
 
   EVEL_EXIT();
 }
-

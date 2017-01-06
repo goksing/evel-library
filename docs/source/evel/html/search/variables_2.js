@@ -1,11 +1,23 @@
 var searchData=
 [
+  ['callee_5fside_5fcodec',['callee_side_codec',['../structevent__service.html#a1ce1a5cbe06b287f416da7f9516c89f9',1,'event_service']]],
+  ['caller_5fside_5fcodec',['caller_side_codec',['../structevent__service.html#a0af781f10c9899163f8cd0b497cde82b',1,'event_service']]],
+  ['checkpoint',['checkpoint',['../structevel__json__buffer.html#ac1e8cd1cc09c857b6a69e07a5dade344',1,'evel_json_buffer']]],
+  ['chunk',['chunk',['../structevel__json__stack.html#ab94b10ac7e31de53b2086c97ef6f70b9',1,'evel_json_stack']]],
+  ['cid',['cid',['../structevent__mobile__flow.html#a18a338f6d1031fd2a5e6bc96e8d33027',1,'event_mobile_flow']]],
+  ['codec',['codec',['../structevent__service.html#a123a9d7e97fd49b1c5438cbdf2b95e09',1,'event_service']]],
   ['codec_5fid',['codec_id',['../structmeasurement__codec__use.html#aa84452b4ffcae1ccec4e40f8570f63a9',1,'measurement_codec_use']]],
   ['codec_5fusage',['codec_usage',['../structevent__measurement.html#a9ef619061bb0185c063ede94a114a73c',1,'event_measurement']]],
-  ['codec_5futilization',['codec_utilization',['../structmeasurement__codec__use.html#aedcede04d123d6cdb450ac8faf35bf35',1,'measurement_codec_use']]],
   ['command',['command',['../structevent__internal.html#a7aabad85d349fa4a2d8cefe380fca9de',1,'event_internal']]],
-  ['concurrent_5fsessions',['concurrent_sessions',['../structevent__measurement.html#a96afa2ac61d0fade72e1645a284cfae6',1,'event_measurement']]],
-  ['configured_5fentities',['configured_entities',['../structevent__measurement.html#a4cb58272b32e5ec4e49d339f3f7b3677',1,'event_measurement']]],
+  ['compressed_5fsip',['compressed_sip',['../structevent__signaling.html#ad1e58e43b9970157b410b4c192237824',1,'event_signaling']]],
+  ['concurrent_5fsessions',['concurrent_sessions',['../structevent__measurement.html#a29075168af0c3f96b5606b1e707e3979',1,'event_measurement']]],
+  ['condition1',['condition1',['../structcopyright.html#af83df7151d39ca289035a306719bdeca',1,'copyright']]],
+  ['condition2',['condition2',['../structcopyright.html#aec75dccb61ec6069ab97b0e57d790a2e',1,'copyright']]],
+  ['condition3',['condition3',['../structcopyright.html#aab08f4c8d2ecbedbe81584a37a0cec2c',1,'copyright']]],
+  ['condition4',['condition4',['../structcopyright.html#a4290d46b5c4ce72b712df3949081091e',1,'copyright']]],
+  ['configured_5fentities',['configured_entities',['../structevent__measurement.html#aff8da1abcfbd005d70398418f8b12297',1,'event_measurement']]],
+  ['connection_5ftype',['connection_type',['../structevent__mobile__flow.html#a5cb4efa1bf6c21ec2ff624659e9c24ca',1,'event_mobile_flow']]],
+  ['correlator',['correlator',['../structevent__service.html#a662010334edc7ec24f65048d83a80f30',1,'event_service::correlator()'],['../structevent__signaling.html#a09e069c4e08e64e20bb28f174774a80d',1,'event_signaling::correlator()']]],
   ['count',['count',['../structmeasurement__latency__bucket.html#a5957e2d644bce4e4403ce381aca6bc93',1,'measurement_latency_bucket']]],
   ['cpu_5fusage',['cpu_usage',['../structevent__measurement.html#a1a727089e82e56bdd7d4a3aa6a55fa16',1,'event_measurement']]]
 ];

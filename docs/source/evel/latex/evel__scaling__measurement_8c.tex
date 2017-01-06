@@ -2,14 +2,15 @@
 \label{evel__scaling__measurement_8c}\index{evel\+\_\+scaling\+\_\+measurement.\+c@{evel\+\_\+scaling\+\_\+measurement.\+c}}
 
 
-Implementation of E\+V\+E\+L functions relating to the Measurement.  
+Implementation of E\+V\+EL functions relating to the Measurement.  
 
 
-{\ttfamily \#include $<$string.\+h$>$}\\*
-{\ttfamily \#include $<$assert.\+h$>$}\\*
-{\ttfamily \#include $<$stdlib.\+h$>$}\\*
-{\ttfamily \#include \char`\"{}evel.\+h\char`\"{}}\\*
-{\ttfamily \#include \char`\"{}evel\+\_\+internal.\+h\char`\"{}}\\*
+{\ttfamily \#include $<$string.\+h$>$}\newline
+{\ttfamily \#include $<$assert.\+h$>$}\newline
+{\ttfamily \#include $<$stdlib.\+h$>$}\newline
+{\ttfamily \#include \char`\"{}evel.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}evel\+\_\+internal.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}evel\+\_\+throttle.\+h\char`\"{}}\newline
 Include dependency graph for evel\+\_\+scaling\+\_\+measurement.\+c\+:
 \nopagebreak
 \begin{figure}[H]
@@ -21,42 +22,82 @@ Include dependency graph for evel\+\_\+scaling\+\_\+measurement.\+c\+:
 \subsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
-\hyperlink{evel_8h_a6aebe95622adf9a98ba33fc440c11ba0}{E\+V\+E\+N\+T\+\_\+\+M\+E\+A\+S\+U\+R\+E\+M\+E\+N\+T} $\ast$ \hyperlink{evel__scaling__measurement_8c_a162ce37ab7f24dbbea23d46b77c974ce}{evel\+\_\+new\+\_\+measurement} (int concurrent\+\_\+sessions, int configured\+\_\+entities, double mean\+\_\+request\+\_\+latency, double measurement\+\_\+interval, double memory\+\_\+configured, double memory\+\_\+used, int request\+\_\+rate)
+\hyperlink{evel_8h_a6aebe95622adf9a98ba33fc440c11ba0}{E\+V\+E\+N\+T\+\_\+\+M\+E\+A\+S\+U\+R\+E\+M\+E\+NT} $\ast$ \hyperlink{evel__scaling__measurement_8c_af19dc9c6757bfaa522f078a7a2248569}{evel\+\_\+new\+\_\+measurement} (double measurement\+\_\+interval)
 \begin{DoxyCompactList}\small\item\em Create a new Measurement event. \end{DoxyCompactList}\item 
-void \hyperlink{evel__scaling__measurement_8c_a2806c174913da55fd8f44281ce60b5ac}{evel\+\_\+measurement\+\_\+type\+\_\+set} (\hyperlink{evel_8h_a6aebe95622adf9a98ba33fc440c11ba0}{E\+V\+E\+N\+T\+\_\+\+M\+E\+A\+S\+U\+R\+E\+M\+E\+N\+T} $\ast$measurement, const char const $\ast$type)
+void \hyperlink{evel__scaling__measurement_8c_aa20abdcdc8585f1bad9ac81820acc1eb}{evel\+\_\+measurement\+\_\+type\+\_\+set} (\hyperlink{evel_8h_a6aebe95622adf9a98ba33fc440c11ba0}{E\+V\+E\+N\+T\+\_\+\+M\+E\+A\+S\+U\+R\+E\+M\+E\+NT} $\ast$measurement, const char $\ast$const type)
 \begin{DoxyCompactList}\small\item\em Set the Event Type property of the Measurement. \end{DoxyCompactList}\item 
-void \hyperlink{evel__scaling__measurement_8c_ac5ee57e6574ae2286c0c5d3d6d1f9ca6}{evel\+\_\+measurement\+\_\+cpu\+\_\+use\+\_\+add} (\hyperlink{evel_8h_a6aebe95622adf9a98ba33fc440c11ba0}{E\+V\+E\+N\+T\+\_\+\+M\+E\+A\+S\+U\+R\+E\+M\+E\+N\+T} $\ast$measurement, char $\ast$name, double value)
-\begin{DoxyCompactList}\small\item\em Add an additional C\+P\+U usage value name/value pair to the Measurement. \end{DoxyCompactList}\item 
-void \hyperlink{evel__scaling__measurement_8c_a0c4b236085beb0e1c8971ff6bdaa490d}{evel\+\_\+measurement\+\_\+fsys\+\_\+use\+\_\+add} (\hyperlink{evel_8h_a6aebe95622adf9a98ba33fc440c11ba0}{E\+V\+E\+N\+T\+\_\+\+M\+E\+A\+S\+U\+R\+E\+M\+E\+N\+T} $\ast$measurement, char $\ast$vm\+\_\+id, double block\+\_\+configured, double block\+\_\+used, int block\+\_\+iops, double ephemeral\+\_\+configured, double ephemeral\+\_\+used, int ephemeral\+\_\+iops)
+void \hyperlink{evel__scaling__measurement_8c_a99f6496c38536ee5eed9792387d58a36}{evel\+\_\+measurement\+\_\+conc\+\_\+sess\+\_\+set} (\hyperlink{evel_8h_a6aebe95622adf9a98ba33fc440c11ba0}{E\+V\+E\+N\+T\+\_\+\+M\+E\+A\+S\+U\+R\+E\+M\+E\+NT} $\ast$measurement, int concurrent\+\_\+sessions)
+\begin{DoxyCompactList}\small\item\em Set the Concurrent Sessions property of the Measurement. \end{DoxyCompactList}\item 
+void \hyperlink{evel__scaling__measurement_8c_a5e1626282cd6bc8e2288b21e34655b3a}{evel\+\_\+measurement\+\_\+cfg\+\_\+ents\+\_\+set} (\hyperlink{evel_8h_a6aebe95622adf9a98ba33fc440c11ba0}{E\+V\+E\+N\+T\+\_\+\+M\+E\+A\+S\+U\+R\+E\+M\+E\+NT} $\ast$measurement, int configured\+\_\+entities)
+\begin{DoxyCompactList}\small\item\em Set the Configured Entities property of the Measurement. \end{DoxyCompactList}\item 
+void \hyperlink{evel__scaling__measurement_8c_aa4e7f55b56c0bb55bf5949e60b0b0cd5}{evel\+\_\+measurement\+\_\+errors\+\_\+set} (\hyperlink{evel_8h_a6aebe95622adf9a98ba33fc440c11ba0}{E\+V\+E\+N\+T\+\_\+\+M\+E\+A\+S\+U\+R\+E\+M\+E\+NT} $\ast$measurement, int receive\+\_\+discards, int receive\+\_\+errors, int transmit\+\_\+discards, int transmit\+\_\+errors)
+\begin{DoxyCompactList}\small\item\em Add an additional set of Errors to the Measurement. \end{DoxyCompactList}\item 
+void \hyperlink{evel__scaling__measurement_8c_a73e3ff0aa9463d616496c6ce94f331fe}{evel\+\_\+measurement\+\_\+mean\+\_\+req\+\_\+lat\+\_\+set} (\hyperlink{evel_8h_a6aebe95622adf9a98ba33fc440c11ba0}{E\+V\+E\+N\+T\+\_\+\+M\+E\+A\+S\+U\+R\+E\+M\+E\+NT} $\ast$measurement, double mean\+\_\+request\+\_\+latency)
+\begin{DoxyCompactList}\small\item\em Set the Mean Request Latency property of the Measurement. \end{DoxyCompactList}\item 
+void \hyperlink{evel__scaling__measurement_8c_a8afb7801d03bc97c3a6cf90c9d49fe09}{evel\+\_\+measurement\+\_\+mem\+\_\+cfg\+\_\+set} (\hyperlink{evel_8h_a6aebe95622adf9a98ba33fc440c11ba0}{E\+V\+E\+N\+T\+\_\+\+M\+E\+A\+S\+U\+R\+E\+M\+E\+NT} $\ast$measurement, double memory\+\_\+configured)
+\begin{DoxyCompactList}\small\item\em Set the Memory Configured property of the Measurement. \end{DoxyCompactList}\item 
+void \hyperlink{evel__scaling__measurement_8c_a057f16338b2ba08ef775a12df898b76e}{evel\+\_\+measurement\+\_\+mem\+\_\+used\+\_\+set} (\hyperlink{evel_8h_a6aebe95622adf9a98ba33fc440c11ba0}{E\+V\+E\+N\+T\+\_\+\+M\+E\+A\+S\+U\+R\+E\+M\+E\+NT} $\ast$measurement, double memory\+\_\+used)
+\begin{DoxyCompactList}\small\item\em Set the Memory Used property of the Measurement. \end{DoxyCompactList}\item 
+void \hyperlink{evel__scaling__measurement_8c_aa1a206e1e404e540d4e647e5350b8f04}{evel\+\_\+measurement\+\_\+request\+\_\+rate\+\_\+set} (\hyperlink{evel_8h_a6aebe95622adf9a98ba33fc440c11ba0}{E\+V\+E\+N\+T\+\_\+\+M\+E\+A\+S\+U\+R\+E\+M\+E\+NT} $\ast$measurement, int request\+\_\+rate)
+\begin{DoxyCompactList}\small\item\em Set the Request Rate property of the Measurement. \end{DoxyCompactList}\item 
+void \hyperlink{evel__scaling__measurement_8c_a0f31427d9838f52987a0d49570cd226e}{evel\+\_\+measurement\+\_\+cpu\+\_\+use\+\_\+add} (\hyperlink{evel_8h_a6aebe95622adf9a98ba33fc440c11ba0}{E\+V\+E\+N\+T\+\_\+\+M\+E\+A\+S\+U\+R\+E\+M\+E\+NT} $\ast$measurement, char $\ast$id, double usage)
+\begin{DoxyCompactList}\small\item\em Add an additional C\+PU usage value name/value pair to the Measurement. \end{DoxyCompactList}\item 
+void \hyperlink{evel__scaling__measurement_8c_a99ecddaca3eec5c2c877fea7d0aa0d76}{evel\+\_\+measurement\+\_\+fsys\+\_\+use\+\_\+add} (\hyperlink{evel_8h_a6aebe95622adf9a98ba33fc440c11ba0}{E\+V\+E\+N\+T\+\_\+\+M\+E\+A\+S\+U\+R\+E\+M\+E\+NT} $\ast$measurement, char $\ast$filesystem\+\_\+name, double block\+\_\+configured, double block\+\_\+used, int block\+\_\+iops, double ephemeral\+\_\+configured, double ephemeral\+\_\+used, int ephemeral\+\_\+iops)
 \begin{DoxyCompactList}\small\item\em Add an additional File System usage value name/value pair to the Measurement. \end{DoxyCompactList}\item 
-void \hyperlink{evel__scaling__measurement_8c_a3bd2dbe3741fe360175c7016277098b9}{evel\+\_\+measurement\+\_\+latency\+\_\+add} (\hyperlink{evel_8h_a6aebe95622adf9a98ba33fc440c11ba0}{E\+V\+E\+N\+T\+\_\+\+M\+E\+A\+S\+U\+R\+E\+M\+E\+N\+T} $\ast$measurement, double low\+\_\+end, double high\+\_\+end, int count)
-\begin{DoxyCompactList}\small\item\em Add an additional Latency Distribution bucket to the Measurement. \end{DoxyCompactList}\item 
-void \hyperlink{evel__scaling__measurement_8c_a292975ca70b798acaf8fdc1665e55cdb}{evel\+\_\+measurement\+\_\+vnic\+\_\+use\+\_\+add} (\hyperlink{evel_8h_a6aebe95622adf9a98ba33fc440c11ba0}{E\+V\+E\+N\+T\+\_\+\+M\+E\+A\+S\+U\+R\+E\+M\+E\+N\+T} $\ast$measurement, char $\ast$vnic\+\_\+id, int broadcast\+\_\+packets\+\_\+in, int broadcast\+\_\+packets\+\_\+out, int bytes\+\_\+in, int bytes\+\_\+out, int multicast\+\_\+packets\+\_\+in, int multicast\+\_\+packets\+\_\+out, int unicast\+\_\+packets\+\_\+in, int unicast\+\_\+packets\+\_\+out)
-\begin{DoxyCompactList}\small\item\em Add an additional v\+N\+I\+C usage record Measurement. \end{DoxyCompactList}\item 
-void \hyperlink{evel__scaling__measurement_8c_a5742d44274ac0ded45d4725cd3614df6}{evel\+\_\+measurement\+\_\+feature\+\_\+use\+\_\+add} (\hyperlink{evel_8h_a6aebe95622adf9a98ba33fc440c11ba0}{E\+V\+E\+N\+T\+\_\+\+M\+E\+A\+S\+U\+R\+E\+M\+E\+N\+T} $\ast$measurement, char $\ast$feature, double utilization)
+void \hyperlink{evel__scaling__measurement_8c_adddd4f2f17a6de8609421bb806ba0430}{evel\+\_\+measurement\+\_\+feature\+\_\+use\+\_\+add} (\hyperlink{evel_8h_a6aebe95622adf9a98ba33fc440c11ba0}{E\+V\+E\+N\+T\+\_\+\+M\+E\+A\+S\+U\+R\+E\+M\+E\+NT} $\ast$measurement, char $\ast$feature, int utilization)
 \begin{DoxyCompactList}\small\item\em Add a Feature usage value name/value pair to the Measurement. \end{DoxyCompactList}\item 
-void \hyperlink{evel__scaling__measurement_8c_abfc0ab882100cbc69d3f1e26a6c53666}{evel\+\_\+measurement\+\_\+custom\+\_\+measurement\+\_\+add} (\hyperlink{evel_8h_a6aebe95622adf9a98ba33fc440c11ba0}{E\+V\+E\+N\+T\+\_\+\+M\+E\+A\+S\+U\+R\+E\+M\+E\+N\+T} $\ast$measurement, const char const $\ast$group, const char const $\ast$name, const char const $\ast$value)
+void \hyperlink{evel__scaling__measurement_8c_aaea1feb05789ba15bcef082db07c3e5f}{evel\+\_\+measurement\+\_\+custom\+\_\+measurement\+\_\+add} (\hyperlink{evel_8h_a6aebe95622adf9a98ba33fc440c11ba0}{E\+V\+E\+N\+T\+\_\+\+M\+E\+A\+S\+U\+R\+E\+M\+E\+NT} $\ast$measurement, const char $\ast$const group, const char $\ast$const name, const char $\ast$const value)
 \begin{DoxyCompactList}\small\item\em Add a Additional Measurement value name/value pair to the Report. \end{DoxyCompactList}\item 
-void \hyperlink{evel__scaling__measurement_8c_a1176ef6423b8178bc0eecc80b6c2a4b7}{evel\+\_\+measurement\+\_\+codec\+\_\+use\+\_\+add} (\hyperlink{evel_8h_a6aebe95622adf9a98ba33fc440c11ba0}{E\+V\+E\+N\+T\+\_\+\+M\+E\+A\+S\+U\+R\+E\+M\+E\+N\+T} $\ast$measurement, char $\ast$codec, int utilization)
+void \hyperlink{evel__scaling__measurement_8c_a1176ef6423b8178bc0eecc80b6c2a4b7}{evel\+\_\+measurement\+\_\+codec\+\_\+use\+\_\+add} (\hyperlink{evel_8h_a6aebe95622adf9a98ba33fc440c11ba0}{E\+V\+E\+N\+T\+\_\+\+M\+E\+A\+S\+U\+R\+E\+M\+E\+NT} $\ast$measurement, char $\ast$codec, int utilization)
 \begin{DoxyCompactList}\small\item\em Add a Codec usage value name/value pair to the Measurement. \end{DoxyCompactList}\item 
-void \hyperlink{evel__scaling__measurement_8c_ae30edcd72c4b9dd4740ad40e644964ba}{evel\+\_\+measurement\+\_\+agg\+\_\+cpu\+\_\+use\+\_\+set} (\hyperlink{evel_8h_a6aebe95622adf9a98ba33fc440c11ba0}{E\+V\+E\+N\+T\+\_\+\+M\+E\+A\+S\+U\+R\+E\+M\+E\+N\+T} $\ast$measurement, double cpu\+\_\+use)
-\begin{DoxyCompactList}\small\item\em Set the Aggregate C\+P\+U Use property of the Measurement. \end{DoxyCompactList}\item 
-void \hyperlink{evel__scaling__measurement_8c_a644cbd19fa718727c07c3d21e434f2d6}{evel\+\_\+measurement\+\_\+media\+\_\+port\+\_\+use\+\_\+set} (\hyperlink{evel_8h_a6aebe95622adf9a98ba33fc440c11ba0}{E\+V\+E\+N\+T\+\_\+\+M\+E\+A\+S\+U\+R\+E\+M\+E\+N\+T} $\ast$measurement, int media\+\_\+ports\+\_\+in\+\_\+use)
+void \hyperlink{evel__scaling__measurement_8c_ae30edcd72c4b9dd4740ad40e644964ba}{evel\+\_\+measurement\+\_\+agg\+\_\+cpu\+\_\+use\+\_\+set} (\hyperlink{evel_8h_a6aebe95622adf9a98ba33fc440c11ba0}{E\+V\+E\+N\+T\+\_\+\+M\+E\+A\+S\+U\+R\+E\+M\+E\+NT} $\ast$measurement, double cpu\+\_\+use)
+\begin{DoxyCompactList}\small\item\em Set the Aggregate C\+PU Use property of the Measurement. \end{DoxyCompactList}\item 
+void \hyperlink{evel__scaling__measurement_8c_a644cbd19fa718727c07c3d21e434f2d6}{evel\+\_\+measurement\+\_\+media\+\_\+port\+\_\+use\+\_\+set} (\hyperlink{evel_8h_a6aebe95622adf9a98ba33fc440c11ba0}{E\+V\+E\+N\+T\+\_\+\+M\+E\+A\+S\+U\+R\+E\+M\+E\+NT} $\ast$measurement, int media\+\_\+ports\+\_\+in\+\_\+use)
 \begin{DoxyCompactList}\small\item\em Set the Media Ports in Use property of the Measurement. \end{DoxyCompactList}\item 
-void \hyperlink{evel__scaling__measurement_8c_aed7dfc26f57c8474f1df4278e5e08d48}{evel\+\_\+measurement\+\_\+vnfc\+\_\+scaling\+\_\+metric\+\_\+set} (\hyperlink{evel_8h_a6aebe95622adf9a98ba33fc440c11ba0}{E\+V\+E\+N\+T\+\_\+\+M\+E\+A\+S\+U\+R\+E\+M\+E\+N\+T} $\ast$measurement, double scaling\+\_\+metric)
-\begin{DoxyCompactList}\small\item\em Set the V\+N\+F\+C Scaling Metric property of the Measurement. \end{DoxyCompactList}\item 
-int \hyperlink{evel__scaling__measurement_8c_a57d99198d0b9d89de97749eb839ed1fa}{evel\+\_\+json\+\_\+encode\+\_\+measurement} (char $\ast$json, int max\+\_\+size, \hyperlink{evel_8h_a6aebe95622adf9a98ba33fc440c11ba0}{E\+V\+E\+N\+T\+\_\+\+M\+E\+A\+S\+U\+R\+E\+M\+E\+N\+T} $\ast$event)
-\begin{DoxyCompactList}\small\item\em Encode the measurement as a J\+S\+O\+N measurement. \end{DoxyCompactList}\item 
-void \hyperlink{evel__scaling__measurement_8c_af387e0637a37752961d013fbedf52dc1}{evel\+\_\+free\+\_\+measurement} (\hyperlink{evel_8h_a6aebe95622adf9a98ba33fc440c11ba0}{E\+V\+E\+N\+T\+\_\+\+M\+E\+A\+S\+U\+R\+E\+M\+E\+N\+T} $\ast$event)
+void \hyperlink{evel__scaling__measurement_8c_aed7dfc26f57c8474f1df4278e5e08d48}{evel\+\_\+measurement\+\_\+vnfc\+\_\+scaling\+\_\+metric\+\_\+set} (\hyperlink{evel_8h_a6aebe95622adf9a98ba33fc440c11ba0}{E\+V\+E\+N\+T\+\_\+\+M\+E\+A\+S\+U\+R\+E\+M\+E\+NT} $\ast$measurement, double scaling\+\_\+metric)
+\begin{DoxyCompactList}\small\item\em Set the V\+N\+FC Scaling Metric property of the Measurement. \end{DoxyCompactList}\item 
+\hyperlink{evel_8h_ad8103d1938fc8a0c693b9c460c23a754}{M\+E\+A\+S\+U\+R\+E\+M\+E\+N\+T\+\_\+\+L\+A\+T\+E\+N\+C\+Y\+\_\+\+B\+U\+C\+K\+ET} $\ast$ \hyperlink{evel__scaling__measurement_8c_a1d2b853eccc0d89e032e6d888d7028ac}{evel\+\_\+new\+\_\+meas\+\_\+latency\+\_\+bucket} (const int count)
+\begin{DoxyCompactList}\small\item\em Create a new Latency Bucket to be added to a Measurement event. \end{DoxyCompactList}\item 
+void \hyperlink{evel__scaling__measurement_8c_a75d403473004b806014543f492ffe2ff}{evel\+\_\+meas\+\_\+latency\+\_\+bucket\+\_\+high\+\_\+end\+\_\+set} (\hyperlink{evel_8h_ad8103d1938fc8a0c693b9c460c23a754}{M\+E\+A\+S\+U\+R\+E\+M\+E\+N\+T\+\_\+\+L\+A\+T\+E\+N\+C\+Y\+\_\+\+B\+U\+C\+K\+ET} $\ast$const bucket, const double high\+\_\+end)
+\begin{DoxyCompactList}\small\item\em Set the High End property of the Measurement Latency Bucket. \end{DoxyCompactList}\item 
+void \hyperlink{evel__scaling__measurement_8c_afc7cd797fb7c6182f9f91b7fba7527bf}{evel\+\_\+meas\+\_\+latency\+\_\+bucket\+\_\+low\+\_\+end\+\_\+set} (\hyperlink{evel_8h_ad8103d1938fc8a0c693b9c460c23a754}{M\+E\+A\+S\+U\+R\+E\+M\+E\+N\+T\+\_\+\+L\+A\+T\+E\+N\+C\+Y\+\_\+\+B\+U\+C\+K\+ET} $\ast$const bucket, const double low\+\_\+end)
+\begin{DoxyCompactList}\small\item\em Set the Low End property of the Measurement Latency Bucket. \end{DoxyCompactList}\item 
+void \hyperlink{evel__scaling__measurement_8c_a4ea874733481f4aeb71dfcd5d08d38bf}{evel\+\_\+meas\+\_\+latency\+\_\+bucket\+\_\+add} (\hyperlink{evel_8h_a6aebe95622adf9a98ba33fc440c11ba0}{E\+V\+E\+N\+T\+\_\+\+M\+E\+A\+S\+U\+R\+E\+M\+E\+NT} $\ast$const measurement, \hyperlink{evel_8h_ad8103d1938fc8a0c693b9c460c23a754}{M\+E\+A\+S\+U\+R\+E\+M\+E\+N\+T\+\_\+\+L\+A\+T\+E\+N\+C\+Y\+\_\+\+B\+U\+C\+K\+ET} $\ast$const bucket)
+\begin{DoxyCompactList}\small\item\em Add an additional Measurement Latency Bucket to the specified event. \end{DoxyCompactList}\item 
+void \hyperlink{evel__scaling__measurement_8c_a376293216dd3b30b398601faed71fbe8}{evel\+\_\+measurement\+\_\+latency\+\_\+add} (\hyperlink{evel_8h_a6aebe95622adf9a98ba33fc440c11ba0}{E\+V\+E\+N\+T\+\_\+\+M\+E\+A\+S\+U\+R\+E\+M\+E\+NT} $\ast$const measurement, const double low\+\_\+end, const double high\+\_\+end, const int count)
+\begin{DoxyCompactList}\small\item\em Add an additional Latency Distribution bucket to the Measurement. \end{DoxyCompactList}\item 
+\hyperlink{evel_8h_a83928ff964034324312868dcfaf64b8c}{M\+E\+A\+S\+U\+R\+E\+M\+E\+N\+T\+\_\+\+V\+N\+I\+C\+\_\+\+U\+SE} $\ast$ \hyperlink{evel__scaling__measurement_8c_a2b373f2dd0613c1c32ff2dc3c18e7a8e}{evel\+\_\+new\+\_\+measurement\+\_\+vnic\+\_\+use} (char $\ast$const vnic\+\_\+id, const int packets\+\_\+in, const int packets\+\_\+out, const int bytes\+\_\+in, const int bytes\+\_\+out)
+\begin{DoxyCompactList}\small\item\em Create a new v\+N\+IC Use to be added to a Measurement event. \end{DoxyCompactList}\item 
+void \hyperlink{evel__scaling__measurement_8c_a5a7af2556af6fe84d7d68ed8c0be932c}{evel\+\_\+free\+\_\+measurement\+\_\+vnic\+\_\+use} (\hyperlink{evel_8h_a83928ff964034324312868dcfaf64b8c}{M\+E\+A\+S\+U\+R\+E\+M\+E\+N\+T\+\_\+\+V\+N\+I\+C\+\_\+\+U\+SE} $\ast$const vnic\+\_\+use)
+\begin{DoxyCompactList}\small\item\em Free a v\+N\+IC Use. \end{DoxyCompactList}\item 
+void \hyperlink{evel__scaling__measurement_8c_abd0eeb444a0c327e8928191514650509}{evel\+\_\+vnic\+\_\+use\+\_\+bcast\+\_\+pkt\+\_\+in\+\_\+set} (\hyperlink{evel_8h_a83928ff964034324312868dcfaf64b8c}{M\+E\+A\+S\+U\+R\+E\+M\+E\+N\+T\+\_\+\+V\+N\+I\+C\+\_\+\+U\+SE} $\ast$const vnic\+\_\+use, const int broadcast\+\_\+packets\+\_\+in)
+\begin{DoxyCompactList}\small\item\em Set the Broadcast Packets Received property of the v\+N\+IC Use. \end{DoxyCompactList}\item 
+void \hyperlink{evel__scaling__measurement_8c_aef3bb6ef1161ba727f4753e2ae36eb26}{evel\+\_\+vnic\+\_\+use\+\_\+bcast\+\_\+pkt\+\_\+out\+\_\+set} (\hyperlink{evel_8h_a83928ff964034324312868dcfaf64b8c}{M\+E\+A\+S\+U\+R\+E\+M\+E\+N\+T\+\_\+\+V\+N\+I\+C\+\_\+\+U\+SE} $\ast$const vnic\+\_\+use, const int broadcast\+\_\+packets\+\_\+out)
+\begin{DoxyCompactList}\small\item\em Set the Broadcast Packets Transmitted property of the v\+N\+IC Use. \end{DoxyCompactList}\item 
+void \hyperlink{evel__scaling__measurement_8c_ab4346a2e36ef2a017b23fcb2b34ba154}{evel\+\_\+vnic\+\_\+use\+\_\+mcast\+\_\+pkt\+\_\+in\+\_\+set} (\hyperlink{evel_8h_a83928ff964034324312868dcfaf64b8c}{M\+E\+A\+S\+U\+R\+E\+M\+E\+N\+T\+\_\+\+V\+N\+I\+C\+\_\+\+U\+SE} $\ast$const vnic\+\_\+use, const int multicast\+\_\+packets\+\_\+in)
+\begin{DoxyCompactList}\small\item\em Set the Multicast Packets Received property of the v\+N\+IC Use. \end{DoxyCompactList}\item 
+void \hyperlink{evel__scaling__measurement_8c_a8d0edb299237e1c85e659bf8ec491202}{evel\+\_\+vnic\+\_\+use\+\_\+mcast\+\_\+pkt\+\_\+out\+\_\+set} (\hyperlink{evel_8h_a83928ff964034324312868dcfaf64b8c}{M\+E\+A\+S\+U\+R\+E\+M\+E\+N\+T\+\_\+\+V\+N\+I\+C\+\_\+\+U\+SE} $\ast$const vnic\+\_\+use, const int multicast\+\_\+packets\+\_\+out)
+\begin{DoxyCompactList}\small\item\em Set the Multicast Packets Transmitted property of the v\+N\+IC Use. \end{DoxyCompactList}\item 
+void \hyperlink{evel__scaling__measurement_8c_aaffc562ea1e10f98ec857e6364defae6}{evel\+\_\+vnic\+\_\+use\+\_\+ucast\+\_\+pkt\+\_\+in\+\_\+set} (\hyperlink{evel_8h_a83928ff964034324312868dcfaf64b8c}{M\+E\+A\+S\+U\+R\+E\+M\+E\+N\+T\+\_\+\+V\+N\+I\+C\+\_\+\+U\+SE} $\ast$const vnic\+\_\+use, const int unicast\+\_\+packets\+\_\+in)
+\begin{DoxyCompactList}\small\item\em Set the Unicast Packets Received property of the v\+N\+IC Use. \end{DoxyCompactList}\item 
+void \hyperlink{evel__scaling__measurement_8c_a760484344260477ecf4e145363c41b08}{evel\+\_\+vnic\+\_\+use\+\_\+ucast\+\_\+pkt\+\_\+out\+\_\+set} (\hyperlink{evel_8h_a83928ff964034324312868dcfaf64b8c}{M\+E\+A\+S\+U\+R\+E\+M\+E\+N\+T\+\_\+\+V\+N\+I\+C\+\_\+\+U\+SE} $\ast$const vnic\+\_\+use, const int unicast\+\_\+packets\+\_\+out)
+\begin{DoxyCompactList}\small\item\em Set the Unicast Packets Transmitted property of the v\+N\+IC Use. \end{DoxyCompactList}\item 
+void \hyperlink{evel__scaling__measurement_8c_a3bf83ebe346ccd7ee89ebc4543de212c}{evel\+\_\+meas\+\_\+vnic\+\_\+use\+\_\+add} (\hyperlink{evel_8h_a6aebe95622adf9a98ba33fc440c11ba0}{E\+V\+E\+N\+T\+\_\+\+M\+E\+A\+S\+U\+R\+E\+M\+E\+NT} $\ast$const measurement, \hyperlink{evel_8h_a83928ff964034324312868dcfaf64b8c}{M\+E\+A\+S\+U\+R\+E\+M\+E\+N\+T\+\_\+\+V\+N\+I\+C\+\_\+\+U\+SE} $\ast$const vnic\+\_\+use)
+\begin{DoxyCompactList}\small\item\em Add an additional v\+N\+IC Use to the specified Measurement event. \end{DoxyCompactList}\item 
+void \hyperlink{evel__scaling__measurement_8c_adb5bd6eba28f3e26fcc9f3e09b8fef88}{evel\+\_\+measurement\+\_\+vnic\+\_\+use\+\_\+add} (\hyperlink{evel_8h_a6aebe95622adf9a98ba33fc440c11ba0}{E\+V\+E\+N\+T\+\_\+\+M\+E\+A\+S\+U\+R\+E\+M\+E\+NT} $\ast$const measurement, char $\ast$const vnic\+\_\+id, const int packets\+\_\+in, const int packets\+\_\+out, const int broadcast\+\_\+packets\+\_\+in, const int broadcast\+\_\+packets\+\_\+out, const int bytes\+\_\+in, const int bytes\+\_\+out, const int multicast\+\_\+packets\+\_\+in, const int multicast\+\_\+packets\+\_\+out, const int unicast\+\_\+packets\+\_\+in, const int unicast\+\_\+packets\+\_\+out)
+\begin{DoxyCompactList}\small\item\em Add an additional v\+N\+IC usage record Measurement. \end{DoxyCompactList}\item 
+void \hyperlink{evel__scaling__measurement_8c_a65e51727e90bf94392837c675ceedcac}{evel\+\_\+json\+\_\+encode\+\_\+measurement} (\hyperlink{evel__internal_8h_af9c576f6ffebdf8c5164ccf9827b323a}{E\+V\+E\+L\+\_\+\+J\+S\+O\+N\+\_\+\+B\+U\+F\+F\+ER} $\ast$jbuf, \hyperlink{evel_8h_a6aebe95622adf9a98ba33fc440c11ba0}{E\+V\+E\+N\+T\+\_\+\+M\+E\+A\+S\+U\+R\+E\+M\+E\+NT} $\ast$event)
+\begin{DoxyCompactList}\small\item\em Encode the measurement as a J\+S\+ON measurement. \end{DoxyCompactList}\item 
+void \hyperlink{evel__scaling__measurement_8c_af387e0637a37752961d013fbedf52dc1}{evel\+\_\+free\+\_\+measurement} (\hyperlink{evel_8h_a6aebe95622adf9a98ba33fc440c11ba0}{E\+V\+E\+N\+T\+\_\+\+M\+E\+A\+S\+U\+R\+E\+M\+E\+NT} $\ast$event)
 \begin{DoxyCompactList}\small\item\em Free a Measurement. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \subsection{Detailed Description}
-Implementation of E\+V\+E\+L functions relating to the Measurement. 
+Implementation of E\+V\+EL functions relating to the Measurement. 
 
 \subsubsection*{License }
 
-Copyright(c) $<$2016$>$, A\+T\&T Intellectual Property. All other rights reserved.
+Copyright(c) $<$2016$>$, AT\&T Intellectual Property. All other rights reserved.
 
 Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met\+:
 
@@ -64,77 +105,173 @@ Redistribution and use in source and binary forms, with or without modification,
 \begin{DoxyEnumerate}
 \item Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
 \item Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.
-\item All advertising materials mentioning features or use of this software must display the following acknowledgement\+: This product includes software developed by the A\+T\&T.
-\item Neither the name of A\+T\&T nor the names of its contributors may be used to endorse or promote products derived from this software without specific prior written permission.
+\item All advertising materials mentioning features or use of this software must display the following acknowledgement\+: This product includes software developed by the AT\&T.
+\item Neither the name of AT\&T nor the names of its contributors may be used to endorse or promote products derived from this software without specific prior written permission.
 \end{DoxyEnumerate}
 
-T\+H\+I\+S S\+O\+F\+T\+W\+A\+R\+E I\+S P\+R\+O\+V\+I\+D\+E\+D B\+Y A\+T\&T I\+N\+T\+E\+L\+L\+E\+C\+T\+U\+A\+L P\+R\+O\+P\+E\+R\+T\+Y \textquotesingle{}\textquotesingle{}A\+S I\+S\textquotesingle{}\textquotesingle{} A\+N\+D A\+N\+Y E\+X\+P\+R\+E\+S\+S O\+R I\+M\+P\+L\+I\+E\+D W\+A\+R\+R\+A\+N\+T\+I\+E\+S, I\+N\+C\+L\+U\+D\+I\+N\+G, B\+U\+T N\+O\+T L\+I\+M\+I\+T\+E\+D T\+O, T\+H\+E I\+M\+P\+L\+I\+E\+D W\+A\+R\+R\+A\+N\+T\+I\+E\+S O\+F M\+E\+R\+C\+H\+A\+N\+T\+A\+B\+I\+L\+I\+T\+Y A\+N\+D F\+I\+T\+N\+E\+S\+S F\+O\+R A P\+A\+R\+T\+I\+C\+U\+L\+A\+R P\+U\+R\+P\+O\+S\+E A\+R\+E D\+I\+S\+C\+L\+A\+I\+M\+E\+D. I\+N N\+O E\+V\+E\+N\+T S\+H\+A\+L\+L A\+T\&T I\+N\+T\+E\+L\+L\+E\+C\+T\+U\+A\+L P\+R\+O\+P\+E\+R\+T\+Y B\+E L\+I\+A\+B\+L\+E F\+O\+R A\+N\+Y D\+I\+R\+E\+C\+T, I\+N\+D\+I\+R\+E\+C\+T, I\+N\+C\+I\+D\+E\+N\+T\+A\+L, S\+P\+E\+C\+I\+A\+L, E\+X\+E\+M\+P\+L\+A\+R\+Y, O\+R C\+O\+N\+S\+E\+Q\+U\+E\+N\+T\+I\+A\+L D\+A\+M\+A\+G\+E\+S (I\+N\+C\+L\+U\+D\+I\+N\+G, B\+U\+T N\+O\+T L\+I\+M\+I\+T\+E\+D T\+O, P\+R\+O\+C\+U\+R\+E\+M\+E\+N\+T O\+F S\+U\+B\+S\+T\+I\+T\+U\+T\+E G\+O\+O\+D\+S O\+R S\+E\+R\+V\+I\+C\+E\+S; L\+O\+S\+S O\+F U\+S\+E, D\+A\+T\+A, O\+R P\+R\+O\+F\+I\+T\+S; O\+R B\+U\+S\+I\+N\+E\+S\+S I\+N\+T\+E\+R\+R\+U\+P\+T\+I\+O\+N) H\+O\+W\+E\+V\+E\+R C\+A\+U\+S\+E\+D A\+N\+D O\+N A\+N\+Y T\+H\+E\+O\+R\+Y O\+F L\+I\+A\+B\+I\+L\+I\+T\+Y, W\+H\+E\+T\+H\+E\+R I\+N C\+O\+N\+T\+R\+A\+C\+T, S\+T\+R\+I\+C\+T L\+I\+A\+B\+I\+L\+I\+T\+Y, O\+R T\+O\+R\+T (I\+N\+C\+L\+U\+D\+I\+N\+G N\+E\+G\+L\+I\+G\+E\+N\+C\+E O\+R O\+T\+H\+E\+R\+W\+I\+S\+E) A\+R\+I\+S\+I\+N\+G I\+N A\+N\+Y W\+A\+Y O\+U\+T O\+F T\+H\+E U\+S\+E O\+F T\+H\+I\+S S\+O\+F\+T\+W\+A\+R\+E, E\+V\+E\+N I\+F A\+D\+V\+I\+S\+E\+D O\+F T\+H\+E P\+O\+S\+S\+I\+B\+I\+L\+I\+T\+Y O\+F S\+U\+C\+H D\+A\+M\+A\+G\+E. 
+T\+H\+IS S\+O\+F\+T\+W\+A\+RE IS P\+R\+O\+V\+I\+D\+ED BY AT\&T I\+N\+T\+E\+L\+L\+E\+C\+T\+U\+AL P\+R\+O\+P\+E\+R\+TY \textquotesingle{}\textquotesingle{}AS IS\textquotesingle{}\textquotesingle{} A\+ND A\+NY E\+X\+P\+R\+E\+SS OR I\+M\+P\+L\+I\+ED W\+A\+R\+R\+A\+N\+T\+I\+ES, I\+N\+C\+L\+U\+D\+I\+NG, B\+UT N\+OT L\+I\+M\+I\+T\+ED TO, T\+HE I\+M\+P\+L\+I\+ED W\+A\+R\+R\+A\+N\+T\+I\+ES OF M\+E\+R\+C\+H\+A\+N\+T\+A\+B\+I\+L\+I\+TY A\+ND F\+I\+T\+N\+E\+SS F\+OR A P\+A\+R\+T\+I\+C\+U\+L\+AR P\+U\+R\+P\+O\+SE A\+RE D\+I\+S\+C\+L\+A\+I\+M\+ED. IN NO E\+V\+E\+NT S\+H\+A\+LL AT\&T I\+N\+T\+E\+L\+L\+E\+C\+T\+U\+AL P\+R\+O\+P\+E\+R\+TY BE L\+I\+A\+B\+LE F\+OR A\+NY D\+I\+R\+E\+CT, I\+N\+D\+I\+R\+E\+CT, I\+N\+C\+I\+D\+E\+N\+T\+AL, S\+P\+E\+C\+I\+AL, E\+X\+E\+M\+P\+L\+A\+RY, OR C\+O\+N\+S\+E\+Q\+U\+E\+N\+T\+I\+AL D\+A\+M\+A\+G\+ES (I\+N\+C\+L\+U\+D\+I\+NG, B\+UT N\+OT L\+I\+M\+I\+T\+ED TO, P\+R\+O\+C\+U\+R\+E\+M\+E\+NT OF S\+U\+B\+S\+T\+I\+T\+U\+TE G\+O\+O\+DS OR S\+E\+R\+V\+I\+C\+ES; L\+O\+SS OF U\+SE, D\+A\+TA, OR P\+R\+O\+F\+I\+TS; OR B\+U\+S\+I\+N\+E\+SS I\+N\+T\+E\+R\+R\+U\+P\+T\+I\+ON) H\+O\+W\+E\+V\+ER C\+A\+U\+S\+ED A\+ND ON A\+NY T\+H\+E\+O\+RY OF L\+I\+A\+B\+I\+L\+I\+TY, W\+H\+E\+T\+H\+ER IN C\+O\+N\+T\+R\+A\+CT, S\+T\+R\+I\+CT L\+I\+A\+B\+I\+L\+I\+TY, OR T\+O\+RT (I\+N\+C\+L\+U\+D\+I\+NG N\+E\+G\+L\+I\+G\+E\+N\+CE OR O\+T\+H\+E\+R\+W\+I\+SE) A\+R\+I\+S\+I\+NG IN A\+NY W\+AY O\+UT OF T\+HE U\+SE OF T\+H\+IS S\+O\+F\+T\+W\+A\+RE, E\+V\+EN IF A\+D\+V\+I\+S\+ED OF T\+HE P\+O\+S\+S\+I\+B\+I\+L\+I\+TY OF S\+U\+CH D\+A\+M\+A\+GE. 
 
 \subsection{Function Documentation}
-\hypertarget{evel__scaling__measurement_8c_af387e0637a37752961d013fbedf52dc1}{}\index{evel\+\_\+scaling\+\_\+measurement.\+c@{evel\+\_\+scaling\+\_\+measurement.\+c}!evel\+\_\+free\+\_\+measurement@{evel\+\_\+free\+\_\+measurement}}
+\hypertarget{evel__scaling__measurement_8c_af387e0637a37752961d013fbedf52dc1}{}\label{evel__scaling__measurement_8c_af387e0637a37752961d013fbedf52dc1} 
+\index{evel\+\_\+scaling\+\_\+measurement.\+c@{evel\+\_\+scaling\+\_\+measurement.\+c}!evel\+\_\+free\+\_\+measurement@{evel\+\_\+free\+\_\+measurement}}
 \index{evel\+\_\+free\+\_\+measurement@{evel\+\_\+free\+\_\+measurement}!evel\+\_\+scaling\+\_\+measurement.\+c@{evel\+\_\+scaling\+\_\+measurement.\+c}}
-\subsubsection[{evel\+\_\+free\+\_\+measurement(\+E\+V\+E\+N\+T\+\_\+\+M\+E\+A\+S\+U\+R\+E\+M\+E\+N\+T $\ast$event)}]{\setlength{\rightskip}{0pt plus 5cm}void evel\+\_\+free\+\_\+measurement (
-\begin{DoxyParamCaption}
-\item[{{\bf E\+V\+E\+N\+T\+\_\+\+M\+E\+A\+S\+U\+R\+E\+M\+E\+N\+T} $\ast$}]{event}
-\end{DoxyParamCaption}
-)}\label{evel__scaling__measurement_8c_af387e0637a37752961d013fbedf52dc1}
+\subsubsection{\texorpdfstring{evel\+\_\+free\+\_\+measurement()}{evel\_free\_measurement()}}
+{\footnotesize\ttfamily void evel\+\_\+free\+\_\+measurement (\begin{DoxyParamCaption}\item[{\hyperlink{evel_8h_a6aebe95622adf9a98ba33fc440c11ba0}{E\+V\+E\+N\+T\+\_\+\+M\+E\+A\+S\+U\+R\+E\+M\+E\+NT} $\ast$}]{event }\end{DoxyParamCaption})}
+
 
 
 Free a Measurement. 
 
-Free off the Measurement supplied. Will recursively free all the contained allocated memory.
+Free off the Measurement supplied. Will free all the contained allocated memory.
 
 \begin{DoxyNote}{Note}
 It does not free the Measurement itself, since that may be part of a larger structure. 
 \end{DoxyNote}
 
 
-Definition at line 982 of file evel\+\_\+scaling\+\_\+measurement.\+c.
+Definition at line 1607 of file evel\+\_\+scaling\+\_\+measurement.\+c.
 
-\hypertarget{evel__scaling__measurement_8c_a57d99198d0b9d89de97749eb839ed1fa}{}\index{evel\+\_\+scaling\+\_\+measurement.\+c@{evel\+\_\+scaling\+\_\+measurement.\+c}!evel\+\_\+json\+\_\+encode\+\_\+measurement@{evel\+\_\+json\+\_\+encode\+\_\+measurement}}
+\hypertarget{evel__scaling__measurement_8c_a5a7af2556af6fe84d7d68ed8c0be932c}{}\label{evel__scaling__measurement_8c_a5a7af2556af6fe84d7d68ed8c0be932c} 
+\index{evel\+\_\+scaling\+\_\+measurement.\+c@{evel\+\_\+scaling\+\_\+measurement.\+c}!evel\+\_\+free\+\_\+measurement\+\_\+vnic\+\_\+use@{evel\+\_\+free\+\_\+measurement\+\_\+vnic\+\_\+use}}
+\index{evel\+\_\+free\+\_\+measurement\+\_\+vnic\+\_\+use@{evel\+\_\+free\+\_\+measurement\+\_\+vnic\+\_\+use}!evel\+\_\+scaling\+\_\+measurement.\+c@{evel\+\_\+scaling\+\_\+measurement.\+c}}
+\subsubsection{\texorpdfstring{evel\+\_\+free\+\_\+measurement\+\_\+vnic\+\_\+use()}{evel\_free\_measurement\_vnic\_use()}}
+{\footnotesize\ttfamily void evel\+\_\+free\+\_\+measurement\+\_\+vnic\+\_\+use (\begin{DoxyParamCaption}\item[{\hyperlink{evel_8h_a83928ff964034324312868dcfaf64b8c}{M\+E\+A\+S\+U\+R\+E\+M\+E\+N\+T\+\_\+\+V\+N\+I\+C\+\_\+\+U\+SE} $\ast$const}]{vnic\+\_\+use }\end{DoxyParamCaption})}
+
+
+
+Free a v\+N\+IC Use. 
+
+Free off the \hyperlink{evel_8h_a83928ff964034324312868dcfaf64b8c}{M\+E\+A\+S\+U\+R\+E\+M\+E\+N\+T\+\_\+\+V\+N\+I\+C\+\_\+\+U\+SE} supplied. Will free all the contained allocated memory.
+
+\begin{DoxyNote}{Note}
+It does not free the v\+N\+IC Use itself, since that may be part of a larger structure. 
+\end{DoxyNote}
+
+
+Definition at line 955 of file evel\+\_\+scaling\+\_\+measurement.\+c.
+
+\hypertarget{evel__scaling__measurement_8c_a65e51727e90bf94392837c675ceedcac}{}\label{evel__scaling__measurement_8c_a65e51727e90bf94392837c675ceedcac} 
+\index{evel\+\_\+scaling\+\_\+measurement.\+c@{evel\+\_\+scaling\+\_\+measurement.\+c}!evel\+\_\+json\+\_\+encode\+\_\+measurement@{evel\+\_\+json\+\_\+encode\+\_\+measurement}}
 \index{evel\+\_\+json\+\_\+encode\+\_\+measurement@{evel\+\_\+json\+\_\+encode\+\_\+measurement}!evel\+\_\+scaling\+\_\+measurement.\+c@{evel\+\_\+scaling\+\_\+measurement.\+c}}
-\subsubsection[{evel\+\_\+json\+\_\+encode\+\_\+measurement(char $\ast$json, int max\+\_\+size, E\+V\+E\+N\+T\+\_\+\+M\+E\+A\+S\+U\+R\+E\+M\+E\+N\+T $\ast$event)}]{\setlength{\rightskip}{0pt plus 5cm}int evel\+\_\+json\+\_\+encode\+\_\+measurement (
-\begin{DoxyParamCaption}
-\item[{char $\ast$}]{json, }
-\item[{int}]{max\+\_\+size, }
-\item[{{\bf E\+V\+E\+N\+T\+\_\+\+M\+E\+A\+S\+U\+R\+E\+M\+E\+N\+T} $\ast$}]{event}
-\end{DoxyParamCaption}
-)}\label{evel__scaling__measurement_8c_a57d99198d0b9d89de97749eb839ed1fa}
+\subsubsection{\texorpdfstring{evel\+\_\+json\+\_\+encode\+\_\+measurement()}{evel\_json\_encode\_measurement()}}
+{\footnotesize\ttfamily void evel\+\_\+json\+\_\+encode\+\_\+measurement (\begin{DoxyParamCaption}\item[{\hyperlink{evel__internal_8h_af9c576f6ffebdf8c5164ccf9827b323a}{E\+V\+E\+L\+\_\+\+J\+S\+O\+N\+\_\+\+B\+U\+F\+F\+ER} $\ast$}]{jbuf,  }\item[{\hyperlink{evel_8h_a6aebe95622adf9a98ba33fc440c11ba0}{E\+V\+E\+N\+T\+\_\+\+M\+E\+A\+S\+U\+R\+E\+M\+E\+NT} $\ast$}]{event }\end{DoxyParamCaption})}
 
 
-Encode the measurement as a J\+S\+O\+N measurement. 
 
-Encode the fault as a J\+S\+O\+N fault.
+Encode the measurement as a J\+S\+ON measurement. 
 
 
 \begin{DoxyParams}{Parameters}
-{\em json} & Pointer to where to store the J\+S\+O\+N encoded data. \\
+{\em jbuf} & Pointer to the \hyperlink{evel__internal_8h_af9c576f6ffebdf8c5164ccf9827b323a}{E\+V\+E\+L\+\_\+\+J\+S\+O\+N\+\_\+\+B\+U\+F\+F\+ER} to encode into. \\
 \hline
-{\em max\+\_\+size} & Size of storage available in evel\+\_\+json\+\_\+encode\+\_\+measurement\+::json. \\
-\hline
-{\em event} & Pointer to the \hyperlink{evel_8h_a6aebe95622adf9a98ba33fc440c11ba0}{E\+V\+E\+N\+T\+\_\+\+M\+E\+A\+S\+U\+R\+E\+M\+E\+N\+T} to encode. \\
+{\em event} & Pointer to the \hyperlink{evel_8h_aa0ea94c675729365ea7825c4fc7e06d8}{E\+V\+E\+N\+T\+\_\+\+H\+E\+A\+D\+ER} to encode. \\
 \hline
 \end{DoxyParams}
-\begin{DoxyReturn}{Returns}
-Number of bytes actually written. 
-\end{DoxyReturn}
 
 
-Definition at line 658 of file evel\+\_\+scaling\+\_\+measurement.\+c.
+Definition at line 1225 of file evel\+\_\+scaling\+\_\+measurement.\+c.
 
-\hypertarget{evel__scaling__measurement_8c_ae30edcd72c4b9dd4740ad40e644964ba}{}\index{evel\+\_\+scaling\+\_\+measurement.\+c@{evel\+\_\+scaling\+\_\+measurement.\+c}!evel\+\_\+measurement\+\_\+agg\+\_\+cpu\+\_\+use\+\_\+set@{evel\+\_\+measurement\+\_\+agg\+\_\+cpu\+\_\+use\+\_\+set}}
+\hypertarget{evel__scaling__measurement_8c_a4ea874733481f4aeb71dfcd5d08d38bf}{}\label{evel__scaling__measurement_8c_a4ea874733481f4aeb71dfcd5d08d38bf} 
+\index{evel\+\_\+scaling\+\_\+measurement.\+c@{evel\+\_\+scaling\+\_\+measurement.\+c}!evel\+\_\+meas\+\_\+latency\+\_\+bucket\+\_\+add@{evel\+\_\+meas\+\_\+latency\+\_\+bucket\+\_\+add}}
+\index{evel\+\_\+meas\+\_\+latency\+\_\+bucket\+\_\+add@{evel\+\_\+meas\+\_\+latency\+\_\+bucket\+\_\+add}!evel\+\_\+scaling\+\_\+measurement.\+c@{evel\+\_\+scaling\+\_\+measurement.\+c}}
+\subsubsection{\texorpdfstring{evel\+\_\+meas\+\_\+latency\+\_\+bucket\+\_\+add()}{evel\_meas\_latency\_bucket\_add()}}
+{\footnotesize\ttfamily void evel\+\_\+meas\+\_\+latency\+\_\+bucket\+\_\+add (\begin{DoxyParamCaption}\item[{\hyperlink{evel_8h_a6aebe95622adf9a98ba33fc440c11ba0}{E\+V\+E\+N\+T\+\_\+\+M\+E\+A\+S\+U\+R\+E\+M\+E\+NT} $\ast$const}]{measurement,  }\item[{\hyperlink{evel_8h_ad8103d1938fc8a0c693b9c460c23a754}{M\+E\+A\+S\+U\+R\+E\+M\+E\+N\+T\+\_\+\+L\+A\+T\+E\+N\+C\+Y\+\_\+\+B\+U\+C\+K\+ET} $\ast$const}]{bucket }\end{DoxyParamCaption})}
+
+
+
+Add an additional Measurement Latency Bucket to the specified event. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em measurement} & Pointer to the Measurement event. \\
+\hline
+{\em bucket} & Pointer to the Measurement Latency Bucket to add. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 834 of file evel\+\_\+scaling\+\_\+measurement.\+c.
+
+\hypertarget{evel__scaling__measurement_8c_a75d403473004b806014543f492ffe2ff}{}\label{evel__scaling__measurement_8c_a75d403473004b806014543f492ffe2ff} 
+\index{evel\+\_\+scaling\+\_\+measurement.\+c@{evel\+\_\+scaling\+\_\+measurement.\+c}!evel\+\_\+meas\+\_\+latency\+\_\+bucket\+\_\+high\+\_\+end\+\_\+set@{evel\+\_\+meas\+\_\+latency\+\_\+bucket\+\_\+high\+\_\+end\+\_\+set}}
+\index{evel\+\_\+meas\+\_\+latency\+\_\+bucket\+\_\+high\+\_\+end\+\_\+set@{evel\+\_\+meas\+\_\+latency\+\_\+bucket\+\_\+high\+\_\+end\+\_\+set}!evel\+\_\+scaling\+\_\+measurement.\+c@{evel\+\_\+scaling\+\_\+measurement.\+c}}
+\subsubsection{\texorpdfstring{evel\+\_\+meas\+\_\+latency\+\_\+bucket\+\_\+high\+\_\+end\+\_\+set()}{evel\_meas\_latency\_bucket\_high\_end\_set()}}
+{\footnotesize\ttfamily void evel\+\_\+meas\+\_\+latency\+\_\+bucket\+\_\+high\+\_\+end\+\_\+set (\begin{DoxyParamCaption}\item[{\hyperlink{evel_8h_ad8103d1938fc8a0c693b9c460c23a754}{M\+E\+A\+S\+U\+R\+E\+M\+E\+N\+T\+\_\+\+L\+A\+T\+E\+N\+C\+Y\+\_\+\+B\+U\+C\+K\+ET} $\ast$const}]{bucket,  }\item[{const double}]{high\+\_\+end }\end{DoxyParamCaption})}
+
+
+
+Set the High End property of the Measurement Latency Bucket. 
+
+\begin{DoxyNote}{Note}
+The property is treated as immutable\+: it is only valid to call the setter once. However, we don\textquotesingle{}t assert if the caller tries to overwrite, just ignoring the update instead.
+\end{DoxyNote}
+
+\begin{DoxyParams}{Parameters}
+{\em bucket} & Pointer to the Measurement Latency Bucket. \\
+\hline
+{\em high\+\_\+end} & High end of the bucket\textquotesingle{}s range. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 789 of file evel\+\_\+scaling\+\_\+measurement.\+c.
+
+\hypertarget{evel__scaling__measurement_8c_afc7cd797fb7c6182f9f91b7fba7527bf}{}\label{evel__scaling__measurement_8c_afc7cd797fb7c6182f9f91b7fba7527bf} 
+\index{evel\+\_\+scaling\+\_\+measurement.\+c@{evel\+\_\+scaling\+\_\+measurement.\+c}!evel\+\_\+meas\+\_\+latency\+\_\+bucket\+\_\+low\+\_\+end\+\_\+set@{evel\+\_\+meas\+\_\+latency\+\_\+bucket\+\_\+low\+\_\+end\+\_\+set}}
+\index{evel\+\_\+meas\+\_\+latency\+\_\+bucket\+\_\+low\+\_\+end\+\_\+set@{evel\+\_\+meas\+\_\+latency\+\_\+bucket\+\_\+low\+\_\+end\+\_\+set}!evel\+\_\+scaling\+\_\+measurement.\+c@{evel\+\_\+scaling\+\_\+measurement.\+c}}
+\subsubsection{\texorpdfstring{evel\+\_\+meas\+\_\+latency\+\_\+bucket\+\_\+low\+\_\+end\+\_\+set()}{evel\_meas\_latency\_bucket\_low\_end\_set()}}
+{\footnotesize\ttfamily void evel\+\_\+meas\+\_\+latency\+\_\+bucket\+\_\+low\+\_\+end\+\_\+set (\begin{DoxyParamCaption}\item[{\hyperlink{evel_8h_ad8103d1938fc8a0c693b9c460c23a754}{M\+E\+A\+S\+U\+R\+E\+M\+E\+N\+T\+\_\+\+L\+A\+T\+E\+N\+C\+Y\+\_\+\+B\+U\+C\+K\+ET} $\ast$const}]{bucket,  }\item[{const double}]{low\+\_\+end }\end{DoxyParamCaption})}
+
+
+
+Set the Low End property of the Measurement Latency Bucket. 
+
+\begin{DoxyNote}{Note}
+The property is treated as immutable\+: it is only valid to call the setter once. However, we don\textquotesingle{}t assert if the caller tries to overwrite, just ignoring the update instead.
+\end{DoxyNote}
+
+\begin{DoxyParams}{Parameters}
+{\em bucket} & Pointer to the Measurement Latency Bucket. \\
+\hline
+{\em low\+\_\+end} & Low end of the bucket\textquotesingle{}s range. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 814 of file evel\+\_\+scaling\+\_\+measurement.\+c.
+
+\hypertarget{evel__scaling__measurement_8c_a3bf83ebe346ccd7ee89ebc4543de212c}{}\label{evel__scaling__measurement_8c_a3bf83ebe346ccd7ee89ebc4543de212c} 
+\index{evel\+\_\+scaling\+\_\+measurement.\+c@{evel\+\_\+scaling\+\_\+measurement.\+c}!evel\+\_\+meas\+\_\+vnic\+\_\+use\+\_\+add@{evel\+\_\+meas\+\_\+vnic\+\_\+use\+\_\+add}}
+\index{evel\+\_\+meas\+\_\+vnic\+\_\+use\+\_\+add@{evel\+\_\+meas\+\_\+vnic\+\_\+use\+\_\+add}!evel\+\_\+scaling\+\_\+measurement.\+c@{evel\+\_\+scaling\+\_\+measurement.\+c}}
+\subsubsection{\texorpdfstring{evel\+\_\+meas\+\_\+vnic\+\_\+use\+\_\+add()}{evel\_meas\_vnic\_use\_add()}}
+{\footnotesize\ttfamily void evel\+\_\+meas\+\_\+vnic\+\_\+use\+\_\+add (\begin{DoxyParamCaption}\item[{\hyperlink{evel_8h_a6aebe95622adf9a98ba33fc440c11ba0}{E\+V\+E\+N\+T\+\_\+\+M\+E\+A\+S\+U\+R\+E\+M\+E\+NT} $\ast$const}]{measurement,  }\item[{\hyperlink{evel_8h_a83928ff964034324312868dcfaf64b8c}{M\+E\+A\+S\+U\+R\+E\+M\+E\+N\+T\+\_\+\+V\+N\+I\+C\+\_\+\+U\+SE} $\ast$const}]{vnic\+\_\+use }\end{DoxyParamCaption})}
+
+
+
+Add an additional v\+N\+IC Use to the specified Measurement event. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em measurement} & Pointer to the measurement. \\
+\hline
+{\em vnic\+\_\+use} & Pointer to the v\+N\+IC Use to add. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 1148 of file evel\+\_\+scaling\+\_\+measurement.\+c.
+
+\hypertarget{evel__scaling__measurement_8c_ae30edcd72c4b9dd4740ad40e644964ba}{}\label{evel__scaling__measurement_8c_ae30edcd72c4b9dd4740ad40e644964ba} 
+\index{evel\+\_\+scaling\+\_\+measurement.\+c@{evel\+\_\+scaling\+\_\+measurement.\+c}!evel\+\_\+measurement\+\_\+agg\+\_\+cpu\+\_\+use\+\_\+set@{evel\+\_\+measurement\+\_\+agg\+\_\+cpu\+\_\+use\+\_\+set}}
 \index{evel\+\_\+measurement\+\_\+agg\+\_\+cpu\+\_\+use\+\_\+set@{evel\+\_\+measurement\+\_\+agg\+\_\+cpu\+\_\+use\+\_\+set}!evel\+\_\+scaling\+\_\+measurement.\+c@{evel\+\_\+scaling\+\_\+measurement.\+c}}
-\subsubsection[{evel\+\_\+measurement\+\_\+agg\+\_\+cpu\+\_\+use\+\_\+set(\+E\+V\+E\+N\+T\+\_\+\+M\+E\+A\+S\+U\+R\+E\+M\+E\+N\+T $\ast$measurement, double cpu\+\_\+use)}]{\setlength{\rightskip}{0pt plus 5cm}void evel\+\_\+measurement\+\_\+agg\+\_\+cpu\+\_\+use\+\_\+set (
-\begin{DoxyParamCaption}
-\item[{{\bf E\+V\+E\+N\+T\+\_\+\+M\+E\+A\+S\+U\+R\+E\+M\+E\+N\+T} $\ast$}]{measurement, }
-\item[{double}]{cpu\+\_\+use}
-\end{DoxyParamCaption}
-)}\label{evel__scaling__measurement_8c_ae30edcd72c4b9dd4740ad40e644964ba}
+\subsubsection{\texorpdfstring{evel\+\_\+measurement\+\_\+agg\+\_\+cpu\+\_\+use\+\_\+set()}{evel\_measurement\_agg\_cpu\_use\_set()}}
+{\footnotesize\ttfamily void evel\+\_\+measurement\+\_\+agg\+\_\+cpu\+\_\+use\+\_\+set (\begin{DoxyParamCaption}\item[{\hyperlink{evel_8h_a6aebe95622adf9a98ba33fc440c11ba0}{E\+V\+E\+N\+T\+\_\+\+M\+E\+A\+S\+U\+R\+E\+M\+E\+NT} $\ast$}]{measurement,  }\item[{double}]{cpu\+\_\+use }\end{DoxyParamCaption})}
 
 
-Set the Aggregate C\+P\+U Use property of the Measurement. 
 
-\} Set the Aggregate C\+P\+U Use property of the Measurement.
+Set the Aggregate C\+PU Use property of the Measurement. 
+
+\} Set the Aggregate C\+PU Use property of the Measurement.
 
 \begin{DoxyNote}{Note}
 The property is treated as immutable\+: it is only valid to call the setter once. However, we don\textquotesingle{}t assert if the caller tries to overwrite, just ignoring the update instead.
@@ -143,184 +280,241 @@ The property is treated as immutable\+: it is only valid to call the setter once
 \begin{DoxyParams}{Parameters}
 {\em measurement} & Pointer to the measurement. \\
 \hline
-{\em cpu\+\_\+use} & The C\+P\+U use to set. \\
+{\em cpu\+\_\+use} & The C\+PU use to set. \\
 \hline
 \end{DoxyParams}
 
 
-Definition at line 549 of file evel\+\_\+scaling\+\_\+measurement.\+c.
+Definition at line 656 of file evel\+\_\+scaling\+\_\+measurement.\+c.
 
-\hypertarget{evel__scaling__measurement_8c_a1176ef6423b8178bc0eecc80b6c2a4b7}{}\index{evel\+\_\+scaling\+\_\+measurement.\+c@{evel\+\_\+scaling\+\_\+measurement.\+c}!evel\+\_\+measurement\+\_\+codec\+\_\+use\+\_\+add@{evel\+\_\+measurement\+\_\+codec\+\_\+use\+\_\+add}}
+\hypertarget{evel__scaling__measurement_8c_a5e1626282cd6bc8e2288b21e34655b3a}{}\label{evel__scaling__measurement_8c_a5e1626282cd6bc8e2288b21e34655b3a} 
+\index{evel\+\_\+scaling\+\_\+measurement.\+c@{evel\+\_\+scaling\+\_\+measurement.\+c}!evel\+\_\+measurement\+\_\+cfg\+\_\+ents\+\_\+set@{evel\+\_\+measurement\+\_\+cfg\+\_\+ents\+\_\+set}}
+\index{evel\+\_\+measurement\+\_\+cfg\+\_\+ents\+\_\+set@{evel\+\_\+measurement\+\_\+cfg\+\_\+ents\+\_\+set}!evel\+\_\+scaling\+\_\+measurement.\+c@{evel\+\_\+scaling\+\_\+measurement.\+c}}
+\subsubsection{\texorpdfstring{evel\+\_\+measurement\+\_\+cfg\+\_\+ents\+\_\+set()}{evel\_measurement\_cfg\_ents\_set()}}
+{\footnotesize\ttfamily void evel\+\_\+measurement\+\_\+cfg\+\_\+ents\+\_\+set (\begin{DoxyParamCaption}\item[{\hyperlink{evel_8h_a6aebe95622adf9a98ba33fc440c11ba0}{E\+V\+E\+N\+T\+\_\+\+M\+E\+A\+S\+U\+R\+E\+M\+E\+NT} $\ast$}]{measurement,  }\item[{int}]{configured\+\_\+entities }\end{DoxyParamCaption})}
+
+
+
+Set the Configured Entities property of the Measurement. 
+
+\begin{DoxyNote}{Note}
+The property is treated as immutable\+: it is only valid to call the setter once. However, we don\textquotesingle{}t assert if the caller tries to overwrite, just ignoring the update instead.
+\end{DoxyNote}
+
+\begin{DoxyParams}{Parameters}
+{\em measurement} & Pointer to the Measurement. \\
+\hline
+{\em configured\+\_\+entities} & The Configured Entities to be set. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 178 of file evel\+\_\+scaling\+\_\+measurement.\+c.
+
+\hypertarget{evel__scaling__measurement_8c_a1176ef6423b8178bc0eecc80b6c2a4b7}{}\label{evel__scaling__measurement_8c_a1176ef6423b8178bc0eecc80b6c2a4b7} 
+\index{evel\+\_\+scaling\+\_\+measurement.\+c@{evel\+\_\+scaling\+\_\+measurement.\+c}!evel\+\_\+measurement\+\_\+codec\+\_\+use\+\_\+add@{evel\+\_\+measurement\+\_\+codec\+\_\+use\+\_\+add}}
 \index{evel\+\_\+measurement\+\_\+codec\+\_\+use\+\_\+add@{evel\+\_\+measurement\+\_\+codec\+\_\+use\+\_\+add}!evel\+\_\+scaling\+\_\+measurement.\+c@{evel\+\_\+scaling\+\_\+measurement.\+c}}
-\subsubsection[{evel\+\_\+measurement\+\_\+codec\+\_\+use\+\_\+add(\+E\+V\+E\+N\+T\+\_\+\+M\+E\+A\+S\+U\+R\+E\+M\+E\+N\+T $\ast$measurement, char $\ast$codec, int utilization)}]{\setlength{\rightskip}{0pt plus 5cm}void evel\+\_\+measurement\+\_\+codec\+\_\+use\+\_\+add (
-\begin{DoxyParamCaption}
-\item[{{\bf E\+V\+E\+N\+T\+\_\+\+M\+E\+A\+S\+U\+R\+E\+M\+E\+N\+T} $\ast$}]{measurement, }
-\item[{char $\ast$}]{codec, }
-\item[{int}]{utilization}
-\end{DoxyParamCaption}
-)}\label{evel__scaling__measurement_8c_a1176ef6423b8178bc0eecc80b6c2a4b7}
+\subsubsection{\texorpdfstring{evel\+\_\+measurement\+\_\+codec\+\_\+use\+\_\+add()}{evel\_measurement\_codec\_use\_add()}}
+{\footnotesize\ttfamily void evel\+\_\+measurement\+\_\+codec\+\_\+use\+\_\+add (\begin{DoxyParamCaption}\item[{\hyperlink{evel_8h_a6aebe95622adf9a98ba33fc440c11ba0}{E\+V\+E\+N\+T\+\_\+\+M\+E\+A\+S\+U\+R\+E\+M\+E\+NT} $\ast$}]{measurement,  }\item[{char $\ast$}]{codec,  }\item[{int}]{utilization }\end{DoxyParamCaption})}
+
 
 
 Add a Codec usage value name/value pair to the Measurement. 
 
-The name is null delimited A\+S\+C\+I\+I string. The library takes a copy so the caller does not have to preserve values after the function returns.
+The name is null delimited A\+S\+C\+II string. The library takes a copy so the caller does not have to preserve values after the function returns.
 
 
 \begin{DoxyParams}{Parameters}
 {\em measurement} & Pointer to the measurement. \\
 \hline
-{\em codec} & A\+S\+C\+I\+I\+Z string with the codec\textquotesingle{}s name. \\
+{\em codec} & A\+S\+C\+I\+IZ string with the codec\textquotesingle{}s name. \\
 \hline
-{\em utilization} & Utilization of the feature. \\
+{\em utilization} & Number of codecs in use. \\
 \hline
 \end{DoxyParams}
 
 
-Definition at line 509 of file evel\+\_\+scaling\+\_\+measurement.\+c.
+Definition at line 615 of file evel\+\_\+scaling\+\_\+measurement.\+c.
 
-\hypertarget{evel__scaling__measurement_8c_ac5ee57e6574ae2286c0c5d3d6d1f9ca6}{}\index{evel\+\_\+scaling\+\_\+measurement.\+c@{evel\+\_\+scaling\+\_\+measurement.\+c}!evel\+\_\+measurement\+\_\+cpu\+\_\+use\+\_\+add@{evel\+\_\+measurement\+\_\+cpu\+\_\+use\+\_\+add}}
+\hypertarget{evel__scaling__measurement_8c_a99f6496c38536ee5eed9792387d58a36}{}\label{evel__scaling__measurement_8c_a99f6496c38536ee5eed9792387d58a36} 
+\index{evel\+\_\+scaling\+\_\+measurement.\+c@{evel\+\_\+scaling\+\_\+measurement.\+c}!evel\+\_\+measurement\+\_\+conc\+\_\+sess\+\_\+set@{evel\+\_\+measurement\+\_\+conc\+\_\+sess\+\_\+set}}
+\index{evel\+\_\+measurement\+\_\+conc\+\_\+sess\+\_\+set@{evel\+\_\+measurement\+\_\+conc\+\_\+sess\+\_\+set}!evel\+\_\+scaling\+\_\+measurement.\+c@{evel\+\_\+scaling\+\_\+measurement.\+c}}
+\subsubsection{\texorpdfstring{evel\+\_\+measurement\+\_\+conc\+\_\+sess\+\_\+set()}{evel\_measurement\_conc\_sess\_set()}}
+{\footnotesize\ttfamily void evel\+\_\+measurement\+\_\+conc\+\_\+sess\+\_\+set (\begin{DoxyParamCaption}\item[{\hyperlink{evel_8h_a6aebe95622adf9a98ba33fc440c11ba0}{E\+V\+E\+N\+T\+\_\+\+M\+E\+A\+S\+U\+R\+E\+M\+E\+NT} $\ast$}]{measurement,  }\item[{int}]{concurrent\+\_\+sessions }\end{DoxyParamCaption})}
+
+
+
+Set the Concurrent Sessions property of the Measurement. 
+
+\begin{DoxyNote}{Note}
+The property is treated as immutable\+: it is only valid to call the setter once. However, we don\textquotesingle{}t assert if the caller tries to overwrite, just ignoring the update instead.
+\end{DoxyNote}
+
+\begin{DoxyParams}{Parameters}
+{\em measurement} & Pointer to the Measurement. \\
+\hline
+{\em concurrent\+\_\+sessions} & The Concurrent Sessions to be set. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 150 of file evel\+\_\+scaling\+\_\+measurement.\+c.
+
+\hypertarget{evel__scaling__measurement_8c_a0f31427d9838f52987a0d49570cd226e}{}\label{evel__scaling__measurement_8c_a0f31427d9838f52987a0d49570cd226e} 
+\index{evel\+\_\+scaling\+\_\+measurement.\+c@{evel\+\_\+scaling\+\_\+measurement.\+c}!evel\+\_\+measurement\+\_\+cpu\+\_\+use\+\_\+add@{evel\+\_\+measurement\+\_\+cpu\+\_\+use\+\_\+add}}
 \index{evel\+\_\+measurement\+\_\+cpu\+\_\+use\+\_\+add@{evel\+\_\+measurement\+\_\+cpu\+\_\+use\+\_\+add}!evel\+\_\+scaling\+\_\+measurement.\+c@{evel\+\_\+scaling\+\_\+measurement.\+c}}
-\subsubsection[{evel\+\_\+measurement\+\_\+cpu\+\_\+use\+\_\+add(\+E\+V\+E\+N\+T\+\_\+\+M\+E\+A\+S\+U\+R\+E\+M\+E\+N\+T $\ast$measurement, char $\ast$name, double value)}]{\setlength{\rightskip}{0pt plus 5cm}void evel\+\_\+measurement\+\_\+cpu\+\_\+use\+\_\+add (
-\begin{DoxyParamCaption}
-\item[{{\bf E\+V\+E\+N\+T\+\_\+\+M\+E\+A\+S\+U\+R\+E\+M\+E\+N\+T} $\ast$}]{measurement, }
-\item[{char $\ast$}]{name, }
-\item[{double}]{value}
-\end{DoxyParamCaption}
-)}\label{evel__scaling__measurement_8c_ac5ee57e6574ae2286c0c5d3d6d1f9ca6}
+\subsubsection{\texorpdfstring{evel\+\_\+measurement\+\_\+cpu\+\_\+use\+\_\+add()}{evel\_measurement\_cpu\_use\_add()}}
+{\footnotesize\ttfamily void evel\+\_\+measurement\+\_\+cpu\+\_\+use\+\_\+add (\begin{DoxyParamCaption}\item[{\hyperlink{evel_8h_a6aebe95622adf9a98ba33fc440c11ba0}{E\+V\+E\+N\+T\+\_\+\+M\+E\+A\+S\+U\+R\+E\+M\+E\+NT} $\ast$}]{measurement,  }\item[{char $\ast$}]{id,  }\item[{double}]{usage }\end{DoxyParamCaption})}
 
 
-Add an additional C\+P\+U usage value name/value pair to the Measurement. 
 
-The name and value are null delimited A\+S\+C\+I\+I strings. The library takes a copy so the caller does not have to preserve values after the function returns.
+Add an additional C\+PU usage value name/value pair to the Measurement. 
+
+The name and value are null delimited A\+S\+C\+II strings. The library takes a copy so the caller does not have to preserve values after the function returns.
 
 
 \begin{DoxyParams}{Parameters}
 {\em measurement} & Pointer to the measurement. \\
 \hline
-{\em name} & A\+S\+C\+I\+I\+Z string with the C\+P\+U\textquotesingle{}s name. \\
+{\em id} & A\+S\+C\+I\+IZ string with the C\+PU\textquotesingle{}s identifier. \\
 \hline
-{\em value} & C\+P\+U utilization. \\
+{\em usage} & C\+PU utilization. \\
 \hline
 \end{DoxyParams}
 
 
-Definition at line 180 of file evel\+\_\+scaling\+\_\+measurement.\+c.
+Definition at line 385 of file evel\+\_\+scaling\+\_\+measurement.\+c.
 
-\hypertarget{evel__scaling__measurement_8c_abfc0ab882100cbc69d3f1e26a6c53666}{}\index{evel\+\_\+scaling\+\_\+measurement.\+c@{evel\+\_\+scaling\+\_\+measurement.\+c}!evel\+\_\+measurement\+\_\+custom\+\_\+measurement\+\_\+add@{evel\+\_\+measurement\+\_\+custom\+\_\+measurement\+\_\+add}}
+\hypertarget{evel__scaling__measurement_8c_aaea1feb05789ba15bcef082db07c3e5f}{}\label{evel__scaling__measurement_8c_aaea1feb05789ba15bcef082db07c3e5f} 
+\index{evel\+\_\+scaling\+\_\+measurement.\+c@{evel\+\_\+scaling\+\_\+measurement.\+c}!evel\+\_\+measurement\+\_\+custom\+\_\+measurement\+\_\+add@{evel\+\_\+measurement\+\_\+custom\+\_\+measurement\+\_\+add}}
 \index{evel\+\_\+measurement\+\_\+custom\+\_\+measurement\+\_\+add@{evel\+\_\+measurement\+\_\+custom\+\_\+measurement\+\_\+add}!evel\+\_\+scaling\+\_\+measurement.\+c@{evel\+\_\+scaling\+\_\+measurement.\+c}}
-\subsubsection[{evel\+\_\+measurement\+\_\+custom\+\_\+measurement\+\_\+add(\+E\+V\+E\+N\+T\+\_\+\+M\+E\+A\+S\+U\+R\+E\+M\+E\+N\+T $\ast$measurement, const char const $\ast$group, const char const $\ast$name, const char const $\ast$value)}]{\setlength{\rightskip}{0pt plus 5cm}void evel\+\_\+measurement\+\_\+custom\+\_\+measurement\+\_\+add (
-\begin{DoxyParamCaption}
-\item[{{\bf E\+V\+E\+N\+T\+\_\+\+M\+E\+A\+S\+U\+R\+E\+M\+E\+N\+T} $\ast$}]{measurement, }
-\item[{const char const $\ast$}]{group, }
-\item[{const char const $\ast$}]{name, }
-\item[{const char const $\ast$}]{value}
-\end{DoxyParamCaption}
-)}\label{evel__scaling__measurement_8c_abfc0ab882100cbc69d3f1e26a6c53666}
+\subsubsection{\texorpdfstring{evel\+\_\+measurement\+\_\+custom\+\_\+measurement\+\_\+add()}{evel\_measurement\_custom\_measurement\_add()}}
+{\footnotesize\ttfamily void evel\+\_\+measurement\+\_\+custom\+\_\+measurement\+\_\+add (\begin{DoxyParamCaption}\item[{\hyperlink{evel_8h_a6aebe95622adf9a98ba33fc440c11ba0}{E\+V\+E\+N\+T\+\_\+\+M\+E\+A\+S\+U\+R\+E\+M\+E\+NT} $\ast$}]{measurement,  }\item[{const char $\ast$const}]{group,  }\item[{const char $\ast$const}]{name,  }\item[{const char $\ast$const}]{value }\end{DoxyParamCaption})}
+
 
 
 Add a Additional Measurement value name/value pair to the Report. 
 
-The name is null delimited A\+S\+C\+I\+I string. The library takes a copy so the caller does not have to preserve values after the function returns.
+Add a Additional Measurement value name/value pair to the Measurement.
+
+The name is null delimited A\+S\+C\+II string. The library takes a copy so the caller does not have to preserve values after the function returns.
 
 
 \begin{DoxyParams}{Parameters}
 {\em measurement} & Pointer to the Measaurement. \\
 \hline
-{\em group} & A\+S\+C\+I\+I\+Z string with the measurement group\textquotesingle{}s name. \\
+{\em group} & A\+S\+C\+I\+IZ string with the measurement group\textquotesingle{}s name. \\
 \hline
-{\em name} & A\+S\+C\+I\+I\+Z string containing the measurement\textquotesingle{}s name. \\
+{\em name} & A\+S\+C\+I\+IZ string containing the measurement\textquotesingle{}s name. \\
 \hline
-{\em value} & A\+S\+C\+I\+I\+Z string containing the measurement\textquotesingle{}s value. \\
+{\em value} & A\+S\+C\+I\+IZ string containing the measurement\textquotesingle{}s value. \\
 \hline
 \end{DoxyParams}
 
 
-Definition at line 429 of file evel\+\_\+scaling\+\_\+measurement.\+c.
+Definition at line 531 of file evel\+\_\+scaling\+\_\+measurement.\+c.
 
-\hypertarget{evel__scaling__measurement_8c_a5742d44274ac0ded45d4725cd3614df6}{}\index{evel\+\_\+scaling\+\_\+measurement.\+c@{evel\+\_\+scaling\+\_\+measurement.\+c}!evel\+\_\+measurement\+\_\+feature\+\_\+use\+\_\+add@{evel\+\_\+measurement\+\_\+feature\+\_\+use\+\_\+add}}
+\hypertarget{evel__scaling__measurement_8c_aa4e7f55b56c0bb55bf5949e60b0b0cd5}{}\label{evel__scaling__measurement_8c_aa4e7f55b56c0bb55bf5949e60b0b0cd5} 
+\index{evel\+\_\+scaling\+\_\+measurement.\+c@{evel\+\_\+scaling\+\_\+measurement.\+c}!evel\+\_\+measurement\+\_\+errors\+\_\+set@{evel\+\_\+measurement\+\_\+errors\+\_\+set}}
+\index{evel\+\_\+measurement\+\_\+errors\+\_\+set@{evel\+\_\+measurement\+\_\+errors\+\_\+set}!evel\+\_\+scaling\+\_\+measurement.\+c@{evel\+\_\+scaling\+\_\+measurement.\+c}}
+\subsubsection{\texorpdfstring{evel\+\_\+measurement\+\_\+errors\+\_\+set()}{evel\_measurement\_errors\_set()}}
+{\footnotesize\ttfamily void evel\+\_\+measurement\+\_\+errors\+\_\+set (\begin{DoxyParamCaption}\item[{\hyperlink{evel_8h_a6aebe95622adf9a98ba33fc440c11ba0}{E\+V\+E\+N\+T\+\_\+\+M\+E\+A\+S\+U\+R\+E\+M\+E\+NT} $\ast$}]{measurement,  }\item[{int}]{receive\+\_\+discards,  }\item[{int}]{receive\+\_\+errors,  }\item[{int}]{transmit\+\_\+discards,  }\item[{int}]{transmit\+\_\+errors }\end{DoxyParamCaption})}
+
+
+
+Add an additional set of Errors to the Measurement. 
+
+\begin{DoxyNote}{Note}
+The property is treated as immutable\+: it is only valid to call the setter once. However, we don\textquotesingle{}t assert if the caller tries to overwrite, just ignoring the update instead.
+\end{DoxyNote}
+
+\begin{DoxyParams}{Parameters}
+{\em measurement} & Pointer to the measurement. \\
+\hline
+{\em receive\+\_\+discards} & The number of receive discards. \\
+\hline
+{\em receive\+\_\+errors} & The number of receive errors. \\
+\hline
+{\em transmit\+\_\+discards} & The number of transmit discards. \\
+\hline
+{\em transmit\+\_\+errors} & The number of transmit errors. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 209 of file evel\+\_\+scaling\+\_\+measurement.\+c.
+
+\hypertarget{evel__scaling__measurement_8c_adddd4f2f17a6de8609421bb806ba0430}{}\label{evel__scaling__measurement_8c_adddd4f2f17a6de8609421bb806ba0430} 
+\index{evel\+\_\+scaling\+\_\+measurement.\+c@{evel\+\_\+scaling\+\_\+measurement.\+c}!evel\+\_\+measurement\+\_\+feature\+\_\+use\+\_\+add@{evel\+\_\+measurement\+\_\+feature\+\_\+use\+\_\+add}}
 \index{evel\+\_\+measurement\+\_\+feature\+\_\+use\+\_\+add@{evel\+\_\+measurement\+\_\+feature\+\_\+use\+\_\+add}!evel\+\_\+scaling\+\_\+measurement.\+c@{evel\+\_\+scaling\+\_\+measurement.\+c}}
-\subsubsection[{evel\+\_\+measurement\+\_\+feature\+\_\+use\+\_\+add(\+E\+V\+E\+N\+T\+\_\+\+M\+E\+A\+S\+U\+R\+E\+M\+E\+N\+T $\ast$measurement, char $\ast$feature, double utilization)}]{\setlength{\rightskip}{0pt plus 5cm}void evel\+\_\+measurement\+\_\+feature\+\_\+use\+\_\+add (
-\begin{DoxyParamCaption}
-\item[{{\bf E\+V\+E\+N\+T\+\_\+\+M\+E\+A\+S\+U\+R\+E\+M\+E\+N\+T} $\ast$}]{measurement, }
-\item[{char $\ast$}]{feature, }
-\item[{double}]{utilization}
-\end{DoxyParamCaption}
-)}\label{evel__scaling__measurement_8c_a5742d44274ac0ded45d4725cd3614df6}
+\subsubsection{\texorpdfstring{evel\+\_\+measurement\+\_\+feature\+\_\+use\+\_\+add()}{evel\_measurement\_feature\_use\_add()}}
+{\footnotesize\ttfamily void evel\+\_\+measurement\+\_\+feature\+\_\+use\+\_\+add (\begin{DoxyParamCaption}\item[{\hyperlink{evel_8h_a6aebe95622adf9a98ba33fc440c11ba0}{E\+V\+E\+N\+T\+\_\+\+M\+E\+A\+S\+U\+R\+E\+M\+E\+NT} $\ast$}]{measurement,  }\item[{char $\ast$}]{feature,  }\item[{int}]{utilization }\end{DoxyParamCaption})}
+
 
 
 Add a Feature usage value name/value pair to the Measurement. 
 
-The name is null delimited A\+S\+C\+I\+I string. The library takes a copy so the caller does not have to preserve values after the function returns.
+The name is null delimited A\+S\+C\+II string. The library takes a copy so the caller does not have to preserve values after the function returns.
 
 
 \begin{DoxyParams}{Parameters}
 {\em measurement} & Pointer to the measurement. \\
 \hline
-{\em feature} & A\+S\+C\+I\+I\+Z string with the feature\textquotesingle{}s name. \\
+{\em feature} & A\+S\+C\+I\+IZ string with the feature\textquotesingle{}s name. \\
 \hline
 {\em utilization} & Utilization of the feature. \\
 \hline
 \end{DoxyParams}
 
 
-Definition at line 387 of file evel\+\_\+scaling\+\_\+measurement.\+c.
+Definition at line 488 of file evel\+\_\+scaling\+\_\+measurement.\+c.
 
-\hypertarget{evel__scaling__measurement_8c_a0c4b236085beb0e1c8971ff6bdaa490d}{}\index{evel\+\_\+scaling\+\_\+measurement.\+c@{evel\+\_\+scaling\+\_\+measurement.\+c}!evel\+\_\+measurement\+\_\+fsys\+\_\+use\+\_\+add@{evel\+\_\+measurement\+\_\+fsys\+\_\+use\+\_\+add}}
+\hypertarget{evel__scaling__measurement_8c_a99ecddaca3eec5c2c877fea7d0aa0d76}{}\label{evel__scaling__measurement_8c_a99ecddaca3eec5c2c877fea7d0aa0d76} 
+\index{evel\+\_\+scaling\+\_\+measurement.\+c@{evel\+\_\+scaling\+\_\+measurement.\+c}!evel\+\_\+measurement\+\_\+fsys\+\_\+use\+\_\+add@{evel\+\_\+measurement\+\_\+fsys\+\_\+use\+\_\+add}}
 \index{evel\+\_\+measurement\+\_\+fsys\+\_\+use\+\_\+add@{evel\+\_\+measurement\+\_\+fsys\+\_\+use\+\_\+add}!evel\+\_\+scaling\+\_\+measurement.\+c@{evel\+\_\+scaling\+\_\+measurement.\+c}}
-\subsubsection[{evel\+\_\+measurement\+\_\+fsys\+\_\+use\+\_\+add(\+E\+V\+E\+N\+T\+\_\+\+M\+E\+A\+S\+U\+R\+E\+M\+E\+N\+T $\ast$measurement, char $\ast$vm\+\_\+id, double block\+\_\+configured, double block\+\_\+used, int block\+\_\+iops, double ephemeral\+\_\+configured, double ephemeral\+\_\+used, int ephemeral\+\_\+iops)}]{\setlength{\rightskip}{0pt plus 5cm}void evel\+\_\+measurement\+\_\+fsys\+\_\+use\+\_\+add (
-\begin{DoxyParamCaption}
-\item[{{\bf E\+V\+E\+N\+T\+\_\+\+M\+E\+A\+S\+U\+R\+E\+M\+E\+N\+T} $\ast$}]{measurement, }
-\item[{char $\ast$}]{vm\+\_\+id, }
-\item[{double}]{block\+\_\+configured, }
-\item[{double}]{block\+\_\+used, }
-\item[{int}]{block\+\_\+iops, }
-\item[{double}]{ephemeral\+\_\+configured, }
-\item[{double}]{ephemeral\+\_\+used, }
-\item[{int}]{ephemeral\+\_\+iops}
-\end{DoxyParamCaption}
-)}\label{evel__scaling__measurement_8c_a0c4b236085beb0e1c8971ff6bdaa490d}
+\subsubsection{\texorpdfstring{evel\+\_\+measurement\+\_\+fsys\+\_\+use\+\_\+add()}{evel\_measurement\_fsys\_use\_add()}}
+{\footnotesize\ttfamily void evel\+\_\+measurement\+\_\+fsys\+\_\+use\+\_\+add (\begin{DoxyParamCaption}\item[{\hyperlink{evel_8h_a6aebe95622adf9a98ba33fc440c11ba0}{E\+V\+E\+N\+T\+\_\+\+M\+E\+A\+S\+U\+R\+E\+M\+E\+NT} $\ast$}]{measurement,  }\item[{char $\ast$}]{filesystem\+\_\+name,  }\item[{double}]{block\+\_\+configured,  }\item[{double}]{block\+\_\+used,  }\item[{int}]{block\+\_\+iops,  }\item[{double}]{ephemeral\+\_\+configured,  }\item[{double}]{ephemeral\+\_\+used,  }\item[{int}]{ephemeral\+\_\+iops }\end{DoxyParamCaption})}
+
 
 
 Add an additional File System usage value name/value pair to the Measurement. 
 
-The I\+D is null delimited A\+S\+C\+I\+I string. The library takes a copy so the caller does not have to preserve values after the function returns.
+The filesystem\+\_\+name is null delimited A\+S\+C\+II string. The library takes a copy so the caller does not have to preserve values after the function returns.
 
 
 \begin{DoxyParams}{Parameters}
 {\em measurement} & Pointer to the measurement. \\
 \hline
-{\em vm\+\_\+id} & A\+S\+C\+I\+I\+Z string with the file-\/system\textquotesingle{}s U\+U\+I\+D. \\
+{\em filesystem\+\_\+name} & A\+S\+C\+I\+IZ string with the file-\/system\textquotesingle{}s U\+U\+ID. \\
 \hline
 {\em block\+\_\+configured} & Block storage configured. \\
 \hline
 {\em block\+\_\+used} & Block storage in use. \\
 \hline
-{\em block\+\_\+iops} & Block storage I\+O\+P\+S. \\
+{\em block\+\_\+iops} & Block storage I\+O\+PS. \\
 \hline
 {\em ephemeral\+\_\+configured} & Ephemeral storage configured. \\
 \hline
 {\em ephemeral\+\_\+used} & Ephemeral storage in use. \\
 \hline
-{\em ephemeral\+\_\+iops} & Ephemeral storage I\+O\+P\+S. \\
+{\em ephemeral\+\_\+iops} & Ephemeral storage I\+O\+PS. \\
 \hline
 \end{DoxyParams}
 
 
-Definition at line 225 of file evel\+\_\+scaling\+\_\+measurement.\+c.
+Definition at line 432 of file evel\+\_\+scaling\+\_\+measurement.\+c.
 
-\hypertarget{evel__scaling__measurement_8c_a3bd2dbe3741fe360175c7016277098b9}{}\index{evel\+\_\+scaling\+\_\+measurement.\+c@{evel\+\_\+scaling\+\_\+measurement.\+c}!evel\+\_\+measurement\+\_\+latency\+\_\+add@{evel\+\_\+measurement\+\_\+latency\+\_\+add}}
+\hypertarget{evel__scaling__measurement_8c_a376293216dd3b30b398601faed71fbe8}{}\label{evel__scaling__measurement_8c_a376293216dd3b30b398601faed71fbe8} 
+\index{evel\+\_\+scaling\+\_\+measurement.\+c@{evel\+\_\+scaling\+\_\+measurement.\+c}!evel\+\_\+measurement\+\_\+latency\+\_\+add@{evel\+\_\+measurement\+\_\+latency\+\_\+add}}
 \index{evel\+\_\+measurement\+\_\+latency\+\_\+add@{evel\+\_\+measurement\+\_\+latency\+\_\+add}!evel\+\_\+scaling\+\_\+measurement.\+c@{evel\+\_\+scaling\+\_\+measurement.\+c}}
-\subsubsection[{evel\+\_\+measurement\+\_\+latency\+\_\+add(\+E\+V\+E\+N\+T\+\_\+\+M\+E\+A\+S\+U\+R\+E\+M\+E\+N\+T $\ast$measurement, double low\+\_\+end, double high\+\_\+end, int count)}]{\setlength{\rightskip}{0pt plus 5cm}void evel\+\_\+measurement\+\_\+latency\+\_\+add (
-\begin{DoxyParamCaption}
-\item[{{\bf E\+V\+E\+N\+T\+\_\+\+M\+E\+A\+S\+U\+R\+E\+M\+E\+N\+T} $\ast$}]{measurement, }
-\item[{double}]{low\+\_\+end, }
-\item[{double}]{high\+\_\+end, }
-\item[{int}]{count}
-\end{DoxyParamCaption}
-)}\label{evel__scaling__measurement_8c_a3bd2dbe3741fe360175c7016277098b9}
+\subsubsection{\texorpdfstring{evel\+\_\+measurement\+\_\+latency\+\_\+add()}{evel\_measurement\_latency\_add()}}
+{\footnotesize\ttfamily void evel\+\_\+measurement\+\_\+latency\+\_\+add (\begin{DoxyParamCaption}\item[{\hyperlink{evel_8h_a6aebe95622adf9a98ba33fc440c11ba0}{E\+V\+E\+N\+T\+\_\+\+M\+E\+A\+S\+U\+R\+E\+M\+E\+NT} $\ast$const}]{measurement,  }\item[{const double}]{low\+\_\+end,  }\item[{const double}]{high\+\_\+end,  }\item[{const int}]{count }\end{DoxyParamCaption})}
+
 
 
 Add an additional Latency Distribution bucket to the Measurement. 
+
+This function implements the previous A\+PI, purely for convenience.
 
 
 \begin{DoxyParams}{Parameters}
@@ -335,16 +529,38 @@ Add an additional Latency Distribution bucket to the Measurement.
 \end{DoxyParams}
 
 
-Definition at line 277 of file evel\+\_\+scaling\+\_\+measurement.\+c.
+Definition at line 860 of file evel\+\_\+scaling\+\_\+measurement.\+c.
 
-\hypertarget{evel__scaling__measurement_8c_a644cbd19fa718727c07c3d21e434f2d6}{}\index{evel\+\_\+scaling\+\_\+measurement.\+c@{evel\+\_\+scaling\+\_\+measurement.\+c}!evel\+\_\+measurement\+\_\+media\+\_\+port\+\_\+use\+\_\+set@{evel\+\_\+measurement\+\_\+media\+\_\+port\+\_\+use\+\_\+set}}
+\hypertarget{evel__scaling__measurement_8c_a73e3ff0aa9463d616496c6ce94f331fe}{}\label{evel__scaling__measurement_8c_a73e3ff0aa9463d616496c6ce94f331fe} 
+\index{evel\+\_\+scaling\+\_\+measurement.\+c@{evel\+\_\+scaling\+\_\+measurement.\+c}!evel\+\_\+measurement\+\_\+mean\+\_\+req\+\_\+lat\+\_\+set@{evel\+\_\+measurement\+\_\+mean\+\_\+req\+\_\+lat\+\_\+set}}
+\index{evel\+\_\+measurement\+\_\+mean\+\_\+req\+\_\+lat\+\_\+set@{evel\+\_\+measurement\+\_\+mean\+\_\+req\+\_\+lat\+\_\+set}!evel\+\_\+scaling\+\_\+measurement.\+c@{evel\+\_\+scaling\+\_\+measurement.\+c}}
+\subsubsection{\texorpdfstring{evel\+\_\+measurement\+\_\+mean\+\_\+req\+\_\+lat\+\_\+set()}{evel\_measurement\_mean\_req\_lat\_set()}}
+{\footnotesize\ttfamily void evel\+\_\+measurement\+\_\+mean\+\_\+req\+\_\+lat\+\_\+set (\begin{DoxyParamCaption}\item[{\hyperlink{evel_8h_a6aebe95622adf9a98ba33fc440c11ba0}{E\+V\+E\+N\+T\+\_\+\+M\+E\+A\+S\+U\+R\+E\+M\+E\+NT} $\ast$}]{measurement,  }\item[{double}]{mean\+\_\+request\+\_\+latency }\end{DoxyParamCaption})}
+
+
+
+Set the Mean Request Latency property of the Measurement. 
+
+\begin{DoxyNote}{Note}
+The property is treated as immutable\+: it is only valid to call the setter once. However, we don\textquotesingle{}t assert if the caller tries to overwrite, just ignoring the update instead.
+\end{DoxyNote}
+
+\begin{DoxyParams}{Parameters}
+{\em measurement} & Pointer to the Measurement. \\
+\hline
+{\em mean\+\_\+request\+\_\+latency} & The Mean Request Latency to be set. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 272 of file evel\+\_\+scaling\+\_\+measurement.\+c.
+
+\hypertarget{evel__scaling__measurement_8c_a644cbd19fa718727c07c3d21e434f2d6}{}\label{evel__scaling__measurement_8c_a644cbd19fa718727c07c3d21e434f2d6} 
+\index{evel\+\_\+scaling\+\_\+measurement.\+c@{evel\+\_\+scaling\+\_\+measurement.\+c}!evel\+\_\+measurement\+\_\+media\+\_\+port\+\_\+use\+\_\+set@{evel\+\_\+measurement\+\_\+media\+\_\+port\+\_\+use\+\_\+set}}
 \index{evel\+\_\+measurement\+\_\+media\+\_\+port\+\_\+use\+\_\+set@{evel\+\_\+measurement\+\_\+media\+\_\+port\+\_\+use\+\_\+set}!evel\+\_\+scaling\+\_\+measurement.\+c@{evel\+\_\+scaling\+\_\+measurement.\+c}}
-\subsubsection[{evel\+\_\+measurement\+\_\+media\+\_\+port\+\_\+use\+\_\+set(\+E\+V\+E\+N\+T\+\_\+\+M\+E\+A\+S\+U\+R\+E\+M\+E\+N\+T $\ast$measurement, int media\+\_\+ports\+\_\+in\+\_\+use)}]{\setlength{\rightskip}{0pt plus 5cm}void evel\+\_\+measurement\+\_\+media\+\_\+port\+\_\+use\+\_\+set (
-\begin{DoxyParamCaption}
-\item[{{\bf E\+V\+E\+N\+T\+\_\+\+M\+E\+A\+S\+U\+R\+E\+M\+E\+N\+T} $\ast$}]{measurement, }
-\item[{int}]{media\+\_\+ports\+\_\+in\+\_\+use}
-\end{DoxyParamCaption}
-)}\label{evel__scaling__measurement_8c_a644cbd19fa718727c07c3d21e434f2d6}
+\subsubsection{\texorpdfstring{evel\+\_\+measurement\+\_\+media\+\_\+port\+\_\+use\+\_\+set()}{evel\_measurement\_media\_port\_use\_set()}}
+{\footnotesize\ttfamily void evel\+\_\+measurement\+\_\+media\+\_\+port\+\_\+use\+\_\+set (\begin{DoxyParamCaption}\item[{\hyperlink{evel_8h_a6aebe95622adf9a98ba33fc440c11ba0}{E\+V\+E\+N\+T\+\_\+\+M\+E\+A\+S\+U\+R\+E\+M\+E\+NT} $\ast$}]{measurement,  }\item[{int}]{media\+\_\+ports\+\_\+in\+\_\+use }\end{DoxyParamCaption})}
+
 
 
 Set the Media Ports in Use property of the Measurement. 
@@ -361,16 +577,86 @@ The property is treated as immutable\+: it is only valid to call the setter once
 \end{DoxyParams}
 
 
-Definition at line 586 of file evel\+\_\+scaling\+\_\+measurement.\+c.
+Definition at line 684 of file evel\+\_\+scaling\+\_\+measurement.\+c.
 
-\hypertarget{evel__scaling__measurement_8c_a2806c174913da55fd8f44281ce60b5ac}{}\index{evel\+\_\+scaling\+\_\+measurement.\+c@{evel\+\_\+scaling\+\_\+measurement.\+c}!evel\+\_\+measurement\+\_\+type\+\_\+set@{evel\+\_\+measurement\+\_\+type\+\_\+set}}
+\hypertarget{evel__scaling__measurement_8c_a8afb7801d03bc97c3a6cf90c9d49fe09}{}\label{evel__scaling__measurement_8c_a8afb7801d03bc97c3a6cf90c9d49fe09} 
+\index{evel\+\_\+scaling\+\_\+measurement.\+c@{evel\+\_\+scaling\+\_\+measurement.\+c}!evel\+\_\+measurement\+\_\+mem\+\_\+cfg\+\_\+set@{evel\+\_\+measurement\+\_\+mem\+\_\+cfg\+\_\+set}}
+\index{evel\+\_\+measurement\+\_\+mem\+\_\+cfg\+\_\+set@{evel\+\_\+measurement\+\_\+mem\+\_\+cfg\+\_\+set}!evel\+\_\+scaling\+\_\+measurement.\+c@{evel\+\_\+scaling\+\_\+measurement.\+c}}
+\subsubsection{\texorpdfstring{evel\+\_\+measurement\+\_\+mem\+\_\+cfg\+\_\+set()}{evel\_measurement\_mem\_cfg\_set()}}
+{\footnotesize\ttfamily void evel\+\_\+measurement\+\_\+mem\+\_\+cfg\+\_\+set (\begin{DoxyParamCaption}\item[{\hyperlink{evel_8h_a6aebe95622adf9a98ba33fc440c11ba0}{E\+V\+E\+N\+T\+\_\+\+M\+E\+A\+S\+U\+R\+E\+M\+E\+NT} $\ast$}]{measurement,  }\item[{double}]{memory\+\_\+configured }\end{DoxyParamCaption})}
+
+
+
+Set the Memory Configured property of the Measurement. 
+
+\begin{DoxyNote}{Note}
+The property is treated as immutable\+: it is only valid to call the setter once. However, we don\textquotesingle{}t assert if the caller tries to overwrite, just ignoring the update instead.
+\end{DoxyNote}
+
+\begin{DoxyParams}{Parameters}
+{\em measurement} & Pointer to the Measurement. \\
+\hline
+{\em memory\+\_\+configured} & The Memory Configured to be set. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 300 of file evel\+\_\+scaling\+\_\+measurement.\+c.
+
+\hypertarget{evel__scaling__measurement_8c_a057f16338b2ba08ef775a12df898b76e}{}\label{evel__scaling__measurement_8c_a057f16338b2ba08ef775a12df898b76e} 
+\index{evel\+\_\+scaling\+\_\+measurement.\+c@{evel\+\_\+scaling\+\_\+measurement.\+c}!evel\+\_\+measurement\+\_\+mem\+\_\+used\+\_\+set@{evel\+\_\+measurement\+\_\+mem\+\_\+used\+\_\+set}}
+\index{evel\+\_\+measurement\+\_\+mem\+\_\+used\+\_\+set@{evel\+\_\+measurement\+\_\+mem\+\_\+used\+\_\+set}!evel\+\_\+scaling\+\_\+measurement.\+c@{evel\+\_\+scaling\+\_\+measurement.\+c}}
+\subsubsection{\texorpdfstring{evel\+\_\+measurement\+\_\+mem\+\_\+used\+\_\+set()}{evel\_measurement\_mem\_used\_set()}}
+{\footnotesize\ttfamily void evel\+\_\+measurement\+\_\+mem\+\_\+used\+\_\+set (\begin{DoxyParamCaption}\item[{\hyperlink{evel_8h_a6aebe95622adf9a98ba33fc440c11ba0}{E\+V\+E\+N\+T\+\_\+\+M\+E\+A\+S\+U\+R\+E\+M\+E\+NT} $\ast$}]{measurement,  }\item[{double}]{memory\+\_\+used }\end{DoxyParamCaption})}
+
+
+
+Set the Memory Used property of the Measurement. 
+
+\begin{DoxyNote}{Note}
+The property is treated as immutable\+: it is only valid to call the setter once. However, we don\textquotesingle{}t assert if the caller tries to overwrite, just ignoring the update instead.
+\end{DoxyNote}
+
+\begin{DoxyParams}{Parameters}
+{\em measurement} & Pointer to the Measurement. \\
+\hline
+{\em memory\+\_\+used} & The Memory Used to be set. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 328 of file evel\+\_\+scaling\+\_\+measurement.\+c.
+
+\hypertarget{evel__scaling__measurement_8c_aa1a206e1e404e540d4e647e5350b8f04}{}\label{evel__scaling__measurement_8c_aa1a206e1e404e540d4e647e5350b8f04} 
+\index{evel\+\_\+scaling\+\_\+measurement.\+c@{evel\+\_\+scaling\+\_\+measurement.\+c}!evel\+\_\+measurement\+\_\+request\+\_\+rate\+\_\+set@{evel\+\_\+measurement\+\_\+request\+\_\+rate\+\_\+set}}
+\index{evel\+\_\+measurement\+\_\+request\+\_\+rate\+\_\+set@{evel\+\_\+measurement\+\_\+request\+\_\+rate\+\_\+set}!evel\+\_\+scaling\+\_\+measurement.\+c@{evel\+\_\+scaling\+\_\+measurement.\+c}}
+\subsubsection{\texorpdfstring{evel\+\_\+measurement\+\_\+request\+\_\+rate\+\_\+set()}{evel\_measurement\_request\_rate\_set()}}
+{\footnotesize\ttfamily void evel\+\_\+measurement\+\_\+request\+\_\+rate\+\_\+set (\begin{DoxyParamCaption}\item[{\hyperlink{evel_8h_a6aebe95622adf9a98ba33fc440c11ba0}{E\+V\+E\+N\+T\+\_\+\+M\+E\+A\+S\+U\+R\+E\+M\+E\+NT} $\ast$}]{measurement,  }\item[{int}]{request\+\_\+rate }\end{DoxyParamCaption})}
+
+
+
+Set the Request Rate property of the Measurement. 
+
+\begin{DoxyNote}{Note}
+The property is treated as immutable\+: it is only valid to call the setter once. However, we don\textquotesingle{}t assert if the caller tries to overwrite, just ignoring the update instead.
+\end{DoxyNote}
+
+\begin{DoxyParams}{Parameters}
+{\em measurement} & Pointer to the Measurement. \\
+\hline
+{\em request\+\_\+rate} & The Request Rate to be set. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 356 of file evel\+\_\+scaling\+\_\+measurement.\+c.
+
+\hypertarget{evel__scaling__measurement_8c_aa20abdcdc8585f1bad9ac81820acc1eb}{}\label{evel__scaling__measurement_8c_aa20abdcdc8585f1bad9ac81820acc1eb} 
+\index{evel\+\_\+scaling\+\_\+measurement.\+c@{evel\+\_\+scaling\+\_\+measurement.\+c}!evel\+\_\+measurement\+\_\+type\+\_\+set@{evel\+\_\+measurement\+\_\+type\+\_\+set}}
 \index{evel\+\_\+measurement\+\_\+type\+\_\+set@{evel\+\_\+measurement\+\_\+type\+\_\+set}!evel\+\_\+scaling\+\_\+measurement.\+c@{evel\+\_\+scaling\+\_\+measurement.\+c}}
-\subsubsection[{evel\+\_\+measurement\+\_\+type\+\_\+set(\+E\+V\+E\+N\+T\+\_\+\+M\+E\+A\+S\+U\+R\+E\+M\+E\+N\+T $\ast$measurement, const char const $\ast$type)}]{\setlength{\rightskip}{0pt plus 5cm}void evel\+\_\+measurement\+\_\+type\+\_\+set (
-\begin{DoxyParamCaption}
-\item[{{\bf E\+V\+E\+N\+T\+\_\+\+M\+E\+A\+S\+U\+R\+E\+M\+E\+N\+T} $\ast$}]{measurement, }
-\item[{const char const $\ast$}]{type}
-\end{DoxyParamCaption}
-)}\label{evel__scaling__measurement_8c_a2806c174913da55fd8f44281ce60b5ac}
+\subsubsection{\texorpdfstring{evel\+\_\+measurement\+\_\+type\+\_\+set()}{evel\_measurement\_type\_set()}}
+{\footnotesize\ttfamily void evel\+\_\+measurement\+\_\+type\+\_\+set (\begin{DoxyParamCaption}\item[{\hyperlink{evel_8h_a6aebe95622adf9a98ba33fc440c11ba0}{E\+V\+E\+N\+T\+\_\+\+M\+E\+A\+S\+U\+R\+E\+M\+E\+NT} $\ast$}]{measurement,  }\item[{const char $\ast$const}]{type }\end{DoxyParamCaption})}
+
 
 
 Set the Event Type property of the Measurement. 
@@ -382,24 +668,22 @@ The property is treated as immutable\+: it is only valid to call the setter once
 \begin{DoxyParams}{Parameters}
 {\em measurement} & Pointer to the Measurement. \\
 \hline
-{\em type} & The Event Type to be set. A\+S\+C\+I\+I\+Z string. The caller does not need to preserve the value once the function returns \\
+{\em type} & The Event Type to be set. A\+S\+C\+I\+IZ string. The caller does not need to preserve the value once the function returns. \\
 \hline
 \end{DoxyParams}
 
 
-Definition at line 143 of file evel\+\_\+scaling\+\_\+measurement.\+c.
+Definition at line 125 of file evel\+\_\+scaling\+\_\+measurement.\+c.
 
-\hypertarget{evel__scaling__measurement_8c_aed7dfc26f57c8474f1df4278e5e08d48}{}\index{evel\+\_\+scaling\+\_\+measurement.\+c@{evel\+\_\+scaling\+\_\+measurement.\+c}!evel\+\_\+measurement\+\_\+vnfc\+\_\+scaling\+\_\+metric\+\_\+set@{evel\+\_\+measurement\+\_\+vnfc\+\_\+scaling\+\_\+metric\+\_\+set}}
+\hypertarget{evel__scaling__measurement_8c_aed7dfc26f57c8474f1df4278e5e08d48}{}\label{evel__scaling__measurement_8c_aed7dfc26f57c8474f1df4278e5e08d48} 
+\index{evel\+\_\+scaling\+\_\+measurement.\+c@{evel\+\_\+scaling\+\_\+measurement.\+c}!evel\+\_\+measurement\+\_\+vnfc\+\_\+scaling\+\_\+metric\+\_\+set@{evel\+\_\+measurement\+\_\+vnfc\+\_\+scaling\+\_\+metric\+\_\+set}}
 \index{evel\+\_\+measurement\+\_\+vnfc\+\_\+scaling\+\_\+metric\+\_\+set@{evel\+\_\+measurement\+\_\+vnfc\+\_\+scaling\+\_\+metric\+\_\+set}!evel\+\_\+scaling\+\_\+measurement.\+c@{evel\+\_\+scaling\+\_\+measurement.\+c}}
-\subsubsection[{evel\+\_\+measurement\+\_\+vnfc\+\_\+scaling\+\_\+metric\+\_\+set(\+E\+V\+E\+N\+T\+\_\+\+M\+E\+A\+S\+U\+R\+E\+M\+E\+N\+T $\ast$measurement, double scaling\+\_\+metric)}]{\setlength{\rightskip}{0pt plus 5cm}void evel\+\_\+measurement\+\_\+vnfc\+\_\+scaling\+\_\+metric\+\_\+set (
-\begin{DoxyParamCaption}
-\item[{{\bf E\+V\+E\+N\+T\+\_\+\+M\+E\+A\+S\+U\+R\+E\+M\+E\+N\+T} $\ast$}]{measurement, }
-\item[{double}]{scaling\+\_\+metric}
-\end{DoxyParamCaption}
-)}\label{evel__scaling__measurement_8c_aed7dfc26f57c8474f1df4278e5e08d48}
+\subsubsection{\texorpdfstring{evel\+\_\+measurement\+\_\+vnfc\+\_\+scaling\+\_\+metric\+\_\+set()}{evel\_measurement\_vnfc\_scaling\_metric\_set()}}
+{\footnotesize\ttfamily void evel\+\_\+measurement\+\_\+vnfc\+\_\+scaling\+\_\+metric\+\_\+set (\begin{DoxyParamCaption}\item[{\hyperlink{evel_8h_a6aebe95622adf9a98ba33fc440c11ba0}{E\+V\+E\+N\+T\+\_\+\+M\+E\+A\+S\+U\+R\+E\+M\+E\+NT} $\ast$}]{measurement,  }\item[{double}]{scaling\+\_\+metric }\end{DoxyParamCaption})}
 
 
-Set the V\+N\+F\+C Scaling Metric property of the Measurement. 
+
+Set the V\+N\+FC Scaling Metric property of the Measurement. 
 
 \begin{DoxyNote}{Note}
 The property is treated as immutable\+: it is only valid to call the setter once. However, we don\textquotesingle{}t assert if the caller tries to overwrite, just ignoring the update instead.
@@ -413,35 +697,31 @@ The property is treated as immutable\+: it is only valid to call the setter once
 \end{DoxyParams}
 
 
-Definition at line 623 of file evel\+\_\+scaling\+\_\+measurement.\+c.
+Definition at line 712 of file evel\+\_\+scaling\+\_\+measurement.\+c.
 
-\hypertarget{evel__scaling__measurement_8c_a292975ca70b798acaf8fdc1665e55cdb}{}\index{evel\+\_\+scaling\+\_\+measurement.\+c@{evel\+\_\+scaling\+\_\+measurement.\+c}!evel\+\_\+measurement\+\_\+vnic\+\_\+use\+\_\+add@{evel\+\_\+measurement\+\_\+vnic\+\_\+use\+\_\+add}}
+\hypertarget{evel__scaling__measurement_8c_adb5bd6eba28f3e26fcc9f3e09b8fef88}{}\label{evel__scaling__measurement_8c_adb5bd6eba28f3e26fcc9f3e09b8fef88} 
+\index{evel\+\_\+scaling\+\_\+measurement.\+c@{evel\+\_\+scaling\+\_\+measurement.\+c}!evel\+\_\+measurement\+\_\+vnic\+\_\+use\+\_\+add@{evel\+\_\+measurement\+\_\+vnic\+\_\+use\+\_\+add}}
 \index{evel\+\_\+measurement\+\_\+vnic\+\_\+use\+\_\+add@{evel\+\_\+measurement\+\_\+vnic\+\_\+use\+\_\+add}!evel\+\_\+scaling\+\_\+measurement.\+c@{evel\+\_\+scaling\+\_\+measurement.\+c}}
-\subsubsection[{evel\+\_\+measurement\+\_\+vnic\+\_\+use\+\_\+add(\+E\+V\+E\+N\+T\+\_\+\+M\+E\+A\+S\+U\+R\+E\+M\+E\+N\+T $\ast$measurement, char $\ast$vnic\+\_\+id, int broadcast\+\_\+packets\+\_\+in, int broadcast\+\_\+packets\+\_\+out, int bytes\+\_\+in, int bytes\+\_\+out, int multicast\+\_\+packets\+\_\+in, int multicast\+\_\+packets\+\_\+out, int unicast\+\_\+packets\+\_\+in, int unicast\+\_\+packets\+\_\+out)}]{\setlength{\rightskip}{0pt plus 5cm}void evel\+\_\+measurement\+\_\+vnic\+\_\+use\+\_\+add (
-\begin{DoxyParamCaption}
-\item[{{\bf E\+V\+E\+N\+T\+\_\+\+M\+E\+A\+S\+U\+R\+E\+M\+E\+N\+T} $\ast$}]{measurement, }
-\item[{char $\ast$}]{vnic\+\_\+id, }
-\item[{int}]{broadcast\+\_\+packets\+\_\+in, }
-\item[{int}]{broadcast\+\_\+packets\+\_\+out, }
-\item[{int}]{bytes\+\_\+in, }
-\item[{int}]{bytes\+\_\+out, }
-\item[{int}]{multicast\+\_\+packets\+\_\+in, }
-\item[{int}]{multicast\+\_\+packets\+\_\+out, }
-\item[{int}]{unicast\+\_\+packets\+\_\+in, }
-\item[{int}]{unicast\+\_\+packets\+\_\+out}
-\end{DoxyParamCaption}
-)}\label{evel__scaling__measurement_8c_a292975ca70b798acaf8fdc1665e55cdb}
+\subsubsection{\texorpdfstring{evel\+\_\+measurement\+\_\+vnic\+\_\+use\+\_\+add()}{evel\_measurement\_vnic\_use\_add()}}
+{\footnotesize\ttfamily void evel\+\_\+measurement\+\_\+vnic\+\_\+use\+\_\+add (\begin{DoxyParamCaption}\item[{\hyperlink{evel_8h_a6aebe95622adf9a98ba33fc440c11ba0}{E\+V\+E\+N\+T\+\_\+\+M\+E\+A\+S\+U\+R\+E\+M\+E\+NT} $\ast$const}]{measurement,  }\item[{char $\ast$const}]{vnic\+\_\+id,  }\item[{const int}]{packets\+\_\+in,  }\item[{const int}]{packets\+\_\+out,  }\item[{const int}]{broadcast\+\_\+packets\+\_\+in,  }\item[{const int}]{broadcast\+\_\+packets\+\_\+out,  }\item[{const int}]{bytes\+\_\+in,  }\item[{const int}]{bytes\+\_\+out,  }\item[{const int}]{multicast\+\_\+packets\+\_\+in,  }\item[{const int}]{multicast\+\_\+packets\+\_\+out,  }\item[{const int}]{unicast\+\_\+packets\+\_\+in,  }\item[{const int}]{unicast\+\_\+packets\+\_\+out }\end{DoxyParamCaption})}
 
 
-Add an additional v\+N\+I\+C usage record Measurement. 
 
-The I\+D is null delimited A\+S\+C\+I\+I string. The library takes a copy so the caller does not have to preserve values after the function returns.
+Add an additional v\+N\+IC usage record Measurement. 
+
+This function implements the previous A\+PI, purely for convenience.
+
+The ID is null delimited A\+S\+C\+II string. The library takes a copy so the caller does not have to preserve values after the function returns.
 
 
 \begin{DoxyParams}{Parameters}
 {\em measurement} & Pointer to the measurement. \\
 \hline
-{\em vnic\+\_\+id} & A\+S\+C\+I\+I\+Z string with the v\+N\+I\+C\textquotesingle{}s I\+D. \\
+{\em vnic\+\_\+id} & A\+S\+C\+I\+IZ string with the v\+N\+IC\textquotesingle{}s ID. \\
+\hline
+{\em packets\+\_\+in} & Total packets received. \\
+\hline
+{\em packets\+\_\+out} & Total packets transmitted. \\
 \hline
 {\em broadcast\+\_\+packets\+\_\+in} & Broadcast packets received. \\
 \hline
@@ -462,21 +742,44 @@ The I\+D is null delimited A\+S\+C\+I\+I string. The library takes a copy so the
 \end{DoxyParams}
 
 
-Definition at line 326 of file evel\+\_\+scaling\+\_\+measurement.\+c.
+Definition at line 1186 of file evel\+\_\+scaling\+\_\+measurement.\+c.
 
-\hypertarget{evel__scaling__measurement_8c_a162ce37ab7f24dbbea23d46b77c974ce}{}\index{evel\+\_\+scaling\+\_\+measurement.\+c@{evel\+\_\+scaling\+\_\+measurement.\+c}!evel\+\_\+new\+\_\+measurement@{evel\+\_\+new\+\_\+measurement}}
+\hypertarget{evel__scaling__measurement_8c_a1d2b853eccc0d89e032e6d888d7028ac}{}\label{evel__scaling__measurement_8c_a1d2b853eccc0d89e032e6d888d7028ac} 
+\index{evel\+\_\+scaling\+\_\+measurement.\+c@{evel\+\_\+scaling\+\_\+measurement.\+c}!evel\+\_\+new\+\_\+meas\+\_\+latency\+\_\+bucket@{evel\+\_\+new\+\_\+meas\+\_\+latency\+\_\+bucket}}
+\index{evel\+\_\+new\+\_\+meas\+\_\+latency\+\_\+bucket@{evel\+\_\+new\+\_\+meas\+\_\+latency\+\_\+bucket}!evel\+\_\+scaling\+\_\+measurement.\+c@{evel\+\_\+scaling\+\_\+measurement.\+c}}
+\subsubsection{\texorpdfstring{evel\+\_\+new\+\_\+meas\+\_\+latency\+\_\+bucket()}{evel\_new\_meas\_latency\_bucket()}}
+{\footnotesize\ttfamily \hyperlink{evel_8h_ad8103d1938fc8a0c693b9c460c23a754}{M\+E\+A\+S\+U\+R\+E\+M\+E\+N\+T\+\_\+\+L\+A\+T\+E\+N\+C\+Y\+\_\+\+B\+U\+C\+K\+ET}$\ast$ evel\+\_\+new\+\_\+meas\+\_\+latency\+\_\+bucket (\begin{DoxyParamCaption}\item[{const int}]{count }\end{DoxyParamCaption})}
+
+
+
+Create a new Latency Bucket to be added to a Measurement event. 
+
+\begin{DoxyNote}{Note}
+The mandatory fields on the \hyperlink{evel_8h_ad8103d1938fc8a0c693b9c460c23a754}{M\+E\+A\+S\+U\+R\+E\+M\+E\+N\+T\+\_\+\+L\+A\+T\+E\+N\+C\+Y\+\_\+\+B\+U\+C\+K\+ET} must be supplied to this factory function and are immutable once set. Optional fields have explicit setter functions, but again values may only be set once so that the \hyperlink{evel_8h_ad8103d1938fc8a0c693b9c460c23a754}{M\+E\+A\+S\+U\+R\+E\+M\+E\+N\+T\+\_\+\+L\+A\+T\+E\+N\+C\+Y\+\_\+\+B\+U\+C\+K\+ET} has immutable properties.
+\end{DoxyNote}
+
+\begin{DoxyParams}{Parameters}
+{\em count} & Count of events in this bucket.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+pointer to the newly manufactured \hyperlink{evel_8h_ad8103d1938fc8a0c693b9c460c23a754}{M\+E\+A\+S\+U\+R\+E\+M\+E\+N\+T\+\_\+\+L\+A\+T\+E\+N\+C\+Y\+\_\+\+B\+U\+C\+K\+ET}. If the structure is not used it must be released using free. 
+\end{DoxyReturn}
+
+\begin{DoxyRetVals}{Return values}
+{\em N\+U\+LL} & Failed to create the Latency Bucket. \\
+\hline
+\end{DoxyRetVals}
+
+
+Definition at line 745 of file evel\+\_\+scaling\+\_\+measurement.\+c.
+
+\hypertarget{evel__scaling__measurement_8c_af19dc9c6757bfaa522f078a7a2248569}{}\label{evel__scaling__measurement_8c_af19dc9c6757bfaa522f078a7a2248569} 
+\index{evel\+\_\+scaling\+\_\+measurement.\+c@{evel\+\_\+scaling\+\_\+measurement.\+c}!evel\+\_\+new\+\_\+measurement@{evel\+\_\+new\+\_\+measurement}}
 \index{evel\+\_\+new\+\_\+measurement@{evel\+\_\+new\+\_\+measurement}!evel\+\_\+scaling\+\_\+measurement.\+c@{evel\+\_\+scaling\+\_\+measurement.\+c}}
-\subsubsection[{evel\+\_\+new\+\_\+measurement(int concurrent\+\_\+sessions, int configured\+\_\+entities, double mean\+\_\+request\+\_\+latency, double measurement\+\_\+interval, double memory\+\_\+configured, double memory\+\_\+used, int request\+\_\+rate)}]{\setlength{\rightskip}{0pt plus 5cm}{\bf E\+V\+E\+N\+T\+\_\+\+M\+E\+A\+S\+U\+R\+E\+M\+E\+N\+T}$\ast$ evel\+\_\+new\+\_\+measurement (
-\begin{DoxyParamCaption}
-\item[{int}]{concurrent\+\_\+sessions, }
-\item[{int}]{configured\+\_\+entities, }
-\item[{double}]{mean\+\_\+request\+\_\+latency, }
-\item[{double}]{measurement\+\_\+interval, }
-\item[{double}]{memory\+\_\+configured, }
-\item[{double}]{memory\+\_\+used, }
-\item[{int}]{request\+\_\+rate}
-\end{DoxyParamCaption}
-)}\label{evel__scaling__measurement_8c_a162ce37ab7f24dbbea23d46b77c974ce}
+\subsubsection{\texorpdfstring{evel\+\_\+new\+\_\+measurement()}{evel\_new\_measurement()}}
+{\footnotesize\ttfamily \hyperlink{evel_8h_a6aebe95622adf9a98ba33fc440c11ba0}{E\+V\+E\+N\+T\+\_\+\+M\+E\+A\+S\+U\+R\+E\+M\+E\+NT}$\ast$ evel\+\_\+new\+\_\+measurement (\begin{DoxyParamCaption}\item[{double}]{measurement\+\_\+interval }\end{DoxyParamCaption})}
+
 
 
 Create a new Measurement event. 
@@ -486,30 +789,200 @@ The mandatory fields on the Measurement must be supplied to this factory functio
 \end{DoxyNote}
 
 \begin{DoxyParams}{Parameters}
-{\em concurrent\+\_\+sessions} & \\
-\hline
-{\em configured\+\_\+entities} & \\
-\hline
-{\em mean\+\_\+request\+\_\+latency} & \\
-\hline
 {\em measurement\+\_\+interval} & \\
-\hline
-{\em memory\+\_\+configured} & \\
-\hline
-{\em memory\+\_\+used} & \\
-\hline
-{\em request\+\_\+rate} & \\
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
-pointer to the newly manufactured \hyperlink{evel_8h_a6aebe95622adf9a98ba33fc440c11ba0}{E\+V\+E\+N\+T\+\_\+\+M\+E\+A\+S\+U\+R\+E\+M\+E\+N\+T}. If the event is not used (i.\+e. posted) it must be released using \hyperlink{evel_8h_a91faa4e06c4b079c2a8a1db1ccb2e47b}{evel\+\_\+free\+\_\+event}. 
+pointer to the newly manufactured \hyperlink{evel_8h_a6aebe95622adf9a98ba33fc440c11ba0}{E\+V\+E\+N\+T\+\_\+\+M\+E\+A\+S\+U\+R\+E\+M\+E\+NT}. If the event is not used (i.\+e. posted) it must be released using \hyperlink{evel_8h_a91faa4e06c4b079c2a8a1db1ccb2e47b}{evel\+\_\+free\+\_\+event}. 
 \end{DoxyReturn}
 
 \begin{DoxyRetVals}{Return values}
-{\em N\+U\+L\+L} & Failed to create the event. \\
+{\em N\+U\+LL} & Failed to create the event. \\
 \hline
 \end{DoxyRetVals}
 
 
-Definition at line 65 of file evel\+\_\+scaling\+\_\+measurement.\+c.
+Definition at line 60 of file evel\+\_\+scaling\+\_\+measurement.\+c.
+
+\hypertarget{evel__scaling__measurement_8c_a2b373f2dd0613c1c32ff2dc3c18e7a8e}{}\label{evel__scaling__measurement_8c_a2b373f2dd0613c1c32ff2dc3c18e7a8e} 
+\index{evel\+\_\+scaling\+\_\+measurement.\+c@{evel\+\_\+scaling\+\_\+measurement.\+c}!evel\+\_\+new\+\_\+measurement\+\_\+vnic\+\_\+use@{evel\+\_\+new\+\_\+measurement\+\_\+vnic\+\_\+use}}
+\index{evel\+\_\+new\+\_\+measurement\+\_\+vnic\+\_\+use@{evel\+\_\+new\+\_\+measurement\+\_\+vnic\+\_\+use}!evel\+\_\+scaling\+\_\+measurement.\+c@{evel\+\_\+scaling\+\_\+measurement.\+c}}
+\subsubsection{\texorpdfstring{evel\+\_\+new\+\_\+measurement\+\_\+vnic\+\_\+use()}{evel\_new\_measurement\_vnic\_use()}}
+{\footnotesize\ttfamily \hyperlink{evel_8h_a83928ff964034324312868dcfaf64b8c}{M\+E\+A\+S\+U\+R\+E\+M\+E\+N\+T\+\_\+\+V\+N\+I\+C\+\_\+\+U\+SE}$\ast$ evel\+\_\+new\+\_\+measurement\+\_\+vnic\+\_\+use (\begin{DoxyParamCaption}\item[{char $\ast$const}]{vnic\+\_\+id,  }\item[{const int}]{packets\+\_\+in,  }\item[{const int}]{packets\+\_\+out,  }\item[{const int}]{bytes\+\_\+in,  }\item[{const int}]{bytes\+\_\+out }\end{DoxyParamCaption})}
+
+
+
+Create a new v\+N\+IC Use to be added to a Measurement event. 
+
+\begin{DoxyNote}{Note}
+The mandatory fields on the \hyperlink{evel_8h_a83928ff964034324312868dcfaf64b8c}{M\+E\+A\+S\+U\+R\+E\+M\+E\+N\+T\+\_\+\+V\+N\+I\+C\+\_\+\+U\+SE} must be supplied to this factory function and are immutable once set. Optional fields have explicit setter functions, but again values may only be set once so that the \hyperlink{evel_8h_a83928ff964034324312868dcfaf64b8c}{M\+E\+A\+S\+U\+R\+E\+M\+E\+N\+T\+\_\+\+V\+N\+I\+C\+\_\+\+U\+SE} has immutable properties.
+\end{DoxyNote}
+
+\begin{DoxyParams}{Parameters}
+{\em vnic\+\_\+id} & A\+S\+C\+I\+IZ string with the v\+N\+IC\textquotesingle{}s ID. \\
+\hline
+{\em packets\+\_\+in} & Total packets received. \\
+\hline
+{\em packets\+\_\+out} & Total packets transmitted. \\
+\hline
+{\em bytes\+\_\+in} & Total bytes received. \\
+\hline
+{\em bytes\+\_\+out} & Total bytes transmitted.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+pointer to the newly manufactured \hyperlink{evel_8h_a83928ff964034324312868dcfaf64b8c}{M\+E\+A\+S\+U\+R\+E\+M\+E\+N\+T\+\_\+\+V\+N\+I\+C\+\_\+\+U\+SE}. If the structure is not used it must be released using \hyperlink{evel__scaling__measurement_8c_a5a7af2556af6fe84d7d68ed8c0be932c}{evel\+\_\+free\+\_\+measurement\+\_\+vnic\+\_\+use}. 
+\end{DoxyReturn}
+
+\begin{DoxyRetVals}{Return values}
+{\em N\+U\+LL} & Failed to create the v\+N\+IC Use. \\
+\hline
+\end{DoxyRetVals}
+
+
+Definition at line 900 of file evel\+\_\+scaling\+\_\+measurement.\+c.
+
+\hypertarget{evel__scaling__measurement_8c_abd0eeb444a0c327e8928191514650509}{}\label{evel__scaling__measurement_8c_abd0eeb444a0c327e8928191514650509} 
+\index{evel\+\_\+scaling\+\_\+measurement.\+c@{evel\+\_\+scaling\+\_\+measurement.\+c}!evel\+\_\+vnic\+\_\+use\+\_\+bcast\+\_\+pkt\+\_\+in\+\_\+set@{evel\+\_\+vnic\+\_\+use\+\_\+bcast\+\_\+pkt\+\_\+in\+\_\+set}}
+\index{evel\+\_\+vnic\+\_\+use\+\_\+bcast\+\_\+pkt\+\_\+in\+\_\+set@{evel\+\_\+vnic\+\_\+use\+\_\+bcast\+\_\+pkt\+\_\+in\+\_\+set}!evel\+\_\+scaling\+\_\+measurement.\+c@{evel\+\_\+scaling\+\_\+measurement.\+c}}
+\subsubsection{\texorpdfstring{evel\+\_\+vnic\+\_\+use\+\_\+bcast\+\_\+pkt\+\_\+in\+\_\+set()}{evel\_vnic\_use\_bcast\_pkt\_in\_set()}}
+{\footnotesize\ttfamily void evel\+\_\+vnic\+\_\+use\+\_\+bcast\+\_\+pkt\+\_\+in\+\_\+set (\begin{DoxyParamCaption}\item[{\hyperlink{evel_8h_a83928ff964034324312868dcfaf64b8c}{M\+E\+A\+S\+U\+R\+E\+M\+E\+N\+T\+\_\+\+V\+N\+I\+C\+\_\+\+U\+SE} $\ast$const}]{vnic\+\_\+use,  }\item[{const int}]{broadcast\+\_\+packets\+\_\+in }\end{DoxyParamCaption})}
+
+
+
+Set the Broadcast Packets Received property of the v\+N\+IC Use. 
+
+\begin{DoxyNote}{Note}
+The property is treated as immutable\+: it is only valid to call the setter once. However, we don\textquotesingle{}t assert if the caller tries to overwrite, just ignoring the update instead.
+\end{DoxyNote}
+
+\begin{DoxyParams}{Parameters}
+{\em vnic\+\_\+use} & Pointer to the v\+N\+IC Use. \\
+\hline
+{\em broadcast\+\_\+packets\+\_\+in} & Broadcast packets received. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 985 of file evel\+\_\+scaling\+\_\+measurement.\+c.
+
+\hypertarget{evel__scaling__measurement_8c_aef3bb6ef1161ba727f4753e2ae36eb26}{}\label{evel__scaling__measurement_8c_aef3bb6ef1161ba727f4753e2ae36eb26} 
+\index{evel\+\_\+scaling\+\_\+measurement.\+c@{evel\+\_\+scaling\+\_\+measurement.\+c}!evel\+\_\+vnic\+\_\+use\+\_\+bcast\+\_\+pkt\+\_\+out\+\_\+set@{evel\+\_\+vnic\+\_\+use\+\_\+bcast\+\_\+pkt\+\_\+out\+\_\+set}}
+\index{evel\+\_\+vnic\+\_\+use\+\_\+bcast\+\_\+pkt\+\_\+out\+\_\+set@{evel\+\_\+vnic\+\_\+use\+\_\+bcast\+\_\+pkt\+\_\+out\+\_\+set}!evel\+\_\+scaling\+\_\+measurement.\+c@{evel\+\_\+scaling\+\_\+measurement.\+c}}
+\subsubsection{\texorpdfstring{evel\+\_\+vnic\+\_\+use\+\_\+bcast\+\_\+pkt\+\_\+out\+\_\+set()}{evel\_vnic\_use\_bcast\_pkt\_out\_set()}}
+{\footnotesize\ttfamily void evel\+\_\+vnic\+\_\+use\+\_\+bcast\+\_\+pkt\+\_\+out\+\_\+set (\begin{DoxyParamCaption}\item[{\hyperlink{evel_8h_a83928ff964034324312868dcfaf64b8c}{M\+E\+A\+S\+U\+R\+E\+M\+E\+N\+T\+\_\+\+V\+N\+I\+C\+\_\+\+U\+SE} $\ast$const}]{vnic\+\_\+use,  }\item[{const int}]{broadcast\+\_\+packets\+\_\+out }\end{DoxyParamCaption})}
+
+
+
+Set the Broadcast Packets Transmitted property of the v\+N\+IC Use. 
+
+\begin{DoxyNote}{Note}
+The property is treated as immutable\+: it is only valid to call the setter once. However, we don\textquotesingle{}t assert if the caller tries to overwrite, just ignoring the update instead.
+\end{DoxyNote}
+
+\begin{DoxyParams}{Parameters}
+{\em vnic\+\_\+use} & Pointer to the v\+N\+IC Use. \\
+\hline
+{\em broadcast\+\_\+packets\+\_\+out} & Broadcast packets transmitted. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 1013 of file evel\+\_\+scaling\+\_\+measurement.\+c.
+
+\hypertarget{evel__scaling__measurement_8c_ab4346a2e36ef2a017b23fcb2b34ba154}{}\label{evel__scaling__measurement_8c_ab4346a2e36ef2a017b23fcb2b34ba154} 
+\index{evel\+\_\+scaling\+\_\+measurement.\+c@{evel\+\_\+scaling\+\_\+measurement.\+c}!evel\+\_\+vnic\+\_\+use\+\_\+mcast\+\_\+pkt\+\_\+in\+\_\+set@{evel\+\_\+vnic\+\_\+use\+\_\+mcast\+\_\+pkt\+\_\+in\+\_\+set}}
+\index{evel\+\_\+vnic\+\_\+use\+\_\+mcast\+\_\+pkt\+\_\+in\+\_\+set@{evel\+\_\+vnic\+\_\+use\+\_\+mcast\+\_\+pkt\+\_\+in\+\_\+set}!evel\+\_\+scaling\+\_\+measurement.\+c@{evel\+\_\+scaling\+\_\+measurement.\+c}}
+\subsubsection{\texorpdfstring{evel\+\_\+vnic\+\_\+use\+\_\+mcast\+\_\+pkt\+\_\+in\+\_\+set()}{evel\_vnic\_use\_mcast\_pkt\_in\_set()}}
+{\footnotesize\ttfamily void evel\+\_\+vnic\+\_\+use\+\_\+mcast\+\_\+pkt\+\_\+in\+\_\+set (\begin{DoxyParamCaption}\item[{\hyperlink{evel_8h_a83928ff964034324312868dcfaf64b8c}{M\+E\+A\+S\+U\+R\+E\+M\+E\+N\+T\+\_\+\+V\+N\+I\+C\+\_\+\+U\+SE} $\ast$const}]{vnic\+\_\+use,  }\item[{const int}]{multicast\+\_\+packets\+\_\+in }\end{DoxyParamCaption})}
+
+
+
+Set the Multicast Packets Received property of the v\+N\+IC Use. 
+
+\begin{DoxyNote}{Note}
+The property is treated as immutable\+: it is only valid to call the setter once. However, we don\textquotesingle{}t assert if the caller tries to overwrite, just ignoring the update instead.
+\end{DoxyNote}
+
+\begin{DoxyParams}{Parameters}
+{\em vnic\+\_\+use} & Pointer to the v\+N\+IC Use. \\
+\hline
+{\em multicast\+\_\+packets\+\_\+in} & Multicast packets received. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 1041 of file evel\+\_\+scaling\+\_\+measurement.\+c.
+
+\hypertarget{evel__scaling__measurement_8c_a8d0edb299237e1c85e659bf8ec491202}{}\label{evel__scaling__measurement_8c_a8d0edb299237e1c85e659bf8ec491202} 
+\index{evel\+\_\+scaling\+\_\+measurement.\+c@{evel\+\_\+scaling\+\_\+measurement.\+c}!evel\+\_\+vnic\+\_\+use\+\_\+mcast\+\_\+pkt\+\_\+out\+\_\+set@{evel\+\_\+vnic\+\_\+use\+\_\+mcast\+\_\+pkt\+\_\+out\+\_\+set}}
+\index{evel\+\_\+vnic\+\_\+use\+\_\+mcast\+\_\+pkt\+\_\+out\+\_\+set@{evel\+\_\+vnic\+\_\+use\+\_\+mcast\+\_\+pkt\+\_\+out\+\_\+set}!evel\+\_\+scaling\+\_\+measurement.\+c@{evel\+\_\+scaling\+\_\+measurement.\+c}}
+\subsubsection{\texorpdfstring{evel\+\_\+vnic\+\_\+use\+\_\+mcast\+\_\+pkt\+\_\+out\+\_\+set()}{evel\_vnic\_use\_mcast\_pkt\_out\_set()}}
+{\footnotesize\ttfamily void evel\+\_\+vnic\+\_\+use\+\_\+mcast\+\_\+pkt\+\_\+out\+\_\+set (\begin{DoxyParamCaption}\item[{\hyperlink{evel_8h_a83928ff964034324312868dcfaf64b8c}{M\+E\+A\+S\+U\+R\+E\+M\+E\+N\+T\+\_\+\+V\+N\+I\+C\+\_\+\+U\+SE} $\ast$const}]{vnic\+\_\+use,  }\item[{const int}]{multicast\+\_\+packets\+\_\+out }\end{DoxyParamCaption})}
+
+
+
+Set the Multicast Packets Transmitted property of the v\+N\+IC Use. 
+
+\begin{DoxyNote}{Note}
+The property is treated as immutable\+: it is only valid to call the setter once. However, we don\textquotesingle{}t assert if the caller tries to overwrite, just ignoring the update instead.
+\end{DoxyNote}
+
+\begin{DoxyParams}{Parameters}
+{\em vnic\+\_\+use} & Pointer to the v\+N\+IC Use. \\
+\hline
+{\em multicast\+\_\+packets\+\_\+out} & Multicast packets transmitted. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 1069 of file evel\+\_\+scaling\+\_\+measurement.\+c.
+
+\hypertarget{evel__scaling__measurement_8c_aaffc562ea1e10f98ec857e6364defae6}{}\label{evel__scaling__measurement_8c_aaffc562ea1e10f98ec857e6364defae6} 
+\index{evel\+\_\+scaling\+\_\+measurement.\+c@{evel\+\_\+scaling\+\_\+measurement.\+c}!evel\+\_\+vnic\+\_\+use\+\_\+ucast\+\_\+pkt\+\_\+in\+\_\+set@{evel\+\_\+vnic\+\_\+use\+\_\+ucast\+\_\+pkt\+\_\+in\+\_\+set}}
+\index{evel\+\_\+vnic\+\_\+use\+\_\+ucast\+\_\+pkt\+\_\+in\+\_\+set@{evel\+\_\+vnic\+\_\+use\+\_\+ucast\+\_\+pkt\+\_\+in\+\_\+set}!evel\+\_\+scaling\+\_\+measurement.\+c@{evel\+\_\+scaling\+\_\+measurement.\+c}}
+\subsubsection{\texorpdfstring{evel\+\_\+vnic\+\_\+use\+\_\+ucast\+\_\+pkt\+\_\+in\+\_\+set()}{evel\_vnic\_use\_ucast\_pkt\_in\_set()}}
+{\footnotesize\ttfamily void evel\+\_\+vnic\+\_\+use\+\_\+ucast\+\_\+pkt\+\_\+in\+\_\+set (\begin{DoxyParamCaption}\item[{\hyperlink{evel_8h_a83928ff964034324312868dcfaf64b8c}{M\+E\+A\+S\+U\+R\+E\+M\+E\+N\+T\+\_\+\+V\+N\+I\+C\+\_\+\+U\+SE} $\ast$const}]{vnic\+\_\+use,  }\item[{const int}]{unicast\+\_\+packets\+\_\+in }\end{DoxyParamCaption})}
+
+
+
+Set the Unicast Packets Received property of the v\+N\+IC Use. 
+
+\begin{DoxyNote}{Note}
+The property is treated as immutable\+: it is only valid to call the setter once. However, we don\textquotesingle{}t assert if the caller tries to overwrite, just ignoring the update instead.
+\end{DoxyNote}
+
+\begin{DoxyParams}{Parameters}
+{\em vnic\+\_\+use} & Pointer to the v\+N\+IC Use. \\
+\hline
+{\em unicast\+\_\+packets\+\_\+in} & Unicast packets received. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 1097 of file evel\+\_\+scaling\+\_\+measurement.\+c.
+
+\hypertarget{evel__scaling__measurement_8c_a760484344260477ecf4e145363c41b08}{}\label{evel__scaling__measurement_8c_a760484344260477ecf4e145363c41b08} 
+\index{evel\+\_\+scaling\+\_\+measurement.\+c@{evel\+\_\+scaling\+\_\+measurement.\+c}!evel\+\_\+vnic\+\_\+use\+\_\+ucast\+\_\+pkt\+\_\+out\+\_\+set@{evel\+\_\+vnic\+\_\+use\+\_\+ucast\+\_\+pkt\+\_\+out\+\_\+set}}
+\index{evel\+\_\+vnic\+\_\+use\+\_\+ucast\+\_\+pkt\+\_\+out\+\_\+set@{evel\+\_\+vnic\+\_\+use\+\_\+ucast\+\_\+pkt\+\_\+out\+\_\+set}!evel\+\_\+scaling\+\_\+measurement.\+c@{evel\+\_\+scaling\+\_\+measurement.\+c}}
+\subsubsection{\texorpdfstring{evel\+\_\+vnic\+\_\+use\+\_\+ucast\+\_\+pkt\+\_\+out\+\_\+set()}{evel\_vnic\_use\_ucast\_pkt\_out\_set()}}
+{\footnotesize\ttfamily void evel\+\_\+vnic\+\_\+use\+\_\+ucast\+\_\+pkt\+\_\+out\+\_\+set (\begin{DoxyParamCaption}\item[{\hyperlink{evel_8h_a83928ff964034324312868dcfaf64b8c}{M\+E\+A\+S\+U\+R\+E\+M\+E\+N\+T\+\_\+\+V\+N\+I\+C\+\_\+\+U\+SE} $\ast$const}]{vnic\+\_\+use,  }\item[{const int}]{unicast\+\_\+packets\+\_\+out }\end{DoxyParamCaption})}
+
+
+
+Set the Unicast Packets Transmitted property of the v\+N\+IC Use. 
+
+\begin{DoxyNote}{Note}
+The property is treated as immutable\+: it is only valid to call the setter once. However, we don\textquotesingle{}t assert if the caller tries to overwrite, just ignoring the update instead.
+\end{DoxyNote}
+
+\begin{DoxyParams}{Parameters}
+{\em vnic\+\_\+use} & Pointer to the v\+N\+IC Use. \\
+\hline
+{\em unicast\+\_\+packets\+\_\+out} & Unicast packets transmitted. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 1125 of file evel\+\_\+scaling\+\_\+measurement.\+c.
 

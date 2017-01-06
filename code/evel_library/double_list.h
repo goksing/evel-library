@@ -60,7 +60,11 @@ typedef struct dlist
 void dlist_initialize(DLIST * list);
 void * dlist_pop_last(DLIST * list);
 void dlist_push_first(DLIST * list, void * item);
+void dlist_push_last(DLIST * list, void * item);
 DLIST_ITEM * dlist_get_first(DLIST * list);
+DLIST_ITEM * dlist_get_last(DLIST * list);
 DLIST_ITEM * dlist_get_next(DLIST_ITEM * item);
+int dlist_is_empty(DLIST * list);
+int dlist_count(DLIST * list);
 
 #endif

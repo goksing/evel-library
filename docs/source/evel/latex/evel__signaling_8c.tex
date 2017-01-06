@@ -1,0 +1,406 @@
+\hypertarget{evel__signaling_8c}{}\section{evel\+\_\+signaling.\+c File Reference}
+\label{evel__signaling_8c}\index{evel\+\_\+signaling.\+c@{evel\+\_\+signaling.\+c}}
+
+
+Implementation of E\+V\+EL functions relating to Signaling.  
+
+
+{\ttfamily \#include $<$string.\+h$>$}\newline
+{\ttfamily \#include $<$assert.\+h$>$}\newline
+{\ttfamily \#include $<$stdlib.\+h$>$}\newline
+{\ttfamily \#include \char`\"{}evel\+\_\+throttle.\+h\char`\"{}}\newline
+Include dependency graph for evel\+\_\+signaling.\+c\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{evel__signaling_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{evel_8h_af3f948ad8a52881b22a64a727658d1e8}{E\+V\+E\+N\+T\+\_\+\+S\+I\+G\+N\+A\+L\+I\+NG} $\ast$ \hyperlink{evel__signaling_8c_ac0cb96023077927f0a363f45f5a620ac}{evel\+\_\+new\+\_\+signaling} (const char $\ast$const vendor\+\_\+id, const char $\ast$const event\+\_\+id)
+\begin{DoxyCompactList}\small\item\em Create a new Signaling event. \end{DoxyCompactList}\item 
+void \hyperlink{evel__signaling_8c_a20b1a0c14a9a7b92472b528a53a00026}{evel\+\_\+signaling\+\_\+type\+\_\+set} (\hyperlink{evel_8h_af3f948ad8a52881b22a64a727658d1e8}{E\+V\+E\+N\+T\+\_\+\+S\+I\+G\+N\+A\+L\+I\+NG} $\ast$const event, const char $\ast$const type)
+\begin{DoxyCompactList}\small\item\em Set the Event Type property of the Signaling event. \end{DoxyCompactList}\item 
+void \hyperlink{evel__signaling_8c_a8d898c62238843fc6c8ecddb6ab178c0}{evel\+\_\+signaling\+\_\+local\+\_\+ip\+\_\+address\+\_\+set} (\hyperlink{evel_8h_af3f948ad8a52881b22a64a727658d1e8}{E\+V\+E\+N\+T\+\_\+\+S\+I\+G\+N\+A\+L\+I\+NG} $\ast$const event, const char $\ast$const local\+\_\+ip\+\_\+address)
+\begin{DoxyCompactList}\small\item\em Set the Local Ip Address property of the Signaling event. \end{DoxyCompactList}\item 
+void \hyperlink{evel__signaling_8c_ac3a3a2c83a96f3910f275dee325cf35d}{evel\+\_\+signaling\+\_\+local\+\_\+port\+\_\+set} (\hyperlink{evel_8h_af3f948ad8a52881b22a64a727658d1e8}{E\+V\+E\+N\+T\+\_\+\+S\+I\+G\+N\+A\+L\+I\+NG} $\ast$const event, const char $\ast$const local\+\_\+port)
+\begin{DoxyCompactList}\small\item\em Set the Local Port property of the Signaling event. \end{DoxyCompactList}\item 
+void \hyperlink{evel__signaling_8c_ad5a35939bb2405f0ce2c193ffc9109fb}{evel\+\_\+signaling\+\_\+remote\+\_\+ip\+\_\+address\+\_\+set} (\hyperlink{evel_8h_af3f948ad8a52881b22a64a727658d1e8}{E\+V\+E\+N\+T\+\_\+\+S\+I\+G\+N\+A\+L\+I\+NG} $\ast$const event, const char $\ast$const remote\+\_\+ip\+\_\+address)
+\begin{DoxyCompactList}\small\item\em Set the Remote Ip Address property of the Signaling event. \end{DoxyCompactList}\item 
+void \hyperlink{evel__signaling_8c_ad192c264cdbb7f178a5f30afecf6993a}{evel\+\_\+signaling\+\_\+remote\+\_\+port\+\_\+set} (\hyperlink{evel_8h_af3f948ad8a52881b22a64a727658d1e8}{E\+V\+E\+N\+T\+\_\+\+S\+I\+G\+N\+A\+L\+I\+NG} $\ast$const event, const char $\ast$const remote\+\_\+port)
+\begin{DoxyCompactList}\small\item\em Set the Remote Port property of the Signaling event. \end{DoxyCompactList}\item 
+void \hyperlink{evel__signaling_8c_a43d317fa2bfe3a9ac4c094fc2dd5347d}{evel\+\_\+signaling\+\_\+compressed\+\_\+sip\+\_\+set} (\hyperlink{evel_8h_af3f948ad8a52881b22a64a727658d1e8}{E\+V\+E\+N\+T\+\_\+\+S\+I\+G\+N\+A\+L\+I\+NG} $\ast$const event, const char $\ast$const compressed\+\_\+sip)
+\begin{DoxyCompactList}\small\item\em Set the Compressed S\+IP property of the Signaling event. \end{DoxyCompactList}\item 
+void \hyperlink{evel__signaling_8c_a1455c71fe4b5944ae089539e2825e0f6}{evel\+\_\+signaling\+\_\+summary\+\_\+sip\+\_\+set} (\hyperlink{evel_8h_af3f948ad8a52881b22a64a727658d1e8}{E\+V\+E\+N\+T\+\_\+\+S\+I\+G\+N\+A\+L\+I\+NG} $\ast$const event, const char $\ast$const summary\+\_\+sip)
+\begin{DoxyCompactList}\small\item\em Set the Summary S\+IP property of the Signaling event. \end{DoxyCompactList}\item 
+void \hyperlink{evel__signaling_8c_a56de47cfd5bd68a353404ba82f1f48b0}{evel\+\_\+signaling\+\_\+product\+\_\+id\+\_\+set} (\hyperlink{evel_8h_af3f948ad8a52881b22a64a727658d1e8}{E\+V\+E\+N\+T\+\_\+\+S\+I\+G\+N\+A\+L\+I\+NG} $\ast$const event, const char $\ast$const product\+\_\+id)
+\begin{DoxyCompactList}\small\item\em Set the Product Id property of the Signaling event. \end{DoxyCompactList}\item 
+void \hyperlink{evel__signaling_8c_aa7da544b6c068d7ce5d8025f3f239631}{evel\+\_\+signaling\+\_\+subsystem\+\_\+id\+\_\+set} (\hyperlink{evel_8h_af3f948ad8a52881b22a64a727658d1e8}{E\+V\+E\+N\+T\+\_\+\+S\+I\+G\+N\+A\+L\+I\+NG} $\ast$const event, const char $\ast$const subsystem\+\_\+id)
+\begin{DoxyCompactList}\small\item\em Set the Subsystem Id property of the Signaling event. \end{DoxyCompactList}\item 
+void \hyperlink{evel__signaling_8c_aa9b561145b64018bf89233aedb1eaa51}{evel\+\_\+signaling\+\_\+friendly\+\_\+name\+\_\+set} (\hyperlink{evel_8h_af3f948ad8a52881b22a64a727658d1e8}{E\+V\+E\+N\+T\+\_\+\+S\+I\+G\+N\+A\+L\+I\+NG} $\ast$const event, const char $\ast$const friendly\+\_\+name)
+\begin{DoxyCompactList}\small\item\em Set the Friendly Name property of the Signaling event. \end{DoxyCompactList}\item 
+void \hyperlink{evel__signaling_8c_a90ff286158e37ea68577ee8da19706fd}{evel\+\_\+signaling\+\_\+correlator\+\_\+set} (\hyperlink{evel_8h_af3f948ad8a52881b22a64a727658d1e8}{E\+V\+E\+N\+T\+\_\+\+S\+I\+G\+N\+A\+L\+I\+NG} $\ast$const event, const char $\ast$const correlator)
+\begin{DoxyCompactList}\small\item\em Set the Correlator property of the Signaling event. \end{DoxyCompactList}\item 
+void \hyperlink{evel__signaling_8c_ac7aa77e16cb7663b28ed5cfbddf71921}{evel\+\_\+json\+\_\+encode\+\_\+signaling} (\hyperlink{evel__internal_8h_af9c576f6ffebdf8c5164ccf9827b323a}{E\+V\+E\+L\+\_\+\+J\+S\+O\+N\+\_\+\+B\+U\+F\+F\+ER} $\ast$const jbuf, \hyperlink{evel_8h_af3f948ad8a52881b22a64a727658d1e8}{E\+V\+E\+N\+T\+\_\+\+S\+I\+G\+N\+A\+L\+I\+NG} $\ast$const event)
+\begin{DoxyCompactList}\small\item\em Encode the Signaling in J\+S\+ON according to AT\&T\textquotesingle{}s schema for the event type. \end{DoxyCompactList}\item 
+void \hyperlink{evel__signaling_8c_aae6a6dcc2238be063bad9d5614d4bf67}{evel\+\_\+free\+\_\+signaling} (\hyperlink{evel_8h_af3f948ad8a52881b22a64a727658d1e8}{E\+V\+E\+N\+T\+\_\+\+S\+I\+G\+N\+A\+L\+I\+NG} $\ast$const event)
+\begin{DoxyCompactList}\small\item\em Free a Signaling event. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Implementation of E\+V\+EL functions relating to Signaling. 
+
+\subsubsection*{License }
+
+Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met\+:
+
+
+\begin{DoxyEnumerate}
+\item Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
+\item Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.
+\item All advertising materials mentioning features or use of this software must display the following acknowledgement\+: This product includes software developed by the AT\&T.
+\item Neither the name of AT\&T nor the names of its contributors may be used to endorse or promote products derived from this software without specific prior written permission.
+\end{DoxyEnumerate}
+
+T\+H\+IS S\+O\+F\+T\+W\+A\+RE IS P\+R\+O\+V\+I\+D\+ED BY AT\&T I\+N\+T\+E\+L\+L\+E\+C\+T\+U\+AL P\+R\+O\+P\+E\+R\+TY \textquotesingle{}\textquotesingle{}AS IS\textquotesingle{}\textquotesingle{} A\+ND A\+NY E\+X\+P\+R\+E\+SS OR I\+M\+P\+L\+I\+ED W\+A\+R\+R\+A\+N\+T\+I\+ES, I\+N\+C\+L\+U\+D\+I\+NG, B\+UT N\+OT L\+I\+M\+I\+T\+ED TO, T\+HE I\+M\+P\+L\+I\+ED W\+A\+R\+R\+A\+N\+T\+I\+ES OF M\+E\+R\+C\+H\+A\+N\+T\+A\+B\+I\+L\+I\+TY A\+ND F\+I\+T\+N\+E\+SS F\+OR A P\+A\+R\+T\+I\+C\+U\+L\+AR P\+U\+R\+P\+O\+SE A\+RE D\+I\+S\+C\+L\+A\+I\+M\+ED. IN NO E\+V\+E\+NT S\+H\+A\+LL AT\&T I\+N\+T\+E\+L\+L\+E\+C\+T\+U\+AL P\+R\+O\+P\+E\+R\+TY BE L\+I\+A\+B\+LE F\+OR A\+NY D\+I\+R\+E\+CT, I\+N\+D\+I\+R\+E\+CT, I\+N\+C\+I\+D\+E\+N\+T\+AL, S\+P\+E\+C\+I\+AL, E\+X\+E\+M\+P\+L\+A\+RY, OR C\+O\+N\+S\+E\+Q\+U\+E\+N\+T\+I\+AL D\+A\+M\+A\+G\+ES (I\+N\+C\+L\+U\+D\+I\+NG, B\+UT N\+OT L\+I\+M\+I\+T\+ED TO, P\+R\+O\+C\+U\+R\+E\+M\+E\+NT OF S\+U\+B\+S\+T\+I\+T\+U\+TE G\+O\+O\+DS OR S\+E\+R\+V\+I\+C\+ES; L\+O\+SS OF U\+SE, D\+A\+TA, OR P\+R\+O\+F\+I\+TS; OR B\+U\+S\+I\+N\+E\+SS I\+N\+T\+E\+R\+R\+U\+P\+T\+I\+ON) H\+O\+W\+E\+V\+ER C\+A\+U\+S\+ED A\+ND ON A\+NY T\+H\+E\+O\+RY OF L\+I\+A\+B\+I\+L\+I\+TY, W\+H\+E\+T\+H\+ER IN C\+O\+N\+T\+R\+A\+CT, S\+T\+R\+I\+CT L\+I\+A\+B\+I\+L\+I\+TY, OR T\+O\+RT (I\+N\+C\+L\+U\+D\+I\+NG N\+E\+G\+L\+I\+G\+E\+N\+CE OR O\+T\+H\+E\+R\+W\+I\+SE) A\+R\+I\+S\+I\+NG IN A\+NY W\+AY O\+UT OF T\+HE U\+SE OF T\+H\+IS S\+O\+F\+T\+W\+A\+RE, E\+V\+EN IF A\+D\+V\+I\+S\+ED OF T\+HE P\+O\+S\+S\+I\+B\+I\+L\+I\+TY OF S\+U\+CH D\+A\+M\+A\+GE. 
+
+\subsection{Function Documentation}
+\hypertarget{evel__signaling_8c_aae6a6dcc2238be063bad9d5614d4bf67}{}\label{evel__signaling_8c_aae6a6dcc2238be063bad9d5614d4bf67} 
+\index{evel\+\_\+signaling.\+c@{evel\+\_\+signaling.\+c}!evel\+\_\+free\+\_\+signaling@{evel\+\_\+free\+\_\+signaling}}
+\index{evel\+\_\+free\+\_\+signaling@{evel\+\_\+free\+\_\+signaling}!evel\+\_\+signaling.\+c@{evel\+\_\+signaling.\+c}}
+\subsubsection{\texorpdfstring{evel\+\_\+free\+\_\+signaling()}{evel\_free\_signaling()}}
+{\footnotesize\ttfamily void evel\+\_\+free\+\_\+signaling (\begin{DoxyParamCaption}\item[{\hyperlink{evel_8h_af3f948ad8a52881b22a64a727658d1e8}{E\+V\+E\+N\+T\+\_\+\+S\+I\+G\+N\+A\+L\+I\+NG} $\ast$const}]{event }\end{DoxyParamCaption})}
+
+
+
+Free a Signaling event. 
+
+Free off the event supplied. Will free all the contained allocated memory.
+
+\begin{DoxyNote}{Note}
+It does not free the event itself, since that may be part of a larger structure. 
+\end{DoxyNote}
+
+
+Definition at line 487 of file evel\+\_\+signaling.\+c.
+
+\hypertarget{evel__signaling_8c_ac7aa77e16cb7663b28ed5cfbddf71921}{}\label{evel__signaling_8c_ac7aa77e16cb7663b28ed5cfbddf71921} 
+\index{evel\+\_\+signaling.\+c@{evel\+\_\+signaling.\+c}!evel\+\_\+json\+\_\+encode\+\_\+signaling@{evel\+\_\+json\+\_\+encode\+\_\+signaling}}
+\index{evel\+\_\+json\+\_\+encode\+\_\+signaling@{evel\+\_\+json\+\_\+encode\+\_\+signaling}!evel\+\_\+signaling.\+c@{evel\+\_\+signaling.\+c}}
+\subsubsection{\texorpdfstring{evel\+\_\+json\+\_\+encode\+\_\+signaling()}{evel\_json\_encode\_signaling()}}
+{\footnotesize\ttfamily void evel\+\_\+json\+\_\+encode\+\_\+signaling (\begin{DoxyParamCaption}\item[{\hyperlink{evel__internal_8h_af9c576f6ffebdf8c5164ccf9827b323a}{E\+V\+E\+L\+\_\+\+J\+S\+O\+N\+\_\+\+B\+U\+F\+F\+ER} $\ast$const}]{jbuf,  }\item[{\hyperlink{evel_8h_af3f948ad8a52881b22a64a727658d1e8}{E\+V\+E\+N\+T\+\_\+\+S\+I\+G\+N\+A\+L\+I\+NG} $\ast$const}]{event }\end{DoxyParamCaption})}
+
+
+
+Encode the Signaling in J\+S\+ON according to AT\&T\textquotesingle{}s schema for the event type. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em jbuf} & Pointer to the \hyperlink{evel__internal_8h_af9c576f6ffebdf8c5164ccf9827b323a}{E\+V\+E\+L\+\_\+\+J\+S\+O\+N\+\_\+\+B\+U\+F\+F\+ER} to encode into. \\
+\hline
+{\em event} & Pointer to the \hyperlink{evel_8h_aa0ea94c675729365ea7825c4fc7e06d8}{E\+V\+E\+N\+T\+\_\+\+H\+E\+A\+D\+ER} to encode. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 441 of file evel\+\_\+signaling.\+c.
+
+\hypertarget{evel__signaling_8c_ac0cb96023077927f0a363f45f5a620ac}{}\label{evel__signaling_8c_ac0cb96023077927f0a363f45f5a620ac} 
+\index{evel\+\_\+signaling.\+c@{evel\+\_\+signaling.\+c}!evel\+\_\+new\+\_\+signaling@{evel\+\_\+new\+\_\+signaling}}
+\index{evel\+\_\+new\+\_\+signaling@{evel\+\_\+new\+\_\+signaling}!evel\+\_\+signaling.\+c@{evel\+\_\+signaling.\+c}}
+\subsubsection{\texorpdfstring{evel\+\_\+new\+\_\+signaling()}{evel\_new\_signaling()}}
+{\footnotesize\ttfamily \hyperlink{evel_8h_af3f948ad8a52881b22a64a727658d1e8}{E\+V\+E\+N\+T\+\_\+\+S\+I\+G\+N\+A\+L\+I\+NG}$\ast$ evel\+\_\+new\+\_\+signaling (\begin{DoxyParamCaption}\item[{const char $\ast$const}]{vendor\+\_\+id,  }\item[{const char $\ast$const}]{event\+\_\+id }\end{DoxyParamCaption})}
+
+
+
+Create a new Signaling event. 
+
+\begin{DoxyNote}{Note}
+The mandatory fields on the Signaling must be supplied to this factory function and are immutable once set. Optional fields have explicit setter functions, but again values may only be set once so that the event has immutable properties. 
+\end{DoxyNote}
+
+\begin{DoxyParams}{Parameters}
+{\em vendor\+\_\+id} & The vendor id to encode in the event instance id. \\
+\hline
+{\em event\+\_\+id} & The vendor event id to encode in the event instance id. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+pointer to the newly manufactured \hyperlink{evel_8h_af3f948ad8a52881b22a64a727658d1e8}{E\+V\+E\+N\+T\+\_\+\+S\+I\+G\+N\+A\+L\+I\+NG}. If the event is not used (i.\+e. posted) it must be released using \hyperlink{evel__signaling_8c_aae6a6dcc2238be063bad9d5614d4bf67}{evel\+\_\+free\+\_\+signaling}. 
+\end{DoxyReturn}
+
+\begin{DoxyRetVals}{Return values}
+{\em N\+U\+LL} & Failed to create the event. \\
+\hline
+\end{DoxyRetVals}
+
+
+Definition at line 55 of file evel\+\_\+signaling.\+c.
+
+\hypertarget{evel__signaling_8c_a43d317fa2bfe3a9ac4c094fc2dd5347d}{}\label{evel__signaling_8c_a43d317fa2bfe3a9ac4c094fc2dd5347d} 
+\index{evel\+\_\+signaling.\+c@{evel\+\_\+signaling.\+c}!evel\+\_\+signaling\+\_\+compressed\+\_\+sip\+\_\+set@{evel\+\_\+signaling\+\_\+compressed\+\_\+sip\+\_\+set}}
+\index{evel\+\_\+signaling\+\_\+compressed\+\_\+sip\+\_\+set@{evel\+\_\+signaling\+\_\+compressed\+\_\+sip\+\_\+set}!evel\+\_\+signaling.\+c@{evel\+\_\+signaling.\+c}}
+\subsubsection{\texorpdfstring{evel\+\_\+signaling\+\_\+compressed\+\_\+sip\+\_\+set()}{evel\_signaling\_compressed\_sip\_set()}}
+{\footnotesize\ttfamily void evel\+\_\+signaling\+\_\+compressed\+\_\+sip\+\_\+set (\begin{DoxyParamCaption}\item[{\hyperlink{evel_8h_af3f948ad8a52881b22a64a727658d1e8}{E\+V\+E\+N\+T\+\_\+\+S\+I\+G\+N\+A\+L\+I\+NG} $\ast$const}]{event,  }\item[{const char $\ast$const}]{compressed\+\_\+sip }\end{DoxyParamCaption})}
+
+
+
+Set the Compressed S\+IP property of the Signaling event. 
+
+\begin{DoxyNote}{Note}
+The property is treated as immutable\+: it is only valid to call the setter once. However, we don\textquotesingle{}t assert if the caller tries to overwrite, just ignoring the update instead.
+\end{DoxyNote}
+
+\begin{DoxyParams}{Parameters}
+{\em event} & Pointer to the Signaling event. \\
+\hline
+{\em compressed\+\_\+sip} & The Compressed S\+IP to be set. A\+S\+C\+I\+IZ string. The caller does not need to preserve the value once the function returns. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 268 of file evel\+\_\+signaling.\+c.
+
+\hypertarget{evel__signaling_8c_a90ff286158e37ea68577ee8da19706fd}{}\label{evel__signaling_8c_a90ff286158e37ea68577ee8da19706fd} 
+\index{evel\+\_\+signaling.\+c@{evel\+\_\+signaling.\+c}!evel\+\_\+signaling\+\_\+correlator\+\_\+set@{evel\+\_\+signaling\+\_\+correlator\+\_\+set}}
+\index{evel\+\_\+signaling\+\_\+correlator\+\_\+set@{evel\+\_\+signaling\+\_\+correlator\+\_\+set}!evel\+\_\+signaling.\+c@{evel\+\_\+signaling.\+c}}
+\subsubsection{\texorpdfstring{evel\+\_\+signaling\+\_\+correlator\+\_\+set()}{evel\_signaling\_correlator\_set()}}
+{\footnotesize\ttfamily void evel\+\_\+signaling\+\_\+correlator\+\_\+set (\begin{DoxyParamCaption}\item[{\hyperlink{evel_8h_af3f948ad8a52881b22a64a727658d1e8}{E\+V\+E\+N\+T\+\_\+\+S\+I\+G\+N\+A\+L\+I\+NG} $\ast$const}]{event,  }\item[{const char $\ast$const}]{correlator }\end{DoxyParamCaption})}
+
+
+
+Set the Correlator property of the Signaling event. 
+
+\begin{DoxyNote}{Note}
+The property is treated as immutable\+: it is only valid to call the setter once. However, we don\textquotesingle{}t assert if the caller tries to overwrite, just ignoring the update instead.
+\end{DoxyNote}
+
+\begin{DoxyParams}{Parameters}
+{\em event} & Pointer to the Signaling event. \\
+\hline
+{\em correlator} & The correlator to be set. A\+S\+C\+I\+IZ string. The caller does not need to preserve the value once the function returns. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 417 of file evel\+\_\+signaling.\+c.
+
+\hypertarget{evel__signaling_8c_aa9b561145b64018bf89233aedb1eaa51}{}\label{evel__signaling_8c_aa9b561145b64018bf89233aedb1eaa51} 
+\index{evel\+\_\+signaling.\+c@{evel\+\_\+signaling.\+c}!evel\+\_\+signaling\+\_\+friendly\+\_\+name\+\_\+set@{evel\+\_\+signaling\+\_\+friendly\+\_\+name\+\_\+set}}
+\index{evel\+\_\+signaling\+\_\+friendly\+\_\+name\+\_\+set@{evel\+\_\+signaling\+\_\+friendly\+\_\+name\+\_\+set}!evel\+\_\+signaling.\+c@{evel\+\_\+signaling.\+c}}
+\subsubsection{\texorpdfstring{evel\+\_\+signaling\+\_\+friendly\+\_\+name\+\_\+set()}{evel\_signaling\_friendly\_name\_set()}}
+{\footnotesize\ttfamily void evel\+\_\+signaling\+\_\+friendly\+\_\+name\+\_\+set (\begin{DoxyParamCaption}\item[{\hyperlink{evel_8h_af3f948ad8a52881b22a64a727658d1e8}{E\+V\+E\+N\+T\+\_\+\+S\+I\+G\+N\+A\+L\+I\+NG} $\ast$const}]{event,  }\item[{const char $\ast$const}]{friendly\+\_\+name }\end{DoxyParamCaption})}
+
+
+
+Set the Friendly Name property of the Signaling event. 
+
+\begin{DoxyNote}{Note}
+The property is treated as immutable\+: it is only valid to call the setter once. However, we don\textquotesingle{}t assert if the caller tries to overwrite, just ignoring the update instead.
+\end{DoxyNote}
+
+\begin{DoxyParams}{Parameters}
+{\em event} & Pointer to the Signaling event. \\
+\hline
+{\em friendly\+\_\+name} & The vendor friendly name to be set. A\+S\+C\+I\+IZ string. The caller does not need to preserve the value once the function returns. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 388 of file evel\+\_\+signaling.\+c.
+
+\hypertarget{evel__signaling_8c_a8d898c62238843fc6c8ecddb6ab178c0}{}\label{evel__signaling_8c_a8d898c62238843fc6c8ecddb6ab178c0} 
+\index{evel\+\_\+signaling.\+c@{evel\+\_\+signaling.\+c}!evel\+\_\+signaling\+\_\+local\+\_\+ip\+\_\+address\+\_\+set@{evel\+\_\+signaling\+\_\+local\+\_\+ip\+\_\+address\+\_\+set}}
+\index{evel\+\_\+signaling\+\_\+local\+\_\+ip\+\_\+address\+\_\+set@{evel\+\_\+signaling\+\_\+local\+\_\+ip\+\_\+address\+\_\+set}!evel\+\_\+signaling.\+c@{evel\+\_\+signaling.\+c}}
+\subsubsection{\texorpdfstring{evel\+\_\+signaling\+\_\+local\+\_\+ip\+\_\+address\+\_\+set()}{evel\_signaling\_local\_ip\_address\_set()}}
+{\footnotesize\ttfamily void evel\+\_\+signaling\+\_\+local\+\_\+ip\+\_\+address\+\_\+set (\begin{DoxyParamCaption}\item[{\hyperlink{evel_8h_af3f948ad8a52881b22a64a727658d1e8}{E\+V\+E\+N\+T\+\_\+\+S\+I\+G\+N\+A\+L\+I\+NG} $\ast$const}]{event,  }\item[{const char $\ast$const}]{local\+\_\+ip\+\_\+address }\end{DoxyParamCaption})}
+
+
+
+Set the Local Ip Address property of the Signaling event. 
+
+\begin{DoxyNote}{Note}
+The property is treated as immutable\+: it is only valid to call the setter once. However, we don\textquotesingle{}t assert if the caller tries to overwrite, just ignoring the update instead.
+\end{DoxyNote}
+
+\begin{DoxyParams}{Parameters}
+{\em event} & Pointer to the Signaling event. \\
+\hline
+{\em local\+\_\+ip\+\_\+address} & The Local Ip Address to be set. A\+S\+C\+I\+IZ string. The caller does not need to preserve the value once the function returns. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 142 of file evel\+\_\+signaling.\+c.
+
+\hypertarget{evel__signaling_8c_ac3a3a2c83a96f3910f275dee325cf35d}{}\label{evel__signaling_8c_ac3a3a2c83a96f3910f275dee325cf35d} 
+\index{evel\+\_\+signaling.\+c@{evel\+\_\+signaling.\+c}!evel\+\_\+signaling\+\_\+local\+\_\+port\+\_\+set@{evel\+\_\+signaling\+\_\+local\+\_\+port\+\_\+set}}
+\index{evel\+\_\+signaling\+\_\+local\+\_\+port\+\_\+set@{evel\+\_\+signaling\+\_\+local\+\_\+port\+\_\+set}!evel\+\_\+signaling.\+c@{evel\+\_\+signaling.\+c}}
+\subsubsection{\texorpdfstring{evel\+\_\+signaling\+\_\+local\+\_\+port\+\_\+set()}{evel\_signaling\_local\_port\_set()}}
+{\footnotesize\ttfamily void evel\+\_\+signaling\+\_\+local\+\_\+port\+\_\+set (\begin{DoxyParamCaption}\item[{\hyperlink{evel_8h_af3f948ad8a52881b22a64a727658d1e8}{E\+V\+E\+N\+T\+\_\+\+S\+I\+G\+N\+A\+L\+I\+NG} $\ast$const}]{event,  }\item[{const char $\ast$const}]{local\+\_\+port }\end{DoxyParamCaption})}
+
+
+
+Set the Local Port property of the Signaling event. 
+
+\begin{DoxyNote}{Note}
+The property is treated as immutable\+: it is only valid to call the setter once. However, we don\textquotesingle{}t assert if the caller tries to overwrite, just ignoring the update instead.
+\end{DoxyNote}
+
+\begin{DoxyParams}{Parameters}
+{\em event} & Pointer to the Signaling event. \\
+\hline
+{\em local\+\_\+port} & The Local Port to be set. A\+S\+C\+I\+IZ string. The caller does not need to preserve the value once the function returns. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 173 of file evel\+\_\+signaling.\+c.
+
+\hypertarget{evel__signaling_8c_a56de47cfd5bd68a353404ba82f1f48b0}{}\label{evel__signaling_8c_a56de47cfd5bd68a353404ba82f1f48b0} 
+\index{evel\+\_\+signaling.\+c@{evel\+\_\+signaling.\+c}!evel\+\_\+signaling\+\_\+product\+\_\+id\+\_\+set@{evel\+\_\+signaling\+\_\+product\+\_\+id\+\_\+set}}
+\index{evel\+\_\+signaling\+\_\+product\+\_\+id\+\_\+set@{evel\+\_\+signaling\+\_\+product\+\_\+id\+\_\+set}!evel\+\_\+signaling.\+c@{evel\+\_\+signaling.\+c}}
+\subsubsection{\texorpdfstring{evel\+\_\+signaling\+\_\+product\+\_\+id\+\_\+set()}{evel\_signaling\_product\_id\_set()}}
+{\footnotesize\ttfamily void evel\+\_\+signaling\+\_\+product\+\_\+id\+\_\+set (\begin{DoxyParamCaption}\item[{\hyperlink{evel_8h_af3f948ad8a52881b22a64a727658d1e8}{E\+V\+E\+N\+T\+\_\+\+S\+I\+G\+N\+A\+L\+I\+NG} $\ast$const}]{event,  }\item[{const char $\ast$const}]{product\+\_\+id }\end{DoxyParamCaption})}
+
+
+
+Set the Product Id property of the Signaling event. 
+
+\begin{DoxyNote}{Note}
+The property is treated as immutable\+: it is only valid to call the setter once. However, we don\textquotesingle{}t assert if the caller tries to overwrite, just ignoring the update instead.
+\end{DoxyNote}
+
+\begin{DoxyParams}{Parameters}
+{\em event} & Pointer to the Signaling event. \\
+\hline
+{\em product\+\_\+id} & The vendor product id to be set. A\+S\+C\+I\+IZ string. The caller does not need to preserve the value once the function returns. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 330 of file evel\+\_\+signaling.\+c.
+
+\hypertarget{evel__signaling_8c_ad5a35939bb2405f0ce2c193ffc9109fb}{}\label{evel__signaling_8c_ad5a35939bb2405f0ce2c193ffc9109fb} 
+\index{evel\+\_\+signaling.\+c@{evel\+\_\+signaling.\+c}!evel\+\_\+signaling\+\_\+remote\+\_\+ip\+\_\+address\+\_\+set@{evel\+\_\+signaling\+\_\+remote\+\_\+ip\+\_\+address\+\_\+set}}
+\index{evel\+\_\+signaling\+\_\+remote\+\_\+ip\+\_\+address\+\_\+set@{evel\+\_\+signaling\+\_\+remote\+\_\+ip\+\_\+address\+\_\+set}!evel\+\_\+signaling.\+c@{evel\+\_\+signaling.\+c}}
+\subsubsection{\texorpdfstring{evel\+\_\+signaling\+\_\+remote\+\_\+ip\+\_\+address\+\_\+set()}{evel\_signaling\_remote\_ip\_address\_set()}}
+{\footnotesize\ttfamily void evel\+\_\+signaling\+\_\+remote\+\_\+ip\+\_\+address\+\_\+set (\begin{DoxyParamCaption}\item[{\hyperlink{evel_8h_af3f948ad8a52881b22a64a727658d1e8}{E\+V\+E\+N\+T\+\_\+\+S\+I\+G\+N\+A\+L\+I\+NG} $\ast$const}]{event,  }\item[{const char $\ast$const}]{remote\+\_\+ip\+\_\+address }\end{DoxyParamCaption})}
+
+
+
+Set the Remote Ip Address property of the Signaling event. 
+
+\begin{DoxyNote}{Note}
+The property is treated as immutable\+: it is only valid to call the setter once. However, we don\textquotesingle{}t assert if the caller tries to overwrite, just ignoring the update instead.
+\end{DoxyNote}
+
+\begin{DoxyParams}{Parameters}
+{\em event} & Pointer to the Signaling event. \\
+\hline
+{\em remote\+\_\+ip\+\_\+address} & The Remote Ip Address to be set. A\+S\+C\+I\+IZ string. The caller does not need to preserve the value once the function returns. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 205 of file evel\+\_\+signaling.\+c.
+
+\hypertarget{evel__signaling_8c_ad192c264cdbb7f178a5f30afecf6993a}{}\label{evel__signaling_8c_ad192c264cdbb7f178a5f30afecf6993a} 
+\index{evel\+\_\+signaling.\+c@{evel\+\_\+signaling.\+c}!evel\+\_\+signaling\+\_\+remote\+\_\+port\+\_\+set@{evel\+\_\+signaling\+\_\+remote\+\_\+port\+\_\+set}}
+\index{evel\+\_\+signaling\+\_\+remote\+\_\+port\+\_\+set@{evel\+\_\+signaling\+\_\+remote\+\_\+port\+\_\+set}!evel\+\_\+signaling.\+c@{evel\+\_\+signaling.\+c}}
+\subsubsection{\texorpdfstring{evel\+\_\+signaling\+\_\+remote\+\_\+port\+\_\+set()}{evel\_signaling\_remote\_port\_set()}}
+{\footnotesize\ttfamily void evel\+\_\+signaling\+\_\+remote\+\_\+port\+\_\+set (\begin{DoxyParamCaption}\item[{\hyperlink{evel_8h_af3f948ad8a52881b22a64a727658d1e8}{E\+V\+E\+N\+T\+\_\+\+S\+I\+G\+N\+A\+L\+I\+NG} $\ast$const}]{event,  }\item[{const char $\ast$const}]{remote\+\_\+port }\end{DoxyParamCaption})}
+
+
+
+Set the Remote Port property of the Signaling event. 
+
+\begin{DoxyNote}{Note}
+The property is treated as immutable\+: it is only valid to call the setter once. However, we don\textquotesingle{}t assert if the caller tries to overwrite, just ignoring the update instead.
+\end{DoxyNote}
+
+\begin{DoxyParams}{Parameters}
+{\em event} & Pointer to the Signaling event. \\
+\hline
+{\em remote\+\_\+port} & The Remote Port to be set. A\+S\+C\+I\+IZ string. The caller does not need to preserve the value once the function returns. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 236 of file evel\+\_\+signaling.\+c.
+
+\hypertarget{evel__signaling_8c_aa7da544b6c068d7ce5d8025f3f239631}{}\label{evel__signaling_8c_aa7da544b6c068d7ce5d8025f3f239631} 
+\index{evel\+\_\+signaling.\+c@{evel\+\_\+signaling.\+c}!evel\+\_\+signaling\+\_\+subsystem\+\_\+id\+\_\+set@{evel\+\_\+signaling\+\_\+subsystem\+\_\+id\+\_\+set}}
+\index{evel\+\_\+signaling\+\_\+subsystem\+\_\+id\+\_\+set@{evel\+\_\+signaling\+\_\+subsystem\+\_\+id\+\_\+set}!evel\+\_\+signaling.\+c@{evel\+\_\+signaling.\+c}}
+\subsubsection{\texorpdfstring{evel\+\_\+signaling\+\_\+subsystem\+\_\+id\+\_\+set()}{evel\_signaling\_subsystem\_id\_set()}}
+{\footnotesize\ttfamily void evel\+\_\+signaling\+\_\+subsystem\+\_\+id\+\_\+set (\begin{DoxyParamCaption}\item[{\hyperlink{evel_8h_af3f948ad8a52881b22a64a727658d1e8}{E\+V\+E\+N\+T\+\_\+\+S\+I\+G\+N\+A\+L\+I\+NG} $\ast$const}]{event,  }\item[{const char $\ast$const}]{subsystem\+\_\+id }\end{DoxyParamCaption})}
+
+
+
+Set the Subsystem Id property of the Signaling event. 
+
+\begin{DoxyNote}{Note}
+The property is treated as immutable\+: it is only valid to call the setter once. However, we don\textquotesingle{}t assert if the caller tries to overwrite, just ignoring the update instead.
+\end{DoxyNote}
+
+\begin{DoxyParams}{Parameters}
+{\em event} & Pointer to the Signaling event. \\
+\hline
+{\em subsystem\+\_\+id} & The vendor subsystem id to be set. A\+S\+C\+I\+IZ string. The caller does not need to preserve the value once the function returns. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 359 of file evel\+\_\+signaling.\+c.
+
+\hypertarget{evel__signaling_8c_a1455c71fe4b5944ae089539e2825e0f6}{}\label{evel__signaling_8c_a1455c71fe4b5944ae089539e2825e0f6} 
+\index{evel\+\_\+signaling.\+c@{evel\+\_\+signaling.\+c}!evel\+\_\+signaling\+\_\+summary\+\_\+sip\+\_\+set@{evel\+\_\+signaling\+\_\+summary\+\_\+sip\+\_\+set}}
+\index{evel\+\_\+signaling\+\_\+summary\+\_\+sip\+\_\+set@{evel\+\_\+signaling\+\_\+summary\+\_\+sip\+\_\+set}!evel\+\_\+signaling.\+c@{evel\+\_\+signaling.\+c}}
+\subsubsection{\texorpdfstring{evel\+\_\+signaling\+\_\+summary\+\_\+sip\+\_\+set()}{evel\_signaling\_summary\_sip\_set()}}
+{\footnotesize\ttfamily void evel\+\_\+signaling\+\_\+summary\+\_\+sip\+\_\+set (\begin{DoxyParamCaption}\item[{\hyperlink{evel_8h_af3f948ad8a52881b22a64a727658d1e8}{E\+V\+E\+N\+T\+\_\+\+S\+I\+G\+N\+A\+L\+I\+NG} $\ast$const}]{event,  }\item[{const char $\ast$const}]{summary\+\_\+sip }\end{DoxyParamCaption})}
+
+
+
+Set the Summary S\+IP property of the Signaling event. 
+
+\begin{DoxyNote}{Note}
+The property is treated as immutable\+: it is only valid to call the setter once. However, we don\textquotesingle{}t assert if the caller tries to overwrite, just ignoring the update instead.
+\end{DoxyNote}
+
+\begin{DoxyParams}{Parameters}
+{\em event} & Pointer to the Signaling event. \\
+\hline
+{\em summary\+\_\+sip} & The Summary S\+IP to be set. A\+S\+C\+I\+IZ string. The caller does not need to preserve the value once the function returns. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 299 of file evel\+\_\+signaling.\+c.
+
+\hypertarget{evel__signaling_8c_a20b1a0c14a9a7b92472b528a53a00026}{}\label{evel__signaling_8c_a20b1a0c14a9a7b92472b528a53a00026} 
+\index{evel\+\_\+signaling.\+c@{evel\+\_\+signaling.\+c}!evel\+\_\+signaling\+\_\+type\+\_\+set@{evel\+\_\+signaling\+\_\+type\+\_\+set}}
+\index{evel\+\_\+signaling\+\_\+type\+\_\+set@{evel\+\_\+signaling\+\_\+type\+\_\+set}!evel\+\_\+signaling.\+c@{evel\+\_\+signaling.\+c}}
+\subsubsection{\texorpdfstring{evel\+\_\+signaling\+\_\+type\+\_\+set()}{evel\_signaling\_type\_set()}}
+{\footnotesize\ttfamily void evel\+\_\+signaling\+\_\+type\+\_\+set (\begin{DoxyParamCaption}\item[{\hyperlink{evel_8h_af3f948ad8a52881b22a64a727658d1e8}{E\+V\+E\+N\+T\+\_\+\+S\+I\+G\+N\+A\+L\+I\+NG} $\ast$const}]{event,  }\item[{const char $\ast$const}]{type }\end{DoxyParamCaption})}
+
+
+
+Set the Event Type property of the Signaling event. 
+
+\begin{DoxyNote}{Note}
+The property is treated as immutable\+: it is only valid to call the setter once. However, we don\textquotesingle{}t assert if the caller tries to overwrite, just ignoring the update instead.
+\end{DoxyNote}
+
+\begin{DoxyParams}{Parameters}
+{\em event} & Pointer to the Signaling event. \\
+\hline
+{\em type} & The Event Type to be set. A\+S\+C\+I\+IZ string. The caller does not need to preserve the value once the function returns. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 114 of file evel\+\_\+signaling.\+c.
+

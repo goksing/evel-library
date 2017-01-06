@@ -1,0 +1,8 @@
+<map id="event_mobile_flow" name="event_mobile_flow">
+<area shape="rect" id="node2" href="$structevel__option__string.html" title="Optional parameter holder for string. " alt="" coords="36,5,162,32"/>
+<area shape="rect" id="node4" href="$structevent__header.html" title="Event header. " alt="" coords="228,355,327,381"/>
+<area shape="rect" id="node5" href="$structmobile__gtp__per__flow__metrics.html" title="Mobile GTP Per Flow Metrics. " alt="" coords="352,347,491,389"/>
+<area shape="rect" id="node3" href="$structevel__option__int.html" title="Optional parameter holder for int. " alt="" coords="753,5,862,32"/>
+<area shape="rect" id="node6" href="$structevel__option__double.html" title="Optional parameter holder for double. " alt="" coords="341,5,474,32"/>
+<area shape="rect" id="node7" href="$structevel__option__time.html" title="Optional parameter holder for time_t. " alt="" coords="517,5,637,32"/>
+</map>
