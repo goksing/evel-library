@@ -292,6 +292,7 @@ void test_encode_fault()
     "\"eventSeverity\": \"MAJOR\", "
     "\"eventSourceType\": \"other\", "
     "\"specificProblem\": \"It broke very badly\", "
+    "\"eventCategory\": \"link\", "
     "\"vfStatus\": \"Active\", "
     "\"faultFieldsVersion\": 1.1, "
     "\"alarmAdditionalInformation\": ["
@@ -308,7 +309,9 @@ void test_encode_fault()
   EVENT_FAULT * fault = evel_new_fault("My alarm condition",
                                        "It broke very badly",
                                        EVEL_PRIORITY_NORMAL,
-                                       EVEL_SEVERITY_MAJOR);
+                                       EVEL_SEVERITY_MAJOR,
+					EVEL_SOURCE_HOST,
+                             EVEL_VF_STATUS_PREP_TERMINATE);
   assert(fault != NULL);
   evel_fault_type_set(fault, "Bad things happen...");
   evel_fault_interface_set(fault, "My Interface Card");
@@ -433,7 +436,8 @@ void test_encode_measurement()
   char json_body[EVEL_MAX_JSON_BODY];
   EVENT_MEASUREMENT * measurement = NULL;
   MEASUREMENT_LATENCY_BUCKET * bucket = NULL;
-  MEASUREMENT_VNIC_USE * vnic_use = NULL;
+  MEASUREMENT_VNIC_PERFORMANCE * vnic_use = NULL;
+  MEASUREMENT_CPU_USE *cpu_use;
 
   /***************************************************************************/
   /* Measurement.                                                            */
@@ -445,12 +449,29 @@ void test_encode_measurement()
   evel_measurement_conc_sess_set(measurement, 1);
   evel_measurement_cfg_ents_set(measurement, 2);
   evel_measurement_mean_req_lat_set(measurement, 4.4);
-  evel_measurement_mem_cfg_set(measurement, 6.6);
-  evel_measurement_mem_used_set(measurement, 3.3);
   evel_measurement_request_rate_set(measurement, 7);
-  evel_measurement_agg_cpu_use_set(measurement, 8.8);
-  evel_measurement_cpu_use_add(measurement, "cpu1", 11.11);
-  evel_measurement_cpu_use_add(measurement, "cpu2", 22.22);
+
+  cpu_use = evel_measurement_new_cpu_use_add(measurement, "cpu1", 11.11);
+  evel_measurement_cpu_use_idle_set(cpu_use,22.22);
+  evel_measurement_cpu_use_interrupt_set(cpu_use,33.33);
+  evel_measurement_cpu_use_nice_set(cpu_use,44.44);
+  evel_measurement_cpu_use_softirq_set(cpu_use,55.55);
+  evel_measurement_cpu_use_steal_set(cpu_use,66.66);
+  evel_measurement_cpu_use_system_set(cpu_use,77.77);
+  evel_measurement_cpu_use_usageuser_set(cpu_use,88.88);
+  evel_measurement_cpu_use_wait_set(cpu_use,99.99);
+
+  cpu_use = evel_measurement_new_cpu_use_add(measurement, "cpu2", 22.22);
+  evel_measurement_cpu_use_idle_set(cpu_use,12.22);
+  evel_measurement_cpu_use_interrupt_set(cpu_use,33.33);
+  evel_measurement_cpu_use_nice_set(cpu_use,44.44);
+  evel_measurement_cpu_use_softirq_set(cpu_use,55.55);
+  evel_measurement_cpu_use_steal_set(cpu_use,66.66);
+  evel_measurement_cpu_use_system_set(cpu_use,77.77);
+  evel_measurement_cpu_use_usageuser_set(cpu_use,88.88);
+  evel_measurement_cpu_use_wait_set(cpu_use,19.99);
+
+
   evel_measurement_fsys_use_add(measurement,"00-11-22",100.11, 100.22, 33,
                                 200.11, 200.22, 44);
   evel_measurement_fsys_use_add(measurement,"33-44-55",300.11, 300.22, 55,
@@ -1048,32 +1069,33 @@ void test_encode_service_subset(const SERVICE_TEST service_test)
 
   size_t json_size = 0;
   char json_body[EVEL_MAX_JSON_BODY];
-  EVENT_SERVICE * event = NULL;
+  EVENT_SGNALING * event = NULL;
   evel_set_next_event_sequence(2000);
-  event = evel_new_service("vendor_x_id", "vendor_x_event_id");
+  event = evel_new_signaling("vendor_x_id",
+           "correlator", "1.0.3.1", "1234", "192.168.1.3","3456");
   assert(event != NULL);
-  evel_service_type_set(event, "Service Event");
-  evel_service_product_id_set(event, "vendor_x_product_id");
-  evel_service_subsystem_id_set(event, "vendor_x_subsystem_id");
-  evel_service_friendly_name_set(event, "vendor_x_frieldly_name");
-  evel_service_correlator_set(event, "vendor_x_correlator");
+  evel_signaling_type_set(event, "Signaling");
+  evel_signaling_correlator_set(event, "vendor_x_correlator");
+  evel_signaling_vnfmodule_name_set(event, "vendor_x_module");
+  evel_signaling_vnfname_set(event, "vendor_x_vnf");
 
   switch (service_test)
   {
     case SERVICE_NONE:
       break;
     case SERVICE_CODEC:
-      evel_service_codec_set(event, "PCMA");
+      evel_signaling_addl_info_add(event, "codec", "PCMA");
       break;
     case SERVICE_TRANSCODING:
-      evel_service_callee_codec_set(event, "PCMA");
-      evel_service_caller_codec_set(event, "G729A");
+      evel_signaling_addl_info_add(event, "calleecodec", "PCMA");
+      evel_signaling_addl_info_add(event, "callercodec", "G729A");
       break;
     case SERVICE_RTCP:
-      evel_service_rtcp_data_set(event, "some_rtcp_data");
+      evel_signaling_addl_info_add(event, "rtcpdata", "abcdefgh");
       break;
     case SERVICE_EOC_VQM:
-      evel_service_adjacency_name_set(event, "vendor_x_adjacency");
+      evel_signaling_addl_info_add(event, "adjacency", "vendor_x");
+      /*evel_service_adjacency_name_set(event, "vendor_x_adjacency");
       evel_service_endpoint_desc_set(event, EVEL_SERVICE_ENDPOINT_CALLER);
       evel_service_endpoint_jitter_set(event, 66);
       evel_service_endpoint_rtp_oct_disc_set(event, 100);
@@ -1093,17 +1115,13 @@ void test_encode_service_subset(const SERVICE_TEST service_test)
       evel_service_packets_lost_set(event, 157);
       evel_service_packet_loss_percent_set(event, 0.232);
       evel_service_r_factor_set(event, 11);
-      evel_service_round_trip_delay_set(event, 15);
+      evel_service_round_trip_delay_set(event, 15);*/
       break;
     case SERVICE_MARKER:
-      evel_service_phone_number_set(event, "0888888888");
+      evel_signaling_addl_info_add(event, "service_phone", "0888888888");
       break;
   }
 
-  evel_service_addl_field_add(event, "Name1", "Value1");
-  evel_service_addl_field_add(event, "Name2", "Value2");
-  evel_service_addl_field_add(event, "Name3", "Value3");
-  evel_service_addl_field_add(event, "Name4", "Value4");
   json_size = evel_json_encode_event(
     json_body, EVEL_MAX_JSON_BODY, (EVENT_HEADER *) event);
   compare_strings(expected, json_body, EVEL_MAX_JSON_BODY, "Service");
@@ -1154,8 +1172,11 @@ void test_encode_signaling()
   char json_body[EVEL_MAX_JSON_BODY];
   EVENT_SIGNALING * event = NULL;
   evel_set_next_event_sequence(2001);
-  event = evel_new_signaling("vendor_x_id", "vendor_x_event_id");
+  event = evel_new_signaling("vendor_x_id",
+           "correlator", "1.0.3.1", "1234", "192.168.1.3","3456");
   assert(event != NULL);
+  evel_signaling_vnfmodule_name_set(event, "vendor_x_module");
+  evel_signaling_vnfname_set(event, "vendor_x_vnf");
   evel_signaling_type_set(event, "Signaling");
   evel_signaling_product_id_set(event, "vendor_x_product_id");
   evel_signaling_subsystem_id_set(event, "vendor_x_subsystem_id");
@@ -2351,7 +2372,9 @@ void test_encode_fault_throttled()
   EVENT_FAULT * fault = evel_new_fault("My alarm condition",
                                        "It broke very badly",
                                        EVEL_PRIORITY_NORMAL,
-                                       EVEL_SEVERITY_MAJOR);
+                                       EVEL_SEVERITY_MAJOR,
+					EVEL_SOURCE_HOST,
+                          EVEL_VF_STATUS_PREP_TERMINATE);
   assert(fault != NULL);
   evel_fault_type_set(fault, "Bad things happen...");
   evel_fault_addl_info_add(fault, "name1", "value1");
@@ -2474,6 +2497,7 @@ void test_encode_measurement_throttled()
     "{\"name\": \"Name1\", "
     "\"value\": \"Value1\"}]}], "
     "\"measurementsForVfScalingVersion\": 1.1}}}";
+     MEASUREMENT_CPU_USE *cpu_use;
 
   /***************************************************************************/
   /* Initialize and provide a specification with a single fault suppressed.  */
@@ -2492,7 +2516,7 @@ void test_encode_measurement_throttled()
   evel_set_next_event_sequence(123);
   EVENT_MEASUREMENT * measurement = evel_new_measurement(5.5);
   MEASUREMENT_LATENCY_BUCKET * bucket = NULL;
-  MEASUREMENT_VNIC_USE * vnic_use = NULL;
+  MEASUREMENT_VNIC_PERFORMANCE * vnic_use = NULL;
   assert(measurement != NULL);
 
   evel_measurement_type_set(measurement, "Perf management...");
@@ -2502,11 +2526,27 @@ void test_encode_measurement_throttled()
   evel_measurement_mem_cfg_set(measurement, 6.6);
   evel_measurement_mem_used_set(measurement, 3.3);
   evel_measurement_request_rate_set(measurement, 7);
-  evel_measurement_agg_cpu_use_set(measurement, 8.8);
-  evel_measurement_cpu_use_add(measurement, "cpu1", 11.11);
-  evel_measurement_cpu_use_add(measurement, "cpu2", 22.22);
-  evel_measurement_cpu_use_add(measurement, "cpu3", 33.33);
-  evel_measurement_cpu_use_add(measurement, "cpu4", 44.44);
+
+  cpu_use = evel_measurement_new_cpu_use_add(measurement, "cpu1", 11.11);
+  evel_measurement_cpu_use_idle_set(cpu_use,22.22);
+  evel_measurement_cpu_use_interrupt_set(cpu_use,33.33);
+  evel_measurement_cpu_use_nice_set(cpu_use,44.44);
+  evel_measurement_cpu_use_softirq_set(cpu_use,55.55);
+  evel_measurement_cpu_use_steal_set(cpu_use,66.66);
+  evel_measurement_cpu_use_system_set(cpu_use,77.77);
+  evel_measurement_cpu_use_usageuser_set(cpu_use,88.88);
+  evel_measurement_cpu_use_wait_set(cpu_use,99.99);
+
+  cpu_use = evel_measurement_new_cpu_use_add(measurement, "cpu2", 22.22);
+  evel_measurement_cpu_use_idle_set(cpu_use,12.22);
+  evel_measurement_cpu_use_interrupt_set(cpu_use,33.33);
+  evel_measurement_cpu_use_nice_set(cpu_use,44.44);
+  evel_measurement_cpu_use_softirq_set(cpu_use,55.55);
+  evel_measurement_cpu_use_steal_set(cpu_use,66.66);
+  evel_measurement_cpu_use_system_set(cpu_use,77.77);
+  evel_measurement_cpu_use_usageuser_set(cpu_use,88.88);
+  evel_measurement_cpu_use_wait_set(cpu_use,19.99);
+
   evel_measurement_fsys_use_add(measurement, "00-11-22",
                                 100.11, 100.22, 33,
                                 200.11, 200.22, 44);
@@ -3191,8 +3231,11 @@ void test_encode_signaling_throttled()
   char json_body[EVEL_MAX_JSON_BODY];
   EVENT_SIGNALING * event = NULL;
   evel_set_next_event_sequence(2001);
-  event = evel_new_signaling("vendor_x_id", "vendor_x_event_id");
+  event = evel_new_signaling("vendor_x_id",
+           "correlator", "1.0.3.1", "1234", "192.168.1.3","3456");
   assert(event != NULL);
+  evel_signaling_vnfmodule_name_set(event, "vendor_x_module");
+  evel_signaling_vnfname_set(event, "vendor_x_vnf");
   evel_signaling_type_set(event, "Signaling");
   evel_signaling_product_id_set(event, "vendor_x_product_id");
   evel_signaling_subsystem_id_set(event, "vendor_x_subsystem_id");
@@ -3437,7 +3480,9 @@ void test_encode_fault_with_escaping()
   EVENT_FAULT * fault = evel_new_fault("My alarm condition",
                                        "It broke \"very\" badly",
                                        EVEL_PRIORITY_NORMAL,
-                                       EVEL_SEVERITY_MAJOR);
+                                       EVEL_SEVERITY_MAJOR,
+					EVEL_SOURCE_HOST,
+                          EVEL_VF_STATUS_PREP_TERMINATE);
   assert(fault != NULL);
   evel_fault_type_set(fault, "Bad things happen...\\");
   evel_fault_interface_set(fault, "My Interface Card");

@@ -147,6 +147,8 @@ static const char * evel_domain_strings[EVEL_MAX_DOMAINS] = {
   "stateChange",
   "syslog",
   "other"
+  "voiceQuality",
+  "maxDomain"
 };
 
 /*****************************************************************************/

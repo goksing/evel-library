@@ -87,15 +87,14 @@ void demo_signaling(void)
   EVENT_SIGNALING * event = NULL;
   EVEL_ERR_CODES evel_rc = EVEL_SUCCESS;
 
-  event = evel_new_signaling("vendor_x_id", "vendor_x_event_id");
+  event = evel_new_signaling("vendor_x_id",
+             "correlator", "1.0.3.1", "1234", "192.168.1.3","3456");
   if (event != NULL)
   {
     evel_signaling_type_set(event, "Signaling");
-    evel_signaling_product_id_set(event, "vendor_x_product_id");
-    evel_signaling_subsystem_id_set(event, "vendor_x_subsystem_id");
-    evel_signaling_friendly_name_set(event, "vendor_x_frieldly_name");
+    evel_signaling_vnfmodule_name_set(event, "vendor_x_module");
+    evel_signaling_vnfname_set(event, "vendor_x_vnf");
     evel_signaling_correlator_set(event, "vendor_x_correlator");
-
     evel_signaling_local_ip_address_set(event, "1.0.3.1");
     evel_signaling_local_port_set(event, "1031");
     evel_signaling_remote_ip_address_set(event, "5.3.3.0");

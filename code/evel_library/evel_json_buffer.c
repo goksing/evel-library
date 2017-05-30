@@ -200,6 +200,7 @@ void evel_enc_kv_string(EVEL_JSON_BUFFER * jbuf,
   EVEL_EXIT();
 }
 
+
 /**************************************************************************//**
  * Encode a string key and integer value to a ::EVEL_JSON_BUFFER.
  *
@@ -264,6 +265,35 @@ void evel_enc_kv_int(EVEL_JSON_BUFFER * jbuf,
   jbuf->offset += snprintf(jbuf->json + jbuf->offset,
                            jbuf->max_size - jbuf->offset,
                            "%s\"%s\": %d",
+                           evel_json_kv_comma(jbuf),
+                           key,
+                           value);
+
+  EVEL_EXIT();
+}
+
+/**************************************************************************//**
+ * Encode a string key and json object value to a ::EVEL_JSON_BUFFER.
+ *
+ * @param jbuf          Pointer to working ::EVEL_JSON_BUFFER.
+ * @param key           Pointer to the key to encode.
+ * @param value         The corresponding json string to encode.
+ *****************************************************************************/
+void evel_enc_kv_object(EVEL_JSON_BUFFER * jbuf,
+                     const char * const key,
+                     const char * value)
+{
+  EVEL_ENTER();
+
+  /***************************************************************************/
+  /* Check preconditions.                                                    */
+  /***************************************************************************/
+  assert(jbuf != NULL);
+  assert(key != NULL);
+
+  jbuf->offset += snprintf(jbuf->json + jbuf->offset,
+                           jbuf->max_size - jbuf->offset,
+                           "%s\"%s\": %s",
                            evel_json_kv_comma(jbuf),
                            key,
                            value);

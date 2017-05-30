@@ -368,6 +368,104 @@ void evel_set_option_ull(EVEL_OPTION_ULL * const option,
   EVEL_EXIT();
 }
 
+
+/**************************************************************************//**
+ * Initialize an ::EVEL_OPTION_INTHEADER_FIELDS to a not-set state.
+ *
+ * @param option        Pointer to the ::EVEL_OPTION_INTHEADER_FIELDS.
+ *****************************************************************************/
+void evel_init_option_intheader(EVEL_OPTION_INTHEADER_FIELDS * const option)
+{
+  EVEL_ENTER();
+
+  /***************************************************************************/
+  /* Check preconditions.                                                    */
+  /***************************************************************************/
+  assert(option != NULL);
+  option->object = NULL;
+  option->is_set = EVEL_FALSE;
+  EVEL_EXIT();
+}
+
+/**************************************************************************//**
+ * Force the value of an ::EVEL_OPTION_INTHEADER_FIELDS.
+ *
+ * @param option        Pointer to the ::EVEL_OPTION_INTHEADER_FIELDS.
+ * @param value         The value to set.
+ *****************************************************************************/
+void evel_force_option_intheader(EVEL_OPTION_INTHEADER_FIELDS * const option,
+                           const void* value)
+{
+  EVEL_ENTER();
+
+  /***************************************************************************/
+  /* Check preconditions.                                                    */
+  /***************************************************************************/
+  assert(option != NULL);
+
+  option->object = value;
+  option->is_set = EVEL_TRUE;
+
+  EVEL_EXIT();
+}
+
+/**************************************************************************//**
+ * Set the value of an ::EVEL_OPTION_INTHEADER_FIELDS.
+ *
+ * @param option        Pointer to the ::EVEL_OPTION_INTHEADER_FIELDS.
+ * @param value         The value to set.
+ * @param description   Description to be used in logging.
+ *****************************************************************************/
+void evel_set_option_intheader(EVEL_OPTION_INTHEADER_FIELDS * const option,
+                         const void * value,
+                         const char * const description)
+{
+  EVEL_ENTER();
+
+  /***************************************************************************/
+  /* Check preconditions.                                                    */
+  /***************************************************************************/
+  assert(option != NULL);
+  assert(description != NULL);
+
+  if (option->is_set)
+  {
+    EVEL_ERROR("Ignoring attempt to update %s to %llu. %s already set to %llu",
+               description, value, description, option->object);
+  }
+  else
+  {
+    EVEL_DEBUG("Setting %s to %llu", description, value);
+    option->object = value;
+    option->is_set = EVEL_TRUE;
+  }
+  EVEL_EXIT();
+}
+
+/**************************************************************************//**
+ * Free the underlying resources of an ::EVEL_OPTION_INTHEADER_FIELDS.
+ *
+ * @param option        Pointer to the ::EVEL_OPTION_INTHEADER_FIELDS.
+ *****************************************************************************/
+void evel_free_option_intheader(EVEL_OPTION_INTHEADER_FIELDS * const option)
+{
+  EVEL_ENTER();
+
+  /***************************************************************************/
+  /* Check preconditions.                                                    */
+  /***************************************************************************/
+  assert(option != NULL);
+
+  if (option->is_set)
+  {
+    free(option->object);
+    option->object = NULL;
+    option->is_set = EVEL_FALSE;
+  }
+
+  EVEL_EXIT();
+}
+
 /**************************************************************************//**
  * Initialize an ::EVEL_OPTION_TIME to a not-set state.
  *

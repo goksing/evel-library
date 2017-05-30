@@ -89,7 +89,7 @@ EVENT_REPORT * evel_new_report(double measurement_interval)
   /***************************************************************************/
   /* Initialize the header & the report fields.                              */
   /***************************************************************************/
-  evel_init_header(&report->header);
+  evel_init_header(&report->header,"Report");
   report->header.event_domain = EVEL_DOMAIN_REPORT;
   report->measurement_interval = measurement_interval;
 
@@ -383,7 +383,7 @@ void evel_json_encode_report(EVEL_JSON_BUFFER * jbuf,
   evel_enc_version(jbuf,
                    "measurementFieldsVersion",
                    event->major_version,
-                   event->major_version);
+                   event->minor_version);
   evel_json_close_object(jbuf);
 
   EVEL_EXIT();

@@ -85,7 +85,7 @@ EVENT_STATE_CHANGE * evel_new_state_change(const EVEL_ENTITY_STATE new_state,
   /* Initialize the header & the State Change fields.  Optional string       */
   /* values are uninitialized (NULL).                                        */
   /***************************************************************************/
-  evel_init_header(&state_change->header);
+  evel_init_header(&state_change->header,"StateChange");
   state_change->header.event_domain = EVEL_DOMAIN_STATE_CHANGE;
   state_change->major_version = EVEL_STATE_CHANGE_MAJOR_VERSION;
   state_change->minor_version = EVEL_STATE_CHANGE_MINOR_VERSION;
@@ -286,8 +286,7 @@ void evel_json_encode_state_change(EVEL_JSON_BUFFER * jbuf,
 
   evel_enc_version(jbuf,
                    "stateChangeFieldsVersion",
-                   state_change->major_version,
-                   state_change->minor_version);
+                   state_change->major_version,state_change->minor_version);
 
   evel_json_close_object(jbuf);
 

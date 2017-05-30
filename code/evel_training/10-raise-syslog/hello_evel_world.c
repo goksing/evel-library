@@ -97,10 +97,7 @@ void demo_syslog(void)
     evel_syslog_proc_set(syslog, "vnf_process");
     evel_syslog_proc_id_set(syslog, 1423);
     evel_syslog_version_set(syslog, 1);
-    evel_syslog_addl_field_add(syslog, "Name1", "Value1");
-    evel_syslog_addl_field_add(syslog, "Name2", "Value2");
-    evel_syslog_addl_field_add(syslog, "Name3", "Value3");
-    evel_syslog_addl_field_add(syslog, "Name4", "Value4");
+    evel_syslog_addl_filter_set(syslog, "Name1=Value1|Name2=Value2|Name3=Value3");
     evel_rc = evel_post_event((EVENT_HEADER *)syslog);
     if (evel_rc == EVEL_SUCCESS)
     {

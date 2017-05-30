@@ -150,7 +150,9 @@ void demo_fault(void)
   fault = evel_new_fault("My alarm condition",
                          "It broke very badly",
                          EVEL_PRIORITY_NORMAL,
-                         EVEL_SEVERITY_MAJOR);
+                         EVEL_SEVERITY_MAJOR,
+			EVEL_SOURCE_HOST,
+                       EVEL_VF_STATUS_PREP_TERMINATE);
   if (fault != NULL)
   {
     evel_fault_type_set(fault, "Bad things happen...");

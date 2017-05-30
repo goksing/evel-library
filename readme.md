@@ -1,5 +1,7 @@
 # ECOMP Vendor Event Listener Library
 
+NOTE: This project has moved to the ONAP community as part of the DCAE project (https://wiki.onap.org/pages/viewpage.action?pageId=1015831).
+
 This project contains a C library that supports interfacing to AT&T's ECOMP
 Vendor Event Listener. For an overview of ECOMP, see the 
 [ECOMP White Paper](http://att.com/ECOMP).

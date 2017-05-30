@@ -53,14 +53,19 @@
  * @param   specific_problem  The specific problem triggering the fault.
  * @param   priority    The priority of the event.
  * @param   severity    The severity of the Fault.
+ * @param   ev_source_type    Source of Alarm event
+ * @param   version     fault version
+ * @param   status      status of Virtual Function
  * @returns pointer to the newly manufactured ::EVENT_FAULT.  If the event is
  *          not used (i.e. posted) it must be released using ::evel_free_fault.
  * @retval  NULL  Failed to create the event.
  *****************************************************************************/
 EVENT_FAULT * evel_new_fault(const char * const condition,
                              const char * const specific_problem,
-                             EVEL_EVENT_PRIORITIES priority,
-                             EVEL_SEVERITIES severity)
+			     EVEL_EVENT_PRIORITIES priority,
+                             EVEL_SEVERITIES severity,
+                             EVEL_SOURCE_TYPES ev_source_type,
+			     EVEL_VF_STATUSES status)
 {
   EVENT_FAULT * fault = NULL;
   EVEL_ENTER();
@@ -89,16 +94,17 @@ EVENT_FAULT * evel_new_fault(const char * const condition,
   /* Initialize the header & the fault fields.  Optional string values are   */
   /* uninitialized (NULL).                                                   */
   /***************************************************************************/
-  evel_init_header(&fault->header);
+  evel_init_header(&fault->header,"Fault");
   fault->header.event_domain = EVEL_DOMAIN_FAULT;
   fault->header.priority = priority;
   fault->major_version = EVEL_FAULT_MAJOR_VERSION;
   fault->minor_version = EVEL_FAULT_MINOR_VERSION;
   fault->event_severity = severity;
-  fault->event_source_type = event_source_type;
-  fault->vf_status = EVEL_VF_STATUS_ACTIVE;
+  fault->event_source_type = ev_source_type;
+  fault->vf_status = status;
   fault->alarm_condition = strdup(condition);
   fault->specific_problem = strdup(specific_problem);
+  evel_init_option_string(&fault->category);
   evel_init_option_string(&fault->alarm_interface_a);
   dlist_initialize(&fault->additional_info);
 
@@ -146,6 +152,37 @@ void evel_fault_addl_info_add(EVENT_FAULT * fault, char * name, char * value)
 
   dlist_push_last(&fault->additional_info, addl_info);
 
+  EVEL_EXIT();
+}
+
+/**************************************************************************//**
+ * Set the Fault Category property of the Fault.
+ *
+ * @note  The property is treated as immutable: it is only valid to call
+ *        the setter once.  However, we don't assert if the caller tries to
+ *        overwrite, just ignoring the update instead.
+ *
+ * @param fault      Pointer to the fault.
+ * @param category   Category : license, link, routing, security, signaling.
+ *			 ASCIIZ string. The caller
+ *                   does not need to preserve the value once the function
+ *                   returns.
+ *****************************************************************************/
+void evel_fault_category_set(EVENT_FAULT * fault,
+                              const char * const category)
+{
+  EVEL_ENTER();
+
+  /***************************************************************************/
+  /* Check preconditions.                                                    */
+  /***************************************************************************/
+  assert(fault != NULL);
+  assert(fault->header.event_domain == EVEL_DOMAIN_FAULT);
+  assert(category != NULL);
+
+  evel_set_option_string(&fault->category,
+                         category,
+                         "Fault Category set");
   EVEL_EXIT();
 }
 
@@ -239,6 +276,7 @@ void evel_json_encode_fault(EVEL_JSON_BUFFER * jbuf,
   /* Mandatory fields.                                                       */
   /***************************************************************************/
   evel_enc_kv_string(jbuf, "alarmCondition", event->alarm_condition);
+  evel_enc_kv_opt_string(jbuf, "eventCategory", &event->category);
   evel_enc_kv_string(jbuf, "eventSeverity", fault_severity);
   evel_enc_kv_string(jbuf, "eventSourceType", fault_source_type);
   evel_enc_kv_string(jbuf, "specificProblem", event->specific_problem);
@@ -329,8 +367,9 @@ void evel_free_fault(EVENT_FAULT * event)
     addl_info = dlist_pop_last(&event->additional_info);
   }
   free(event->alarm_condition);
-  evel_free_option_string(&event->alarm_interface_a);
   free(event->specific_problem);
+  evel_free_option_string(&event->category);
+  evel_free_option_string(&event->alarm_interface_a);
   evel_free_header(&event->header);
 
   EVEL_EXIT();

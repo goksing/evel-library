@@ -151,8 +151,9 @@ void demo_measurement(const int interval)
 {
   EVENT_MEASUREMENT * measurement = NULL;
   MEASUREMENT_LATENCY_BUCKET * bucket = NULL;
-  MEASUREMENT_VNIC_USE * vnic_use = NULL;
+  MEASUREMENT_VNIC_PERFORMANCE * vnic_performance = NULL;
   EVEL_ERR_CODES evel_rc = EVEL_SUCCESS;
+  MEASUREMENT_CPU_USE *cpu_use;
 
   /***************************************************************************/
   /* Measurement                                                             */
@@ -165,12 +166,28 @@ void demo_measurement(const int interval)
     evel_measurement_conc_sess_set(measurement, 1);
     evel_measurement_cfg_ents_set(measurement, 2);
     evel_measurement_mean_req_lat_set(measurement, 4.4);
-    evel_measurement_mem_cfg_set(measurement, 6.6);
-    evel_measurement_mem_used_set(measurement, 3.3);
     evel_measurement_request_rate_set(measurement, 6);
-    evel_measurement_agg_cpu_use_set(measurement, 8.8);
-    evel_measurement_cpu_use_add(measurement, "cpu1", 11.11);
-    evel_measurement_cpu_use_add(measurement, "cpu2", 22.22);
+
+  cpu_use = evel_measurement_new_cpu_use_add(measurement, "cpu1", 11.11);
+  evel_measurement_cpu_use_idle_set(cpu_use,22.22);
+  evel_measurement_cpu_use_interrupt_set(cpu_use,33.33);
+  evel_measurement_cpu_use_nice_set(cpu_use,44.44);
+  evel_measurement_cpu_use_softirq_set(cpu_use,55.55);
+  evel_measurement_cpu_use_steal_set(cpu_use,66.66);
+  evel_measurement_cpu_use_system_set(cpu_use,77.77);
+  evel_measurement_cpu_use_usageuser_set(cpu_use,88.88);
+  evel_measurement_cpu_use_wait_set(cpu_use,99.99);
+
+  cpu_use = evel_measurement_new_cpu_use_add(measurement, "cpu2", 22.22);
+  evel_measurement_cpu_use_idle_set(cpu_use,12.22);
+  evel_measurement_cpu_use_interrupt_set(cpu_use,33.33);
+  evel_measurement_cpu_use_nice_set(cpu_use,44.44);
+  evel_measurement_cpu_use_softirq_set(cpu_use,55.55);
+  evel_measurement_cpu_use_steal_set(cpu_use,66.66);
+  evel_measurement_cpu_use_system_set(cpu_use,77.77);
+  evel_measurement_cpu_use_usageuser_set(cpu_use,88.88);
+  evel_measurement_cpu_use_wait_set(cpu_use,19.99);
+
     evel_measurement_fsys_use_add(measurement,"00-11-22",100.11, 100.22, 33,
                                   200.11, 200.22, 44);
     evel_measurement_fsys_use_add(measurement,"33-44-55",300.11, 300.22, 55,
@@ -186,23 +203,45 @@ void demo_measurement(const int interval)
     evel_meas_latency_bucket_high_end_set(bucket, 20.0);
     evel_meas_latency_bucket_add(measurement, bucket);
 
-    vnic_use = evel_new_measurement_vnic_use("eth0", 100, 200, 3, 4);
-    evel_vnic_use_bcast_pkt_in_set(vnic_use, 1);
-    evel_vnic_use_bcast_pkt_out_set(vnic_use, 2);
-    evel_vnic_use_mcast_pkt_in_set(vnic_use, 5);
-    evel_vnic_use_mcast_pkt_out_set(vnic_use, 6);
-    evel_vnic_use_ucast_pkt_in_set(vnic_use, 7);
-    evel_vnic_use_ucast_pkt_out_set(vnic_use, 8);
-    evel_meas_vnic_use_add(measurement, vnic_use);
+    vnic_performance = evel_measurement_new_vnic_performance("eth0", "true");
 
-    vnic_use = evel_new_measurement_vnic_use("eth1", 110, 240, 13, 14);
-    evel_vnic_use_bcast_pkt_in_set(vnic_use, 11);
-    evel_vnic_use_bcast_pkt_out_set(vnic_use, 12);
-    evel_vnic_use_mcast_pkt_in_set(vnic_use, 15);
-    evel_vnic_use_mcast_pkt_out_set(vnic_use, 16);
-    evel_vnic_use_ucast_pkt_in_set(vnic_use, 17);
-    evel_vnic_use_ucast_pkt_out_set(vnic_use, 18);
-    evel_meas_vnic_use_add(measurement, vnic_use);
+  evel_vnic_performance_rx_bcast_pkt_acc_set(vnic_performance, 1000000.023);
+  evel_vnic_performance_rx_bcast_pkt_delta_set(vnic_performance,1234.767346);
+  evel_vnic_performance_rx_discard_pkt_acc_set(vnic_performance, 127146784.234738587);
+  evel_vnic_performance_rx_discard_pkt_delta_set(vnic_performance, 123445);
+  evel_vnic_performance_rx_error_pkt_acc_set(vnic_performance, 2736448376);
+  evel_vnic_performance_rx_error_pkt_delta_set(vnic_performance, 3474438764);
+  evel_vnic_performance_rx_mcast_pkt_acc_set(vnic_performance, 42464676);
+  evel_vnic_performance_rx_mcast_pkt_delta_set(vnic_performance, 42678657654);
+  evel_vnic_performance_rx_octets_acc_set(vnic_performance, 47658745);
+  evel_vnic_performance_rx_octets_delta_set(vnic_performance, 47656465465);
+  evel_vnic_performance_rx_total_pkt_acc_set(vnic_performance, 4765764654444);
+  evel_vnic_performance_rx_total_pkt_delta_set(vnic_performance, 4545665656);
+  evel_vnic_performance_rx_ucast_pkt_acc_set(vnic_performance, 4765745546.);
+  evel_vnic_performance_rx_ucast_pkt_delta_set(vnic_performance, 4768765.78347856);
+  evel_vnic_performance_tx_bcast_pkt_acc_set(vnic_performance, 747665.347647);
+  evel_vnic_performance_tx_bcast_pkt_delta_set(vnic_performance, 3468765.4774);
+  evel_vnic_performance_tx_discarded_pkt_acc_set(vnic_performance, 53625345.53);
+  evel_vnic_performance_tx_discarded_pkt_delta_set(vnic_performance, 5465345.72455);
+  evel_vnic_performance_tx_error_pkt_acc_set(vnic_performance, 7632754.754);
+  evel_vnic_performance_tx_error_pkt_delta_set(vnic_performance, 34646875444.);
+  evel_vnic_performance_tx_mcast_pkt_acc_set(vnic_performance, 2734875.5534);
+  evel_vnic_performance_tx_mcast_pkt_delta_set(vnic_performance, 562346534.654);
+  evel_vnic_performance_tx_octets_acc_set(vnic_performance, 2785845.76874);
+    evel_meas_vnic_performance_add(measurement, vnic_performance);
+
+    vnic_performance = evel_measurement_new_vnic_performance("eth1", "false");
+  evel_vnic_performance_rx_mcast_pkt_delta_set(vnic_performance, 42678657654);
+  evel_vnic_performance_rx_octets_acc_set(vnic_performance, 47658745);
+  evel_vnic_performance_rx_octets_delta_set(vnic_performance, 47656465465);
+  evel_vnic_performance_rx_total_pkt_acc_set(vnic_performance, 4765764654444);
+  evel_vnic_performance_rx_total_pkt_delta_set(vnic_performance, 4545665656);
+  evel_vnic_performance_rx_ucast_pkt_acc_set(vnic_performance, 4765745546.);
+  evel_vnic_performance_rx_ucast_pkt_delta_set(vnic_performance, 4768765.78347856);
+  evel_vnic_performance_tx_bcast_pkt_acc_set(vnic_performance, 747665.347647);
+  evel_vnic_performance_tx_bcast_pkt_delta_set(vnic_performance, 3468765.4774);
+  evel_vnic_performance_tx_discarded_pkt_acc_set(vnic_performance, 53625345.53);
+    evel_meas_vnic_performance_add(measurement, vnic_performance);
 
     evel_measurement_errors_set(measurement, 1, 0, 2, 1);
 

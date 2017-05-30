@@ -143,15 +143,17 @@ API_SOURCES=$(EVELLIB_ROOT)/evel.c \
             $(EVELLIB_ROOT)/metadata.c \
             $(EVELLIB_ROOT)/ring_buffer.c \
             $(EVELLIB_ROOT)/double_list.c \
+            $(EVELLIB_ROOT)/hashtable.c \
             $(EVELLIB_ROOT)/evel_event.c \
             $(EVELLIB_ROOT)/evel_fault.c \
             $(EVELLIB_ROOT)/evel_mobile_flow.c \
             $(EVELLIB_ROOT)/evel_option.c \
+            $(EVELLIB_ROOT)/evel_jsonobject.c \
             $(EVELLIB_ROOT)/evel_other.c \
             $(EVELLIB_ROOT)/evel_json_buffer.c \
             $(EVELLIB_ROOT)/evel_reporting_measurement.c \
-            $(EVELLIB_ROOT)/evel_service.c \
-            $(EVELLIB_ROOT)/evel_signaling.c \
+            $(EVELLIB_ROOT)/evel_heartbeat_fields.c \
+            $(EVELLIB_ROOT)/evel_sipsignaling.c \
             $(EVELLIB_ROOT)/evel_scaling_measurement.c \
             $(EVELLIB_ROOT)/evel_state_change.c \
             $(EVELLIB_ROOT)/evel_strings.c \
@@ -159,6 +161,7 @@ API_SOURCES=$(EVELLIB_ROOT)/evel.c \
             $(EVELLIB_ROOT)/evel_throttle.c \
             $(EVELLIB_ROOT)/evel_internal_event.c \
             $(EVELLIB_ROOT)/evel_event_mgr.c \
+            $(EVELLIB_ROOT)/evel_voicequality.c \
             $(EVELLIB_ROOT)/evel_logging.c \
             $(EVELLIB_ROOT)/jsmn.c
 API_OBJECTS=$(API_SOURCES:.c=.o)

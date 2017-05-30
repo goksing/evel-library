@@ -75,9 +75,14 @@ EVENT_OTHER * evel_new_other()
   /* Initialize the header & the Other fields.  Optional string values are   */
   /* uninitialized (NULL).                                                   */
   /***************************************************************************/
-  evel_init_header(&other->header);
+  evel_init_header(&other->header,"OtherEvent");
   other->header.event_domain = EVEL_DOMAIN_OTHER;
-  dlist_initialize(&other->other_fields);
+  other->major_version = EVEL_OTHER_EVENT_MAJOR_VERSION;
+  other->minor_version = EVEL_OTHER_EVENT_MINOR_VERSION;
+
+  other->namedarrays = NULL;
+  dlist_initialize(&other->jsonobjects);
+  dlist_initialize(&other->namedvalues);
 
 exit_label:
   EVEL_EXIT();
@@ -107,6 +112,120 @@ void evel_other_type_set(EVENT_OTHER * other,
   assert(other != NULL);
   assert(other->header.event_domain == EVEL_DOMAIN_OTHER);
   evel_header_type_set(&other->header, type);
+
+  EVEL_EXIT();
+}
+
+/**************************************************************************//**
+ * Add a json object to jsonObject list.
+ *
+ * The name and value are null delimited ASCII strings.  The library takes
+ * a copy so the caller does not have to preserve values after the function
+ * returns.
+ *
+ * @param other         Pointer to the Other.
+ * @param size          size of hashtable
+ *****************************************************************************/
+void evel_other_field_set_namedarraysize(EVENT_OTHER * other, const int size)
+{
+  OTHER_FIELD * other_field = NULL;
+  EVEL_ENTER();
+
+  /***************************************************************************/
+  /* Check preconditions.                                                    */
+  /***************************************************************************/
+  assert(other != NULL);
+  assert(other->header.event_domain == EVEL_DOMAIN_OTHER);
+  assert(other->namedarrays == NULL);
+  assert(size > 0);
+
+  EVEL_DEBUG("Adding Named array");
+
+  other->namedarrays =  ht_create(size);
+
+  EVEL_EXIT();
+}
+
+
+/**************************************************************************//**
+ * Add a json object to jsonObject list.
+ *
+ * The name and value are null delimited ASCII strings.  The library takes
+ * a copy so the caller does not have to preserve values after the function
+ * returns.
+ *
+ * @param other         Pointer to the Other.
+ * @param size          size of hashtable
+ *****************************************************************************/
+void evel_other_field_add_namedarray(EVENT_OTHER * other, const char *hashname,  char * name, char *value)
+{
+  OTHER_FIELD * other_field = NULL;
+  DLIST *list = NULL;
+  EVEL_ENTER();
+
+  /***************************************************************************/
+  /* Check preconditions.                                                    */
+  /***************************************************************************/
+  assert(other != NULL);
+  assert(other->header.event_domain == EVEL_DOMAIN_OTHER);
+  assert(other->namedarrays != NULL);
+
+  EVEL_DEBUG("Adding values to Named array");
+      
+  EVEL_DEBUG("Adding name=%s value=%s", name, value);
+  other_field = malloc(sizeof(OTHER_FIELD));
+  assert(other_field != NULL);
+  memset(other_field, 0, sizeof(OTHER_FIELD));
+  other_field->name = strdup(name);
+  other_field->value = strdup(value);
+  assert(other_field->name != NULL);
+  assert(other_field->value != NULL);
+
+
+  list = ht_get(other->namedarrays, hashname);
+  if( list == NULL )
+  {
+     DLIST * nlist = malloc(sizeof(DLIST));
+     dlist_initialize(nlist);
+     dlist_push_last(nlist, other_field);
+     ht_set(other->namedarrays, hashname, nlist);
+     EVEL_DEBUG("Created to new table table");
+  }
+  else
+  {
+     dlist_push_last(list, other_field);
+     EVEL_DEBUG("Adding to existing table");
+  }
+
+  EVEL_EXIT();
+}
+
+
+/**************************************************************************//**
+ * Add a json object to jsonObject list.
+ *
+ * The name and value are null delimited ASCII strings.  The library takes
+ * a copy so the caller does not have to preserve values after the function
+ * returns.
+ *
+ * @param other     Pointer to the Other.
+ * @param jsonobj   Pointer to json object
+ *****************************************************************************/
+void evel_other_field_add_jsonobj(EVENT_OTHER * other, EVEL_JSON_OBJECT *jsonobj)
+{
+  OTHER_FIELD * other_field = NULL;
+  EVEL_ENTER();
+
+  /***************************************************************************/
+  /* Check preconditions.                                                    */
+  /***************************************************************************/
+  assert(other != NULL);
+  assert(other->header.event_domain == EVEL_DOMAIN_OTHER);
+  assert(jsonobj != NULL);
+
+  EVEL_DEBUG("Adding jsonObject");
+
+  dlist_push_last(&other->jsonobjects, jsonobj);
 
   EVEL_EXIT();
 }
@@ -146,7 +265,7 @@ void evel_other_field_add(EVENT_OTHER * other, char * name, char * value)
   assert(other_field->name != NULL);
   assert(other_field->value != NULL);
 
-  dlist_push_last(&other->other_fields, other_field);
+  dlist_push_last(&other->namedvalues, other_field);
 
   EVEL_EXIT();
 }
@@ -161,7 +280,16 @@ void evel_json_encode_other(EVEL_JSON_BUFFER * jbuf,
                             EVENT_OTHER * event)
 {
   OTHER_FIELD * other_field = NULL;
+  EVEL_JSON_OBJECT * jsonobjp = NULL;
   DLIST_ITEM * other_field_item = NULL;
+  EVEL_JSON_OBJECT_INSTANCE * jsonobjinst = NULL;
+  DLIST_ITEM * jsobj_field_item = NULL;
+  EVEL_INTERNAL_KEY * keyinst = NULL;
+  DLIST_ITEM * keyinst_field_item = NULL;
+  HASHTABLE_T *ht = NULL;
+  int i;
+  bool itm_added = false;
+  DLIST *itm_list = NULL;
 
   EVEL_ENTER();
 
@@ -172,8 +300,147 @@ void evel_json_encode_other(EVEL_JSON_BUFFER * jbuf,
   assert(event->header.event_domain == EVEL_DOMAIN_OTHER);
 
   evel_json_encode_header(jbuf, &event->header);
-  evel_json_open_named_list(jbuf, "otherFields");
-  other_field_item = dlist_get_first(&event->other_fields);
+  evel_json_open_named_object(jbuf, "otherFields");
+
+// iterate through hashtable and print DLIST for each entry
+
+   ht = event->namedarrays;
+   if( ht != NULL )
+   {
+     if( ht->size > 0)
+     {
+        for( i = 0; i < ht->size; i++ ) {
+             if( ht->table[i] != NULL)
+	     {
+		itm_added = true;
+	     }
+        }
+        if( itm_added == true)
+        {
+
+  if (evel_json_open_opt_named_list(jbuf, "hashOfNameValuePairArrays"))
+  {
+       for( i = 0; i < ht->size; i++ ) {
+             if( ht->table[i] != NULL)
+	     {
+		itm_list = ht->table[i];
+
+  if(evel_json_open_opt_named_list(jbuf, ht->table[i]->key))
+  {
+    other_field_item = dlist_get_first(&itm_list);
+    while (other_field_item != NULL)
+    {
+     other_field = (OTHER_FIELD *) other_field_item->item;
+     if(other_field != NULL){
+       evel_json_open_object(jbuf);
+       evel_enc_kv_string(jbuf, "name", other_field->name);
+       evel_enc_kv_string(jbuf, "value", other_field->value);
+       evel_json_close_object(jbuf);
+       other_field_item = dlist_get_next(other_field_item);
+     }
+    }
+    evel_json_close_list(jbuf);
+  }
+
+	     }
+       }
+
+       evel_json_close_list(jbuf);
+  }
+
+
+        }
+     }
+   }
+
+  evel_json_checkpoint(jbuf);
+  if(evel_json_open_opt_named_list(jbuf, "jsonObjects"))
+  {
+  bool item_added = false;
+  other_field_item = dlist_get_first(&event->jsonobjects);
+  while (other_field_item != NULL)
+  {
+    jsonobjp = (EVEL_JSON_OBJECT *) other_field_item->item;
+    if(jsonobjp != NULL);
+    {
+     evel_json_open_object(jbuf);
+
+       if( evel_json_open_opt_named_list(jbuf, "objectInstances"))
+       {
+	bool item_added2 = false;
+        jsobj_field_item = dlist_get_first(&jsonobjp->jsonobjectinstances);
+	while (jsobj_field_item != NULL)
+	{
+	   jsonobjinst = (EVEL_JSON_OBJECT_INSTANCE *) jsobj_field_item->item;
+	   if( jsonobjinst != NULL )
+	   {
+              evel_json_open_object(jbuf);
+              evel_enc_kv_object(jbuf, "objectInstance", jsonobjinst->jsonstring);
+              evel_enc_kv_ull(jbuf, "objectInstanceEpochMicrosec", jsonobjinst->objinst_epoch_microsec);
+  //evel_json_checkpoint(jbuf);
+  if (evel_json_open_opt_named_list(jbuf, "objectKeys"))
+  {
+    bool item_added3 = false;
+
+    keyinst_field_item = dlist_get_first(&jsonobjinst->object_keys);
+    while (keyinst_field_item != NULL)
+    {
+      keyinst = (EVEL_INTERNAL_KEY *)keyinst_field_item->item;
+      if(keyinst != NULL)
+      {
+        evel_json_open_object(jbuf);
+        evel_enc_kv_string(jbuf, "keyName", keyinst->keyname);
+        evel_enc_kv_opt_int(jbuf, "keyOrder", &keyinst->keyorder);
+        evel_enc_kv_opt_string(jbuf, "keyValue", &keyinst->keyvalue);
+        evel_json_close_object(jbuf);
+	item_added3 = false;
+      }
+      keyinst_field_item = dlist_get_next(keyinst_field_item);
+    }
+    evel_json_close_list(jbuf);
+
+    /*************************************************************************/
+    /* If we've not written anything, rewind to before we opened the list.   */
+    /*************************************************************************/
+    //if (!item_added3)
+    //{
+    //  evel_json_rewind(jbuf);
+    //}
+  }
+	       evel_json_close_object(jbuf);
+	    }
+	    item_added2 = true;
+            jsobj_field_item = dlist_get_next(jsobj_field_item);
+	}
+        evel_json_close_list(jbuf);
+	if( !item_added2 )
+	{
+	  evel_json_rewind(jbuf);
+	}
+       }
+
+    evel_enc_kv_string(jbuf, "objectName", jsonobjp->object_name);
+    evel_enc_kv_opt_string(jbuf, "objectSchema", &jsonobjp->objectschema);
+    evel_enc_kv_opt_string(jbuf, "objectSchemaUrl", &jsonobjp->objectschemaurl);
+    evel_enc_kv_opt_string(jbuf, "nfSubscribedObjectName", &jsonobjp->nfsubscribedobjname);
+    evel_enc_kv_opt_string(jbuf, "nfSubscriptionId", &jsonobjp->nfsubscriptionid);
+    evel_json_close_object(jbuf);
+    item_added = true;
+  }
+  other_field_item = dlist_get_next(other_field_item);
+  }
+  evel_json_close_list(jbuf);
+
+  if (!item_added)
+  {
+     evel_json_rewind(jbuf);
+  }
+
+  }
+
+  if( evel_json_open_opt_named_list(jbuf, "nameValuePairs"))
+  {
+  other_field_item = dlist_get_first(&event->namedvalues);
   while (other_field_item != NULL)
   {
     other_field = (OTHER_FIELD *) other_field_item->item;
@@ -185,7 +452,12 @@ void evel_json_encode_other(EVEL_JSON_BUFFER * jbuf,
     evel_json_close_object(jbuf);
     other_field_item = dlist_get_next(other_field_item);
   }
+  }
   evel_json_close_list(jbuf);
+
+  evel_enc_version(jbuf, "otherFieldsVersion", event->major_version,event->minor_version);
+
+  evel_json_close_object(jbuf);
 
   EVEL_EXIT();
 }
@@ -214,7 +486,7 @@ void evel_free_other(EVENT_OTHER * event)
   /***************************************************************************/
   /* Free all internal strings then the header itself.                       */
   /***************************************************************************/
-  other_field = dlist_pop_last(&event->other_fields);
+  other_field = dlist_pop_last(&event->namedvalues);
   while (other_field != NULL)
   {
     EVEL_DEBUG("Freeing Other Field (%s, %s)",
@@ -223,7 +495,7 @@ void evel_free_other(EVENT_OTHER * event)
     free(other_field->name);
     free(other_field->value);
     free(other_field);
-    other_field = dlist_pop_last(&event->other_fields);
+    other_field = dlist_pop_last(&event->namedvalues);
   }
   evel_free_header(&event->header);
 

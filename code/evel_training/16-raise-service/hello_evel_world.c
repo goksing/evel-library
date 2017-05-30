@@ -84,23 +84,26 @@ int main(int argc, char ** argv)
  *****************************************************************************/
 void demo_service(void)
 {
-  EVENT_SERVICE * event = NULL;
+  EVENT_SIGNALING * event = NULL;
   EVEL_ERR_CODES evel_rc = EVEL_SUCCESS;
 
-  event = evel_new_service("vendor_x_id", "vendor_x_event_id");
+  event = evel_new_signaling("vendor_x_id",
+				"correlator", "1.0.3.1", "1234", "192.168.1.3","3456");
   if (event != NULL)
   {
-    evel_service_type_set(event, "Service Event");
-    evel_service_product_id_set(event, "vendor_x_product_id");
-    evel_service_subsystem_id_set(event, "vendor_x_subsystem_id");
-    evel_service_correlator_set(event, "vendor_x_correlator");
-    evel_service_friendly_name_set(event, "vendor_x_frieldly_name");
+    evel_signaling_vnfmodule_name_set(event, "vendor_x_module");
+    evel_signaling_vnfname_set(event, "vendor_x_vnf");
+    evel_signaling_type_set(event, "Service Event");
+    evel_signaling_correlator_set(event, "vendor_x_correlator");
+    evel_signaling_addl_info_add(event, "prodid", "vendor_x_product_id");
+    evel_signaling_addl_info_add(event, "subsys", "vendor_x_subsystem_id");
+    evel_signaling_addl_info_add(event, "friendly_name", "vendor_x_friend");
 
-    evel_service_callee_codec_set(event, "PCMA");
-    evel_service_caller_codec_set(event, "G729A");
+    evel_signaling_addl_info_add(event, "callee", "PCMA");
+    evel_signaling_addl_info_add(event, "caller", "G729A");
 
-    evel_service_addl_field_add(event, "Name1", "Value1");
-    evel_service_addl_field_add(event, "Name2", "Value2");
+    evel_signaling_addl_info_add(event, "Name1", "Value1");
+    evel_signaling_addl_info_add(event, "Name2", "Value2");
 
     evel_rc = evel_post_event((EVENT_HEADER *) event);
     if (evel_rc != EVEL_SUCCESS)

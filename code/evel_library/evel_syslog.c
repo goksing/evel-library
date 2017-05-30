@@ -83,20 +83,22 @@ EVENT_SYSLOG * evel_new_syslog(EVEL_SOURCE_TYPES event_source_type,
   /* Initialize the header & the Syslog fields.  Optional string values are  */
   /* uninitialized (NULL).                                                   */
   /***************************************************************************/
-  evel_init_header(&syslog->header);
+  evel_init_header(&syslog->header,"Syslog");
   syslog->header.event_domain = EVEL_DOMAIN_SYSLOG;
   syslog->major_version = EVEL_SYSLOG_MAJOR_VERSION;
   syslog->minor_version = EVEL_SYSLOG_MINOR_VERSION;
   syslog->event_source_type = event_source_type;
   syslog->syslog_msg = strdup(syslog_msg);
   syslog->syslog_tag = strdup(syslog_tag);
-  dlist_initialize(&syslog->additional_fields);
   evel_init_option_int(&syslog->syslog_facility);
   evel_init_option_int(&syslog->syslog_proc_id);
   evel_init_option_int(&syslog->syslog_ver);
+  evel_init_option_string(&syslog->additional_filters);
   evel_init_option_string(&syslog->event_source_host);
   evel_init_option_string(&syslog->syslog_proc);
   evel_init_option_string(&syslog->syslog_s_data);
+  evel_init_option_string(&syslog->syslog_sdid);
+  evel_init_option_string(&syslog->syslog_severity);
 
 exit_label:
   EVEL_EXIT();
@@ -145,11 +147,9 @@ void evel_syslog_type_set(EVENT_SYSLOG * syslog,
  *                  does not need to preserve the value once the function
  *                  returns.
  *****************************************************************************/
-void evel_syslog_addl_field_add(EVENT_SYSLOG * syslog,
-                                char * name,
-                                char * value)
+void evel_syslog_addl_filter_set(EVENT_SYSLOG * syslog,
+                                char * filter)
 {
-  SYSLOG_ADDL_FIELD * addl_field = NULL;
   EVEL_ENTER();
 
   /***************************************************************************/
@@ -157,19 +157,11 @@ void evel_syslog_addl_field_add(EVENT_SYSLOG * syslog,
   /***************************************************************************/
   assert(syslog != NULL);
   assert(syslog->header.event_domain == EVEL_DOMAIN_SYSLOG);
-  assert(name != NULL);
-  assert(value != NULL);
+  assert(filter != NULL);
 
-  EVEL_DEBUG("Adding name=%s value=%s", name, value);
-  addl_field = malloc(sizeof(SYSLOG_ADDL_FIELD));
-  assert(addl_field != NULL);
-  memset(addl_field, 0, sizeof(SYSLOG_ADDL_FIELD));
-  addl_field->name = strdup(name);
-  addl_field->value = strdup(value);
-  assert(addl_field->name != NULL);
-  assert(addl_field->value != NULL);
-
-  dlist_push_last(&syslog->additional_fields, addl_field);
+  evel_set_option_string(&syslog->additional_filters,
+                         filter,
+                         "Syslog filter string");
 
   EVEL_EXIT();
 }
@@ -346,6 +338,69 @@ void evel_syslog_s_data_set(EVENT_SYSLOG * syslog, const char * const s_data)
 }
 
 /**************************************************************************//**
+ * Set the Structured SDID property of the Syslog.
+ *
+ * @note  The property is treated as immutable: it is only valid to call
+ *        the setter once.  However, we don't assert if the caller tries to
+ *        overwrite, just ignoring the update instead.
+ *
+ * @param syslog     Pointer to the Syslog.
+ * @param sdid     The Structured Data to be set. ASCIIZ string. name@number
+ *                 Caller does not need to preserve the value once the function
+ *                   returns.
+ *****************************************************************************/
+void evel_syslog_sdid_set(EVENT_SYSLOG * syslog, const char * const sdid)
+{
+  EVEL_ENTER();
+
+  /***************************************************************************/
+  /* Check preconditions.                                                    */
+  /***************************************************************************/
+  assert(syslog != NULL);
+  assert(syslog->header.event_domain == EVEL_DOMAIN_SYSLOG);
+  assert(sdid != NULL);
+
+  evel_set_option_string(&syslog->syslog_sdid,
+                         sdid,
+                         "SdId set");
+  EVEL_EXIT();
+}
+
+/**************************************************************************//**
+ * Set the Structured Severity property of the Syslog.
+ *
+ * @note  The property is treated as immutable: it is only valid to call
+ *        the setter once.  However, we don't assert if the caller tries to
+ *        overwrite, just ignoring the update instead.
+ *
+ * @param syslog     Pointer to the Syslog.
+ * @param sdid     The Structured Data to be set. ASCIIZ string. 
+ *                 Caller does not need to preserve the value once the function
+ *                   returns.
+ *****************************************************************************/
+void evel_syslog_severity_set(EVENT_SYSLOG * syslog, const char * const severty)
+{
+  EVEL_ENTER();
+
+  /***************************************************************************/
+  /* Check preconditions.                                                    */
+  /***************************************************************************/
+  assert(syslog != NULL);
+  assert(syslog->header.event_domain == EVEL_DOMAIN_SYSLOG);
+  assert(severty != NULL);
+
+  if( !strcmp(severty,"Alert") || !strcmp(severty,"Critical") || !strcmp(severty,"Debug") ||
+      !strcmp(severty,"Emergency") || !strcmp(severty,"Error") || !strcmp(severty,"Info") ||
+      !strcmp(severty,"Notice") || !strcmp(severty,"Warning") )
+  {
+     evel_set_option_string(&syslog->syslog_severity,
+                         severty,
+                         "Severity set");
+  }
+  EVEL_EXIT();
+}
+
+/**************************************************************************//**
  * Encode the Syslog in JSON according to AT&T's schema for the event type.
  *
  * @param jbuf          Pointer to the ::EVEL_JSON_BUFFER to encode into.
@@ -355,8 +410,6 @@ void evel_json_encode_syslog(EVEL_JSON_BUFFER * jbuf,
                              EVENT_SYSLOG * event)
 {
   char * event_source_type;
-  SYSLOG_ADDL_FIELD * addl_field = NULL;
-  DLIST_ITEM * addl_field_item = NULL;
 
   EVEL_ENTER();
 
@@ -371,6 +424,7 @@ void evel_json_encode_syslog(EVEL_JSON_BUFFER * jbuf,
   evel_json_encode_header(jbuf, &event->header);
   evel_json_open_named_object(jbuf, "syslogFields");
 
+  evel_enc_kv_opt_string(jbuf, "additionalFields", &event->additional_filters);
   /***************************************************************************/
   /* Mandatory fields                                                        */
   /***************************************************************************/
@@ -383,45 +437,14 @@ void evel_json_encode_syslog(EVEL_JSON_BUFFER * jbuf,
   /***************************************************************************/
   /* Optional fields                                                         */
   /***************************************************************************/
-  evel_json_checkpoint(jbuf);
-  if (evel_json_open_opt_named_list(jbuf, "additionalFields"))
-  {
-    bool item_added = false;
-
-    addl_field_item = dlist_get_first(&event->additional_fields);
-    while (addl_field_item != NULL)
-    {
-      addl_field = (SYSLOG_ADDL_FIELD *) addl_field_item->item;
-      assert(addl_field != NULL);
-
-      if (!evel_throttle_suppress_nv_pair(jbuf->throttle_spec,
-                                          "additionalFields",
-                                          addl_field->name))
-      {
-        evel_json_open_object(jbuf);
-        evel_enc_kv_string(jbuf, "name", addl_field->name);
-        evel_enc_kv_string(jbuf, "value", addl_field->value);
-        evel_json_close_object(jbuf);
-        item_added = true;
-      }
-      addl_field_item = dlist_get_next(addl_field_item);
-    }
-    evel_json_close_list(jbuf);
-
-    /*************************************************************************/
-    /* If we've not written anything, rewind to before we opened the list.   */
-    /*************************************************************************/
-    if (!item_added)
-    {
-      evel_json_rewind(jbuf);
-    }
-  }
-
   evel_enc_kv_opt_string(jbuf, "eventSourceHost", &event->event_source_host);
   evel_enc_kv_opt_int(jbuf, "syslogFacility", &event->syslog_facility);
+  evel_enc_kv_opt_int(jbuf, "syslogPri", &event->syslog_priority);
   evel_enc_kv_opt_string(jbuf, "syslogProc", &event->syslog_proc);
   evel_enc_kv_opt_int(jbuf, "syslogProcId", &event->syslog_proc_id);
   evel_enc_kv_opt_string(jbuf, "syslogSData", &event->syslog_s_data);
+  evel_enc_kv_opt_string(jbuf, "syslogSdId", &event->syslog_sdid);
+  evel_enc_kv_opt_string(jbuf, "syslogSev", &event->syslog_severity);
   evel_enc_kv_opt_int(jbuf, "syslogVer", &event->syslog_ver);
   evel_json_close_object(jbuf);
 
@@ -463,7 +486,6 @@ void evel_json_encode_syslog(EVEL_JSON_BUFFER * jbuf,
  *****************************************************************************/
 void evel_free_syslog(EVENT_SYSLOG * event)
 {
-  SYSLOG_ADDL_FIELD * addl_field = NULL;
 
   EVEL_ENTER();
 
@@ -477,22 +499,14 @@ void evel_free_syslog(EVENT_SYSLOG * event)
   /***************************************************************************/
   /* Free all internal strings then the header itself.                       */
   /***************************************************************************/
-  addl_field = dlist_pop_last(&event->additional_fields);
-  while (addl_field != NULL)
-  {
-    EVEL_DEBUG("Freeing Additional Field (%s, %s)",
-               addl_field->name,
-               addl_field->value);
-    free(addl_field->name);
-    free(addl_field->value);
-    free(addl_field);
-    addl_field = dlist_pop_last(&event->additional_fields);
-  }
 
+  evel_free_option_string(&event->additional_filters);
   evel_free_option_string(&event->event_source_host);
   free(event->syslog_msg);
   evel_free_option_string(&event->syslog_proc);
   evel_free_option_string(&event->syslog_s_data);
+  evel_free_option_string(&event->syslog_sdid);
+  evel_free_option_string(&event->syslog_severity);
   free(event->syslog_tag);
   evel_free_header(&event->header);
 

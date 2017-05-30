@@ -46,6 +46,7 @@
 #include <mcheck.h>
 #include <sys/time.h>
 
+#include "jsmn.h"
 #include "evel.h"
 #include "evel_demo.h"
 #include "evel_test_control.h"
@@ -145,12 +146,12 @@ static void demo_heartbeat(void);
 static void demo_fault(void);
 static void demo_measurement(const int interval);
 static void demo_mobile_flow(void);
-static void demo_service(void);
-static void demo_service_event(const SERVICE_EVENT service_event);
+static void demo_heartbeat_field_event(void);
 static void demo_signaling(void);
 static void demo_state_change(void);
 static void demo_syslog(void);
 static void demo_other(void);
+static void demo_voicequality(void);
 
 /**************************************************************************//**
  * Global flag to initiate shutdown.
@@ -485,11 +486,12 @@ int main(int argc, char ** argv)
                                             EVEL_MEASUREMENT_INTERVAL_UKNOWN) ?
                      DEFAULT_SLEEP_SECONDS : measurement_interval);
     demo_mobile_flow();
-    demo_service();
+    demo_heartbeat_field_event();
     demo_signaling();
     demo_state_change();
     demo_syslog();
     demo_other();
+    demo_voicequality();
 
     /*************************************************************************/
     /* MAIN RETRY LOOP.  Check and implement the measurement interval.       */
@@ -608,6 +610,194 @@ void demo_heartbeat(void)
 }
 
 /**************************************************************************//**
+ * tap live cpu stats
+ *****************************************************************************/
+void evel_get_cpu_stats(EVENT_MEASUREMENT * measurement)
+{
+  FILE *fp;
+  char path[1024];
+  double usage;
+  double idle;
+  double intrpt;
+  double nice;
+  double softirq;
+  double steal;
+  double sys;
+  double user;
+  double wait;
+  MEASUREMENT_CPU_USE *cpu_use;
+
+  /* Open the command for reading. */
+  //fp = popen("/bin/ls /etc/", "r");
+  fp = popen("/usr/bin/top -bn 2 -d 0.01 | grep '^%Cpu' | tail -n 1 ", "r");
+  if (fp == NULL) {
+    printf("Failed to run command\n" );
+    exit(1);
+  }
+
+  /* Read the output a line at a time - output it. */
+  while (fgets(path, sizeof(path)-1, fp) != NULL) {
+    printf("%s", path+10);
+    sscanf(path+10," %lf us, %lf sy,  %lf ni,  %lf id,  %lf wa,  %lf hi,  %lf si,  %lf st",
+    &user,&sys,&nice,&idle,&wait,&intrpt,&softirq,&steal);
+  }
+
+  /* close */
+  pclose(fp);
+
+  cpu_use = evel_measurement_new_cpu_use_add(measurement, "cpu1", usage);
+  evel_measurement_cpu_use_idle_set(cpu_use,idle);
+  evel_measurement_cpu_use_interrupt_set(cpu_use,intrpt);
+  evel_measurement_cpu_use_nice_set(cpu_use,nice);
+  evel_measurement_cpu_use_softirq_set(cpu_use,softirq);
+  evel_measurement_cpu_use_steal_set(cpu_use,steal);
+  evel_measurement_cpu_use_system_set(cpu_use,sys);
+  evel_measurement_cpu_use_usageuser_set(cpu_use,user);
+  evel_measurement_cpu_use_wait_set(cpu_use,wait);
+  //evel_measurement_cpu_use_add(measurement, "cpu2", usage,idle,intrpt,nice,softirq,steal,sys,user,wait);
+}
+
+/**************************************************************************//**
+ * tap live disk stats
+ *****************************************************************************/
+void evel_get_disk_stats(EVENT_MEASUREMENT * measurement)
+{
+  FILE *fp;
+  char path[1024];
+  double rrqm;
+  double wrqm;
+  double rs;
+  double ws;
+  double rkbs;
+  double wkbs;
+  double avgrqs;
+  double avgqqs;
+  double wait;
+  double rawait;
+  double wawait;
+  double svctm;
+  double util;
+  MEASUREMENT_DISK_USE * disk_use = NULL;
+
+  /* Open the command for reading. */
+  //fp = popen("/bin/ls /etc/", "r");
+  fp = popen("/usr/bin/iostat -xtd | grep '^sda' | tail -n 1 ", "r");
+  if (fp == NULL) {
+    printf("Failed to run command\n" );
+    exit(1);
+  }
+
+  /* Read the output a line at a time - output it. */
+  while (fgets(path, sizeof(path)-1, fp) != NULL) {
+    printf("%s", path+10);
+    sscanf(path+10,"%lf    %lf    %lf    %lf    %lf    %lf    %lf    %lf    %lf    %lf    %lf    %lf    %lf",
+    &rrqm,&wrqm,&rs,&ws,&rkbs,&wkbs,&avgrqs,&avgqqs,&wait,&rawait,&wawait,&svctm,&util);
+  }
+
+  /* close */
+  pclose(fp);
+
+  disk_use = evel_measurement_new_disk_use_add(measurement, "sda");
+  evel_measurement_disk_use_iotimeavg_set(disk_use, rrqm);
+  evel_measurement_disk_use_iotimelast_set(disk_use, wrqm);
+  evel_measurement_disk_use_iotimemax_set(disk_use, rs);
+  evel_measurement_disk_use_iotimemin_set(disk_use, ws);
+  evel_measurement_disk_use_mergereadavg_set(disk_use, rkbs);
+  evel_measurement_disk_use_mergereadlast_set(disk_use, wkbs);
+  evel_measurement_disk_use_mergereadmax_set(disk_use, avgrqs);
+  evel_measurement_disk_use_mergereadmin_set(disk_use, avgqqs);
+  evel_measurement_disk_use_mergewritelast_set(disk_use, wait);
+  evel_measurement_disk_use_mergewritemax_set(disk_use, rawait);
+  evel_measurement_disk_use_mergewritemin_set(disk_use, wawait);
+  evel_measurement_disk_use_octetsreadavg_set(disk_use, svctm);
+  evel_measurement_disk_use_octetsreadlast_set(disk_use, util);
+}
+
+
+/**************************************************************************//**
+ * tap live memory stats
+ *****************************************************************************/
+void evel_get_mem_stats(EVENT_MEASUREMENT * measurement)
+{
+char buffer[4096];
+char line[100];
+char c;
+int  bcount=0,lcount=0;
+
+double membuffsz=0.0;
+double memcache=0.0;
+double memconfig=0.0;
+double memfree=0.0;
+double slab=0.0;
+double slabrecl=0.0;
+double slabunrecl=0.0;
+double memused=0.0;
+MEASUREMENT_MEM_USE *mem_use = NULL;
+
+
+FILE * filp = fopen("/proc/meminfo", "rb");
+int bytes_read = fread(buffer, sizeof(char), 4096, filp);
+fclose(filp);
+
+printf("meminfo %d\n",bytes_read);
+
+while ( bcount < bytes_read )
+{
+  for(lcount=0; buffer[bcount] != '\n';bcount++,lcount++)
+  {
+     line[lcount] = buffer[bcount];
+  }
+  if( lcount > 0 )
+  {
+    line[lcount] = '\0';
+    //printf("%s\n",line);
+    if(!strncmp(line,"Buffers:", strlen("Buffers:")))
+    {
+        sscanf(line+strlen("Buffers:"),"%lf",&membuffsz);
+        //printf("membuff %lf\n",membuffsz);
+    }
+    else if(!strncmp(line,"Cached:", strlen("Cached:")))
+    {
+        sscanf(line+strlen("Cached:"),"%lf",&memcache);
+    }
+    else if(!strncmp(line,"MemTotal:", strlen("MemTotal:")))
+    {
+        sscanf(line+strlen("MemTotal:"),"%lf",&memconfig);
+    }
+    else if(!strncmp(line,"MemFree:", strlen("MemFree:")))
+    {
+        sscanf(line+strlen("MemFree:"),"%lf",&memfree);
+    }
+    else if(!strncmp(line,"Slab:", strlen("Slab:")))
+    {
+        sscanf(line+strlen("Slab:"),"%lf",&slab);
+    }
+    else if(!strncmp(line,"SReclaimable:", strlen("SReclaimable:")))
+    {
+        sscanf(line+strlen("SReclaimable:"),"%lf",&slabrecl);
+    }
+    else if(!strncmp(line,"SUnreclaim:", strlen("SUnreclaim:")))
+    {
+        sscanf(line+strlen("SUnreclaim:"),"%lf",&slabunrecl);
+    }
+  }
+  bcount++;
+}
+
+memused = memconfig - memfree - membuffsz - memcache - slab;
+printf("memused %lf\n",memused);
+
+  mem_use = evel_measurement_new_mem_use_add(measurement, "RAM", "vm1", membuffsz);
+  evel_measurement_mem_use_memcache_set(mem_use,memcache);
+  evel_measurement_mem_use_memconfig_set(mem_use,memconfig);
+  evel_measurement_mem_use_memfree_set(mem_use,memfree);
+  evel_measurement_mem_use_slab_reclaimed_set(mem_use,slabrecl);
+  evel_measurement_mem_use_slab_unreclaimable_set(mem_use,slabunrecl);
+  evel_measurement_mem_use_usedup_set(mem_use,memused);
+
+}
+
+/**************************************************************************//**
  * Create and send three fault events.
  *****************************************************************************/
 void demo_fault(void)
@@ -621,7 +811,9 @@ void demo_fault(void)
   fault = evel_new_fault("An alarm condition",
                          "Things are broken",
                          EVEL_PRIORITY_NORMAL,
-                         EVEL_SEVERITY_MAJOR);
+                         EVEL_SEVERITY_MAJOR,
+			 EVEL_SOURCE_VIRTUAL_MACHINE,
+			 EVEL_VF_STATUS_READY_TERMINATE);
   if (fault != NULL)
   {
     evel_rc = evel_post_event((EVENT_HEADER *)fault);
@@ -639,10 +831,13 @@ void demo_fault(void)
   fault = evel_new_fault("Another alarm condition",
                          "It broke badly",
                          EVEL_PRIORITY_NORMAL,
-                         EVEL_SEVERITY_MAJOR);
+                         EVEL_SEVERITY_MAJOR,
+			 EVEL_SOURCE_PORT,
+			 EVEL_VF_STATUS_REQ_TERMINATE);
   if (fault != NULL)
   {
     evel_fault_type_set(fault, "Bad things happening");
+    evel_fault_category_set(fault, "Failed category");
     evel_fault_interface_set(fault, "An Interface Card");
     evel_rc = evel_post_event((EVENT_HEADER *)fault);
     if (evel_rc != EVEL_SUCCESS)
@@ -659,7 +854,9 @@ void demo_fault(void)
   fault = evel_new_fault("My alarm condition",
                          "It broke very badly",
                          EVEL_PRIORITY_NORMAL,
-                         EVEL_SEVERITY_MAJOR);
+                         EVEL_SEVERITY_MAJOR,
+			 EVEL_SOURCE_HOST,
+			 EVEL_VF_STATUS_PREP_TERMINATE);
   if (fault != NULL)
   {
     evel_fault_type_set(fault, "Bad things happen...");
@@ -686,7 +883,7 @@ void demo_measurement(const int interval)
 {
   EVENT_MEASUREMENT * measurement = NULL;
   MEASUREMENT_LATENCY_BUCKET * bucket = NULL;
-  MEASUREMENT_VNIC_USE * vnic_use = NULL;
+  MEASUREMENT_VNIC_PERFORMANCE * vnic_performance = NULL;
   EVEL_ERR_CODES evel_rc = EVEL_SUCCESS;
 
   /***************************************************************************/
@@ -699,12 +896,13 @@ void demo_measurement(const int interval)
     evel_measurement_conc_sess_set(measurement, 1);
     evel_measurement_cfg_ents_set(measurement, 2);
     evel_measurement_mean_req_lat_set(measurement, 4.4);
-    evel_measurement_mem_cfg_set(measurement, 6.6);
-    evel_measurement_mem_used_set(measurement, 3.3);
     evel_measurement_request_rate_set(measurement, 6);
-    evel_measurement_agg_cpu_use_set(measurement, 8.8);
-    evel_measurement_cpu_use_add(measurement, "cpu1", 11.11);
-    evel_measurement_cpu_use_add(measurement, "cpu2", 22.22);
+    //evel_measurement_cpu_use_add(measurement, "cpu1", 11.11);
+    //evel_measurement_cpu_use_add(measurement, "cpu2", 22.22);
+    evel_measurement_addl_info_add(measurement, "name1", "value1");
+    evel_measurement_addl_info_add(measurement, "name2", "value2");
+    evel_get_cpu_stats(measurement);
+    evel_get_disk_stats(measurement);
     evel_measurement_fsys_use_add(measurement,"00-11-22",100.11, 100.22, 33,
                                   200.11, 200.22, 44);
     evel_measurement_fsys_use_add(measurement,"33-44-55",300.11, 300.22, 55,
@@ -720,23 +918,50 @@ void demo_measurement(const int interval)
     evel_meas_latency_bucket_high_end_set(bucket, 20.0);
     evel_meas_latency_bucket_add(measurement, bucket);
 
-    vnic_use = evel_new_measurement_vnic_use("eth0", 100, 200, 3, 4);
-    evel_vnic_use_bcast_pkt_in_set(vnic_use, 1);
-    evel_vnic_use_bcast_pkt_out_set(vnic_use, 2);
-    evel_vnic_use_mcast_pkt_in_set(vnic_use, 5);
-    evel_vnic_use_mcast_pkt_out_set(vnic_use, 6);
-    evel_vnic_use_ucast_pkt_in_set(vnic_use, 7);
-    evel_vnic_use_ucast_pkt_out_set(vnic_use, 8);
-    evel_meas_vnic_use_add(measurement, vnic_use);
+    vnic_performance = evel_measurement_new_vnic_performance("eth0", "true");
+                                           
+  evel_vnic_performance_rx_bcast_pkt_acc_set(vnic_performance, 1000000.023);
+  evel_vnic_performance_rx_bcast_pkt_delta_set(vnic_performance,1234.767346);
+  evel_vnic_performance_rx_discard_pkt_acc_set(vnic_performance, 127146784.234738587);
+  evel_vnic_performance_rx_discard_pkt_delta_set(vnic_performance, 123445);
+  evel_vnic_performance_rx_error_pkt_acc_set(vnic_performance, 2736448376);
+  evel_vnic_performance_rx_error_pkt_delta_set(vnic_performance, 3474438764);
+  evel_vnic_performance_rx_mcast_pkt_acc_set(vnic_performance, 42464676);
+  evel_vnic_performance_rx_mcast_pkt_delta_set(vnic_performance, 42678657654);
+  evel_vnic_performance_rx_octets_acc_set(vnic_performance, 47658745);
+  evel_vnic_performance_rx_octets_delta_set(vnic_performance, 47656465465);
+  evel_vnic_performance_rx_total_pkt_acc_set(vnic_performance, 4765764654444);
+  evel_vnic_performance_rx_total_pkt_delta_set(vnic_performance, 4545665656);
+  evel_vnic_performance_rx_ucast_pkt_acc_set(vnic_performance, 4765745546.);
+  evel_vnic_performance_rx_ucast_pkt_delta_set(vnic_performance, 4768765.78347856);
+  evel_vnic_performance_tx_bcast_pkt_acc_set(vnic_performance, 747665.347647);
+  evel_vnic_performance_tx_bcast_pkt_delta_set(vnic_performance, 3468765.4774);
+  evel_vnic_performance_tx_discarded_pkt_acc_set(vnic_performance, 53625345.53);
+  evel_vnic_performance_tx_discarded_pkt_delta_set(vnic_performance, 5465345.72455);
+  evel_vnic_performance_tx_error_pkt_acc_set(vnic_performance, 7632754.754);
+  evel_vnic_performance_tx_error_pkt_delta_set(vnic_performance, 34646875444.);
+  evel_vnic_performance_tx_mcast_pkt_acc_set(vnic_performance, 2734875.5534);
+  evel_vnic_performance_tx_mcast_pkt_delta_set(vnic_performance, 562346534.654);
+  evel_vnic_performance_tx_octets_acc_set(vnic_performance, 2785845.76874);
+  evel_vnic_performance_tx_octets_delta_set(vnic_performance, 76532645.75);
+  evel_vnic_performance_tx_total_pkt_acc_set(vnic_performance, 652365.5435);
+  evel_vnic_performance_tx_total_pkt_delta_set(vnic_performance, 754354.456);
+  evel_vnic_performance_tx_ucast_pkt_acc_set(vnic_performance, 738254835);
+  evel_vnic_performance_tx_ucast_pkt_delta_set(vnic_performance, 763274);
+    evel_meas_vnic_performance_add(measurement, vnic_performance);
 
-    vnic_use = evel_new_measurement_vnic_use("eth1", 110, 240, 13, 14);
-    evel_vnic_use_bcast_pkt_in_set(vnic_use, 11);
-    evel_vnic_use_bcast_pkt_out_set(vnic_use, 12);
-    evel_vnic_use_mcast_pkt_in_set(vnic_use, 15);
-    evel_vnic_use_mcast_pkt_out_set(vnic_use, 16);
-    evel_vnic_use_ucast_pkt_in_set(vnic_use, 17);
-    evel_vnic_use_ucast_pkt_out_set(vnic_use, 18);
-    evel_meas_vnic_use_add(measurement, vnic_use);
+    vnic_performance = evel_measurement_new_vnic_performance("eth1", "false");
+  evel_vnic_performance_rx_mcast_pkt_delta_set(vnic_performance, 42678657654);
+  evel_vnic_performance_rx_octets_acc_set(vnic_performance, 47658745);
+  evel_vnic_performance_rx_octets_delta_set(vnic_performance, 47656465465);
+  evel_vnic_performance_rx_total_pkt_acc_set(vnic_performance, 4765764654444);
+  evel_vnic_performance_rx_total_pkt_delta_set(vnic_performance, 4545665656);
+  evel_vnic_performance_rx_ucast_pkt_acc_set(vnic_performance, 4765745546.);
+  evel_vnic_performance_rx_ucast_pkt_delta_set(vnic_performance, 4768765.78347856);
+  evel_vnic_performance_tx_bcast_pkt_acc_set(vnic_performance, 747665.347647);
+  evel_vnic_performance_tx_bcast_pkt_delta_set(vnic_performance, 3468765.4774);
+  evel_vnic_performance_tx_discarded_pkt_acc_set(vnic_performance, 53625345.53);
+    evel_meas_vnic_performance_add(measurement, vnic_performance);
 
     evel_measurement_errors_set(measurement, 1, 0, 2, 1);
 
@@ -746,6 +971,7 @@ void demo_measurement(const int interval)
     evel_measurement_codec_use_add(measurement, "G711a", 91);
     evel_measurement_codec_use_add(measurement, "G729ab", 92);
 
+    evel_get_mem_stats(measurement);
     evel_measurement_media_port_use_set(measurement, 1234);
 
     evel_measurement_vnfc_scaling_metric_set(measurement, 1234.5678);
@@ -1011,6 +1237,10 @@ void demo_mobile_flow(void)
                                        4323);
     if (mobile_flow != NULL)
     {
+      evel_mobile_flow_addl_field_add(mobile_flow, "name1", "value1");
+      evel_mobile_flow_addl_field_add(mobile_flow, "name2", "value2");
+      evel_mobile_flow_addl_field_add(mobile_flow, "name3", "value3");
+
       evel_mobile_flow_app_type_set(mobile_flow, "Demo application 2");
       evel_mobile_flow_app_prot_type_set(mobile_flow, "GSM");
       evel_mobile_flow_app_prot_ver_set(mobile_flow, "2");
@@ -1057,72 +1287,19 @@ void demo_mobile_flow(void)
 }
 
 /**************************************************************************//**
- * Create and send a Service event.
+ * Create and send a Heartbeat field event.
  *****************************************************************************/
-void demo_service()
+void demo_heartbeat_field_event(void)
 {
-  demo_service_event(SERVICE_CODEC);
-  demo_service_event(SERVICE_TRANSCODING);
-  demo_service_event(SERVICE_RTCP);
-  demo_service_event(SERVICE_EOC_VQM);
-  demo_service_event(SERVICE_MARKER);
-}
-
-void demo_service_event(const SERVICE_EVENT service_event)
-{
-  EVENT_SERVICE * event = NULL;
+  EVENT_HEARTBEAT_FIELD * event = NULL;
   EVEL_ERR_CODES evel_rc = EVEL_SUCCESS;
 
-  event = evel_new_service("vendor_x_id", "vendor_x_event_id");
+  event = evel_new_heartbeat_field(3);
   if (event != NULL)
   {
-    evel_service_type_set(event, "Service Event");
-    evel_service_product_id_set(event, "vendor_x_product_id");
-    evel_service_subsystem_id_set(event, "vendor_x_subsystem_id");
-    evel_service_friendly_name_set(event, "vendor_x_frieldly_name");
-    evel_service_correlator_set(event, "vendor_x_correlator");
-    evel_service_addl_field_add(event, "Name1", "Value1");
-    evel_service_addl_field_add(event, "Name2", "Value2");
-
-    switch (service_event)
-    {
-      case SERVICE_CODEC:
-        evel_service_codec_set(event, "PCMA");
-        break;
-      case SERVICE_TRANSCODING:
-        evel_service_callee_codec_set(event, "PCMA");
-        evel_service_caller_codec_set(event, "G729A");
-        break;
-      case SERVICE_RTCP:
-        evel_service_rtcp_data_set(event, "some_rtcp_data");
-        break;
-      case SERVICE_EOC_VQM:
-        evel_service_adjacency_name_set(event, "vendor_x_adjacency");
-        evel_service_endpoint_desc_set(event, EVEL_SERVICE_ENDPOINT_CALLER);
-        evel_service_endpoint_jitter_set(event, 66);
-        evel_service_endpoint_rtp_oct_disc_set(event, 100);
-        evel_service_endpoint_rtp_oct_recv_set(event, 200);
-        evel_service_endpoint_rtp_oct_sent_set(event, 300);
-        evel_service_endpoint_rtp_pkt_disc_set(event, 400);
-        evel_service_endpoint_rtp_pkt_recv_set(event, 500);
-        evel_service_endpoint_rtp_pkt_sent_set(event, 600);
-        evel_service_local_jitter_set(event, 99);
-        evel_service_local_rtp_oct_disc_set(event, 150);
-        evel_service_local_rtp_oct_recv_set(event, 250);
-        evel_service_local_rtp_oct_sent_set(event, 350);
-        evel_service_local_rtp_pkt_disc_set(event, 450);
-        evel_service_local_rtp_pkt_recv_set(event, 550);
-        evel_service_local_rtp_pkt_sent_set(event, 650);
-        evel_service_mos_cqe_set(event, 12.255);
-        evel_service_packets_lost_set(event, 157);
-        evel_service_packet_loss_percent_set(event, 0.232);
-        evel_service_r_factor_set(event, 11);
-        evel_service_round_trip_delay_set(event, 15);
-        break;
-      case SERVICE_MARKER:
-        evel_service_phone_number_set(event, "0888888888");
-        break;
-    }
+    evel_hrtbt_interval_set(event, 10);
+    evel_hrtbt_field_addl_field_add(event, "Name1", "Value1");
+    evel_hrtbt_field_addl_field_add(event, "Name2", "Value2");
 
     evel_rc = evel_post_event((EVENT_HEADER *) event);
     if (evel_rc != EVEL_SUCCESS)
@@ -1132,9 +1309,9 @@ void demo_service_event(const SERVICE_EVENT service_event)
   }
   else
   {
-    EVEL_ERROR("New Service failed");
+    EVEL_ERROR("New heartbeat field failed");
   }
-  printf("   Processed Service Events\n");
+  printf("   Processed heartbeat Events\n");
 }
 
 /**************************************************************************//**
@@ -1145,13 +1322,12 @@ void demo_signaling(void)
   EVENT_SIGNALING * event = NULL;
   EVEL_ERR_CODES evel_rc = EVEL_SUCCESS;
 
-  event = evel_new_signaling("vendor_x_id", "vendor_x_event_id");
+  event = evel_new_signaling("vendor_x", "correlator", "1.0.3.1", "1234", "192.168.1.3","3456");
   if (event != NULL)
   {
+    evel_signaling_addl_info_add(event, "name1", "value1");
+    evel_signaling_addl_info_add(event, "name2", "value2");
     evel_signaling_type_set(event, "Signaling");
-    evel_signaling_product_id_set(event, "vendor_x_product_id");
-    evel_signaling_subsystem_id_set(event, "vendor_x_subsystem_id");
-    evel_signaling_friendly_name_set(event, "vendor_x_frieldly_name");
     evel_signaling_correlator_set(event, "vendor_x_correlator");
     evel_signaling_local_ip_address_set(event, "1.0.3.1");
     evel_signaling_local_port_set(event, "1031");
@@ -1159,6 +1335,8 @@ void demo_signaling(void)
     evel_signaling_remote_port_set(event, "5330");
     evel_signaling_compressed_sip_set(event, "compressed_sip");
     evel_signaling_summary_sip_set(event, "summary_sip");
+    evel_signaling_vnfmodule_name_set(event, "vendor_x_module");
+    evel_signaling_vnfname_set(event, "vendor_x_vnf");
     evel_rc = evel_post_event((EVENT_HEADER *) event);
     if (evel_rc != EVEL_SUCCESS)
     {
@@ -1242,11 +1420,67 @@ void demo_syslog(void)
     evel_syslog_proc_set(syslog, "vnf_process");
     evel_syslog_proc_id_set(syslog, 1423);
     evel_syslog_version_set(syslog, 1);
-    evel_syslog_addl_field_add(syslog, "Name1", "Value1");
-    evel_syslog_addl_field_add(syslog, "Name2", "Value2");
-    evel_syslog_addl_field_add(syslog, "Name3", "Value3");
-    evel_syslog_addl_field_add(syslog, "Name4", "Value4");
+    evel_syslog_addl_filter_set(syslog, "Name1=Value1|Name2=Value2|Name3=Value3");
+    evel_syslog_sdid_set(syslog, "u354@876876");
+    evel_syslog_severity_set(syslog, "Error");
     evel_rc = evel_post_event((EVENT_HEADER *)syslog);
+    if (evel_rc != EVEL_SUCCESS)
+    {
+      EVEL_ERROR("Post failed %d (%s)", evel_rc, evel_error_string());
+    }
+  }
+  else
+  {
+    EVEL_ERROR("New Syslog failed");
+  }
+  printf("   Processed full Syslog\n");
+}
+
+
+/**************************************************************************//**
+ * Create and send VoiceQuality events.
+ *****************************************************************************/
+void demo_voicequality(void)
+{
+  EVENT_VOICE_QUALITY * vq = NULL;
+  EVEL_ERR_CODES evel_rc = EVEL_SUCCESS;
+
+  /***************************************************************************/
+  /* Voice Quality                                                           */
+  /***************************************************************************/
+  vq = evel_new_voice_quality("calleeCodec", "callerCodec",
+                           "correlator", "midrtcp",
+                           "EVEL");
+  if (vq != NULL)
+  {
+    evel_rc = evel_post_event((EVENT_HEADER *)vq);
+    if (evel_rc != EVEL_SUCCESS)
+    {
+      EVEL_ERROR("Post failed %d (%s)", evel_rc, evel_error_string());
+    }
+  }
+  else
+  {
+    EVEL_ERROR("New Syslog failed");
+  }
+  printf("   Processed empty Syslog\n");
+
+  vq = evel_new_voice_quality("calleeCodec", "callerCodec",
+                           "correlator", "midrtcp",
+                           "EVEL");
+  if (vq != NULL)
+  {
+    evel_voice_quality_end_metrics_add(vq, "adjacent", EVEL_SERVICE_ENDPOINT_CALLER,
+					0,1,2,3,4,5,6,7,8,9,10,11,12,13,4,15,16,17,18);
+    evel_voice_quality_end_metrics_add(vq, "adjacent", EVEL_SERVICE_ENDPOINT_CALLEE,
+					0,1,2,3,4,5,6,7,8,9,10,11,12,13,4,15,16,17,18);
+
+    evel_voice_quality_vnfmodule_name_set(vq, "vnfmodule");
+    evel_voice_quality_vnfname_set(vq, "vFW");
+    evel_voice_quality_phone_number_set(vq, "123456789");
+
+
+    evel_rc = evel_post_event((EVENT_HEADER *)vq);
     if (evel_rc != EVEL_SUCCESS)
     {
       EVEL_ERROR("Post failed %d (%s)", evel_rc, evel_error_string());
@@ -1288,9 +1522,57 @@ void demo_other(void)
   other = evel_new_other();
   if (other != NULL)
   {
+
+
+   char * jsstr = "{"
+                 "\"data1\":[1,2,3,4,5,6,7,8,9],"
+                 "\"data2\":["
+                     "[3,4,5,6,1],"
+                     "[8,4,5,6,1],"
+                     "[10,4,5,3,61],"
+                     "[3,4,5,6,1],"
+                     "[3,4,5,6,1],"
+                     "[3,4,5,6,1]"
+                 "]"
+             "}";
+
+
+char * jsstr2 = "{ \"employee\":{ \"name\":\"John\", \"age\":30, \"city\":\"New York\" } }";
+
+    evel_other_field_set_namedarraysize(other,50);
+    evel_other_field_add_namedarray(other,"name1", "disk1", "10000");
+    evel_other_field_add_namedarray(other,"name2", "disk2", "20000");
+    evel_other_field_add_namedarray(other,"name1", "disk2", "20000");
+    evel_other_field_add_namedarray(other,"name1", "disk1", "20000");
+
+     EVEL_JSON_OBJECT_INSTANCE * njinst = evel_new_jsonobjinstance(jsstr );
+     evel_epoch_microsec_set(njinst,9287578586767);
+     EVEL_INTERNAL_KEY * nkey = evel_new_internal_key("key1");
+     evel_internal_key_keyorder_set(nkey , 2);
+     evel_internal_key_keyvalue_set(nkey , "val1");
+     EVEL_INTERNAL_KEY * nkey2= evel_new_internal_key("key2");
+     evel_internal_key_keyorder_set(nkey2, 2);
+     evel_internal_key_keyvalue_set(nkey2, "val2");
+     evel_jsonobjinst_add_objectkey(njinst, nkey);
+     evel_jsonobjinst_add_objectkey(njinst, nkey2);
+
+     EVEL_JSON_OBJECT_INSTANCE * njinst2 = evel_new_jsonobjinstance(jsstr2 );
+     evel_epoch_microsec_set(njinst2,927578586767);
+
+    EVEL_JSON_OBJECT * myobj =  evel_new_jsonobject("Myjobject");
+    evel_jsonobject_objectschema_set(myobj,"jsonschema5.0");
+    evel_jsonobject_objectschemaurl_set(myobj,"http://jsonschema5.0.att.com");
+    evel_jsonobject_nfsubscribedobjname_set(myobj,"nfobj1");
+    evel_jsonobject_nfsubscriptionid_set(myobj,"nfid1234");
+    evel_jsonobject_add_jsoninstance(myobj,njinst);
+    evel_jsonobject_add_jsoninstance(myobj,njinst2);
+    evel_other_field_add_jsonobj(other,myobj);
+
     evel_other_field_add(other,
                          "Other field 1",
                          "Other value 1");
+
+
     evel_rc = evel_post_event((EVENT_HEADER *)other);
     if (evel_rc != EVEL_SUCCESS)
     {
@@ -1302,7 +1584,6 @@ void demo_other(void)
     EVEL_ERROR("New Other failed");
   }
   printf("   Processed small Other\n");
-
   other = evel_new_other();
   if (other != NULL)
   {
@@ -1315,6 +1596,7 @@ void demo_other(void)
     evel_other_field_add(other,
                          "Other field C",
                          "Other value C");
+
     evel_rc = evel_post_event((EVENT_HEADER *)other);
     if (evel_rc != EVEL_SUCCESS)
     {

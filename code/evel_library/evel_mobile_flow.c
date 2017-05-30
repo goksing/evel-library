@@ -146,7 +146,7 @@ EVENT_MOBILE_FLOW * evel_new_mobile_flow(
   /* Initialize the header & the Mobile Flow fields.  Optional string values */
   /* are uninitialized (NULL).                                               */
   /***************************************************************************/
-  evel_init_header(&mobile_flow->header);
+  evel_init_header(&mobile_flow->header,"MobileFlow");
   mobile_flow->header.event_domain = EVEL_DOMAIN_MOBILE_FLOW;
   mobile_flow->major_version = EVEL_MOBILE_FLOW_MAJOR_VERSION;
   mobile_flow->minor_version = EVEL_MOBILE_FLOW_MINOR_VERSION;
@@ -181,11 +181,55 @@ EVENT_MOBILE_FLOW * evel_new_mobile_flow(
   evel_init_option_string(&mobile_flow->tac);
   evel_init_option_string(&mobile_flow->tunnel_id);
   evel_init_option_string(&mobile_flow->vlan_id);
+  dlist_initialize(&mobile_flow->additional_info);
 
 exit_label:
   EVEL_EXIT();
   return mobile_flow;
 }
+
+/**************************************************************************//**
+ * Add an additional value name/value pair to the Mobile flow.
+ *
+ * The name and value are null delimited ASCII strings.  The library takes
+ * a copy so the caller does not have to preserve values after the function
+ * returns.
+ *
+ * @param fault     Pointer to the Mobile flow.
+ * @param name      ASCIIZ string with the attribute's name.  The caller
+ *                  does not need to preserve the value once the function
+ *                  returns.
+ * @param value     ASCIIZ string with the attribute's value.  The caller
+ *                  does not need to preserve the value once the function
+ *                  returns.
+ *****************************************************************************/
+void evel_mobile_flow_addl_field_add(EVENT_MOBILE_FLOW * const event, char * name, char * value)
+{
+  OTHER_FIELD * nv_pair = NULL;
+
+  EVEL_ENTER();
+
+  /***************************************************************************/
+  /* Check preconditions.                                                    */
+  /***************************************************************************/
+  assert(event != NULL);
+  assert(event->header.event_domain == EVEL_DOMAIN_MOBILE_FLOW);
+  assert(name != NULL);
+  assert(value != NULL);
+
+  EVEL_DEBUG("Adding name=%s value=%s", name, value);
+  nv_pair = malloc(sizeof(OTHER_FIELD));
+  assert(nv_pair != NULL);
+  nv_pair->name = strdup(name);
+  nv_pair->value = strdup(value);
+  assert(nv_pair->name != NULL);
+  assert(nv_pair->value != NULL);
+
+  dlist_push_last(&event->additional_info, nv_pair);
+
+  EVEL_EXIT();
+}
+
 
 /**************************************************************************//**
  * Set the Event Type property of the Mobile Flow.
@@ -898,6 +942,9 @@ void evel_mobile_flow_vlan_id_set(EVENT_MOBILE_FLOW * mobile_flow,
 void evel_json_encode_mobile_flow(EVEL_JSON_BUFFER * jbuf,
                                   EVENT_MOBILE_FLOW * event)
 {
+  OTHER_FIELD * nv_pair = NULL;
+  DLIST_ITEM * dlist_item = NULL;
+
   EVEL_ENTER();
 
   /***************************************************************************/
@@ -908,6 +955,45 @@ void evel_json_encode_mobile_flow(EVEL_JSON_BUFFER * jbuf,
 
   evel_json_encode_header(jbuf, &event->header);
   evel_json_open_named_object(jbuf, "mobileFlowFields");
+
+
+  /***************************************************************************/
+  /* Checkpoint, so that we can wind back if all fields are suppressed.      */
+  /***************************************************************************/
+  evel_json_checkpoint(jbuf);
+  if (evel_json_open_opt_named_list(jbuf, "additionalFields"))
+  {
+    bool added = false;
+
+    dlist_item = dlist_get_first(&event->additional_info);
+    while (dlist_item != NULL)
+    {
+      nv_pair = (OTHER_FIELD *) dlist_item->item;
+      assert(nv_pair != NULL);
+
+      if (!evel_throttle_suppress_nv_pair(jbuf->throttle_spec,
+                                          "additionalFields",
+                                          nv_pair->name))
+      {
+        evel_json_open_object(jbuf);
+        evel_enc_kv_string(jbuf, "name", nv_pair->name);
+        evel_enc_kv_string(jbuf, "value", nv_pair->value);
+        evel_json_close_object(jbuf);
+        added = true;
+      }
+      dlist_item = dlist_get_next(dlist_item);
+    }
+    evel_json_close_list(jbuf);
+
+    /*************************************************************************/
+    /* If we've not written anything, rewind to before we opened the list.   */
+    /*************************************************************************/
+    if (!added)
+    {
+      evel_json_rewind(jbuf);
+    }
+  }
+
 
   /***************************************************************************/
   /* Mandatory parameters.                                                   */
@@ -954,15 +1040,10 @@ void evel_json_encode_mobile_flow(EVEL_JSON_BUFFER * jbuf,
   evel_enc_kv_opt_string(jbuf, "tac", &event->tac);
   evel_enc_kv_opt_string(jbuf, "tunnelId", &event->tunnel_id);
   evel_enc_kv_opt_string(jbuf, "vlanId", &event->vlan_id);
-#if 0
-  /***************************************************************************/
-  /* Not in schema.                                                          */
-  /***************************************************************************/
   evel_enc_version(jbuf,
                    "mobileFlowFieldsVersion",
                    event->major_version,
                    event->minor_version);
-#endif
   evel_json_close_object(jbuf);
 
   EVEL_EXIT();
@@ -979,6 +1060,8 @@ void evel_json_encode_mobile_flow(EVEL_JSON_BUFFER * jbuf,
  *****************************************************************************/
 void evel_free_mobile_flow(EVENT_MOBILE_FLOW * event)
 {
+  OTHER_FIELD * nv_pair = NULL;
+
   EVEL_ENTER();
 
   /***************************************************************************/
@@ -1021,6 +1104,19 @@ void evel_free_mobile_flow(EVENT_MOBILE_FLOW * event)
   evel_free_option_string(&event->tac);
   evel_free_option_string(&event->tunnel_id);
   evel_free_option_string(&event->vlan_id);
+
+  /***************************************************************************/
+  /* Free all internal strings then the header itself.                       */
+  /***************************************************************************/
+  nv_pair = dlist_pop_last(&event->additional_info);
+  while (nv_pair != NULL)
+  {
+    EVEL_DEBUG("Freeing Other Field (%s, %s)", nv_pair->name, nv_pair->value);
+    free(nv_pair->name);
+    free(nv_pair->value);
+    free(nv_pair);
+    nv_pair = dlist_pop_last(&event->additional_info);
+  }
 
   evel_free_header(&event->header);
 

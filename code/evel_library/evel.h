@@ -52,12 +52,14 @@ extern "C" {
 #include <stdarg.h>
 #include <time.h>
 
+#include "jsmn.h"
 #include "double_list.h"
+#include "hashtable.h"
 
 /*****************************************************************************/
 /* Supported API version.                                                    */
 /*****************************************************************************/
-#define EVEL_API_MAJOR_VERSION 3
+#define EVEL_API_MAJOR_VERSION 5
 #define EVEL_API_MINOR_VERSION 0
 
 /**************************************************************************//**
@@ -134,11 +136,12 @@ typedef enum {
   EVEL_DOMAIN_MEASUREMENT,    /** A Measurement for VF Scaling event.        */
   EVEL_DOMAIN_MOBILE_FLOW,    /** A Mobile Flow event.                       */
   EVEL_DOMAIN_REPORT,         /** A Measurement for VF Reporting event.      */
-  EVEL_DOMAIN_SERVICE,        /** A Service event.                           */
-  EVEL_DOMAIN_SIGNALING,      /** A Signaling event.                         */
+  EVEL_DOMAIN_HEARTBEAT_FIELD,/** A Heartbeat field event.                   */
+  EVEL_DOMAIN_SIPSIGNALING,   /** A Signaling event.                         */
   EVEL_DOMAIN_STATE_CHANGE,   /** A State Change event.                      */
   EVEL_DOMAIN_SYSLOG,         /** A Syslog event.                            */
   EVEL_DOMAIN_OTHER,          /** Another event.                             */
+  EVEL_DOMAIN_VOICE_QUALITY,  /** A Voice Quality Event		 	     */
   EVEL_MAX_DOMAINS            /** Maximum number of recognized Event types.  */
 } EVEL_EVENT_DOMAINS;
 
@@ -397,6 +400,16 @@ typedef struct evel_option_time
   EVEL_BOOLEAN is_set;
 } EVEL_OPTION_TIME;
 
+/**************************************************************************//**
+ * enrichment fields for internal VES Event Listener service use only,
+ * not supplied by event sources
+ *****************************************************************************/
+typedef struct internal_header_fields
+{
+  void *object;
+  EVEL_BOOLEAN is_set;
+} EVEL_OPTION_INTHEADER_FIELDS;
+
 /*****************************************************************************/
 /* Supported Common Event Header version.                                    */
 /*****************************************************************************/
@@ -419,8 +432,8 @@ typedef struct event_header {
   /***************************************************************************/
   EVEL_EVENT_DOMAINS event_domain;
   char * event_id;
+  char * event_name;
   char * source_name;
-  char * functional_role;
   char * reporting_entity_name;
   EVEL_EVENT_PRIORITIES priority;
   unsigned long long start_epoch_microsec;
@@ -433,13 +446,16 @@ typedef struct event_header {
   EVEL_OPTION_STRING event_type;
   EVEL_OPTION_STRING source_id;
   EVEL_OPTION_STRING reporting_entity_id;
+  EVEL_OPTION_INTHEADER_FIELDS internal_field;
+  EVEL_OPTION_STRING nfcnaming_code;
+  EVEL_OPTION_STRING nfnaming_code;
 
 } EVENT_HEADER;
 
 /*****************************************************************************/
 /* Supported Fault version.                                                  */
 /*****************************************************************************/
-#define EVEL_FAULT_MAJOR_VERSION 1
+#define EVEL_FAULT_MAJOR_VERSION 2
 #define EVEL_FAULT_MINOR_VERSION 1
 
 /**************************************************************************//**
@@ -466,6 +482,7 @@ typedef struct event_fault {
   /***************************************************************************/
   /* Optional fields                                                         */
   /***************************************************************************/
+  EVEL_OPTION_STRING category;
   EVEL_OPTION_STRING alarm_interface_a;
   DLIST additional_info;
 
@@ -480,10 +497,119 @@ typedef struct fault_additional_info {
   char * value;
 } FAULT_ADDL_INFO;
 
+
+/**************************************************************************//**
+ * optional field block for fields specific to heartbeat events
+ *****************************************************************************/
+typedef struct event_heartbeat_fields
+{
+  /***************************************************************************/
+  /* Header and version                                                      */
+  /***************************************************************************/
+  EVENT_HEADER header;
+  int major_version;
+  int minor_version;
+
+  /***************************************************************************/
+  /* Mandatory fields                                                        */
+  /***************************************************************************/
+  double heartbeat_version;
+  int    heartbeat_interval;
+
+  /***************************************************************************/
+  /* Optional fields                                                         */
+  /***************************************************************************/
+  DLIST additional_info;
+
+} EVENT_HEARTBEAT_FIELD;
+
+/**************************************************************************//**
+ * tuple which provides the name of a key along with its value and
+ * relative order
+ *****************************************************************************/
+typedef struct internal_key
+{
+  char                *keyname;
+  EVEL_OPTION_INT      keyorder;
+  EVEL_OPTION_STRING   keyvalue;
+} EVEL_INTERNAL_KEY;
+
+/**************************************************************************//**
+ * meta-information about an instance of a jsonObject along with
+ * the actual object instance
+ *****************************************************************************/
+typedef struct json_object_instance
+{
+
+  char *jsonstring;
+  unsigned long long objinst_epoch_microsec;
+  DLIST object_keys; /*EVEL_INTERNAL_KEY list */
+
+} EVEL_JSON_OBJECT_INSTANCE;
+#define MAX_JSON_TOKENS 128
+/**************************************************************************//**
+ * Create a new json object instance.
+ *
+ * @note    The mandatory fields on the Other must be supplied to this factory
+ *          function and are immutable once set.  Optional fields have explicit
+ *          setter functions, but again values may only be set once so that the
+ *          Other has immutable properties.
+ * @param   yourjson       json string.
+ * @returns pointer to the newly manufactured ::EVEL_JSON_OBJECT_INSTANCE.
+ *          not used (i.e. posted) it must be released using ::evel_free_jsonobjectinstance.
+ * @retval  NULL  Failed to create the json object instance.
+ *****************************************************************************/
+EVEL_JSON_OBJECT_INSTANCE * evel_new_jsonobjinstance(const char *const yourjson);
+/**************************************************************************//**
+ * Free an json object instance.
+ *
+ * Free off the json object instance supplied.
+ *  Will free all the contained allocated memory.
+ *
+ *****************************************************************************/
+void evel_free_jsonobjinst(EVEL_JSON_OBJECT_INSTANCE * objinst);
+
+/**************************************************************************//**
+ * enrichment fields for internal VES Event Listener service use only,
+ * not supplied by event sources
+ *****************************************************************************/
+typedef struct json_object
+{
+
+  char *object_name;
+  EVEL_OPTION_STRING objectschema;
+  EVEL_OPTION_STRING objectschemaurl;
+  EVEL_OPTION_STRING nfsubscribedobjname;
+  EVEL_OPTION_STRING nfsubscriptionid;
+  DLIST jsonobjectinstances;  /* EVEL_JSON_OBJECT_INSTANCE list */
+
+} EVEL_JSON_OBJECT;
+
+/**************************************************************************//**
+ * Create a new json object.
+ *
+ * @note    The mandatory fields on the Other must be supplied to this factory
+ *          function and are immutable once set.  Optional fields have explicit
+ *          setter functions, but again values may only be set once so that the
+ *          Other has immutable properties.
+ * @param name       name of the object.
+ * @returns pointer to the newly manufactured ::EVEL_JSON_OBJECT.
+ *          not used (i.e. posted) it must be released using ::evel_free_jsonobject.
+ * @retval  NULL  Failed to create the json object.
+ *****************************************************************************/
+EVEL_JSON_OBJECT * evel_new_jsonobject(const char *const name);
+/**************************************************************************//**
+ * Free an json object.
+ *
+ * Free off the json object instance supplied.
+ *  Will free all the contained allocated memory.
+ *
+ *****************************************************************************/
+void evel_free_jsonobject(EVEL_JSON_OBJECT * jsobj);
 /*****************************************************************************/
 /* Supported Measurement version.                                            */
 /*****************************************************************************/
-#define EVEL_MEASUREMENT_MAJOR_VERSION 1
+#define EVEL_MEASUREMENT_MAJOR_VERSION 2
 #define EVEL_MEASUREMENT_MINOR_VERSION 1
 
 /**************************************************************************//**
@@ -517,22 +643,23 @@ typedef struct event_measurement {
   /***************************************************************************/
   /* Optional fields                                                         */
   /***************************************************************************/
+  DLIST additional_info;
   DLIST additional_measurements;
-  EVEL_OPTION_DOUBLE aggregate_cpu_usage;
+  DLIST additional_objects;
   DLIST codec_usage;
   EVEL_OPTION_INT concurrent_sessions;
   EVEL_OPTION_INT configured_entities;
   DLIST cpu_usage;
+  DLIST disk_usage;
   MEASUREMENT_ERRORS * errors;
   DLIST feature_usage;
   DLIST filesystem_usage;
   DLIST latency_distribution;
   EVEL_OPTION_DOUBLE mean_request_latency;
-  EVEL_OPTION_DOUBLE memory_configured;
-  EVEL_OPTION_DOUBLE memory_used;
+  DLIST mem_usage;
   EVEL_OPTION_INT media_ports_in_use;
   EVEL_OPTION_INT request_rate;
-  EVEL_OPTION_DOUBLE vnfc_scaling_metric;
+  EVEL_OPTION_INT vnfc_scaling_metric;
   DLIST vnic_usage;
 
 } EVENT_MEASUREMENT;
@@ -544,7 +671,78 @@ typedef struct event_measurement {
 typedef struct measurement_cpu_use {
   char * id;
   double usage;
+  EVEL_OPTION_DOUBLE idle;
+  EVEL_OPTION_DOUBLE intrpt;
+  EVEL_OPTION_DOUBLE nice;
+  EVEL_OPTION_DOUBLE softirq;
+  EVEL_OPTION_DOUBLE steal;
+  EVEL_OPTION_DOUBLE sys;
+  EVEL_OPTION_DOUBLE user;
+  EVEL_OPTION_DOUBLE wait;
 } MEASUREMENT_CPU_USE;
+
+
+/**************************************************************************//**
+ * Disk Usage.
+ * JSON equivalent field: diskUsage
+ *****************************************************************************/
+typedef struct measurement_disk_use {
+  char * id;
+  EVEL_OPTION_DOUBLE iotimeavg;
+  EVEL_OPTION_DOUBLE iotimelast;
+  EVEL_OPTION_DOUBLE iotimemax;
+  EVEL_OPTION_DOUBLE iotimemin;
+  EVEL_OPTION_DOUBLE mergereadavg;
+  EVEL_OPTION_DOUBLE mergereadlast;
+  EVEL_OPTION_DOUBLE mergereadmax;
+  EVEL_OPTION_DOUBLE mergereadmin;
+  EVEL_OPTION_DOUBLE mergewriteavg;
+  EVEL_OPTION_DOUBLE mergewritelast;
+  EVEL_OPTION_DOUBLE mergewritemax;
+  EVEL_OPTION_DOUBLE mergewritemin;
+  EVEL_OPTION_DOUBLE octetsreadavg;
+  EVEL_OPTION_DOUBLE octetsreadlast;
+  EVEL_OPTION_DOUBLE octetsreadmax;
+  EVEL_OPTION_DOUBLE octetsreadmin;
+  EVEL_OPTION_DOUBLE octetswriteavg;
+  EVEL_OPTION_DOUBLE octetswritelast;
+  EVEL_OPTION_DOUBLE octetswritemax;
+  EVEL_OPTION_DOUBLE octetswritemin;
+  EVEL_OPTION_DOUBLE opsreadavg;
+  EVEL_OPTION_DOUBLE opsreadlast;
+  EVEL_OPTION_DOUBLE opsreadmax;
+  EVEL_OPTION_DOUBLE opsreadmin;
+  EVEL_OPTION_DOUBLE opswriteavg;
+  EVEL_OPTION_DOUBLE opswritelast;
+  EVEL_OPTION_DOUBLE opswritemax;
+  EVEL_OPTION_DOUBLE opswritemin;
+  EVEL_OPTION_DOUBLE pendingopsavg;
+  EVEL_OPTION_DOUBLE pendingopslast;
+  EVEL_OPTION_DOUBLE pendingopsmax;
+  EVEL_OPTION_DOUBLE pendingopsmin;
+  EVEL_OPTION_DOUBLE timereadavg;
+  EVEL_OPTION_DOUBLE timereadlast;
+  EVEL_OPTION_DOUBLE timereadmax;
+  EVEL_OPTION_DOUBLE timereadmin;
+  EVEL_OPTION_DOUBLE timewriteavg;
+  EVEL_OPTION_DOUBLE timewritelast;
+  EVEL_OPTION_DOUBLE timewritemax;
+  EVEL_OPTION_DOUBLE timewritemin;
+
+} MEASUREMENT_DISK_USE;
+
+/**************************************************************************//**
+ * Add an additional Disk usage value name/value pair to the Measurement.
+ *
+ * The name and value are null delimited ASCII strings.  The library takes
+ * a copy so the caller does not have to preserve values after the function
+ * returns.
+ *
+ * @param measurement   Pointer to the measurement.
+ * @param id            ASCIIZ string with the CPU's identifier.
+ * @param usage         Disk utilization.
+ *****************************************************************************/
+MEASUREMENT_DISK_USE * evel_measurement_new_disk_use_add(EVENT_MEASUREMENT * measurement, char * id);
 
 /**************************************************************************//**
  * Filesystem Usage.
@@ -560,6 +758,111 @@ typedef struct measurement_fsys_use {
   double ephemeral_used;
 } MEASUREMENT_FSYS_USE;
 
+/**************************************************************************//**
+ * Memory Usage.
+ * JSON equivalent field: memoryUsage
+ *****************************************************************************/
+typedef struct measurement_mem_use {
+  char * id;
+  char * vmid;
+  double membuffsz;
+  EVEL_OPTION_DOUBLE memcache;
+  EVEL_OPTION_DOUBLE memconfig;
+  EVEL_OPTION_DOUBLE memfree;
+  EVEL_OPTION_DOUBLE slabrecl;
+  EVEL_OPTION_DOUBLE slabunrecl;
+  EVEL_OPTION_DOUBLE memused;
+} MEASUREMENT_MEM_USE;
+
+/**************************************************************************//**
+ * Add an additional Memory usage value name/value pair to the Measurement.
+ *
+ * The name and value are null delimited ASCII strings.  The library takes
+ * a copy so the caller does not have to preserve values after the function
+ * returns.
+ *
+ * @param measurement   Pointer to the measurement.
+ * @param id            ASCIIZ string with the Memory identifier.
+ * @param vmidentifier  ASCIIZ string with the VM's identifier.
+ * @param membuffsz     Memory Size.
+ *
+ * @return  Returns pointer to memory use structure in measurements
+ *****************************************************************************/
+MEASUREMENT_MEM_USE * evel_measurement_new_mem_use_add(EVENT_MEASUREMENT * measurement,
+                                 char * id,  char *vmidentifier,  double membuffsz);
+
+/**************************************************************************//**
+ * Set kilobytes of memory used for cache
+ *
+ * @note  The property is treated as immutable: it is only valid to call
+ *        the setter once.  However, we don't assert if the caller tries to
+ *        overwrite, just ignoring the update instead.
+ *
+ * @param mem_use      Pointer to the Memory Use.
+ * @param val          double
+ *****************************************************************************/
+void evel_measurement_mem_use_memcache_set(MEASUREMENT_MEM_USE * const mem_use,
+                                    const double val);
+/**************************************************************************//**
+ * Set kilobytes of memory configured in the virtual machine on which the VNFC reporting
+ *
+ * @note  The property is treated as immutable: it is only valid to call
+ *        the setter once.  However, we don't assert if the caller tries to
+ *        overwrite, just ignoring the update instead.
+ *
+ * @param mem_use      Pointer to the Memory Use.
+ * @param val          double
+ *****************************************************************************/
+void evel_measurement_mem_use_memconfig_set(MEASUREMENT_MEM_USE * const mem_use,
+                                    const double val);
+/**************************************************************************//**
+ * Set kilobytes of physical RAM left unused by the system
+ *
+ * @note  The property is treated as immutable: it is only valid to call
+ *        the setter once.  However, we don't assert if the caller tries to
+ *        overwrite, just ignoring the update instead.
+ *
+ * @param mem_use      Pointer to the Memory Use.
+ * @param val          double
+ *****************************************************************************/
+void evel_measurement_mem_use_memfree_set(MEASUREMENT_MEM_USE * const mem_use,
+                                    const double val);
+/**************************************************************************//**
+ * Set the part of the slab that can be reclaimed such as caches measured in kilobytes
+ *
+ * @note  The property is treated as immutable: it is only valid to call
+ *        the setter once.  However, we don't assert if the caller tries to
+ *        overwrite, just ignoring the update instead.
+ *
+ * @param mem_use      Pointer to the Memory Use.
+ * @param val          double
+ *****************************************************************************/
+void evel_measurement_mem_use_slab_reclaimed_set(MEASUREMENT_MEM_USE * const mem_use,
+                                    const double val);
+/**************************************************************************//**
+ * Set the part of the slab that cannot be reclaimed such as caches measured in kilobytes
+ *
+ * @note  The property is treated as immutable: it is only valid to call
+ *        the setter once.  However, we don't assert if the caller tries to
+ *        overwrite, just ignoring the update instead.
+ *
+ * @param mem_use      Pointer to the Memory Use.
+ * @param val          double
+ *****************************************************************************/
+void evel_measurement_mem_use_slab_unreclaimable_set(MEASUREMENT_MEM_USE * const mem_use,
+                                    const double val);
+/**************************************************************************//**
+ * Set the total memory minus the sum of free, buffered, cached and slab memory in kilobytes
+ *
+ * @note  The property is treated as immutable: it is only valid to call
+ *        the setter once.  However, we don't assert if the caller tries to
+ *        overwrite, just ignoring the update instead.
+ *
+ * @param mem_use      Pointer to the Memory Use.
+ * @param val          double
+ *****************************************************************************/
+void evel_measurement_mem_use_usedup_set(MEASUREMENT_MEM_USE * const mem_use,
+                                    const double val);
 /**************************************************************************//**
  * Latency Bucket.
  * JSON equivalent field: latencyBucketMeasure
@@ -579,24 +882,86 @@ typedef struct measurement_latency_bucket {
  * Virtual NIC usage.
  * JSON equivalent field: vNicUsage
  *****************************************************************************/
-typedef struct measurement_vnic_use {
-  int bytes_in;
-  int bytes_out;
-  int packets_in;
-  int packets_out;
-  char * vnic_id;
-
+typedef struct measurement_vnic_performance {
   /***************************************************************************/
   /* Optional fields                                                         */
   /***************************************************************************/
-  EVEL_OPTION_INT broadcast_packets_in;
-  EVEL_OPTION_INT broadcast_packets_out;
-  EVEL_OPTION_INT multicast_packets_in;
-  EVEL_OPTION_INT multicast_packets_out;
-  EVEL_OPTION_INT unicast_packets_in;
-  EVEL_OPTION_INT unicast_packets_out;
+  /*Cumulative count of broadcast packets received as read at the end of
+   the measurement interval*/
+  EVEL_OPTION_DOUBLE recvd_bcast_packets_acc;
+  /*Count of broadcast packets received within the measurement interval*/
+  EVEL_OPTION_DOUBLE recvd_bcast_packets_delta;
+  /*Cumulative count of discarded packets received as read at the end of
+   the measurement interval*/
+  EVEL_OPTION_DOUBLE recvd_discarded_packets_acc;
+  /*Count of discarded packets received within the measurement interval*/
+  EVEL_OPTION_DOUBLE recvd_discarded_packets_delta;
+  /*Cumulative count of error packets received as read at the end of
+   the measurement interval*/
+  EVEL_OPTION_DOUBLE recvd_error_packets_acc;
+  /*Count of error packets received within the measurement interval*/
+  EVEL_OPTION_DOUBLE recvd_error_packets_delta;
+  /*Cumulative count of multicast packets received as read at the end of
+   the measurement interval*/
+  EVEL_OPTION_DOUBLE recvd_mcast_packets_acc;
+  /*Count of mcast packets received within the measurement interval*/
+  EVEL_OPTION_DOUBLE recvd_mcast_packets_delta;
+  /*Cumulative count of octets received as read at the end of
+   the measurement interval*/
+  EVEL_OPTION_DOUBLE recvd_octets_acc;
+  /*Count of octets received within the measurement interval*/
+  EVEL_OPTION_DOUBLE recvd_octets_delta;
+  /*Cumulative count of all packets received as read at the end of
+   the measurement interval*/
+  EVEL_OPTION_DOUBLE recvd_total_packets_acc;
+  /*Count of all packets received within the measurement interval*/
+  EVEL_OPTION_DOUBLE recvd_total_packets_delta;
+  /*Cumulative count of unicast packets received as read at the end of
+   the measurement interval*/
+  EVEL_OPTION_DOUBLE recvd_ucast_packets_acc;
+  /*Count of unicast packets received within the measurement interval*/
+  EVEL_OPTION_DOUBLE recvd_ucast_packets_delta;
+  /*Cumulative count of transmitted broadcast packets at the end of
+   the measurement interval*/
+  EVEL_OPTION_DOUBLE tx_bcast_packets_acc;
+  /*Count of transmitted broadcast packets within the measurement interval*/
+  EVEL_OPTION_DOUBLE tx_bcast_packets_delta;
+  /*Cumulative count of transmit discarded packets at the end of
+   the measurement interval*/
+  EVEL_OPTION_DOUBLE tx_discarded_packets_acc;
+  /*Count of transmit discarded packets within the measurement interval*/
+  EVEL_OPTION_DOUBLE tx_discarded_packets_delta;
+  /*Cumulative count of transmit error packets at the end of
+   the measurement interval*/
+  EVEL_OPTION_DOUBLE tx_error_packets_acc;
+  /*Count of transmit error packets within the measurement interval*/
+  EVEL_OPTION_DOUBLE tx_error_packets_delta;
+  /*Cumulative count of transmit multicast packets at the end of
+   the measurement interval*/
+  EVEL_OPTION_DOUBLE tx_mcast_packets_acc;
+  /*Count of transmit multicast packets within the measurement interval*/
+  EVEL_OPTION_DOUBLE tx_mcast_packets_delta;
+  /*Cumulative count of transmit octets at the end of
+   the measurement interval*/
+  EVEL_OPTION_DOUBLE tx_octets_acc;
+  /*Count of transmit octets received within the measurement interval*/
+  EVEL_OPTION_DOUBLE tx_octets_delta;
+  /*Cumulative count of all transmit packets at the end of
+   the measurement interval*/
+  EVEL_OPTION_DOUBLE tx_total_packets_acc;
+  /*Count of transmit packets within the measurement interval*/
+  EVEL_OPTION_DOUBLE tx_total_packets_delta;
+  /*Cumulative count of all transmit unicast packets at the end of
+   the measurement interval*/
+  EVEL_OPTION_DOUBLE tx_ucast_packets_acc;
+  /*Count of transmit unicast packets within the measurement interval*/
+  EVEL_OPTION_DOUBLE tx_ucast_packets_delta;
+  /* Indicates whether vNicPerformance values are likely inaccurate
+           due to counter overflow or other condtions*/
+  char *valuesaresuspect;
+  char *vnic_id;
 
-} MEASUREMENT_VNIC_USE;
+} MEASUREMENT_VNIC_PERFORMANCE;
 
 /**************************************************************************//**
  * Codec Usage.
@@ -731,7 +1096,7 @@ typedef struct mobile_gtp_per_flow_metrics {
 /* Supported Mobile Flow version.                                            */
 /*****************************************************************************/
 #define EVEL_MOBILE_FLOW_MAJOR_VERSION 1
-#define EVEL_MOBILE_FLOW_MINOR_VERSION 1
+#define EVEL_MOBILE_FLOW_MINOR_VERSION 2
 
 /**************************************************************************//**
  * Mobile Flow.
@@ -756,6 +1121,7 @@ typedef struct event_mobile_flow {
   int other_endpoint_port;
   char * reporting_endpoint_ip_addr;
   int reporting_endpoint_port;
+  DLIST additional_info;                         /* JSON: additionalFields */
 
   /***************************************************************************/
   /* Optional fields                                                         */
@@ -786,14 +1152,24 @@ typedef struct event_mobile_flow {
 
 } EVENT_MOBILE_FLOW;
 
+/*****************************************************************************/
+/* Supported Other field version.                                            */
+/*****************************************************************************/
+#define EVEL_OTHER_EVENT_MAJOR_VERSION 1
+#define EVEL_OTHER_EVENT_MINOR_VERSION 1
+
 /**************************************************************************//**
  * Other.
  * JSON equivalent field: otherFields
  *****************************************************************************/
 typedef struct event_other {
   EVENT_HEADER header;
-  DLIST other_fields;
+  int major_version;
+  int minor_version;
 
+  HASHTABLE_T *namedarrays; /* HASHTABLE_T */
+  DLIST jsonobjects; /* DLIST of EVEL_JSON_OBJECT */
+  DLIST namedvalues;
 } EVENT_OTHER;
 
 /**************************************************************************//**
@@ -805,109 +1181,29 @@ typedef struct other_field {
   char * value;
 } OTHER_FIELD;
 
-/**************************************************************************//**
- * Event Instance Identifier
- * JSON equivalent field: eventInstanceIdentifier
- *****************************************************************************/
-typedef struct evel_event_instance_id {
-
-  /***************************************************************************/
-  /* Mandatory fields                                                        */
-  /***************************************************************************/
-  char * vendor_id;                                        /* JSON: vendorId */
-  char * event_id;                                          /* JSON: eventId */
-
-  /***************************************************************************/
-  /* Optional fields                                                         */
-  /***************************************************************************/
-  EVEL_OPTION_STRING product_id;                          /* JSON: productId */
-  EVEL_OPTION_STRING subsystem_id;                      /* JSON: subsystemId */
-  EVEL_OPTION_STRING event_friendly_name;         /* JSON: eventFriendlyName */
-
-} EVEL_EVENT_INSTANCE_ID;
 
 /*****************************************************************************/
 /* Supported Service Events version.                                         */
 /*****************************************************************************/
-#define EVEL_SERVICE_MAJOR_VERSION 1
-#define EVEL_SERVICE_MINOR_VERSION 1
+#define EVEL_HEARTBEAT_FIELD_MAJOR_VERSION 1
+#define EVEL_HEARTBEAT_FIELD_MINOR_VERSION 1
 
-/**************************************************************************//**
- * Service Events.
- * JSON equivalent field: serviceEventsFields
- *****************************************************************************/
-typedef struct event_service {
-  /***************************************************************************/
-  /* Header and version                                                      */
-  /***************************************************************************/
-  EVENT_HEADER header;
-  int major_version;
-  int minor_version;
-
-  /***************************************************************************/
-  /* Mandatory fields                                                        */
-  /***************************************************************************/
-  EVEL_EVENT_INSTANCE_ID instance_id;       /* JSON: eventInstanceIdentifier */
-
-  /***************************************************************************/
-  /* Optional fields.                                                        */
-  /***************************************************************************/
-  EVEL_OPTION_STRING correlator;                         /* JSON: correlator */
-  DLIST additional_fields;                         /* JSON: additionalFields */
-
-  /***************************************************************************/
-  /* Optional fields within JSON equivalent object: codecSelected            */
-  /***************************************************************************/
-  EVEL_OPTION_STRING codec;                                   /* JSON: codec */
-
-  /***************************************************************************/
-  /* Optional fields within JSON equivalent object: codecSelectedTranscoding */
-  /***************************************************************************/
-  EVEL_OPTION_STRING callee_side_codec;             /* JSON: calleeSideCodec */
-  EVEL_OPTION_STRING caller_side_codec;             /* JSON: callerSideCodec */
-
-  /***************************************************************************/
-  /* Optional fields within JSON equivalent object: midCallRtcp              */
-  /***************************************************************************/
-  EVEL_OPTION_STRING rtcp_data;                            /* JSON: rtcpData */
-
-  /***************************************************************************/
-  /* Optional fields within JSON equivalent object: endOfCallVqmSummaries    */
-  /***************************************************************************/
-  EVEL_OPTION_STRING adjacency_name;                  /* JSON: adjacencyName */
-  EVEL_OPTION_STRING endpoint_description;      /* JSON: endpointDescription */
-  EVEL_OPTION_INT endpoint_jitter;                   /* JSON: endpointJitter */
-  EVEL_OPTION_INT endpoint_rtp_oct_disc; /* JSON: endpointRtpOctetsDiscarded */
-  EVEL_OPTION_INT endpoint_rtp_oct_recv;  /* JSON: endpointRtpOctetsReceived */
-  EVEL_OPTION_INT endpoint_rtp_oct_sent;      /* JSON: endpointRtpOctetsSent */
-  EVEL_OPTION_INT endpoint_rtp_pkt_disc;/* JSON: endpointRtpPacketsDiscarded */
-  EVEL_OPTION_INT endpoint_rtp_pkt_recv; /* JSON: endpointRtpPacketsReceived */
-  EVEL_OPTION_INT endpoint_rtp_pkt_sent;     /* JSON: endpointRtpPacketsSent */
-  EVEL_OPTION_INT local_jitter;                         /* JSON: localJitter */
-  EVEL_OPTION_INT local_rtp_oct_disc;       /* JSON: localRtpOctetsDiscarded */
-  EVEL_OPTION_INT local_rtp_oct_recv;        /* JSON: localRtpOctetsReceived */
-  EVEL_OPTION_INT local_rtp_oct_sent;            /* JSON: localRtpOctetsSent */
-  EVEL_OPTION_INT local_rtp_pkt_disc;      /* JSON: localRtpPacketsDiscarded */
-  EVEL_OPTION_INT local_rtp_pkt_recv;       /* JSON: localRtpPacketsReceived */
-  EVEL_OPTION_INT local_rtp_pkt_sent;           /* JSON: localRtpPacketsSent */
-  EVEL_OPTION_DOUBLE mos_cqe;                                /* JSON: mosCqe */
-  EVEL_OPTION_INT packets_lost;                         /* JSON: packetsLost */
-  EVEL_OPTION_DOUBLE packet_loss_percent;         /* JSON: packetLossPercent */
-  EVEL_OPTION_INT r_factor;                                 /* JSON: rFactor */
-  EVEL_OPTION_INT round_trip_delay;                  /* JSON: roundTripDelay */
-
-  /***************************************************************************/
-  /* Optional fields within JSON equivalent object: marker                   */
-  /***************************************************************************/
-  EVEL_OPTION_STRING phone_number;                      /* JSON: phoneNumber */
-
-} EVENT_SERVICE;
 
 /*****************************************************************************/
 /* Supported Signaling version.                                              */
 /*****************************************************************************/
-#define EVEL_SIGNALING_MAJOR_VERSION 1
+#define EVEL_SIGNALING_MAJOR_VERSION 2
 #define EVEL_SIGNALING_MINOR_VERSION 1
+
+/**************************************************************************//**
+ * Vendor VNF Name fields.
+ * JSON equivalent field: vendorVnfNameFields
+ *****************************************************************************/
+typedef struct vendor_vnfname_field {
+  char * vendorname;
+  EVEL_OPTION_STRING vfmodule;
+  EVEL_OPTION_STRING vnfname;
+} VENDOR_VNFNAME_FIELD;
 
 /**************************************************************************//**
  * Signaling.
@@ -924,26 +1220,36 @@ typedef struct event_signaling {
   /***************************************************************************/
   /* Mandatory fields                                                        */
   /***************************************************************************/
-  EVEL_EVENT_INSTANCE_ID instance_id;       /* JSON: eventInstanceIdentifier */
-
-  /***************************************************************************/
-  /* Optional fields                                                         */
-  /***************************************************************************/
+  VENDOR_VNFNAME_FIELD vnfname_field;
   EVEL_OPTION_STRING correlator;                         /* JSON: correlator */
   EVEL_OPTION_STRING local_ip_address;               /* JSON: localIpAddress */
   EVEL_OPTION_STRING local_port;                          /* JSON: localPort */
   EVEL_OPTION_STRING remote_ip_address;             /* JSON: remoteIpAddress */
   EVEL_OPTION_STRING remote_port;                        /* JSON: remotePort */
+
+  /***************************************************************************/
+  /* Optional fields                                                         */
+  /***************************************************************************/
   EVEL_OPTION_STRING compressed_sip;                  /* JSON: compressedSip */
   EVEL_OPTION_STRING summary_sip;                        /* JSON: summarySip */
+  DLIST additional_info;
 
 } EVENT_SIGNALING;
+
+/**************************************************************************//**
+ * Sgnaling Additional Field.
+ * JSON equivalent field: additionalFields
+ *****************************************************************************/
+typedef struct signaling_additional_field {
+  char * name;
+  char * value;
+} SIGNALING_ADDL_FIELD;
 
 /*****************************************************************************/
 /* Supported State Change version.                                           */
 /*****************************************************************************/
 #define EVEL_STATE_CHANGE_MAJOR_VERSION 1
-#define EVEL_STATE_CHANGE_MINOR_VERSION 1
+#define EVEL_STATE_CHANGE_MINOR_VERSION 2
 
 /**************************************************************************//**
  * State Change.
@@ -963,6 +1269,7 @@ typedef struct event_state_change {
   EVEL_ENTITY_STATE new_state;
   EVEL_ENTITY_STATE old_state;
   char * state_interface;
+  double version;
 
   /***************************************************************************/
   /* Optional fields                                                         */
@@ -984,7 +1291,7 @@ typedef struct state_change_additional_field {
 /* Supported Syslog version.                                                 */
 /*****************************************************************************/
 #define EVEL_SYSLOG_MAJOR_VERSION 1
-#define EVEL_SYSLOG_MINOR_VERSION 1
+#define EVEL_SYSLOG_MINOR_VERSION 2
 
 /**************************************************************************//**
  * Syslog.
@@ -1008,24 +1315,19 @@ typedef struct event_syslog {
   /***************************************************************************/
   /* Optional fields                                                         */
   /***************************************************************************/
-  DLIST additional_fields;
+  EVEL_OPTION_STRING additional_filters;
   EVEL_OPTION_STRING event_source_host;
   EVEL_OPTION_INT syslog_facility;
+  EVEL_OPTION_INT syslog_priority;
   EVEL_OPTION_STRING syslog_proc;
   EVEL_OPTION_INT syslog_proc_id;
   EVEL_OPTION_STRING syslog_s_data;
+  EVEL_OPTION_STRING syslog_sdid;
+  EVEL_OPTION_STRING syslog_severity;
+  double syslog_fver;
   EVEL_OPTION_INT syslog_ver;
 
 } EVENT_SYSLOG;
-
-/**************************************************************************//**
- * Syslog Additional Field.
- * JSON equivalent field: additionalFields
- *****************************************************************************/
-typedef struct syslog_additional_field {
-  char * name;
-  char * value;
-} SYSLOG_ADDL_FIELD;
 
 /**************************************************************************//**
  * Copyright.
@@ -1167,7 +1469,7 @@ void evel_free_header(EVENT_HEADER * const event);
  *
  * @param header  Pointer to the header being initialized.
  *****************************************************************************/
-void evel_init_header(EVENT_HEADER * const header);
+void evel_init_header(EVENT_HEADER * const header,const char *const eventname);
 
 /**************************************************************************//**
  * Set the Event Type property of the event header.
@@ -1237,15 +1539,27 @@ void evel_reporting_entity_id_set(EVENT_HEADER * const header,
 /**************************************************************************//**
  * Create a new fault event.
  *
- *
+ * @note    The mandatory fields on the Fault must be supplied to this factory
+ *          function and are immutable once set.  Optional fields have explicit
+ *          setter functions, but again values may only be set once so that the
+ *          Fault has immutable properties.
+ * @param   condition   The condition indicated by the Fault.
+ * @param   specific_problem  The specific problem triggering the fault.
+ * @param   priority    The priority of the event.
+ * @param   severity    The severity of the Fault.
+ * @param   ev_source_type    Source of Alarm event
+ * @param   version     fault version
+ * @param   status      status of Virtual Function
  * @returns pointer to the newly manufactured ::EVENT_FAULT.  If the event is
- *          not used it must be released using ::evel_free_fault
+ *          not used (i.e. posted) it must be released using ::evel_free_fault.
  * @retval  NULL  Failed to create the event.
  *****************************************************************************/
 EVENT_FAULT * evel_new_fault(const char * const condition,
                              const char * const specific_problem,
                              EVEL_EVENT_PRIORITIES priority,
-                             EVEL_SEVERITIES severity);
+                             EVEL_SEVERITIES severity,
+                             EVEL_SOURCE_TYPES ev_source_type,
+                             EVEL_VF_STATUSES status);
 
 /**************************************************************************//**
  * Free a Fault.
@@ -1257,6 +1571,21 @@ EVENT_FAULT * evel_new_fault(const char * const condition,
  *****************************************************************************/
 void evel_free_fault(EVENT_FAULT * event);
 
+/**************************************************************************//**
+ * Set the Fault Category property of the Fault.
+ *
+ * @note  The property is treated as immutable: it is only valid to call
+ *        the setter once.  However, we don't assert if the caller tries to
+ *        overwrite, just ignoring the update instead.
+ *
+ * @param fault      Pointer to the fault.
+ * @param category   Category : license, link, routing, security, signaling.
+ *                       ASCIIZ string. The caller
+ *                   does not need to preserve the value once the function
+ *                   returns.
+ *****************************************************************************/
+void evel_fault_category_set(EVENT_FAULT * fault,
+                              const char * const category);
 
 /**************************************************************************//**
  * Set the Alarm Interface A property of the Fault.
@@ -1410,32 +1739,6 @@ void evel_measurement_mean_req_lat_set(EVENT_MEASUREMENT * measurement,
                                        double mean_request_latency);
 
 /**************************************************************************//**
- * Set the Memory Configured property of the Measurement.
- *
- * @note  The property is treated as immutable: it is only valid to call
- *        the setter once.  However, we don't assert if the caller tries to
- *        overwrite, just ignoring the update instead.
- *
- * @param measurement       Pointer to the Measurement.
- * @param memory_configured The Memory Configured to be set.
- *****************************************************************************/
-void evel_measurement_mem_cfg_set(EVENT_MEASUREMENT * measurement,
-                                  double memory_configured);
-
-/**************************************************************************//**
- * Set the Memory Used property of the Measurement.
- *
- * @note  The property is treated as immutable: it is only valid to call
- *        the setter once.  However, we don't assert if the caller tries to
- *        overwrite, just ignoring the update instead.
- *
- * @param measurement       Pointer to the Measurement.
- * @param memory_used The Memory Used to be set.
- *****************************************************************************/
-void evel_measurement_mem_used_set(EVENT_MEASUREMENT * measurement,
-                                   double memory_used);
-
-/**************************************************************************//**
  * Set the Request Rate property of the Measurement.
  *
  * @note  The property is treated as immutable: it is only valid to call
@@ -1459,8 +1762,108 @@ void evel_measurement_request_rate_set(EVENT_MEASUREMENT * measurement,
  * @param id            ASCIIZ string with the CPU's identifier.
  * @param usage         CPU utilization.
  *****************************************************************************/
-void evel_measurement_cpu_use_add(EVENT_MEASUREMENT * measurement,
-                                  char * id, double usage);
+MEASUREMENT_CPU_USE * evel_measurement_new_cpu_use_add(EVENT_MEASUREMENT * measurement, char * id, double usage);
+
+/**************************************************************************//**
+ * Set the CPU Idle value in measurement interval
+ *   percentage of CPU time spent in the idle task
+ *
+ * @note  The property is treated as immutable: it is only valid to call
+ *        the setter once.  However, we don't assert if the caller tries to
+ *        overwrite, just ignoring the update instead.
+ *
+ * @param cpu_use      Pointer to the CPU Use.
+ * @param val          double
+ *****************************************************************************/
+void evel_measurement_cpu_use_idle_set(MEASUREMENT_CPU_USE *const cpu_use,
+                                    const double val);
+
+/**************************************************************************//**
+ * Set the percentage of time spent servicing interrupts
+ *
+ * @note  The property is treated as immutable: it is only valid to call
+ *        the setter once.  However, we don't assert if the caller tries to
+ *        overwrite, just ignoring the update instead.
+ *
+ * @param cpu_use      Pointer to the CPU Use.
+ * @param val          double
+ *****************************************************************************/
+void evel_measurement_cpu_use_interrupt_set(MEASUREMENT_CPU_USE * const cpu_use,
+                                    const double val);
+
+/**************************************************************************//**
+ * Set the percentage of time spent running user space processes that have been niced
+ *
+ * @note  The property is treated as immutable: it is only valid to call
+ *        the setter once.  However, we don't assert if the caller tries to
+ *        overwrite, just ignoring the update instead.
+ *
+ * @param cpu_use      Pointer to the CPU Use.
+ * @param val          double
+ *****************************************************************************/
+void evel_measurement_cpu_use_nice_set(MEASUREMENT_CPU_USE * const cpu_use,
+                                    const double val);
+
+/**************************************************************************//**
+ * Set the percentage of time spent handling soft irq interrupts
+ *
+ * @note  The property is treated as immutable: it is only valid to call
+ *        the setter once.  However, we don't assert if the caller tries to
+ *        overwrite, just ignoring the update instead.
+ *
+ * @param cpu_use      Pointer to the CPU Use.
+ * @param val          double
+ *****************************************************************************/
+void evel_measurement_cpu_use_softirq_set(MEASUREMENT_CPU_USE * const cpu_use,
+                                    const double val);
+/**************************************************************************//**
+ * Set the percentage of time spent in involuntary wait
+ *
+ * @note  The property is treated as immutable: it is only valid to call
+ *        the setter once.  However, we don't assert if the caller tries to
+ *        overwrite, just ignoring the update instead.
+ *
+ * @param cpu_use      Pointer to the CPU Use.
+ * @param val          double
+ *****************************************************************************/
+void evel_measurement_cpu_use_steal_set(MEASUREMENT_CPU_USE * const cpu_use,
+                                    const double val);
+/**************************************************************************//**
+ * Set the percentage of time spent on system tasks running the kernel
+ *
+ * @note  The property is treated as immutable: it is only valid to call
+ *        the setter once.  However, we don't assert if the caller tries to
+ *        overwrite, just ignoring the update instead.
+ *
+ * @param cpu_use      Pointer to the CPU Use.
+ * @param val          double
+ *****************************************************************************/
+void evel_measurement_cpu_use_system_set(MEASUREMENT_CPU_USE * const cpu_use,
+                                    const double val);
+/**************************************************************************//**
+ * Set the percentage of time spent running un-niced user space processes
+ *
+ * @note  The property is treated as immutable: it is only valid to call
+ *        the setter once.  However, we don't assert if the caller tries to
+ *        overwrite, just ignoring the update instead.
+ *
+ * @param cpu_use      Pointer to the CPU Use.
+ * @param val          double
+ *****************************************************************************/
+void evel_measurement_cpu_use_usageuser_set(MEASUREMENT_CPU_USE * const cpu_use,
+                                    const double val);
+/**************************************************************************//**
+ * Set the percentage of CPU time spent waiting for I/O operations to complete
+ *
+ * @note  The property is treated as immutable: it is only valid to call
+ *        the setter once.  However, we don't assert if the caller tries to
+ *        overwrite, just ignoring the update instead.
+ *
+ * @param cpu_use      Pointer to the CPU Use.
+ * @param val          double
+ *****************************************************************************/
+void evel_measurement_cpu_use_wait_set(MEASUREMENT_CPU_USE * const cpu_use,
+                                    const double val);
 
 /**************************************************************************//**
  * Add an additional File System usage value name/value pair to the
@@ -1536,20 +1939,6 @@ void evel_measurement_codec_use_add(EVENT_MEASUREMENT * measurement,
                                     int utilization);
 
 /**************************************************************************//**
-}
- * Set the Aggregate CPU Use property of the Measurement.
- *
- * @note  The property is treated as immutable: it is only valid to call
- *        the setter once.  However, we don't assert if the caller tries to
- *        overwrite, just ignoring the update instead.
- *
- * @param measurement   Pointer to the measurement.
- * @param cpu_use       The CPU use to set.
- *****************************************************************************/
-void evel_measurement_agg_cpu_use_set(EVENT_MEASUREMENT * measurement,
-                                      double cpu_use);
-
-/**************************************************************************//**
  * Set the Media Ports in Use property of the Measurement.
  *
  * @note  The property is treated as immutable: it is only valid to call
@@ -1573,7 +1962,7 @@ void evel_measurement_media_port_use_set(EVENT_MEASUREMENT * measurement,
  * @param scaling_metric  The scaling metric to set.
  *****************************************************************************/
 void evel_measurement_vnfc_scaling_metric_set(EVENT_MEASUREMENT * measurement,
-                                              double scaling_metric);
+                                              int scaling_metric);
 
 /**************************************************************************//**
  * Create a new Latency Bucket to be added to a Measurement event.
@@ -1646,132 +2035,406 @@ void evel_measurement_latency_add(EVENT_MEASUREMENT * const measurement,
 /**************************************************************************//**
  * Create a new vNIC Use to be added to a Measurement event.
  *
- * @note    The mandatory fields on the ::MEASUREMENT_VNIC_USE must be supplied
+ * @note    The mandatory fields on the ::MEASUREMENT_VNIC_PERFORMANCE must be supplied
  *          to this factory function and are immutable once set. Optional
  *          fields have explicit setter functions, but again values may only be
- *          set once so that the ::MEASUREMENT_VNIC_USE has immutable
+ *          set once so that the ::MEASUREMENT_VNIC_PERFORMANCE has immutable
  *          properties.
  *
  * @param vnic_id               ASCIIZ string with the vNIC's ID.
- * @param packets_in            Total packets received.
- * @param packets_out           Total packets transmitted.
- * @param bytes_in              Total bytes received.
- * @param bytes_out             Total bytes transmitted.
+ * @param val_suspect           True or false confidence in data.
  *
- * @returns pointer to the newly manufactured ::MEASUREMENT_VNIC_USE.
+ * @returns pointer to the newly manufactured ::MEASUREMENT_VNIC_PERFORMANCE.
  *          If the structure is not used it must be released using
- *          ::evel_free_measurement_vnic_use.
+ *          ::evel_measurement_free_vnic_performance.
  * @retval  NULL  Failed to create the vNIC Use.
  *****************************************************************************/
-MEASUREMENT_VNIC_USE * evel_new_measurement_vnic_use(char * const vnic_id,
-                                                     const int packets_in,
-                                                     const int packets_out,
-                                                     const int bytes_in,
-                                                     const int bytes_out);
+MEASUREMENT_VNIC_PERFORMANCE * evel_measurement_new_vnic_performance(char * const vnic_id, char * const val_suspect);
 
 /**************************************************************************//**
  * Free a vNIC Use.
  *
- * Free off the ::MEASUREMENT_VNIC_USE supplied.  Will free all the contained
+ * Free off the ::MEASUREMENT_VNIC_PERFORMANCE supplied.  Will free all the contained
  * allocated memory.
  *
  * @note It does not free the vNIC Use itself, since that may be part of a
  * larger structure.
  *****************************************************************************/
-void evel_free_measurement_vnic_use(MEASUREMENT_VNIC_USE * const vnic_use);
+void evel_measurement_free_vnic_performance(MEASUREMENT_VNIC_PERFORMANCE * const vnic_performance);
 
 /**************************************************************************//**
- * Set the Broadcast Packets Received property of the vNIC Use.
+ * Set the Accumulated Broadcast Packets Received in measurement interval
+ * property of the vNIC performance.
  *
  * @note  The property is treated as immutable: it is only valid to call
  *        the setter once.  However, we don't assert if the caller tries to
  *        overwrite, just ignoring the update instead.
  *
- * @param vnic_use      Pointer to the vNIC Use.
- * @param broadcast_packets_in
- *                      Broadcast packets received.
+ * @param vnic_performance      Pointer to the vNIC Use.
+ * @param recvd_bcast_packets_acc
  *****************************************************************************/
-void evel_vnic_use_bcast_pkt_in_set(MEASUREMENT_VNIC_USE * const vnic_use,
-                                    const int broadcast_packets_in);
-
+void evel_vnic_performance_rx_bcast_pkt_acc_set(MEASUREMENT_VNIC_PERFORMANCE * const vnic_performance,
+                                    const double recvd_bcast_packets_acc);
 /**************************************************************************//**
- * Set the Broadcast Packets Transmitted property of the vNIC Use.
+ * Set the Delta Broadcast Packets Received in measurement interval
+ * property of the vNIC performance.
  *
  * @note  The property is treated as immutable: it is only valid to call
  *        the setter once.  However, we don't assert if the caller tries to
  *        overwrite, just ignoring the update instead.
  *
- * @param vnic_use      Pointer to the vNIC Use.
- * @param broadcast_packets_out
- *                      Broadcast packets transmitted.
+ * @param vnic_performance      Pointer to the vNIC Use.
+ * @param recvd_bcast_packets_delta
  *****************************************************************************/
-void evel_vnic_use_bcast_pkt_out_set(MEASUREMENT_VNIC_USE * const vnic_use,
-                                     const int broadcast_packets_out);
-
+void evel_vnic_performance_rx_bcast_pkt_delta_set(MEASUREMENT_VNIC_PERFORMANCE * const vnic_performance,
+                                    const double recvd_bcast_packets_delta);
 /**************************************************************************//**
- * Set the Multicast Packets Received property of the vNIC Use.
+ * Set the Discarded Packets Received in measurement interval
+ * property of the vNIC performance.
  *
  * @note  The property is treated as immutable: it is only valid to call
  *        the setter once.  However, we don't assert if the caller tries to
  *        overwrite, just ignoring the update instead.
  *
- * @param vnic_use      Pointer to the vNIC Use.
- * @param multicast_packets_in
- *                      Multicast packets received.
+ * @param vnic_performance      Pointer to the vNIC Use.
+ * @param recvd_discard_packets_acc
  *****************************************************************************/
-void evel_vnic_use_mcast_pkt_in_set(MEASUREMENT_VNIC_USE * const vnic_use,
-                                    const int multicast_packets_in);
-
+void evel_vnic_performance_rx_discard_pkt_acc_set(MEASUREMENT_VNIC_PERFORMANCE * const vnic_performance,
+                                    const double recvd_discard_packets_acc);
 /**************************************************************************//**
- * Set the Multicast Packets Transmitted property of the vNIC Use.
+ * Set the Delta Discarded Packets Received in measurement interval
+ * property of the vNIC performance.
  *
  * @note  The property is treated as immutable: it is only valid to call
  *        the setter once.  However, we don't assert if the caller tries to
  *        overwrite, just ignoring the update instead.
  *
- * @param vnic_use      Pointer to the vNIC Use.
- * @param multicast_packets_out
- *                      Multicast packets transmitted.
+ * @param vnic_performance      Pointer to the vNIC Use.
+ * @param recvd_discard_packets_delta
  *****************************************************************************/
-void evel_vnic_use_mcast_pkt_out_set(MEASUREMENT_VNIC_USE * const vnic_use,
-                                     const int multicast_packets_out);
-
+void evel_vnic_performance_rx_discard_pkt_delta_set(MEASUREMENT_VNIC_PERFORMANCE * const vnic_performance,
+                                    const double recvd_discard_packets_delta);
 /**************************************************************************//**
- * Set the Unicast Packets Received property of the vNIC Use.
+ * Set the Error Packets Received in measurement interval
+ * property of the vNIC performance.
  *
  * @note  The property is treated as immutable: it is only valid to call
  *        the setter once.  However, we don't assert if the caller tries to
  *        overwrite, just ignoring the update instead.
  *
- * @param vnic_use      Pointer to the vNIC Use.
- * @param unicast_packets_in
- *                      Unicast packets received.
+ * @param vnic_performance      Pointer to the vNIC Use.
+ * @param recvd_error_packets_acc
  *****************************************************************************/
-void evel_vnic_use_ucast_pkt_in_set(MEASUREMENT_VNIC_USE * const vnic_use,
-                                    const int unicast_packets_in);
-
+void evel_vnic_performance_rx_error_pkt_acc_set(MEASUREMENT_VNIC_PERFORMANCE * const vnic_performance,
+                                    const double recvd_error_packets_acc);
 /**************************************************************************//**
- * Set the Unicast Packets Transmitted property of the vNIC Use.
+ * Set the Delta Error Packets Received in measurement interval
+ * property of the vNIC performance.
  *
  * @note  The property is treated as immutable: it is only valid to call
  *        the setter once.  However, we don't assert if the caller tries to
  *        overwrite, just ignoring the update instead.
  *
- * @param vnic_use      Pointer to the vNIC Use.
- * @param unicast_packets_out
- *                      Unicast packets transmitted.
+ * @param vnic_performance      Pointer to the vNIC Use.
+ * @param recvd_error_packets_delta
  *****************************************************************************/
-void evel_vnic_use_ucast_pkt_out_set(MEASUREMENT_VNIC_USE * const vnic_use,
-                                     const int unicast_packets_out);
+void evel_vnic_performance_rx_error_pkt_delta_set(MEASUREMENT_VNIC_PERFORMANCE * const vnic_performance,
+                                    const double recvd_error_packets_delta);
+/**************************************************************************//**
+ * Set the Accumulated Multicast Packets Received in measurement interval
+ * property of the vNIC performance.
+ *
+ * @note  The property is treated as immutable: it is only valid to call
+ *        the setter once.  However, we don't assert if the caller tries to
+ *        overwrite, just ignoring the update instead.
+ *
+ * @param vnic_performance      Pointer to the vNIC Use.
+ * @param recvd_mcast_packets_acc
+ *****************************************************************************/
+void evel_vnic_performance_rx_mcast_pkt_acc_set(MEASUREMENT_VNIC_PERFORMANCE * const vnic_performance,
+                                    const double recvd_mcast_packets_acc);
+/**************************************************************************//**
+ * Set the Delta Multicast Packets Received in measurement interval
+ * property of the vNIC performance.
+ *
+ * @note  The property is treated as immutable: it is only valid to call
+ *        the setter once.  However, we don't assert if the caller tries to
+ *        overwrite, just ignoring the update instead.
+ *
+ * @param vnic_performance      Pointer to the vNIC Use.
+ * @param recvd_mcast_packets_delta
+ *****************************************************************************/
+void evel_vnic_performance_rx_mcast_pkt_delta_set(MEASUREMENT_VNIC_PERFORMANCE * const vnic_performance,
+                                    const double recvd_mcast_packets_delta);
+/**************************************************************************//**
+ * Set the Accumulated Octets Received in measurement interval
+ * property of the vNIC performance.
+ *
+ * @note  The property is treated as immutable: it is only valid to call
+ *        the setter once.  However, we don't assert if the caller tries to
+ *        overwrite, just ignoring the update instead.
+ *
+ * @param vnic_performance      Pointer to the vNIC Use.
+ * @param recvd_octets_acc
+ *****************************************************************************/
+void evel_vnic_performance_rx_octets_acc_set(MEASUREMENT_VNIC_PERFORMANCE * const vnic_performance,
+                                    const double recvd_octets_acc);
+/**************************************************************************//**
+ * Set the Delta Octets Received in measurement interval
+ * property of the vNIC performance.
+ *
+ * @note  The property is treated as immutable: it is only valid to call
+ *        the setter once.  However, we don't assert if the caller tries to
+ *        overwrite, just ignoring the update instead.
+ *
+ * @param vnic_performance      Pointer to the vNIC Use.
+ * @param recvd_octets_delta
+ *****************************************************************************/
+void evel_vnic_performance_rx_octets_delta_set(MEASUREMENT_VNIC_PERFORMANCE * const vnic_performance,
+                                    const double recvd_octets_delta);
+/**************************************************************************//**
+ * Set the Accumulated Total Packets Received in measurement interval
+ * property of the vNIC performance.
+ *
+ * @note  The property is treated as immutable: it is only valid to call
+ *        the setter once.  However, we don't assert if the caller tries to
+ *        overwrite, just ignoring the update instead.
+ *
+ * @param vnic_performance      Pointer to the vNIC Use.
+ * @param recvd_total_packets_acc
+ *****************************************************************************/
+void evel_vnic_performance_rx_total_pkt_acc_set(MEASUREMENT_VNIC_PERFORMANCE * const vnic_performance,
+                                    const double recvd_total_packets_acc);
+/**************************************************************************//**
+ * Set the Delta Total Packets Received in measurement interval
+ * property of the vNIC performance.
+ *
+ * @note  The property is treated as immutable: it is only valid to call
+ *        the setter once.  However, we don't assert if the caller tries to
+ *        overwrite, just ignoring the update instead.
+ *
+ * @param vnic_performance      Pointer to the vNIC Use.
+ * @param recvd_total_packets_delta
+ *****************************************************************************/
+void evel_vnic_performance_rx_total_pkt_delta_set(MEASUREMENT_VNIC_PERFORMANCE * const vnic_performance,
+                                    const double recvd_total_packets_delta);
+/**************************************************************************//**
+ * Set the Accumulated Unicast Packets Received in measurement interval
+ * property of the vNIC performance.
+ *
+ * @note  The property is treated as immutable: it is only valid to call
+ *        the setter once.  However, we don't assert if the caller tries to
+ *        overwrite, just ignoring the update instead.
+ *
+ * @param vnic_performance      Pointer to the vNIC Use.
+ * @param recvd_ucast_packets_acc
+ *****************************************************************************/
+void evel_vnic_performance_rx_ucast_pkt_acc_set(MEASUREMENT_VNIC_PERFORMANCE * const vnic_performance,
+                                    const double recvd_ucast_packets_acc);
+/**************************************************************************//**
+ * Set the Delta Unicast packets Received in measurement interval
+ * property of the vNIC performance.
+ *
+ * @note  The property is treated as immutable: it is only valid to call
+ *        the setter once.  However, we don't assert if the caller tries to
+ *        overwrite, just ignoring the update instead.
+ *
+ * @param vnic_performance      Pointer to the vNIC Use.
+ * @param recvd_ucast_packets_delta
+ *****************************************************************************/
+void evel_vnic_performance_rx_ucast_pkt_delta_set(MEASUREMENT_VNIC_PERFORMANCE * const vnic_performance,
+                                    const double recvd_ucast_packets_delta);
+/**************************************************************************//**
+ * Set the Transmitted Broadcast Packets in measurement interval
+ * property of the vNIC performance.
+ *
+ * @note  The property is treated as immutable: it is only valid to call
+ *        the setter once.  However, we don't assert if the caller tries to
+ *        overwrite, just ignoring the update instead.
+ *
+ * @param vnic_performance      Pointer to the vNIC Use.
+ * @param tx_bcast_packets_acc
+ *****************************************************************************/
+void evel_vnic_performance_tx_bcast_pkt_acc_set(MEASUREMENT_VNIC_PERFORMANCE * const vnic_performance,
+                                    const double tx_bcast_packets_acc);
+/**************************************************************************//**
+ * Set the Delta Broadcast packets Transmitted in measurement interval
+ * property of the vNIC performance.
+ *
+ * @note  The property is treated as immutable: it is only valid to call
+ *        the setter once.  However, we don't assert if the caller tries to
+ *        overwrite, just ignoring the update instead.
+ *
+ * @param vnic_performance      Pointer to the vNIC Use.
+ * @param tx_bcast_packets_delta
+ *****************************************************************************/
+void evel_vnic_performance_tx_bcast_pkt_delta_set(MEASUREMENT_VNIC_PERFORMANCE * const vnic_performance,
+                                    const double tx_bcast_packets_delta);
+/**************************************************************************//**
+ * Set the Transmitted Discarded Packets in measurement interval
+ * property of the vNIC performance.
+ *
+ * @note  The property is treated as immutable: it is only valid to call
+ *        the setter once.  However, we don't assert if the caller tries to
+ *        overwrite, just ignoring the update instead.
+ *
+ * @param vnic_performance      Pointer to the vNIC Use.
+ * @param tx_discarded_packets_acc
+ *****************************************************************************/
+void evel_vnic_performance_tx_discarded_pkt_acc_set(MEASUREMENT_VNIC_PERFORMANCE * const vnic_performance,
+                                    const double tx_discarded_packets_acc);
+/**************************************************************************//**
+ * Set the Delta Discarded packets Transmitted in measurement interval
+ * property of the vNIC performance.
+ *
+ * @note  The property is treated as immutable: it is only valid to call
+ *        the setter once.  However, we don't assert if the caller tries to
+ *        overwrite, just ignoring the update instead.
+ *
+ * @param vnic_performance      Pointer to the vNIC Use.
+ * @param tx_discarded_packets_delta
+ *****************************************************************************/
+void evel_vnic_performance_tx_discarded_pkt_delta_set(MEASUREMENT_VNIC_PERFORMANCE * const vnic_performance,
+                                    const double tx_discarded_packets_delta);
+/**************************************************************************//**
+ * Set the Transmitted Errored Packets in measurement interval
+ * property of the vNIC performance.
+ *
+ * @note  The property is treated as immutable: it is only valid to call
+ *        the setter once.  However, we don't assert if the caller tries to
+ *        overwrite, just ignoring the update instead.
+ *
+ * @param vnic_performance      Pointer to the vNIC Use.
+ * @param tx_error_packets_acc
+ *****************************************************************************/
+void evel_vnic_performance_tx_error_pkt_acc_set(MEASUREMENT_VNIC_PERFORMANCE * const vnic_performance,
+                                    const double tx_error_packets_acc);
+/**************************************************************************//**
+ * Set the Delta Errored packets Transmitted in measurement interval
+ * property of the vNIC performance.
+ *
+ * @note  The property is treated as immutable: it is only valid to call
+ *        the setter once.  However, we don't assert if the caller tries to
+ *        overwrite, just ignoring the update instead.
+ *
+ * @param vnic_performance      Pointer to the vNIC Use.
+ * @param tx_error_packets_delta
+ *****************************************************************************/
+void evel_vnic_performance_tx_error_pkt_delta_set(MEASUREMENT_VNIC_PERFORMANCE * const vnic_performance,
+                                    const double tx_error_packets_delta);
+/**************************************************************************//**
+ * Set the Transmitted Multicast Packets in measurement interval
+ * property of the vNIC performance.
+ *
+ * @note  The property is treated as immutable: it is only valid to call
+ *        the setter once.  However, we don't assert if the caller tries to
+ *        overwrite, just ignoring the update instead.
+ *
+ * @param vnic_performance      Pointer to the vNIC Use.
+ * @param tx_mcast_packets_acc
+ *****************************************************************************/
+void evel_vnic_performance_tx_mcast_pkt_acc_set(MEASUREMENT_VNIC_PERFORMANCE * const vnic_performance,
+                                    const double tx_mcast_packets_acc);
+/**************************************************************************//**
+ * Set the Delta Multicast packets Transmitted in measurement interval
+ * property of the vNIC performance.
+ *
+ * @note  The property is treated as immutable: it is only valid to call
+ *        the setter once.  However, we don't assert if the caller tries to
+ *        overwrite, just ignoring the update instead.
+ *
+ * @param vnic_performance      Pointer to the vNIC Use.
+ * @param tx_mcast_packets_delta
+ *****************************************************************************/
+void evel_vnic_performance_tx_mcast_pkt_delta_set(MEASUREMENT_VNIC_PERFORMANCE * const vnic_performance,
+                                    const double tx_mcast_packets_delta);
+/**************************************************************************//**
+ * Set the Transmitted Octets in measurement interval
+ * property of the vNIC performance.
+ *
+ * @note  The property is treated as immutable: it is only valid to call
+ *        the setter once.  However, we don't assert if the caller tries to
+ *        overwrite, just ignoring the update instead.
+ *
+ * @param vnic_performance      Pointer to the vNIC Use.
+ * @param tx_octets_acc
+ *****************************************************************************/
+void evel_vnic_performance_tx_octets_acc_set(MEASUREMENT_VNIC_PERFORMANCE * const vnic_performance,
+                                    const double tx_octets_acc);
+/**************************************************************************//**
+ * Set the Delta Octets Transmitted in measurement interval
+ * property of the vNIC performance.
+ *
+ * @note  The property is treated as immutable: it is only valid to call
+ *        the setter once.  However, we don't assert if the caller tries to
+ *        overwrite, just ignoring the update instead.
+ *
+ * @param vnic_performance      Pointer to the vNIC Use.
+ * @param tx_octets_delta
+ *****************************************************************************/
+void evel_vnic_performance_tx_octets_delta_set(MEASUREMENT_VNIC_PERFORMANCE * const vnic_performance,
+                                    const double tx_octets_delta);
+/**************************************************************************//**
+ * Set the Transmitted Total Packets in measurement interval
+ * property of the vNIC performance.
+ *
+ * @note  The property is treated as immutable: it is only valid to call
+ *        the setter once.  However, we don't assert if the caller tries to
+ *        overwrite, just ignoring the update instead.
+ *
+ * @param vnic_performance      Pointer to the vNIC Use.
+ * @param tx_total_packets_acc
+ *****************************************************************************/
+void evel_vnic_performance_tx_total_pkt_acc_set(MEASUREMENT_VNIC_PERFORMANCE * const vnic_performance,
+                                    const double tx_total_packets_acc);
+/**************************************************************************//**
+ * Set the Delta Total Packets Transmitted in measurement interval
+ * property of the vNIC performance.
+ *
+ * @note  The property is treated as immutable: it is only valid to call
+ *        the setter once.  However, we don't assert if the caller tries to
+ *        overwrite, just ignoring the update instead.
+ *
+ * @param vnic_performance      Pointer to the vNIC Use.
+ * @param tx_total_packets_delta
+ *****************************************************************************/
+void evel_vnic_performance_tx_total_pkt_delta_set(MEASUREMENT_VNIC_PERFORMANCE * const vnic_performance,
+                                    const double tx_total_packets_delta);
+/**************************************************************************//**
+ * Set the Transmitted Unicast Packets in measurement interval
+ * property of the vNIC performance.
+ *
+ * @note  The property is treated as immutable: it is only valid to call
+ *        the setter once.  However, we don't assert if the caller tries to
+ *        overwrite, just ignoring the update instead.
+ *
+ * @param vnic_performance      Pointer to the vNIC Use.
+ * @param tx_ucast_packets_acc
+ *****************************************************************************/
+void evel_vnic_performance_tx_ucast_packets_acc_set(MEASUREMENT_VNIC_PERFORMANCE * const vnic_performance,
+                                    const double tx_ucast_packets_acc);
+/**************************************************************************//**
+ * Set the Delta Octets Transmitted in measurement interval
+ * property of the vNIC performance.
+ *
+ * @note  The property is treated as immutable: it is only valid to call
+ *        the setter once.  However, we don't assert if the caller tries to
+ *        overwrite, just ignoring the update instead.
+ *
+ * @param vnic_performance      Pointer to the vNIC Use.
+ * @param tx_ucast_packets_delta
+ *****************************************************************************/
+void evel_vnic_performance_tx_ucast_pkt_delta_set(MEASUREMENT_VNIC_PERFORMANCE * const vnic_performance,
+                                    const double tx_ucast_packets_delta);
 
 /**************************************************************************//**
  * Add an additional vNIC Use to the specified Measurement event.
  *
  * @param measurement   Pointer to the measurement.
- * @param vnic_use      Pointer to the vNIC Use to add.
+ * @param vnic_performance      Pointer to the vNIC Use to add.
  *****************************************************************************/
-void evel_meas_vnic_use_add(EVENT_MEASUREMENT * const measurement,
-                            MEASUREMENT_VNIC_USE * const vnic_use);
+void evel_meas_vnic_performance_add(EVENT_MEASUREMENT * const measurement,
+                            MEASUREMENT_VNIC_PERFORMANCE * const vnic_performance);
 
 /**************************************************************************//**
  * Add an additional vNIC usage record Measurement.
@@ -1783,29 +2446,67 @@ void evel_meas_vnic_use_add(EVENT_MEASUREMENT * const measurement,
  *
  * @param measurement           Pointer to the measurement.
  * @param vnic_id               ASCIIZ string with the vNIC's ID.
- * @param packets_in            Total packets received.
- * @param packets_out           Total packets transmitted.
- * @param broadcast_packets_in  Broadcast packets received.
- * @param broadcast_packets_out Broadcast packets transmitted.
- * @param bytes_in              Total bytes received.
- * @param bytes_out             Total bytes transmitted.
- * @param multicast_packets_in  Multicast packets received.
- * @param multicast_packets_out Multicast packets transmitted.
- * @param unicast_packets_in    Unicast packets received.
- * @param unicast_packets_out   Unicast packets transmitted.
+ * @param valset                true or false confidence level
+ * @param recvd_bcast_packets_acc         Recieved broadcast packets
+ * @param recvd_bcast_packets_delta       Received delta broadcast packets
+ * @param recvd_discarded_packets_acc     Recieved discarded packets
+ * @param recvd_discarded_packets_delta   Received discarded delta packets
+ * @param recvd_error_packets_acc         Received error packets
+ * @param recvd_error_packets_delta,      Received delta error packets
+ * @param recvd_mcast_packets_acc         Received multicast packets
+ * @param recvd_mcast_packets_delta       Received delta multicast packets
+ * @param recvd_octets_acc                Received octets
+ * @param recvd_octets_delta              Received delta octets
+ * @param recvd_total_packets_acc         Received total packets
+ * @param recvd_total_packets_delta       Received delta total packets
+ * @param recvd_ucast_packets_acc         Received Unicast packets
+ * @param recvd_ucast_packets_delta       Received delta unicast packets
+ * @param tx_bcast_packets_acc            Transmitted broadcast packets
+ * @param tx_bcast_packets_delta          Transmitted delta broadcast packets
+ * @param tx_discarded_packets_acc        Transmitted packets discarded
+ * @param tx_discarded_packets_delta      Transmitted delta discarded packets
+ * @param tx_error_packets_acc            Transmitted error packets
+ * @param tx_error_packets_delta          Transmitted delta error packets
+ * @param tx_mcast_packets_acc            Transmitted multicast packets accumulated
+ * @param tx_mcast_packets_delta          Transmitted delta multicast packets
+ * @param tx_octets_acc                   Transmitted octets
+ * @param tx_octets_delta                 Transmitted delta octets
+ * @param tx_total_packets_acc            Transmitted total packets
+ * @param tx_total_packets_delta          Transmitted delta total packets
+ * @param tx_ucast_packets_acc            Transmitted Unicast packets
+ * @param tx_ucast_packets_delta          Transmitted delta Unicast packets
  *****************************************************************************/
-void evel_measurement_vnic_use_add(EVENT_MEASUREMENT * const measurement,
-                                   char * const vnic_id,
-                                   const int packets_in,
-                                   const int packets_out,
-                                   const int broadcast_packets_in,
-                                   const int broadcast_packets_out,
-                                   const int bytes_in,
-                                   const int bytes_out,
-                                   const int multicast_packets_in,
-                                   const int multicast_packets_out,
-                                   const int unicast_packets_in,
-                                   const int unicast_packets_out);
+void evel_measurement_vnic_performance_add(EVENT_MEASUREMENT * const measurement,
+                               char * const vnic_id,
+                               char * valset,
+                               double recvd_bcast_packets_acc,
+                               double recvd_bcast_packets_delta,
+                               double recvd_discarded_packets_acc,
+                               double recvd_discarded_packets_delta,
+                               double recvd_error_packets_acc,
+                               double recvd_error_packets_delta,
+                               double recvd_mcast_packets_acc,
+                               double recvd_mcast_packets_delta,
+                               double recvd_octets_acc,
+                               double recvd_octets_delta,
+                               double recvd_total_packets_acc,
+                               double recvd_total_packets_delta,
+                               double recvd_ucast_packets_acc,
+                               double recvd_ucast_packets_delta,
+                               double tx_bcast_packets_acc,
+                               double tx_bcast_packets_delta,
+                               double tx_discarded_packets_acc,
+                               double tx_discarded_packets_delta,
+                               double tx_error_packets_acc,
+                               double tx_error_packets_delta,
+                               double tx_mcast_packets_acc,
+                               double tx_mcast_packets_delta,
+                               double tx_octets_acc,
+                               double tx_octets_delta,
+                               double tx_total_packets_acc,
+                               double tx_total_packets_delta,
+                               double tx_ucast_packets_acc,
+                               double tx_ucast_packets_delta);
 
 /*****************************************************************************/
 /*****************************************************************************/
@@ -2627,484 +3328,6 @@ void evel_mobile_gtp_metrics_qci_cos_count_add(
 /*****************************************************************************/
 /*****************************************************************************/
 /*                                                                           */
-/*   SERVICE EVENTS                                                          */
-/*                                                                           */
-/*****************************************************************************/
-/*****************************************************************************/
-
-/**************************************************************************//**
- * Create a new Service event.
- *
- * @note    The mandatory fields on the Service must be supplied to
- *          this factory function and are immutable once set.  Optional fields
- *          have explicit setter functions, but again values may only be set
- *          once so that the event has immutable properties.
- * @param vendor_id     The vendor id to encode in the event instance id.
- * @param event_id      The vendor event id to encode in the event instance id.
- * @returns pointer to the newly manufactured ::EVENT_SERVICE.  If the event
- *          is not used (i.e. posted) it must be released using
- *          ::evel_free_service.
- * @retval  NULL  Failed to create the event.
- *****************************************************************************/
-EVENT_SERVICE * evel_new_service(const char * const vendor_id,
-                                 const char * const event_id);
-
-/**************************************************************************//**
- * Free a Service Events event.
- *
- * Free off the event supplied.  Will free all the contained allocated memory.
- *
- * @note It does not free the event itself, since that may be part of a larger
- * structure.
- *****************************************************************************/
-void evel_free_service(EVENT_SERVICE * const event);
-
-/**************************************************************************//**
- * Set the Event Type property of the Service event.
- *
- * @note  The property is treated as immutable: it is only valid to call
- *        the setter once.  However, we don't assert if the caller tries to
- *        overwrite, just ignoring the update instead.
- *
- * @param event         Pointer to the Service event.
- * @param type          The Event Type to be set. ASCIIZ string. The caller
- *                      does not need to preserve the value once the function
- *                      returns.
- *****************************************************************************/
-void evel_service_type_set(EVENT_SERVICE * const event,
-                           const char * const type);
-
-/**************************************************************************//**
- * Set the Product Id property of the Service event.
- *
- * @note  The property is treated as immutable: it is only valid to call
- *        the setter once.  However, we don't assert if the caller tries to
- *        overwrite, just ignoring the update instead.
- *
- * @param event         Pointer to the Service event.
- * @param product_id    The vendor product id to be set. ASCIIZ string. The
- *                      caller does not need to preserve the value once the
- *                      function returns.
- *****************************************************************************/
-void evel_service_product_id_set(EVENT_SERVICE * const event,
-                                 const char * const product_id);
-
-/**************************************************************************//**
- * Set the Subsystem Id property of the Service event.
- *
- * @note  The property is treated as immutable: it is only valid to call
- *        the setter once.  However, we don't assert if the caller tries to
- *        overwrite, just ignoring the update instead.
- *
- * @param event         Pointer to the Service event.
- * @param subsystem_id  The vendor subsystem id to be set. ASCIIZ string. The
- *                      caller does not need to preserve the value once the
- *                      function returns.
- *****************************************************************************/
-void evel_service_subsystem_id_set(EVENT_SERVICE * const event,
-                                   const char * const subsystem_id);
-
-/**************************************************************************//**
- * Set the Friendly Name property of the Service event.
- *
- * @note  The property is treated as immutable: it is only valid to call
- *        the setter once.  However, we don't assert if the caller tries to
- *        overwrite, just ignoring the update instead.
- *
- * @param event         Pointer to the Service event.
- * @param friendly_name The vendor friendly name to be set. ASCIIZ string. The
- *                      caller does not need to preserve the value once the
- *                      function returns.
- *****************************************************************************/
-void evel_service_friendly_name_set(EVENT_SERVICE * const event,
-                                    const char * const friendly_name);
-
-/**************************************************************************//**
- * Set the correlator property of the Service event.
- *
- * @note  The property is treated as immutable: it is only valid to call
- *        the setter once.  However, we don't assert if the caller tries to
- *        overwrite, just ignoring the update instead.
- *
- * @param event         Pointer to the Service event.
- * @param correlator    The correlator to be set. ASCIIZ string. The caller
- *                      does not need to preserve the value once the function
- *                      returns.
- *****************************************************************************/
-void evel_service_correlator_set(EVENT_SERVICE * const event,
-                                 const char * const correlator);
-
-/**************************************************************************//**
- * Set the Codec property of the Service event.
- *
- * @note  The property is treated as immutable: it is only valid to call
- *        the setter once.  However, we don't assert if the caller tries to
- *        overwrite, just ignoring the update instead.
- *
- * @param event         Pointer to the Service event.
- * @param codec         The codec to be set. ASCIIZ string. The caller does not
- *                      need to preserve the value once the function returns.
- *****************************************************************************/
-void evel_service_codec_set(EVENT_SERVICE * const event,
-                            const char * const codec);
-
-/**************************************************************************//**
- * Set the Callee Side Codec property of the Service event.
- *
- * @note  The property is treated as immutable: it is only valid to call
- *        the setter once.  However, we don't assert if the caller tries to
- *        overwrite, just ignoring the update instead.
- *
- * @param event         Pointer to the Service event.
- * @param codec         The codec to be set. ASCIIZ string. The caller does not
- *                      need to preserve the value once the function returns.
- *****************************************************************************/
-void evel_service_callee_codec_set(EVENT_SERVICE * const event,
-                                   const char * const codec);
-
-/**************************************************************************//**
- * Set the Caller Side Codec property of the Service event.
- *
- * @note  The property is treated as immutable: it is only valid to call
- *        the setter once.  However, we don't assert if the caller tries to
- *        overwrite, just ignoring the update instead.
- *
- * @param event         Pointer to the Service event.
- * @param codec         The codec to be set. ASCIIZ string. The caller does not
- *                      need to preserve the value once the function returns.
- *****************************************************************************/
-void evel_service_caller_codec_set(EVENT_SERVICE * const event,
-                                   const char * const codec);
-
-/**************************************************************************//**
- * Set the RTCP Data property of the Service event.
- *
- * @note  The property is treated as immutable: it is only valid to call
- *        the setter once.  However, we don't assert if the caller tries to
- *        overwrite, just ignoring the update instead.
- *
- * @param event         Pointer to the Service event.
- * @param rtcp_data     The RTCP Data to be set. ASCIIZ string. The caller
- *                      does not need to preserve the value once the function
- *                      returns.
- *****************************************************************************/
-void evel_service_rtcp_data_set(EVENT_SERVICE * const event,
-                                const char * const rtcp_data);
-
-/**************************************************************************//**
- * Set the Adjacency Name property of the Service event.
- *
- * @note  The property is treated as immutable: it is only valid to call
- *        the setter once.  However, we don't assert if the caller tries to
- *        overwrite, just ignoring the update instead.
- *
- * @param event         Pointer to the Service event.
- * @param adjacency_name
- *                      The adjacency name to be set. ASCIIZ string. The caller
- *                      does not need to preserve the value once the function
- *                      returns.
- *****************************************************************************/
-void evel_service_adjacency_name_set(EVENT_SERVICE * const event,
-                                     const char * const adjacency_name);
-
-/**************************************************************************//**
- * Set the Endpoint Descriptor property of the Service event.
- *
- * @note  The property is treated as immutable: it is only valid to call
- *        the setter once.  However, we don't assert if the caller tries to
- *        overwrite, just ignoring the update instead.
- *
- * @param event         Pointer to the Service event.
- * @param endpoint_desc The endpoint descriptor to be set.
- *****************************************************************************/
-void evel_service_endpoint_desc_set(
-                                EVENT_SERVICE * const event,
-                                const EVEL_SERVICE_ENDPOINT_DESC endpoint_desc);
-
-/**************************************************************************//**
- * Set the Endpoint Jitter property of the Service event.
- *
- * @note  The property is treated as immutable: it is only valid to call
- *        the setter once.  However, we don't assert if the caller tries to
- *        overwrite, just ignoring the update instead.
- *
- * @param event         Pointer to the Service event.
- * @param jitter        The jitter to be set.
- *****************************************************************************/
-void evel_service_endpoint_jitter_set(EVENT_SERVICE * const event,
-                                      const int jitter);
-
-/**************************************************************************//**
- * Set the Endpoint Rtp Octets Discarded property of the Service event.
- *
- * @note  The property is treated as immutable: it is only valid to call
- *        the setter once.  However, we don't assert if the caller tries to
- *        overwrite, just ignoring the update instead.
- *
- * @param event         Pointer to the Service event.
- * @param rtp_oct_disc  The discard count.
- *****************************************************************************/
-void evel_service_endpoint_rtp_oct_disc_set(EVENT_SERVICE * const event,
-                                            const int rtp_oct_disc);
-
-/**************************************************************************//**
- * Set the Endpoint Rtp Octets Received property of the Service event.
- *
- * @note  The property is treated as immutable: it is only valid to call
- *        the setter once.  However, we don't assert if the caller tries to
- *        overwrite, just ignoring the update instead.
- *
- * @param event         Pointer to the Service event.
- * @param rtp_oct_recv  The receive count.
- *****************************************************************************/
-void evel_service_endpoint_rtp_oct_recv_set(EVENT_SERVICE * const event,
-                                            const int rtp_oct_recv);
-
-/**************************************************************************//**
- * Set the Endpoint Rtp Octets Sent property of the Service event.
- *
- * @note  The property is treated as immutable: it is only valid to call
- *        the setter once.  However, we don't assert if the caller tries to
- *        overwrite, just ignoring the update instead.
- *
- * @param event         Pointer to the Service event.
- * @param rtp_oct_sent  The send count.
- *****************************************************************************/
-void evel_service_endpoint_rtp_oct_sent_set(EVENT_SERVICE * const event,
-                                            const int rtp_oct_sent);
-
-/**************************************************************************//**
- * Set the Endpoint Rtp Packets Discarded property of the Service event.
- *
- * @note  The property is treated as immutable: it is only valid to call
- *        the setter once.  However, we don't assert if the caller tries to
- *        overwrite, just ignoring the update instead.
- *
- * @param event         Pointer to the Service event.
- * @param rtp_pkt_disc  The discard count.
- *****************************************************************************/
-void evel_service_endpoint_rtp_pkt_disc_set(EVENT_SERVICE * const event,
-                                            const int rtp_pkt_disc);
-
-/**************************************************************************//**
- * Set the Endpoint Rtp Packets Received property of the Service event.
- *
- * @note  The property is treated as immutable: it is only valid to call
- *        the setter once.  However, we don't assert if the caller tries to
- *        overwrite, just ignoring the update instead.
- *
- * @param event         Pointer to the Service event.
- * @param rtp_pkt_recv  The receive count.
- *****************************************************************************/
-void evel_service_endpoint_rtp_pkt_recv_set(EVENT_SERVICE * const event,
-                                            const int rtp_pkt_recv);
-
-/**************************************************************************//**
- * Set the Endpoint Rtp Packets Sent property of the Service event.
- *
- * @note  The property is treated as immutable: it is only valid to call
- *        the setter once.  However, we don't assert if the caller tries to
- *        overwrite, just ignoring the update instead.
- *
- * @param event         Pointer to the Service event.
- * @param rtp_pkt_sent  The send count.
- *****************************************************************************/
-void evel_service_endpoint_rtp_pkt_sent_set(EVENT_SERVICE * const event,
-                                            const int rtp_pkt_sent);
-
-/**************************************************************************//**
- * Set the Local Jitter property of the Service event.
- *
- * @note  The property is treated as immutable: it is only valid to call
- *        the setter once.  However, we don't assert if the caller tries to
- *        overwrite, just ignoring the update instead.
- *
- * @param event         Pointer to the Service event.
- * @param jitter        The jitter to be set.
- *****************************************************************************/
-void evel_service_local_jitter_set(EVENT_SERVICE * const event,
-                                   const int jitter);
-
-/**************************************************************************//**
- * Set the Local Rtp Octets Discarded property of the Service event.
- *
- * @note  The property is treated as immutable: it is only valid to call
- *        the setter once.  However, we don't assert if the caller tries to
- *        overwrite, just ignoring the update instead.
- *
- * @param event         Pointer to the Service event.
- * @param rtp_oct_disc  The discard count.
- *****************************************************************************/
-void evel_service_local_rtp_oct_disc_set(EVENT_SERVICE * const event,
-                                         const int rtp_oct_disc);
-
-/**************************************************************************//**
- * Set the Local Rtp Octets Received property of the Service event.
- *
- * @note  The property is treated as immutable: it is only valid to call
- *        the setter once.  However, we don't assert if the caller tries to
- *        overwrite, just ignoring the update instead.
- *
- * @param event         Pointer to the Service event.
- * @param rtp_oct_recv  The receive count.
- *****************************************************************************/
-void evel_service_local_rtp_oct_recv_set(EVENT_SERVICE * const event,
-                                         const int rtp_oct_recv);
-
-/**************************************************************************//**
- * Set the Local Rtp Octets Sent property of the Service event.
- *
- * @note  The property is treated as immutable: it is only valid to call
- *        the setter once.  However, we don't assert if the caller tries to
- *        overwrite, just ignoring the update instead.
- *
- * @param event         Pointer to the Service event.
- * @param rtp_oct_sent  The send count.
- *****************************************************************************/
-void evel_service_local_rtp_oct_sent_set(EVENT_SERVICE * const event,
-                                         const int rtp_oct_sent);
-
-/**************************************************************************//**
- * Set the Local Rtp Packets Discarded property of the Service event.
- *
- * @note  The property is treated as immutable: it is only valid to call
- *        the setter once.  However, we don't assert if the caller tries to
- *        overwrite, just ignoring the update instead.
- *
- * @param event         Pointer to the Service event.
- * @param rtp_pkt_disc  The discard count.
- *****************************************************************************/
-void evel_service_local_rtp_pkt_disc_set(EVENT_SERVICE * const event,
-                                         const int rtp_pkt_disc);
-
-/**************************************************************************//**
- * Set the Local Rtp Packets Received property of the Service event.
- *
- * @note  The property is treated as immutable: it is only valid to call
- *        the setter once.  However, we don't assert if the caller tries to
- *        overwrite, just ignoring the update instead.
- *
- * @param event         Pointer to the Service event.
- * @param rtp_pkt_recv  The receive count.
- *****************************************************************************/
-void evel_service_local_rtp_pkt_recv_set(EVENT_SERVICE * const event,
-                                         const int rtp_pkt_recv);
-
-/**************************************************************************//**
- * Set the Local Rtp Packets Sent property of the Service event.
- *
- * @note  The property is treated as immutable: it is only valid to call
- *        the setter once.  However, we don't assert if the caller tries to
- *        overwrite, just ignoring the update instead.
- *
- * @param event         Pointer to the Service event.
- * @param rtp_pkt_sent  The send count.
- *****************************************************************************/
-void evel_service_local_rtp_pkt_sent_set(EVENT_SERVICE * const event,
-                                         const int rtp_pkt_sent);
-
-/**************************************************************************//**
- * Set the Mos Cqe property of the Service event.
- *
- * @note  The property is treated as immutable: it is only valid to call
- *        the setter once.  However, we don't assert if the caller tries to
- *        overwrite, just ignoring the update instead.
- *
- * @param event         Pointer to the Service event.
- * @param mos_cqe       The mosCqe to be set.
- *****************************************************************************/
-void evel_service_mos_cqe_set(EVENT_SERVICE * const event,
-                              const double mos_cqe);
-
-/**************************************************************************//**
- * Set the Packets Lost property of the Service event.
- *
- * @note  The property is treated as immutable: it is only valid to call
- *        the setter once.  However, we don't assert if the caller tries to
- *        overwrite, just ignoring the update instead.
- *
- * @param event         Pointer to the Service event.
- * @param packets_lost  The number of packets lost to be set.
- *****************************************************************************/
-void evel_service_packets_lost_set(EVENT_SERVICE * const event,
-                                   const int packets_lost);
-
-/**************************************************************************//**
- * Set the packet Loss Percent property of the Service event.
- *
- * @note  The property is treated as immutable: it is only valid to call
- *        the setter once.  However, we don't assert if the caller tries to
- *        overwrite, just ignoring the update instead.
- *
- * @param event         Pointer to the Service event.
- * @param packet_loss_percent
- *                      The packet loss in percent.
- *****************************************************************************/
-void evel_service_packet_loss_percent_set(EVENT_SERVICE * const event,
-                                          const double packet_loss_percent);
-
-/**************************************************************************//**
- * Set the R Factor property of the Service event.
- *
- * @note  The property is treated as immutable: it is only valid to call
- *        the setter once.  However, we don't assert if the caller tries to
- *        overwrite, just ignoring the update instead.
- *
- * @param event         Pointer to the Service event.
- * @param r_factor      The R Factor to be set.
- *****************************************************************************/
-void evel_service_r_factor_set(EVENT_SERVICE * const event,
-                               const int r_factor);
-
-/**************************************************************************//**
- * Set the Round Trip Delay property of the Service event.
- *
- * @note  The property is treated as immutable: it is only valid to call
- *        the setter once.  However, we don't assert if the caller tries to
- *        overwrite, just ignoring the update instead.
- *
- * @param event         Pointer to the Service event.
- * @param round_trip_delay
- *                      The Round trip delay to be set.
- *****************************************************************************/
-void evel_service_round_trip_delay_set(EVENT_SERVICE * const event,
-                                       const int round_trip_delay);
-
-/**************************************************************************//**
- * Set the Phone Number property of the Service event.
- *
- * @note  The property is treated as immutable: it is only valid to call
- *        the setter once.  However, we don't assert if the caller tries to
- *        overwrite, just ignoring the update instead.
- *
- * @param event         Pointer to the Service event.
- * @param phone_number  The Phone Number to be set. ASCIIZ string. The caller
- *                      does not need to preserve the value once the function
- *                      returns.
- *****************************************************************************/
-void evel_service_phone_number_set(EVENT_SERVICE * const event,
-                                   const char * const phone_number);
-
-/**************************************************************************//**
- * Add a name/value pair to the Service, under the additionalFields array.
- *
- * The name and value are null delimited ASCII strings.  The library takes
- * a copy so the caller does not have to preserve values after the function
- * returns.
- *
- * @param event     Pointer to the Service event.
- * @param name      ASCIIZ string with the field's name.  The caller does not
- *                  need to preserve the value once the function returns.
- * @param value     ASCIIZ string with the field's value.  The caller does not
- *                  need to preserve the value once the function returns.
- *****************************************************************************/
-void evel_service_addl_field_add(EVENT_SERVICE * const event,
-                                 const char * const name,
-                                 const char * const value);
-
-/*****************************************************************************/
-/*****************************************************************************/
-/*                                                                           */
 /*   SIGNALING                                                               */
 /*                                                                           */
 /*****************************************************************************/
@@ -3117,15 +3340,20 @@ void evel_service_addl_field_add(EVENT_SERVICE * const event,
  *          this factory function and are immutable once set.  Optional fields
  *          have explicit setter functions, but again values may only be set
  *          once so that the event has immutable properties.
- * @param vendor_id     The vendor id to encode in the event instance id.
- * @param event_id      The vendor event id to encode in the event instance id.
+ * @param vendor_name   The vendor id to encode in the event vnf field.
+ * @param module        The module to encode in the event.
+ * @param vnfname       The Virtual network function to encode in the event.
  * @returns pointer to the newly manufactured ::EVENT_SIGNALING.  If the event
  *          is not used (i.e. posted) it must be released using
  *          ::evel_free_signaling.
  * @retval  NULL  Failed to create the event.
  *****************************************************************************/
-EVENT_SIGNALING * evel_new_signaling(const char * const vendor_id,
-                                     const char * const event_id);
+EVENT_SIGNALING * evel_new_signaling(const char * const vendor_name,
+                                     const char * const correlator,
+				     const char * const local_ip_address,
+				     const char * const local_port,
+				     const char * const remote_ip_address,
+				     const char * const remote_port);
 
 /**************************************************************************//**
  * Free a Signaling event.
@@ -3153,49 +3381,21 @@ void evel_signaling_type_set(EVENT_SIGNALING * const event,
                              const char * const type);
 
 /**************************************************************************//**
- * Set the Product Id property of the Signaling event.
+ * Add an additional value name/value pair to the SIP signaling.
  *
- * @note  The property is treated as immutable: it is only valid to call
- *        the setter once.  However, we don't assert if the caller tries to
- *        overwrite, just ignoring the update instead.
+ * The name and value are null delimited ASCII strings.  The library takes
+ * a copy so the caller does not have to preserve values after the function
+ * returns.
  *
- * @param event         Pointer to the Signaling event.
- * @param product_id    The vendor product id to be set. ASCIIZ string. The
- *                      caller does not need to preserve the value once the
- *                      function returns.
+ * @param event     Pointer to the fault.
+ * @param name      ASCIIZ string with the attribute's name.  The caller
+ *                  does not need to preserve the value once the function
+ *                  returns.
+ * @param value     ASCIIZ string with the attribute's value.  The caller
+ *                  does not need to preserve the value once the function
+ *                  returns.
  *****************************************************************************/
-void evel_signaling_product_id_set(EVENT_SIGNALING * const event,
-                                   const char * const product_id);
-
-/**************************************************************************//**
- * Set the Subsystem Id property of the Signaling event.
- *
- * @note  The property is treated as immutable: it is only valid to call
- *        the setter once.  However, we don't assert if the caller tries to
- *        overwrite, just ignoring the update instead.
- *
- * @param event         Pointer to the Signaling event.
- * @param subsystem_id  The vendor subsystem id to be set. ASCIIZ string. The
- *                      caller does not need to preserve the value once the
- *                      function returns.
- *****************************************************************************/
-void evel_signaling_subsystem_id_set(EVENT_SIGNALING * const event,
-                                     const char * const subsystem_id);
-
-/**************************************************************************//**
- * Set the Friendly Name property of the Signaling event.
- *
- * @note  The property is treated as immutable: it is only valid to call
- *        the setter once.  However, we don't assert if the caller tries to
- *        overwrite, just ignoring the update instead.
- *
- * @param event         Pointer to the Signaling event.
- * @param friendly_name The vendor friendly name to be set. ASCIIZ string. The
- *                      caller does not need to preserve the value once the
- *                      function returns.
- *****************************************************************************/
-void evel_signaling_friendly_name_set(EVENT_SIGNALING * const event,
-                                      const char * const friendly_name);
+void evel_signaling_addl_info_add(EVENT_SIGNALING * event, char * name, char * value);
 
 /**************************************************************************//**
  * Set the Correlator property of the Signaling event.
@@ -3273,6 +3473,34 @@ void evel_signaling_remote_ip_address_set(EVENT_SIGNALING * const event,
  *****************************************************************************/
 void evel_signaling_remote_port_set(EVENT_SIGNALING * const event,
                                     const char * const remote_port);
+/**************************************************************************//**
+ * Set the Vendor module property of the Signaling event.
+ *
+ * @note  The property is treated as immutable: it is only valid to call
+ *        the setter once.  However, we don't assert if the caller tries to
+ *        overwrite, just ignoring the update instead.
+ *
+ * @param event         Pointer to the Signaling event.
+ * @param modulename    The module name to be set. ASCIIZ string. The caller
+ *                      does not need to preserve the value once the function
+ *                      returns.
+ *****************************************************************************/
+void evel_signaling_vnfmodule_name_set(EVENT_SIGNALING * const event,
+                                    const char * const module_name);
+/**************************************************************************//**
+ * Set the Vendor module property of the Signaling event.
+ *
+ * @note  The property is treated as immutable: it is only valid to call
+ *        the setter once.  However, we don't assert if the caller tries to
+ *        overwrite, just ignoring the update instead.
+ *
+ * @param event         Pointer to the Signaling event.
+ * @param vnfname       The Virtual Network function to be set. ASCIIZ string.
+ *                      The caller does not need to preserve the value once
+ *                      the function returns.
+ *****************************************************************************/
+void evel_signaling_vnfname_set(EVENT_SIGNALING * const event,
+                                    const char * const vnfname);
 
 /**************************************************************************//**
  * Set the Compressed SIP property of the Signaling event.
@@ -3304,6 +3532,7 @@ void evel_signaling_compressed_sip_set(EVENT_SIGNALING * const event,
  *****************************************************************************/
 void evel_signaling_summary_sip_set(EVENT_SIGNALING * const event,
                                     const char * const summary_sip);
+
 
 /*****************************************************************************/
 /*****************************************************************************/
@@ -3398,6 +3627,7 @@ void evel_state_change_addl_field_add(EVENT_STATE_CHANGE * const state_change,
  * @param   event_source_type
  * @param   syslog_msg
  * @param   syslog_tag
+ * @param   version
  *
  * @returns pointer to the newly manufactured ::EVENT_SYSLOG.  If the event is
  *          not used it must be released using ::evel_free_syslog
@@ -3532,6 +3762,35 @@ void evel_syslog_version_set(EVENT_SYSLOG * syslog, int version);
  *****************************************************************************/
 void evel_syslog_s_data_set(EVENT_SYSLOG * syslog, const char * const s_data);
 
+/**************************************************************************//**
+ * Set the Structured SDID property of the Syslog.
+ *
+ * @note  The property is treated as immutable: it is only valid to call
+ *        the setter once.  However, we don't assert if the caller tries to
+ *        overwrite, just ignoring the update instead.
+ *
+ * @param syslog     Pointer to the Syslog.
+ * @param sdid     The Structured Data to be set. ASCIIZ string. name@number
+ *                 Caller does not need to preserve the value once the function
+ *                   returns.
+ *****************************************************************************/
+void evel_syslog_sdid_set(EVENT_SYSLOG * syslog, const char * const sdid);
+
+/**************************************************************************//**
+ * Set the Structured Severity property of the Syslog.
+ *
+ * @note  The property is treated as immutable: it is only valid to call
+ *        the setter once.  However, we don't assert if the caller tries to
+ *        overwrite, just ignoring the update instead.
+ *
+ * @param syslog     Pointer to the Syslog.
+ * @param sdid     The Structured Data to be set. ASCIIZ string. 
+ *                 Caller does not need to preserve the value once the function
+ *                   returns.
+ *****************************************************************************/
+void evel_syslog_severity_set(EVENT_SYSLOG * syslog, const char * const severty);
+
+
 /*****************************************************************************/
 /*****************************************************************************/
 /*                                                                           */
@@ -3608,6 +3867,273 @@ void evel_other_field_add(EVENT_OTHER * other,
 int evel_get_measurement_interval();
 
 /*****************************************************************************/
+/* Supported Report version.                                                 */
+/*****************************************************************************/
+#define EVEL_VOICEQ_MAJOR_VERSION 1
+#define EVEL_VOICEQ_MINOR_VERSION 1
+
+/**************************************************************************//**
+* Voice QUality.
+* JSON equivalent field: voiceQualityFields
+*****************************************************************************/
+
+typedef struct event_voiceQuality {
+	/***************************************************************************/
+	/* Header and version                                                      */
+	/***************************************************************************/
+	EVENT_HEADER header;
+	int major_version;
+	int minor_version;
+
+	/***************************************************************************/
+	/* Mandatory fields                                                        */
+	/***************************************************************************/
+	
+	char *calleeSideCodec;
+	char *callerSideCodec;
+	char *correlator;
+	char *midCallRtcp;
+	VENDOR_VNFNAME_FIELD vendorVnfNameFields;
+
+	/***************************************************************************/
+	/* Optional fields                                                         */
+	/***************************************************************************/
+	EVEL_OPTION_STRING phoneNumber;
+	DLIST additionalInformation;
+	DLIST endOfCallVqmSummaries;
+
+} EVENT_VOICE_QUALITY;
+
+/**************************************************************************//**
+ * End of Call Voice Quality Metrices
+ * JSON equivalent field: endOfCallVqmSummaries
+ *****************************************************************************/
+typedef struct end_of_call_vqm_summaries {
+	/***************************************************************************/
+	/* Mandatory fields                                                        */
+	/***************************************************************************/
+	char* adjacencyName;
+	char* endpointDescription;
+
+	/***************************************************************************/
+	/* Optional fields                                                         */
+	/***************************************************************************/
+	EVEL_OPTION_INT endpointJitter;
+	EVEL_OPTION_INT endpointRtpOctetsDiscarded;
+	EVEL_OPTION_INT endpointRtpOctetsReceived;
+	EVEL_OPTION_INT endpointRtpOctetsSent;
+	EVEL_OPTION_INT endpointRtpPacketsDiscarded;
+	EVEL_OPTION_INT endpointRtpPacketsReceived;
+	EVEL_OPTION_INT endpointRtpPacketsSent;
+	EVEL_OPTION_INT localJitter;
+	EVEL_OPTION_INT localRtpOctetsDiscarded;
+	EVEL_OPTION_INT localRtpOctetsReceived;
+	EVEL_OPTION_INT localRtpOctetsSent;
+	EVEL_OPTION_INT localRtpPacketsDiscarded;
+	EVEL_OPTION_INT localRtpPacketsReceived;
+	EVEL_OPTION_INT localRtpPacketsSent;
+	EVEL_OPTION_INT mosCqe;
+	EVEL_OPTION_INT packetsLost;
+	EVEL_OPTION_INT packetLossPercent;
+	EVEL_OPTION_INT rFactor;
+	EVEL_OPTION_INT roundTripDelay;
+
+} END_OF_CALL_VOICE_QUALITY_METRICS;
+
+/**************************************************************************//**
+ * Voice Quality Additional Info.
+ * JSON equivalent field: additionalInformation
+ *****************************************************************************/
+typedef struct voice_quality_additional_info {
+  char * name;
+  char * value;
+} VOICE_QUALITY_ADDL_INFO;
+
+/**************************************************************************//**
+ * Create a new voice quality event.
+ *
+ * @note    The mandatory fields on the Voice Quality must be supplied to this 
+ *          factory function and are immutable once set.  Optional fields have 
+ *          explicit setter functions, but again values may only be set once 
+ *          so that the Voice Quality has immutable properties.
+ * @param   calleeSideCodec			Callee codec for the call.
+ * @param   callerSideCodec			Caller codec for the call.
+ * @param   correlator				Constant across all events on this call.
+ * @param   midCallRtcp				Base64 encoding of the binary RTCP data
+ *									(excluding Eth/IP/UDP headers).
+ * @param   vendorVnfNameFields		Vendor, VNF and VfModule names.
+ * @returns pointer to the newly manufactured ::EVENT_VOICE_QUALITY.  If the 
+ *          event is not used (i.e. posted) it must be released using
+			::evel_free_voice_quality.
+ * @retval  NULL  Failed to create the event.
+ *****************************************************************************/
+EVENT_VOICE_QUALITY * evel_new_voice_quality(const char * const calleeSideCodec,
+	const char * const callerSideCodec, const char * const correlator,
+	const char * const midCallRtcp, const char * const vendorVnfNameFields);
+
+/**************************************************************************//**
+ * Set the Callee side codec for Call for domain Voice Quality
+ *
+ * @note  The property is treated as immutable: it is only valid to call
+ *        the setter once.  However, we don't assert if the caller tries to
+ *        overwrite, just ignoring the update instead.
+ *
+ * @param voiceQuality				Pointer to the Voice Quality Event.
+ * @param calleeCodecForCall		The Callee Side Codec to be set.  ASCIIZ 
+ *									string. The caller does not need to 
+ *									preserve the value once the function
+ *									returns.
+ *****************************************************************************/
+void evel_voice_quality_callee_codec_set(EVENT_VOICE_QUALITY * voiceQuality,
+									const char * const calleeCodecForCall);
+
+/**************************************************************************//**
+ * Set the Caller side codec for Call for domain Voice Quality
+ *
+ * @note  The property is treated as immutable: it is only valid to call
+ *        the setter once.  However, we don't assert if the caller tries to
+ *        overwrite, just ignoring the update instead.
+ *
+ * @param voiceQuality				Pointer to the Voice Quality Event.
+ * @param callerCodecForCall		The Caller Side Codec to be set.  ASCIIZ 
+ *									string. The caller does not need to 
+ *									preserve the value once the function
+ *									returns.
+ *****************************************************************************/
+void evel_voice_quality_caller_codec_set(EVENT_VOICE_QUALITY * voiceQuality,
+									const char * const callerCodecForCall);
+
+/**************************************************************************//**
+ * Set the correlator for domain Voice Quality
+ *
+ * @note  The property is treated as immutable: it is only valid to call
+ *        the setter once.  However, we don't assert if the caller tries to
+ *        overwrite, just ignoring the update instead.
+ *
+ * @param voiceQuality				Pointer to the Voice Quality Event.
+ * @param correlator				The correlator value to be set.  ASCIIZ 
+ *									string. The caller does not need to 
+ *									preserve the value once the function
+ *									returns.
+ *****************************************************************************/
+void evel_voice_quality_correlator_set(EVENT_VOICE_QUALITY * voiceQuality,
+									const char * const vCorrelator);
+
+/**************************************************************************//**
+ * Set the RTCP Call Data for domain Voice Quality
+ *
+ * @note  The property is treated as immutable: it is only valid to call
+ *        the setter once.  However, we don't assert if the caller tries to
+ *        overwrite, just ignoring the update instead.
+ *
+ * @param voiceQuality				Pointer to the Voice Quality Event.
+ * @param rtcpCallData		        The RTCP Call Data to be set.  ASCIIZ 
+ *									string. The caller does not need to 
+ *									preserve the value once the function
+ *									returns.
+ *****************************************************************************/
+void evel_voice_quality_rtcp_data_set(EVENT_VOICE_QUALITY * voiceQuality,
+									const char * const rtcpCallData);
+
+/**************************************************************************//**
+ * Set the Vendor VNF Name fields for domain Voice Quality
+ *
+ * @note  The property is treated as immutable: it is only valid to call
+ *        the setter once.  However, we don't assert if the caller tries to
+ *        overwrite, just ignoring the update instead.
+ *
+ * @param voiceQuality				Pointer to the Voice Quality Event.
+ * @param nameFields		        The Vendor, VNF and VfModule names to be set.   
+ *									ASCIIZ string. The caller does not need to 
+ *									preserve the value once the function
+ *									returns.
+ *****************************************************************************/
+void evel_voice_quality_name_fields_set(EVENT_VOICE_QUALITY * voiceQuality,
+									const char * const nameFields);
+
+/**************************************************************************//**
+ * Add an End of Call Voice Quality Metrices
+
+ * The adjacencyName and endpointDescription is null delimited ASCII string.  
+ * The library takes a copy so the caller does not have to preserve values
+ * after the function returns.
+ *
+ * @param voiceQuality     Pointer to the measurement.
+ * @param adjacencyName						Adjacency name
+ * @param endpointDescription				Enumeration: ‘Caller’, ‘Callee’.
+ * @param endpointJitter					Endpoint jitter
+ * @param endpointRtpOctetsDiscarded        Endpoint RTP octets discarded.
+ * @param endpointRtpOctetsReceived			Endpoint RTP octets received.
+ * @param endpointRtpOctetsSent				Endpoint RTP octets sent
+ * @param endpointRtpPacketsDiscarded		Endpoint RTP packets discarded.
+ * @param endpointRtpPacketsReceived		Endpoint RTP packets received.
+ * @param endpointRtpPacketsSent			Endpoint RTP packets sent.
+ * @param localJitter						Local jitter.
+ * @param localRtpOctetsDiscarded			Local RTP octets discarded.
+ * @param localRtpOctetsReceived			Local RTP octets received.
+ * @param localRtpOctetsSent				Local RTP octets sent.
+ * @param localRtpPacketsDiscarded			Local RTP packets discarded.
+ * @param localRtpPacketsReceived			Local RTP packets received.
+ * @param localRtpPacketsSent				Local RTP packets sent.
+ * @param mosCqe							Decimal range from 1 to 5
+ *											(1 decimal place)
+ * @param packetsLost						No	Packets lost
+ * @param packetLossPercent					Calculated percentage packet loss 
+ * @param rFactor							rFactor from 0 to 100
+ * @param roundTripDelay					Round trip delay in milliseconds
+ *****************************************************************************/
+void evel_voice_quality_end_metrics_add(EVENT_VOICE_QUALITY * voiceQuality,
+	const char * adjacencyName, EVEL_SERVICE_ENDPOINT_DESC endpointDescription,
+	int endpointJitter,
+	int endpointRtpOctetsDiscarded,
+	int endpointRtpOctetsReceived,
+	int endpointRtpOctetsSent,
+	int endpointRtpPacketsDiscarded,
+	int endpointRtpPacketsReceived,
+	int endpointRtpPacketsSent,
+	int localJitter,
+	int localRtpOctetsDiscarded,
+	int localRtpOctetsReceived,
+	int localRtpOctetsSent,
+	int localRtpPacketsDiscarded,
+	int localRtpPacketsReceived,
+	int localRtpPacketsSent,
+	int mosCqe,
+	int packetsLost,
+	int packetLossPercent,
+	int rFactor,
+	int roundTripDelay);
+
+/**************************************************************************//**
+ * Free a Voice Quality.
+ *
+ * Free off the Voce Quality supplied.  Will free all the contained allocated
+ * memory.
+ *
+ * @note It does not free the Voice Quality itself, since that may be part of a
+ * larger structure.
+ *****************************************************************************/
+void evel_free_voice_quality(EVENT_VOICE_QUALITY * voiceQuality);
+
+/**************************************************************************//**
+ * Add an additional value name/value pair to the Voice Quality.
+ *
+ * The name and value are null delimited ASCII strings.  The library takes
+ * a copy so the caller does not have to preserve values after the function
+ * returns.
+ *
+ * @param fault     Pointer to the fault.
+ * @param name      ASCIIZ string with the attribute's name.  The caller
+ *                  does not need to preserve the value once the function
+ *                  returns.
+ * @param value     ASCIIZ string with the attribute's value.  The caller
+ *                  does not need to preserve the value once the function
+ *                  returns.
+ *****************************************************************************/
+void evel_voice_quality_addl_info_add(EVENT_VOICE_QUALITY * voiceQuality, char * name, char * value);
+
+
+/*****************************************************************************/
 /*****************************************************************************/
 /*                                                                           */
 /*   LOGGING                                                                 */
@@ -3675,3 +4201,4 @@ void log_error_state(char * format, ...);
 #endif
 
 #endif
+

@@ -86,7 +86,7 @@ EVENT_INTERNAL * evel_new_internal_event(EVT_HANDLER_COMMAND command)
   /***************************************************************************/
   /* Initialize the header & the event fields.                               */
   /***************************************************************************/
-  evel_init_header(&event->header);
+  evel_init_header(&event->header,NULL);
   event->header.event_domain = EVEL_DOMAIN_INTERNAL;
   event->command = command;
 

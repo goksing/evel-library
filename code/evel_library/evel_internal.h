@@ -252,24 +252,6 @@ EVENT_INTERNAL * evel_new_internal_event(EVT_HANDLER_COMMAND command);
  *****************************************************************************/
 void evel_free_internal_event(EVENT_INTERNAL * event);
 
-/**************************************************************************//**
- * Initialize an event instance id, typically embedded in an event.
- *
- * @param instance_id   Pointer to the event instance id being initialized.
- * @param vendor_id     The vendor id to encode in the event instance id.
- * @param event_id      The event id to encode in the event instance id.
- *****************************************************************************/
-void evel_init_event_instance_id(EVEL_EVENT_INSTANCE_ID * const instance_id,
-                                 const char * const vendor_id,
-                                 const char * const event_id);
-
-/**************************************************************************//**
- * Free an event instance id.
- *
- * @param instance_id   Pointer to the event instance id being initialized.
- *****************************************************************************/
-void evel_free_event_instance_id(EVEL_EVENT_INSTANCE_ID * const instance_id);
-
 /*****************************************************************************/
 /* Structure to hold JSON buffer and associated tracking, as it is written.  */
 /*****************************************************************************/
@@ -304,15 +286,6 @@ typedef struct evel_json_buffer
  *****************************************************************************/
 void evel_json_encode_header(EVEL_JSON_BUFFER * jbuf,
                              EVENT_HEADER * event);
-
-/**************************************************************************//**
- * Encode the instance id as a JSON object according to AT&T's schema.
- *
- * @param jbuf          Pointer to the ::EVEL_JSON_BUFFER to encode into.
- * @param instance_id   Pointer to the ::EVEL_EVENT_INSTANCE_ID to encode.
- *****************************************************************************/
-void evel_json_encode_instance_id(EVEL_JSON_BUFFER * jbuf,
-                                  EVEL_EVENT_INSTANCE_ID * instance_id);
 
 /**************************************************************************//**
  * Encode the fault in JSON according to AT&T's schema for the fault type.
@@ -352,14 +325,14 @@ void evel_json_encode_report(EVEL_JSON_BUFFER * jbuf,
                              EVENT_REPORT * event);
 
 /**************************************************************************//**
- * Encode the Service Event in JSON according to AT&T's schema for the event
- * type.
+ * Encode the Heartbeat fields in JSON according to AT&T's schema for the
+ * event type.
  *
  * @param jbuf          Pointer to the ::EVEL_JSON_BUFFER to encode into.
  * @param event         Pointer to the ::EVENT_HEADER to encode.
  *****************************************************************************/
-void evel_json_encode_service(EVEL_JSON_BUFFER * const jbuf,
-                              EVENT_SERVICE * const event);
+void evel_json_encode_hrtbt_field(EVEL_JSON_BUFFER * const jbuf,
+                                EVENT_HEARTBEAT_FIELD * const event);
 
 /**************************************************************************//**
  * Encode the Signaling in JSON according to AT&T's schema for the event type.
@@ -863,5 +836,37 @@ char * evel_entity_state(const EVEL_ENTITY_STATE state);
  * @returns the corresponding string
  *****************************************************************************/
 char * evel_service_endpoint_desc(const EVEL_ENTITY_STATE endpoint_desc);
+
+
+/**************************************************************************//**
+ * Initialize an ::EVEL_OPTION_INTHEADER_FIELDS to a not-set state.
+ *
+ * @param option        Pointer to the ::EVEL_OPTION_INTHEADER_FIELDS.
+ *****************************************************************************/
+void evel_init_option_intheader(EVEL_OPTION_INTHEADER_FIELDS * const option);
+/**************************************************************************//**
+ * Force the value of an ::EVEL_OPTION_INTHEADER_FIELDS.
+ *
+ * @param option        Pointer to the ::EVEL_OPTION_INTHEADER_FIELDS.
+ * @param value         The value to set.
+ *****************************************************************************/
+void evel_force_option_intheader(EVEL_OPTION_INTHEADER_FIELDS * const option,
+                           const void* value);
+/**************************************************************************//**
+ * Set the value of an ::EVEL_OPTION_INTHEADER_FIELDS.
+ *
+ * @param option        Pointer to the ::EVEL_OPTION_INTHEADER_FIELDS.
+ * @param value         The value to set.
+ * @param description   Description to be used in logging.
+ *****************************************************************************/
+void evel_set_option_intheader(EVEL_OPTION_INTHEADER_FIELDS * const option,
+                         const void * value,
+                         const char * const description);
+/**************************************************************************//**
+ * Free the underlying resources of an ::EVEL_OPTION_INTHEADER_FIELDS.
+ *
+ * @param option        Pointer to the ::EVEL_OPTION_INTHEADER_FIELDS.
+ *****************************************************************************/
+void evel_free_option_intheader(EVEL_OPTION_INTHEADER_FIELDS * const option);
 
 #endif

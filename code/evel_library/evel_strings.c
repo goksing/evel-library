@@ -224,12 +224,12 @@ char * evel_event_domain(const EVEL_EVENT_DOMAINS domain)
       result = "mobileFlow";
       break;
 
-    case EVEL_DOMAIN_SERVICE:
-      result = "serviceEvents";
+    case EVEL_DOMAIN_HEARTBEAT_FIELD:
+      result = "heartbeat";
       break;
 
-    case EVEL_DOMAIN_SIGNALING:
-      result = "signaling";
+    case EVEL_DOMAIN_SIPSIGNALING:
+      result = "sipSignaling";
       break;
 
     case EVEL_DOMAIN_STATE_CHANGE:
@@ -242,6 +242,10 @@ char * evel_event_domain(const EVEL_EVENT_DOMAINS domain)
 
     case EVEL_DOMAIN_OTHER:
       result = "other";
+      break;
+
+    case EVEL_DOMAIN_VOICE_QUALITY:
+      result = "voiceQuality";
       break;
 
     default:

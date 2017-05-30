@@ -351,14 +351,14 @@ void evel_free_event(void * event)
       free(evt_ptr);
       break;
 
-    case EVEL_DOMAIN_SERVICE:
-      EVEL_DEBUG("Event is a Service Event at %lp", evt_ptr);
-      evel_free_service((EVENT_SERVICE *)evt_ptr);
-      memset(evt_ptr, 0, sizeof(EVENT_SERVICE));
+    case EVEL_DOMAIN_HEARTBEAT_FIELD:
+      EVEL_DEBUG("Event is a Heartbeat Field Event at %lp", evt_ptr);
+      evel_free_hrtbt_field((EVENT_HEARTBEAT_FIELD *)evt_ptr);
+      memset(evt_ptr, 0, sizeof(EVENT_HEARTBEAT_FIELD));
       free(evt_ptr);
       break;
 
-    case EVEL_DOMAIN_SIGNALING:
+    case EVEL_DOMAIN_SIPSIGNALING:
       EVEL_DEBUG("Event is a Signaling at %lp", evt_ptr);
       evel_free_signaling((EVENT_SIGNALING *)evt_ptr);
       memset(evt_ptr, 0, sizeof(EVENT_SIGNALING));
@@ -383,6 +383,13 @@ void evel_free_event(void * event)
       EVEL_DEBUG("Event is an Other at %lp", evt_ptr);
       evel_free_other((EVENT_OTHER *)evt_ptr);
       memset(evt_ptr, 0, sizeof(EVENT_OTHER));
+      free(evt_ptr);
+      break;
+
+    case EVEL_DOMAIN_VOICE_QUALITY:
+      EVEL_DEBUG("Event is an VoiceQuality at %lp", evt_ptr);
+      evel_free_voice_quality((EVENT_VOICE_QUALITY *)evt_ptr);
+      memset(evt_ptr, 0, sizeof(EVENT_VOICE_QUALITY));
       free(evt_ptr);
       break;
 

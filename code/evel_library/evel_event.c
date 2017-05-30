@@ -96,7 +96,7 @@ EVENT_HEADER * evel_new_heartbeat()
   /* any memory allocation fails in here we will fail gracefully because     */
   /* everything downstream can cope with NULLs.                              */
   /***************************************************************************/
-  evel_init_header(heartbeat);
+  evel_init_header(heartbeat,"Heartbeat");
   evel_force_option_string(&heartbeat->event_type, "Autonomous heartbeat");
 
 exit_label:
@@ -109,7 +109,7 @@ exit_label:
  *
  * @param header  Pointer to the header being initialized.
  *****************************************************************************/
-void evel_init_header(EVENT_HEADER * const header)
+void evel_init_header(EVENT_HEADER * const header,const char *const eventname)
 {
   char scratchpad[EVEL_MAX_STRING_LEN + 1] = {0};
   struct timeval tv;
@@ -128,7 +128,10 @@ void evel_init_header(EVENT_HEADER * const header)
   header->event_domain = EVEL_DOMAIN_HEARTBEAT;
   snprintf(scratchpad, EVEL_MAX_STRING_LEN, "%d", event_sequence);
   header->event_id = strdup(scratchpad);
-  header->functional_role = strdup(functional_role);
+  if( eventname == NULL )
+     header->event_name = strdup(functional_role);
+  else
+     header->event_name = strdup(eventname);
   header->last_epoch_microsec = tv.tv_usec + 1000000 * tv.tv_sec;
   header->priority = EVEL_PRIORITY_NORMAL;
   header->reporting_entity_name = strdup(openstack_vm_name());
@@ -143,8 +146,11 @@ void evel_init_header(EVENT_HEADER * const header)
   /* Optional parameters.                                                    */
   /***************************************************************************/
   evel_init_option_string(&header->event_type);
+  evel_init_option_string(&header->nfcnaming_code);
+  evel_init_option_string(&header->nfnaming_code);
   evel_force_option_string(&header->reporting_entity_id, openstack_vm_uuid());
   evel_force_option_string(&header->source_id, openstack_vm_uuid());
+  evel_init_option_intheader(&header->internal_field);
 
   EVEL_EXIT();
 }
@@ -222,6 +228,49 @@ void evel_last_epoch_set(EVENT_HEADER * const header,
 
   EVEL_EXIT();
 }
+
+/**************************************************************************//**
+ * Set the NFC Naming code property of the event header.
+ *
+ * @param header        Pointer to the ::EVENT_HEADER.
+ * @param nfcnamingcode String
+ *****************************************************************************/
+void evel_nfcnamingcode_set(EVENT_HEADER * const header,
+                         const char * const nfcnam)
+{
+  EVEL_ENTER();
+
+  /***************************************************************************/
+  /* Check preconditions and assign the new value.                           */
+  /***************************************************************************/
+  assert(header != NULL);
+  assert(nfcnam != NULL);
+  evel_set_option_string(&header->nfcnaming_code, nfcnam, "NFC Naming Code");
+
+  EVEL_EXIT();
+}
+
+/**************************************************************************//**
+ * Set the NF Naming code property of the event header.
+ *
+ * @param header        Pointer to the ::EVENT_HEADER.
+ * @param nfnamingcode String
+ *****************************************************************************/
+void evel_nfnamingcode_set(EVENT_HEADER * const header,
+                         const char * const nfnam)
+{
+  EVEL_ENTER();
+
+  /***************************************************************************/
+  /* Check preconditions and assign the new value.                           */
+  /***************************************************************************/
+  assert(header != NULL);
+  assert(nfnam != NULL);
+  evel_set_option_string(&header->nfnaming_code, nfnam, "NF Naming Code");
+
+  EVEL_EXIT();
+}
+
 
 /**************************************************************************//**
  * Set the Reporting Entity Name property of the event header.
@@ -313,7 +362,7 @@ void evel_json_encode_header(EVEL_JSON_BUFFER * jbuf,
   /***************************************************************************/
   evel_enc_kv_string(jbuf, "domain", domain);
   evel_enc_kv_string(jbuf, "eventId", event->event_id);
-  evel_enc_kv_string(jbuf, "functionalRole", event->functional_role);
+  evel_enc_kv_string(jbuf, "eventName", event->event_name);
   evel_enc_kv_ull(jbuf, "lastEpochMicrosec", event->last_epoch_microsec);
   evel_enc_kv_string(jbuf, "priority", priority);
   evel_enc_kv_string(
@@ -331,6 +380,8 @@ void evel_json_encode_header(EVEL_JSON_BUFFER * jbuf,
   evel_enc_kv_opt_string(
     jbuf, "reportingEntityId", &event->reporting_entity_id);
   evel_enc_kv_opt_string(jbuf, "sourceId", &event->source_id);
+  evel_enc_kv_opt_string(jbuf, "nfcNamingCode", &event->nfcnaming_code);
+  evel_enc_kv_opt_string(jbuf, "nfNamingCode", &event->nfnaming_code);
 
   evel_json_close_object(jbuf);
 
@@ -361,10 +412,13 @@ void evel_free_header(EVENT_HEADER * const event)
   /***************************************************************************/
   free(event->event_id);
   evel_free_option_string(&event->event_type);
-  free(event->functional_role);
+  free(event->event_name);
   evel_free_option_string(&event->reporting_entity_id);
   free(event->reporting_entity_name);
   evel_free_option_string(&event->source_id);
+  evel_free_option_string(&event->nfcnaming_code);
+  evel_free_option_string(&event->nfnaming_code);
+  evel_free_option_intheader(&event->internal_field);
   free(event->source_name);
 
   EVEL_EXIT();
@@ -422,11 +476,11 @@ int evel_json_encode_event(char * json,
       evel_json_encode_report(jbuf, (EVENT_REPORT *)event);
       break;
 
-    case EVEL_DOMAIN_SERVICE:
-      evel_json_encode_service(jbuf, (EVENT_SERVICE *)event);
+    case EVEL_DOMAIN_HEARTBEAT_FIELD:
+      evel_json_encode_hrtbt_field(jbuf, (EVENT_HEARTBEAT_FIELD *)event);
       break;
 
-    case EVEL_DOMAIN_SIGNALING:
+    case EVEL_DOMAIN_SIPSIGNALING:
       evel_json_encode_signaling(jbuf, (EVENT_SIGNALING *)event);
       break;
 
@@ -440,6 +494,10 @@ int evel_json_encode_event(char * json,
 
     case EVEL_DOMAIN_OTHER:
       evel_json_encode_other(jbuf, (EVENT_OTHER *)event);
+      break;
+
+    case EVEL_DOMAIN_VOICE_QUALITY:
+      evel_json_encode_other(jbuf, (EVENT_VOICE_QUALITY *)event);
       break;
 
     case EVEL_DOMAIN_INTERNAL:
@@ -461,38 +519,91 @@ int evel_json_encode_event(char * json,
   return jbuf->offset;
 }
 
+
 /**************************************************************************//**
  * Initialize an event instance id.
  *
- * @param instance_id   Pointer to the event instance id being initialized.
+ * @param vfield        Pointer to the event vnfname field being initialized.
  * @param vendor_id     The vendor id to encode in the event instance id.
  * @param event_id      The event id to encode in the event instance id.
  *****************************************************************************/
-void evel_init_event_instance_id(EVEL_EVENT_INSTANCE_ID * const instance_id,
-                                 const char * const vendor_id,
-                                 const char * const event_id)
+void evel_init_vendor_field(VENDOR_VNFNAME_FIELD * const vfield,
+                                 const char * const vendor_name)
 {
   EVEL_ENTER();
 
   /***************************************************************************/
   /* Check preconditions.                                                    */
   /***************************************************************************/
-  assert(instance_id != NULL);
-  assert(vendor_id != NULL);
-  assert(event_id != NULL);
+  assert(vfield != NULL);
+  assert(vendor_name != NULL);
 
   /***************************************************************************/
   /* Store the mandatory parts.                                              */
   /***************************************************************************/
-  instance_id->vendor_id = strdup(vendor_id);
-  instance_id->event_id = strdup(event_id);
+  vfield->vendorname = strdup(vendor_name);
+  evel_init_option_string(&vfield->vfmodule);
+  evel_init_option_string(&vfield->vnfname);
 
   /***************************************************************************/
   /* Initialize the optional parts.                                          */
   /***************************************************************************/
-  evel_init_option_string(&instance_id->product_id);
-  evel_init_option_string(&instance_id->subsystem_id);
-  evel_init_option_string(&instance_id->event_friendly_name);
+
+  EVEL_EXIT();
+}
+
+/**************************************************************************//**
+ * Set the Vendor module property of the Vendor.
+ *
+ * @note  The property is treated as immutable: it is only valid to call
+ *        the setter once.  However, we don't assert if the caller tries to
+ *        overwrite, just ignoring the update instead.
+ *
+ * @param vfield        Pointer to the Vendor field.
+ * @param module_name   The module name to be set. ASCIIZ string. The caller
+ *                      does not need to preserve the value once the function
+ *                      returns.
+ *****************************************************************************/
+void evel_vendor_field_module_set(VENDOR_VNFNAME_FIELD * const vfield,
+                                    const char * const module_name)
+{
+  EVEL_ENTER();
+
+  /***************************************************************************/
+  /* Check preconditions.                                                    */
+  /***************************************************************************/
+  assert(vfield != NULL);
+  assert(module_name != NULL);
+
+  evel_set_option_string(&vfield->vfmodule, module_name, "Module name set");
+
+  EVEL_EXIT();
+}
+
+/**************************************************************************//**
+ * Set the Vendor module property of the Vendor.
+ *
+ * @note  The property is treated as immutable: it is only valid to call
+ *        the setter once.  However, we don't assert if the caller tries to
+ *        overwrite, just ignoring the update instead.
+ *
+ * @param vfield        Pointer to the Vendor field.
+ * @param module_name   The module name to be set. ASCIIZ string. The caller
+ *                      does not need to preserve the value once the function
+ *                      returns.
+ *****************************************************************************/
+void evel_vendor_field_vnfname_set(VENDOR_VNFNAME_FIELD * const vfield,
+                                    const char * const vnfname)
+{
+  EVEL_ENTER();
+
+  /***************************************************************************/
+  /* Check preconditions.                                                    */
+  /***************************************************************************/
+  assert(vfield != NULL);
+  assert(vnfname != NULL);
+
+  evel_set_option_string(&vfield->vnfname, vnfname, "Virtual Network Function name set");
 
   EVEL_EXIT();
 }
@@ -500,27 +611,23 @@ void evel_init_event_instance_id(EVEL_EVENT_INSTANCE_ID * const instance_id,
 /**************************************************************************//**
  * Free an event instance id.
  *
- * @param instance_id   Pointer to the event instance id being initialized.
+ * @param vfield   Pointer to the event vnfname_field being freed.
  *****************************************************************************/
-void evel_free_event_instance_id(EVEL_EVENT_INSTANCE_ID * const instance_id)
+void evel_free_event_vendor_field(VENDOR_VNFNAME_FIELD * const vfield)
 {
   EVEL_ENTER();
 
   /***************************************************************************/
   /* Check preconditions.                                                    */
   /***************************************************************************/
-  assert(instance_id != NULL);
-  assert(instance_id->vendor_id != NULL);
-  assert(instance_id->event_id != NULL);
+  assert(vfield->vendorname != NULL);
 
   /***************************************************************************/
   /* Free everything.                                                        */
   /***************************************************************************/
-  free(instance_id->vendor_id);
-  free(instance_id->event_id);
-  evel_free_option_string(&instance_id->product_id);
-  evel_free_option_string(&instance_id->subsystem_id);
-  evel_free_option_string(&instance_id->event_friendly_name);
+  evel_free_option_string(&vfield->vfmodule);
+  evel_free_option_string(&vfield->vnfname);
+  free(vfield->vendorname);
 
   EVEL_EXIT();
 }
@@ -529,10 +636,10 @@ void evel_free_event_instance_id(EVEL_EVENT_INSTANCE_ID * const instance_id)
  * Encode the instance id as a JSON object according to AT&T's schema.
  *
  * @param jbuf          Pointer to the ::EVEL_JSON_BUFFER to encode into.
- * @param instance_id   Pointer to the ::EVEL_EVENT_INSTANCE_ID to encode.
+ * @param vfield        Pointer to the ::VENDOR_VNFNAME_FIELD to encode.
  *****************************************************************************/
-void evel_json_encode_instance_id(EVEL_JSON_BUFFER * jbuf,
-                                  EVEL_EVENT_INSTANCE_ID * instance_id)
+void evel_json_encode_vendor_field(EVEL_JSON_BUFFER * jbuf,
+                                  VENDOR_VNFNAME_FIELD * vfield)
 {
   EVEL_ENTER();
 
@@ -542,25 +649,21 @@ void evel_json_encode_instance_id(EVEL_JSON_BUFFER * jbuf,
   assert(jbuf != NULL);
   assert(jbuf->json != NULL);
   assert(jbuf->max_size > 0);
-  assert(instance_id != NULL);
-  assert(instance_id->vendor_id != NULL);
-  assert(instance_id->event_id != NULL);
+  assert(vfield != NULL);
+  assert(vfield->vendorname != NULL);
 
-  evel_json_open_named_object(jbuf, "eventInstanceIdentifier");
+  evel_json_open_named_object(jbuf, "vendorVnfNamedFields");
 
   /***************************************************************************/
   /* Mandatory fields.                                                       */
   /***************************************************************************/
-  evel_enc_kv_string(jbuf, "vendorId", instance_id->vendor_id);
-  evel_enc_kv_string(jbuf, "eventId", instance_id->event_id);
+  evel_enc_kv_string(jbuf, "vendorName", vfield->vendorname);
+  evel_enc_kv_opt_string(jbuf, "vfModuleName", &vfield->vfmodule);
+  evel_enc_kv_opt_string(jbuf, "vnfName", &vfield->vnfname);
 
   /***************************************************************************/
   /* Optional fields.                                                        */
   /***************************************************************************/
-  evel_enc_kv_opt_string(jbuf, "productId", &instance_id->product_id);
-  evel_enc_kv_opt_string(jbuf, "subsystemId", &instance_id->subsystem_id);
-  evel_enc_kv_opt_string(
-    jbuf, "eventFriendlyName", &instance_id->event_friendly_name);
 
   evel_json_close_object(jbuf);
 
