@@ -53,7 +53,8 @@
  *          ::evel_free_signaling.
  * @retval  NULL  Failed to create the event.
  *****************************************************************************/
-EVENT_SIGNALING * evel_new_signaling(const char * const vendor_name,
+EVENT_SIGNALING * evel_new_signaling(const char* ev_name, const char *ev_id,
+				     const char * const vendor_name,
                                      const char * const correlator,
                                      const char * const local_ip_address,
                                      const char * const local_port,
@@ -84,7 +85,7 @@ EVENT_SIGNALING * evel_new_signaling(const char * const vendor_name,
   /***************************************************************************/
   /* Initialize the header & the Signaling fields.                           */
   /***************************************************************************/
-  evel_init_header(&event->header,"SipSignaling");
+  evel_init_header_nameid(&event->header,ev_name,ev_id);
   event->header.event_domain = EVEL_DOMAIN_SIPSIGNALING;
   event->major_version = EVEL_SIGNALING_MAJOR_VERSION;
   event->minor_version = EVEL_SIGNALING_MINOR_VERSION;

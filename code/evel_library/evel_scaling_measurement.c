@@ -57,7 +57,7 @@
  *          ::evel_free_event.
  * @retval  NULL  Failed to create the event.
  *****************************************************************************/
-EVENT_MEASUREMENT * evel_new_measurement(double measurement_interval)
+EVENT_MEASUREMENT * evel_new_measurement(double measurement_interval, const char* ev_name, const char *ev_id)
 {
   EVENT_MEASUREMENT * measurement = NULL;
 
@@ -83,7 +83,7 @@ EVENT_MEASUREMENT * evel_new_measurement(double measurement_interval)
   /***************************************************************************/
   /* Initialize the header & the measurement fields.                         */
   /***************************************************************************/
-  evel_init_header(&measurement->header,"vnfScalingMeasurement");
+  evel_init_header_nameid(&measurement->header,ev_name,ev_id);
   measurement->header.event_domain = EVEL_DOMAIN_MEASUREMENT;
   measurement->measurement_interval = measurement_interval;
   dlist_initialize(&measurement->additional_info);

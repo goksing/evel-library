@@ -60,7 +60,9 @@
             ::evel_free_voice_quality.
  * @retval  NULL  Failed to create the event.
  *****************************************************************************/
-EVENT_VOICE_QUALITY * evel_new_voice_quality(const char * const calleeSideCodec,
+EVENT_VOICE_QUALITY * evel_new_voice_quality(
+    const char* ev_name, const char *ev_id,
+    const char * const calleeSideCodec,
     const char * const callerSideCodec, const char * const correlator,
     const char * const midCallRtcp, const char * const vendorName) {
     
@@ -97,7 +99,7 @@ EVENT_VOICE_QUALITY * evel_new_voice_quality(const char * const calleeSideCodec,
         /* Initialize the header & the fault fields.  Optional integer values are   */
         /* initialized as 0.                                                        */
         /***************************************************************************/
-        evel_init_header(&voiceQuality->header,"voiceQuality");
+        evel_init_header_nameid(&voiceQuality->header,ev_name,ev_id);
         voiceQuality->header.event_domain = EVEL_DOMAIN_VOICE_QUALITY;
         voiceQuality->major_version = EVEL_VOICEQ_MAJOR_VERSION;
         voiceQuality->minor_version = EVEL_VOICEQ_MINOR_VERSION;
@@ -108,7 +110,7 @@ EVENT_VOICE_QUALITY * evel_new_voice_quality(const char * const calleeSideCodec,
         voiceQuality->midCallRtcp = strdup(midCallRtcp);
         evel_init_vendor_field(&voiceQuality->vendorVnfNameFields, vendorName);
         dlist_initialize(&voiceQuality->additionalInformation);
-        dlist_initialize(&voiceQuality->endOfCallVqmSummaries);
+        voiceQuality->endOfCallVqmSummaries = NULL;
         evel_init_option_string(&voiceQuality->phoneNumber);
     }
 
@@ -426,6 +428,7 @@ void evel_voice_quality_end_metrics_add(EVENT_VOICE_QUALITY * voiceQuality,
     assert(endpointDescription >= 0);
     assert(mosCqe >= 1 && mosCqe <= 5);
     assert(rFactor >= 0 && rFactor <= 100);
+    assert(voiceQuality->endOfCallVqmSummaries == NULL);
     
     /***************************************************************************/
     /* Allocate a container for the value and push onto the list.              */
@@ -458,7 +461,7 @@ void evel_voice_quality_end_metrics_add(EVENT_VOICE_QUALITY * voiceQuality,
     evel_set_option_int(&vQMetrices->rFactor, rFactor, "rFactor ");
     evel_set_option_int(&vQMetrices->roundTripDelay, roundTripDelay, "Round trip delay in milliseconds ");
 
-    dlist_push_last(&voiceQuality->endOfCallVqmSummaries, vQMetrices);
+    voiceQuality->endOfCallVqmSummaries = vQMetrices;
 
     EVEL_EXIT();
 }
@@ -534,23 +537,25 @@ void evel_json_encode_voice_quality(EVEL_JSON_BUFFER * jbuf,
       addlInfoItem = dlist_get_next(addlInfoItem);
     }
     evel_json_close_list(jbuf);
+    /*************************************************************************/
+    /* If we've not written anything, rewind to before we opened the list.   */
+    /*************************************************************************/
+    if (!item_added)
+    {
+      evel_json_rewind(jbuf);
     }
+  }
 
     //endOfCallVqmSummaries
-    evel_json_checkpoint(jbuf);
-    if (evel_json_open_opt_named_list(jbuf, "endOfCallVqmSummaries"))
-    {
-        vQMetricsItem = dlist_get_first(&event->endOfCallVqmSummaries);
-        while (vQMetricsItem != NULL)
-        {
-            vQMetrics = (END_OF_CALL_VOICE_QUALITY_METRICS *)vQMetricsItem->item;
-            assert(vQMetrics != NULL);
+  if( event->endOfCallVqmSummaries != NULL )
+  {
+     evel_json_open_named_object(jbuf, "endOfCallVqmSummaries");
+     vQMetrics = event->endOfCallVqmSummaries;
+     assert(vQMetrics != NULL);
 
             if (!evel_throttle_suppress_nv_pair(jbuf->throttle_spec,
-                "endOfCallVqmSummaries",
-                vQMetrics->adjacencyName))
+                "endOfCallVqmSummaries", vQMetrics->adjacencyName))
             {
-                evel_json_open_object(jbuf);
                 evel_enc_kv_string(jbuf, "adjacencyName", vQMetrics->adjacencyName);
                 evel_enc_kv_string(jbuf, "endpointDescription", vQMetrics->endpointDescription);
                 evel_enc_kv_opt_int(jbuf, "endpointJitter", &vQMetrics->endpointJitter);
@@ -573,21 +578,10 @@ void evel_json_encode_voice_quality(EVEL_JSON_BUFFER * jbuf,
                 evel_enc_kv_opt_int(jbuf, "rFactor", &vQMetrics->rFactor);
                 evel_enc_kv_opt_int(jbuf, "roundTripDelay", &vQMetrics->roundTripDelay);
 
-                evel_json_close_object(jbuf);
-                item_added = true;
             }
-            vQMetricsItem = dlist_get_next(vQMetricsItem);
-        }
-        evel_json_close_list(jbuf);
-	}
 
-    /*************************************************************************/
-    /* If we've not written anything, rewind to before we opened the list.   */
-    /*************************************************************************/
-    if (!item_added)
-    {
-      evel_json_rewind(jbuf);
-    }
+    evel_json_close_object(jbuf);
+  }
 
   evel_json_close_object(jbuf);
 
@@ -634,15 +628,14 @@ void evel_free_voice_quality(EVENT_VOICE_QUALITY * voiceQuality) {
     }
 
     //Summary Information
-    vQMetrices = dlist_pop_last(&voiceQuality->endOfCallVqmSummaries);
-    while (vQMetrices != NULL)
+    if(voiceQuality->endOfCallVqmSummaries != NULL)
     {
+        vQMetrices = voiceQuality->endOfCallVqmSummaries;
         EVEL_DEBUG("Freeing End of Call Voice Measurements Info (%s, %s)",
             vQMetrices->adjacencyName,
             vQMetrices->endpointDescription);
         free(vQMetrices->adjacencyName);
         free(vQMetrices);
-        vQMetrices = dlist_pop_last(&voiceQuality->endOfCallVqmSummaries);
     }
 
     //Members

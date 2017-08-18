@@ -53,7 +53,7 @@
  *          ::evel_free_hrtbt_field.
  * @retval  NULL  Failed to create the event.
  *****************************************************************************/
-EVENT_HEARTBEAT_FIELD * evel_new_heartbeat_field(int interval)
+EVENT_HEARTBEAT_FIELD * evel_new_heartbeat_field(int interval,const char* ev_name, const char *ev_id)
 {
   EVENT_HEARTBEAT_FIELD * event = NULL;
 
@@ -79,7 +79,7 @@ EVENT_HEARTBEAT_FIELD * evel_new_heartbeat_field(int interval)
   /***************************************************************************/
   /* Initialize the header & the Heartbeat fields fields.                           */
   /***************************************************************************/
-  evel_init_header(&event->header,"HeartbeatFields");
+  evel_init_header_nameid(&event->header,ev_name,ev_id);
   event->header.event_domain = EVEL_DOMAIN_HEARTBEAT_FIELD;
   event->major_version = EVEL_HEARTBEAT_FIELD_MAJOR_VERSION;
   event->minor_version = EVEL_HEARTBEAT_FIELD_MINOR_VERSION;

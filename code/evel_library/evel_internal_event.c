@@ -55,13 +55,15 @@
  *          function and are immutable once set.  Optional fields have explicit
  *          setter functions, but again values may only be set once so that the
  *          Fault has immutable properties.
+ * @param event_name  Unique Event Name confirming Domain AsdcModel Description
+ * @param event_id    A universal identifier of the event for: troubleshooting correlation, analysis, etc
  * @param   command   The condition indicated by the event.
  * @returns pointer to the newly manufactured ::EVENT_INTERNAL.  If the event
  *          is not used (i.e. posted) it must be released using
  *          ::evel_free_event.
  * @retval  NULL  Failed to create the event.
  *****************************************************************************/
-EVENT_INTERNAL * evel_new_internal_event(EVT_HANDLER_COMMAND command)
+EVENT_INTERNAL * evel_new_internal_event(EVT_HANDLER_COMMAND command,const char* ev_name, const char *ev_id)
 {
   EVENT_INTERNAL * event = NULL;
   EVEL_ENTER();
@@ -86,7 +88,7 @@ EVENT_INTERNAL * evel_new_internal_event(EVT_HANDLER_COMMAND command)
   /***************************************************************************/
   /* Initialize the header & the event fields.                               */
   /***************************************************************************/
-  evel_init_header(&event->header,NULL);
+  evel_init_header_nameid(&event->header,ev_name,ev_id);
   event->header.event_domain = EVEL_DOMAIN_INTERNAL;
   event->command = command;
 

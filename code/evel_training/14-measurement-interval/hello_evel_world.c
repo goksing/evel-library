@@ -158,7 +158,7 @@ void demo_measurement(const int interval)
   /***************************************************************************/
   /* Measurement                                                             */
   /***************************************************************************/
-  measurement = evel_new_measurement(interval);
+  measurement = evel_new_measurement(interval,"measname","measid");
   if (measurement != NULL)
   {
     printf("New measurement created...\n");

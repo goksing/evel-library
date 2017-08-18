@@ -144,7 +144,7 @@ void demo_mobile_flow(void)
     evel_mobile_gtp_metrics_qci_cos_count_add(
                                             metrics, EVEL_QCI_COS_LTE_65, 122);
 
-    mobile_flow = evel_new_mobile_flow("Outbound",
+    mobile_flow = evel_new_mobile_flow("mflowname","mflowid","Outbound",
                                        metrics,
                                        "RTP",
                                        "IPv8",

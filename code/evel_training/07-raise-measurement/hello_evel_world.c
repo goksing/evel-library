@@ -93,7 +93,7 @@ void demo_measurement(void)
   /***************************************************************************/
   /* Measurement                                                             */
   /***************************************************************************/
-  measurement = evel_new_measurement(5.5);
+  measurement = evel_new_measurement(5.5,"measname","measid");
   if (measurement != NULL)
   {
     printf("New measurement created...\n");

@@ -87,7 +87,7 @@ void demo_syslog(void)
   EVENT_SYSLOG * syslog = NULL;
   EVEL_ERR_CODES evel_rc = EVEL_SUCCESS;
 
-  syslog = evel_new_syslog(EVEL_SOURCE_VIRTUAL_MACHINE,
+  syslog = evel_new_syslog("syslname","syslid", EVEL_SOURCE_VIRTUAL_MACHINE,
                            "EVEL library message",
                            "EVEL");
   if (syslog != NULL)

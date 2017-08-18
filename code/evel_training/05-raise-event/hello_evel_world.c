@@ -61,7 +61,7 @@ int main(int argc, char ** argv)
   /***************************************************************************/
   /* Raise a fault                                                           */
   /***************************************************************************/
-  fault = evel_new_fault("My alarm condition",
+  fault = evel_new_fault("faultname","faultid","My alarm condition",
                          "It broke very badly",
                          EVEL_PRIORITY_NORMAL,
                          EVEL_SEVERITY_MAJOR,

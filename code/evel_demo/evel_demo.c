@@ -152,6 +152,7 @@ static void demo_state_change(void);
 static void demo_syslog(void);
 static void demo_other(void);
 static void demo_voicequality(void);
+static void demo_threshold_cross(void);
 
 /**************************************************************************//**
  * Global flag to initiate shutdown.
@@ -489,6 +490,7 @@ int main(int argc, char ** argv)
     demo_heartbeat_field_event();
     demo_signaling();
     demo_state_change();
+    demo_threshold_cross();
     demo_syslog();
     demo_other();
     demo_voicequality();
@@ -596,6 +598,8 @@ void demo_heartbeat(void)
   heartbeat = evel_new_heartbeat();
   if (heartbeat != NULL)
   {
+    evel_nfcnamingcode_set(heartbeat, "TEST");
+    evel_nfnamingcode_set(heartbeat, "TEST");
     evel_rc = evel_post_event(heartbeat);
     if (evel_rc != EVEL_SUCCESS)
     {
@@ -808,7 +812,7 @@ void demo_fault(void)
   /***************************************************************************/
   /* Fault                                                                   */
   /***************************************************************************/
-  fault = evel_new_fault("An alarm condition",
+  fault = evel_new_fault("alarmname","alarmid", "An alarm condition",
                          "Things are broken",
                          EVEL_PRIORITY_NORMAL,
                          EVEL_SEVERITY_MAJOR,
@@ -816,6 +820,8 @@ void demo_fault(void)
 			 EVEL_VF_STATUS_READY_TERMINATE);
   if (fault != NULL)
   {
+    evel_nfcnamingcode_set((EVENT_HEADER*)fault, "TEST");
+    evel_nfnamingcode_set((EVENT_HEADER*)fault, "TEST");
     evel_rc = evel_post_event((EVENT_HEADER *)fault);
     if (evel_rc != EVEL_SUCCESS)
     {
@@ -828,7 +834,7 @@ void demo_fault(void)
   }
   printf("   Processed empty Fault\n");
 
-  fault = evel_new_fault("Another alarm condition",
+  fault = evel_new_fault("alarmname","alarmid", "Another alarm condition",
                          "It broke badly",
                          EVEL_PRIORITY_NORMAL,
                          EVEL_SEVERITY_MAJOR,
@@ -836,6 +842,8 @@ void demo_fault(void)
 			 EVEL_VF_STATUS_REQ_TERMINATE);
   if (fault != NULL)
   {
+    evel_nfcnamingcode_set((EVENT_HEADER*)fault, "TEST");
+    evel_nfnamingcode_set((EVENT_HEADER*)fault, "TEST");
     evel_fault_type_set(fault, "Bad things happening");
     evel_fault_category_set(fault, "Failed category");
     evel_fault_interface_set(fault, "An Interface Card");
@@ -851,7 +859,7 @@ void demo_fault(void)
   }
   printf("   Processed partial Fault\n");
 
-  fault = evel_new_fault("My alarm condition",
+  fault = evel_new_fault("alarmname","alarmid", "My alarm condition",
                          "It broke very badly",
                          EVEL_PRIORITY_NORMAL,
                          EVEL_SEVERITY_MAJOR,
@@ -859,6 +867,8 @@ void demo_fault(void)
 			 EVEL_VF_STATUS_PREP_TERMINATE);
   if (fault != NULL)
   {
+    evel_nfcnamingcode_set((EVENT_HEADER*)fault, "TEST");
+    evel_nfnamingcode_set((EVENT_HEADER*)fault, "TEST");
     evel_fault_type_set(fault, "Bad things happen...");
     evel_fault_interface_set(fault, "My Interface Card");
     evel_fault_addl_info_add(fault, "name1", "value1");
@@ -889,9 +899,11 @@ void demo_measurement(const int interval)
   /***************************************************************************/
   /* Measurement                                                             */
   /***************************************************************************/
-  measurement = evel_new_measurement(interval);
+  measurement = evel_new_measurement(interval,"measurementname","measurementevent");
   if (measurement != NULL)
   {
+    evel_nfcnamingcode_set((EVENT_HEADER*)measurement, "TEST");
+    evel_nfnamingcode_set((EVENT_HEADER*)measurement, "TEST");
     evel_measurement_type_set(measurement, "Perf management...");
     evel_measurement_conc_sess_set(measurement, 1);
     evel_measurement_cfg_ents_set(measurement, 2);
@@ -1054,7 +1066,7 @@ void demo_mobile_flow(void)
                                              225);
   if (metrics != NULL)
   {
-    mobile_flow = evel_new_mobile_flow("Outbound",
+    mobile_flow = evel_new_mobile_flow("flowname","flowid","Outbound",
                                        metrics,
                                        "TCP",
                                        "IPv4",
@@ -1064,6 +1076,8 @@ void demo_mobile_flow(void)
                                        4321);
     if (mobile_flow != NULL)
     {
+    evel_nfcnamingcode_set((EVENT_HEADER*)mobile_flow, "TEST");
+    evel_nfnamingcode_set((EVENT_HEADER*)mobile_flow, "TEST");
       evel_rc = evel_post_event((EVENT_HEADER *)mobile_flow);
       if (evel_rc != EVEL_SUCCESS)
       {
@@ -1116,7 +1130,7 @@ void demo_mobile_flow(void)
                                              226);
   if (metrics != NULL)
   {
-    mobile_flow = evel_new_mobile_flow("Inbound",
+    mobile_flow = evel_new_mobile_flow("mflowname", "mflowid", "Inbound",
                                        metrics,
                                        "UDP",
                                        "IPv6",
@@ -1126,6 +1140,8 @@ void demo_mobile_flow(void)
                                        4322);
     if (mobile_flow != NULL)
     {
+    evel_nfcnamingcode_set((EVENT_HEADER*)mobile_flow, "TEST");
+    evel_nfnamingcode_set((EVENT_HEADER*)mobile_flow, "TEST");
       evel_mobile_flow_app_type_set(mobile_flow, "Demo application");
       evel_mobile_flow_app_prot_type_set(mobile_flow, "GSM");
       evel_mobile_flow_app_prot_ver_set(mobile_flow, "1");
@@ -1227,7 +1243,7 @@ void demo_mobile_flow(void)
     evel_mobile_gtp_metrics_qci_cos_count_add(
                                             metrics, EVEL_QCI_COS_LTE_65, 122);
 
-    mobile_flow = evel_new_mobile_flow("Outbound",
+    mobile_flow = evel_new_mobile_flow("mflowname", "mflowid", "Outbound",
                                        metrics,
                                        "RTP",
                                        "IPv8",
@@ -1237,6 +1253,8 @@ void demo_mobile_flow(void)
                                        4323);
     if (mobile_flow != NULL)
     {
+    evel_nfcnamingcode_set((EVENT_HEADER*)mobile_flow, "TEST");
+    evel_nfnamingcode_set((EVENT_HEADER*)mobile_flow, "TEST");
       evel_mobile_flow_addl_field_add(mobile_flow, "name1", "value1");
       evel_mobile_flow_addl_field_add(mobile_flow, "name2", "value2");
       evel_mobile_flow_addl_field_add(mobile_flow, "name3", "value3");
@@ -1294,9 +1312,11 @@ void demo_heartbeat_field_event(void)
   EVENT_HEARTBEAT_FIELD * event = NULL;
   EVEL_ERR_CODES evel_rc = EVEL_SUCCESS;
 
-  event = evel_new_heartbeat_field(3);
+  event = evel_new_heartbeat_field(3,"hfieldname","hfieldid");
   if (event != NULL)
   {
+    evel_nfcnamingcode_set((EVENT_HEADER*)event, "TEST");
+    evel_nfnamingcode_set((EVENT_HEADER*)event, "TEST");
     evel_hrtbt_interval_set(event, 10);
     evel_hrtbt_field_addl_field_add(event, "Name1", "Value1");
     evel_hrtbt_field_addl_field_add(event, "Name2", "Value2");
@@ -1322,9 +1342,11 @@ void demo_signaling(void)
   EVENT_SIGNALING * event = NULL;
   EVEL_ERR_CODES evel_rc = EVEL_SUCCESS;
 
-  event = evel_new_signaling("vendor_x", "correlator", "1.0.3.1", "1234", "192.168.1.3","3456");
+  event = evel_new_signaling("signalingname","signalingid","vendor_x", "correlator", "1.0.3.1", "1234", "192.168.1.3","3456");
   if (event != NULL)
   {
+    evel_nfcnamingcode_set((EVENT_HEADER*)event, "TEST");
+    evel_nfnamingcode_set((EVENT_HEADER*)event, "TEST");
     evel_signaling_addl_info_add(event, "name1", "value1");
     evel_signaling_addl_info_add(event, "name2", "value2");
     evel_signaling_type_set(event, "Signaling");
@@ -1361,11 +1383,14 @@ void demo_state_change(void)
   /***************************************************************************/
   /* State Change                                                            */
   /***************************************************************************/
-  state_change = evel_new_state_change(EVEL_ENTITY_STATE_IN_SERVICE,
+  state_change = evel_new_state_change("statechangename","statechangeid",
+			               EVEL_ENTITY_STATE_IN_SERVICE,
                                        EVEL_ENTITY_STATE_OUT_OF_SERVICE,
                                        "Interface");
   if (state_change != NULL)
   {
+    evel_nfcnamingcode_set((EVENT_HEADER*)state_change, "TEST");
+    evel_nfnamingcode_set((EVENT_HEADER*)state_change, "TEST");
     evel_state_change_type_set(state_change, "State Change");
     evel_state_change_addl_field_add(state_change, "Name1", "Value1");
     evel_state_change_addl_field_add(state_change, "Name2", "Value2");
@@ -1393,11 +1418,14 @@ void demo_syslog(void)
   /***************************************************************************/
   /* Syslog                                                                  */
   /***************************************************************************/
-  syslog = evel_new_syslog(EVEL_SOURCE_VIRTUAL_NETWORK_FUNCTION,
+  syslog = evel_new_syslog("syslogname","syslogid",
+			   EVEL_SOURCE_VIRTUAL_NETWORK_FUNCTION,
                            "EVEL library message",
                            "EVEL");
   if (syslog != NULL)
   {
+    evel_nfcnamingcode_set((EVENT_HEADER*)syslog, "TEST");
+    evel_nfnamingcode_set((EVENT_HEADER*)syslog, "TEST");
     evel_rc = evel_post_event((EVENT_HEADER *)syslog);
     if (evel_rc != EVEL_SUCCESS)
     {
@@ -1410,11 +1438,14 @@ void demo_syslog(void)
   }
   printf("   Processed empty Syslog\n");
 
-  syslog = evel_new_syslog(EVEL_SOURCE_VIRTUAL_MACHINE,
+  syslog = evel_new_syslog("syslogname","syslogid",
+			   EVEL_SOURCE_VIRTUAL_MACHINE,
                            "EVEL library message",
                            "EVEL");
   if (syslog != NULL)
   {
+    evel_nfcnamingcode_set((EVENT_HEADER*)syslog, "TEST");
+    evel_nfnamingcode_set((EVENT_HEADER*)syslog, "TEST");
     evel_syslog_event_source_host_set(syslog, "Virtual host");
     evel_syslog_facility_set(syslog, EVEL_SYSLOG_FACILITY_LOCAL0);
     evel_syslog_proc_set(syslog, "vnf_process");
@@ -1448,31 +1479,37 @@ void demo_voicequality(void)
   /***************************************************************************/
   /* Voice Quality                                                           */
   /***************************************************************************/
-  vq = evel_new_voice_quality("calleeCodec", "callerCodec",
+  vq = evel_new_voice_quality("voiceqname","voiceqid",
+			   "calleeCodec", "callerCodec",
                            "correlator", "midrtcp",
                            "EVEL");
   if (vq != NULL)
   {
+    evel_nfcnamingcode_set((EVENT_HEADER*)vq, "TEST");
+    evel_nfnamingcode_set((EVENT_HEADER*)vq, "TEST");
     evel_rc = evel_post_event((EVENT_HEADER *)vq);
     if (evel_rc != EVEL_SUCCESS)
     {
+  printf("   empty voiceq post failed\n");
       EVEL_ERROR("Post failed %d (%s)", evel_rc, evel_error_string());
     }
   }
   else
   {
-    EVEL_ERROR("New Syslog failed");
+  printf("   empty voiceq failed\n");
+    EVEL_ERROR("New voicequal failed");
   }
-  printf("   Processed empty Syslog\n");
+  printf("   Processed empty voiceq\n");
 
-  vq = evel_new_voice_quality("calleeCodec", "callerCodec",
+  vq = evel_new_voice_quality("voiceqname","voiceqid",
+                           "calleeCodec", "callerCodec",
                            "correlator", "midrtcp",
                            "EVEL");
   if (vq != NULL)
   {
+    evel_nfcnamingcode_set((EVENT_HEADER*)vq, "TEST");
+    evel_nfnamingcode_set((EVENT_HEADER*)vq, "TEST");
     evel_voice_quality_end_metrics_add(vq, "adjacent", EVEL_SERVICE_ENDPOINT_CALLER,
-					0,1,2,3,4,5,6,7,8,9,10,11,12,13,4,15,16,17,18);
-    evel_voice_quality_end_metrics_add(vq, "adjacent", EVEL_SERVICE_ENDPOINT_CALLEE,
 					0,1,2,3,4,5,6,7,8,9,10,11,12,13,4,15,16,17,18);
 
     evel_voice_quality_vnfmodule_name_set(vq, "vnfmodule");
@@ -1483,14 +1520,94 @@ void demo_voicequality(void)
     evel_rc = evel_post_event((EVENT_HEADER *)vq);
     if (evel_rc != EVEL_SUCCESS)
     {
+  printf("   full voiceq post failed\n");
       EVEL_ERROR("Post failed %d (%s)", evel_rc, evel_error_string());
     }
   }
   else
   {
-    EVEL_ERROR("New Syslog failed");
+  printf("   full voiceq failed\n");
+    EVEL_ERROR("New full voiceq failed");
   }
-  printf("   Processed full Syslog\n");
+  printf("   Processed full voiceq\n");
+}
+
+
+/**************************************************************************//**
+ * Create and send VoiceQuality events.
+ *****************************************************************************/
+void demo_threshold_cross(void)
+{
+  EVENT_THRESHOLD_CROSS * tcaq = NULL;
+  EVEL_ERR_CODES evel_rc = EVEL_SUCCESS;
+
+  /***************************************************************************/
+  /* threshold cross                                                           */
+  /***************************************************************************/
+  tcaq = evel_new_threshold_cross("threshname","threshid",
+              "CRIT",
+              "mcast Limit reached",
+              "mcastRxPackets",
+              "1250000000",
+              EVEL_EVENT_ACTION_SET,
+              "Mcast Rx breached", 
+              EVEL_ELEMENT_ANOMALY,
+              1234567897857685L, 
+              EVEL_SEVERITY_CRITICAL,
+              1254567897857685L);
+
+  if (tcaq != NULL)
+  {
+    evel_nfcnamingcode_set((EVENT_HEADER*)tcaq, "TEST");
+    evel_nfnamingcode_set((EVENT_HEADER*)tcaq, "TEST");
+    evel_rc = evel_post_event((EVENT_HEADER *)tcaq);
+    if (evel_rc != EVEL_SUCCESS)
+    {
+  printf("   empty tcaq post failed\n");
+      EVEL_ERROR("Post failed %d (%s)", evel_rc, evel_error_string());
+    }
+  }
+  else
+  {
+  printf("   empty tcaq failed\n");
+    EVEL_ERROR("New Threshold cross failed");
+  }
+  printf("   Processed empty Threshold cross\n");
+
+  tcaq = evel_new_threshold_cross("threshname","threshid",
+              "CRIT",
+              "mcast Limit reached",
+              "mcastRxPackets",
+              "1250000000",
+              EVEL_EVENT_ACTION_SET,
+              "Mcast Rx breached", 
+              EVEL_ELEMENT_ANOMALY,
+              1234567897857685L, 
+              EVEL_SEVERITY_CRITICAL,
+              1254567897857685L);
+
+  if (tcaq != NULL)
+  {
+    evel_nfcnamingcode_set((EVENT_HEADER*)tcaq, "TEST");
+    evel_nfnamingcode_set((EVENT_HEADER*)tcaq, "TEST");
+    evel_threshold_cross_interfacename_set(tcaq, "ns345");
+    evel_threshold_cross_addl_info_add(tcaq, "n1", "v1");
+    evel_threshold_cross_addl_info_add(tcaq, "n2", "v2");
+    evel_threshold_cross_alertid_add(tcaq, "alert1");
+    evel_threshold_cross_alertid_add(tcaq, "alert2");
+    evel_rc = evel_post_event((EVENT_HEADER *)tcaq);
+    if (evel_rc != EVEL_SUCCESS)
+    {
+  printf("   full tcaq failed\n");
+      EVEL_ERROR("Post failed %d (%s)", evel_rc, evel_error_string());
+    }
+  }
+  else
+  {
+  printf("   full tcaq post failed\n");
+    EVEL_ERROR("New TCA failed");
+  }
+  printf("   Processed full TCA\n");
 }
 
 /**************************************************************************//**
@@ -1504,9 +1621,11 @@ void demo_other(void)
   /***************************************************************************/
   /* Other                                                                   */
   /***************************************************************************/
-  other = evel_new_other();
+  other = evel_new_other("othername","otherid");
   if (other != NULL)
   {
+    evel_nfcnamingcode_set((EVENT_HEADER*)other, "TEST");
+    evel_nfnamingcode_set((EVENT_HEADER*)other, "TEST");
     evel_rc = evel_post_event((EVENT_HEADER *)other);
     if (evel_rc != EVEL_SUCCESS)
     {
@@ -1518,11 +1637,13 @@ void demo_other(void)
     EVEL_ERROR("New Other failed");
   }
   printf("   Processed empty Other\n");
-
-  other = evel_new_other();
+/*
+  other = evel_new_other("othername","otherid");
   if (other != NULL)
   {
 
+    evel_nfcnamingcode_set((EVENT_HEADER*)other, "TEST");
+    evel_nfnamingcode_set((EVENT_HEADER*)other, "TEST");
 
    char * jsstr = "{"
                  "\"data1\":[1,2,3,4,5,6,7,8,9],"
@@ -1584,7 +1705,7 @@ char * jsstr2 = "{ \"employee\":{ \"name\":\"John\", \"age\":30, \"city\":\"New 
     EVEL_ERROR("New Other failed");
   }
   printf("   Processed small Other\n");
-  other = evel_new_other();
+  other = evel_new_other("othername","otherid");
   if (other != NULL)
   {
     evel_other_field_add(other,
@@ -1608,4 +1729,5 @@ char * jsstr2 = "{ \"employee\":{ \"name\":\"John\", \"age\":30, \"city\":\"New 
     EVEL_ERROR("New Other failed");
   }
   printf("   Processed large Other\n");
+*/
 }

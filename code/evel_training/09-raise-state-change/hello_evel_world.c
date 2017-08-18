@@ -90,7 +90,8 @@ void demo_state_change(void)
   /***************************************************************************/
   /* State Change                                                            */
   /***************************************************************************/
-  state_change = evel_new_state_change(EVEL_ENTITY_STATE_IN_SERVICE,
+  state_change = evel_new_state_change("statename", "stateid",
+			               EVEL_ENTITY_STATE_IN_SERVICE,
                                        EVEL_ENTITY_STATE_OUT_OF_SERVICE,
                                        "Interface");
   if (state_change != NULL)

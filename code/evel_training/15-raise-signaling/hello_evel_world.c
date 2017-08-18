@@ -87,7 +87,7 @@ void demo_signaling(void)
   EVENT_SIGNALING * event = NULL;
   EVEL_ERR_CODES evel_rc = EVEL_SUCCESS;
 
-  event = evel_new_signaling("vendor_x_id",
+  event = evel_new_signaling("signame","sigid","vendor_x_id",
              "correlator", "1.0.3.1", "1234", "192.168.1.3","3456");
   if (event != NULL)
   {

@@ -147,7 +147,7 @@ void demo_fault(void)
   EVENT_FAULT * fault = NULL;
   EVEL_ERR_CODES evel_rc = EVEL_SUCCESS;
 
-  fault = evel_new_fault("My alarm condition",
+  fault = evel_new_fault("faultname","faultid","My alarm condition",
                          "It broke very badly",
                          EVEL_PRIORITY_NORMAL,
                          EVEL_SEVERITY_MAJOR,

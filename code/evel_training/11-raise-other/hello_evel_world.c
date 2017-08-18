@@ -87,7 +87,7 @@ void demo_other(void)
   EVENT_OTHER * other = NULL;
   EVEL_ERR_CODES evel_rc = EVEL_SUCCESS;
 
-  other = evel_new_other();
+  other = evel_new_other("othname","othid");
   if (other != NULL)
   {
     evel_other_field_add(other,

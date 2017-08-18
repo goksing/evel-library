@@ -105,7 +105,7 @@ void evel_json_encode_mobile_flow_gtp_flow_metrics(
  *          ::evel_free_mobile_flow.
  * @retval  NULL  Failed to create the event.
  *****************************************************************************/
-EVENT_MOBILE_FLOW * evel_new_mobile_flow(
+EVENT_MOBILE_FLOW * evel_new_mobile_flow(const char* ev_name, const char *ev_id,
                             const char * const flow_direction,
                             MOBILE_GTP_PER_FLOW_METRICS * gtp_per_flow_metrics,
                             const char * const ip_protocol_type,
@@ -146,7 +146,7 @@ EVENT_MOBILE_FLOW * evel_new_mobile_flow(
   /* Initialize the header & the Mobile Flow fields.  Optional string values */
   /* are uninitialized (NULL).                                               */
   /***************************************************************************/
-  evel_init_header(&mobile_flow->header,"MobileFlow");
+  evel_init_header_nameid(&mobile_flow->header,ev_name,ev_id);
   mobile_flow->header.event_domain = EVEL_DOMAIN_MOBILE_FLOW;
   mobile_flow->major_version = EVEL_MOBILE_FLOW_MAJOR_VERSION;
   mobile_flow->minor_version = EVEL_MOBILE_FLOW_MINOR_VERSION;
